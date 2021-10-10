@@ -61,11 +61,3 @@ class BookAuthor(models.Model):
         managed = False
         db_table = 'book_author'
         unique_together = (('book', 'author'),)
-
-    def get_related_obj(self):
-        book = Book.objects.select_related().filter(book_id = self.book)
-        author = Author.objects.select_related().filter(author_id = self.author)
-        return 
-
-
-
