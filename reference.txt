@@ -1,1 +1,1 @@
-https://www.databasestar.com/sample-bookstore-database/
+https://github.com/mkondratek/Bookstore-Database-Design.git
