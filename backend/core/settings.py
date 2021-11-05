@@ -45,11 +45,12 @@ INSTALLED_APPS = [
 
     #3rd party
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 
     # local
-    'user',
     'book',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -152,4 +153,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "user.User" 
+AUTH_USER_MODEL = 'account.User'
