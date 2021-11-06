@@ -1,5 +1,14 @@
 from django.db import models
 
+# class Customer(models.Model):
+#     customer_id = models.IntegerField(primary_key=True)
+#     first_name = models.CharField(max_length=200, blank=True, null=True)
+#     last_name = models.CharField(max_length=200, blank=True, null=True)
+#     email = models.CharField(max_length=350, blank=True, null=True)
+
+#     class Meta:
+#         managed = False
+#         db_table = 'customer'
 
 # class Address(models.Model):
 #     address_id = models.IntegerField(primary_key=True)
@@ -22,6 +31,16 @@ from django.db import models
 #         db_table = 'address_status'
 
 
+# class CustomerAddress(models.Model):
+#     customer = models.OneToOneField(Customer, models.DO_NOTHING, primary_key=True)
+#     address = models.ForeignKey(Address, models.DO_NOTHING)
+#     status_id = models.IntegerField(blank=True, null=True)
+
+#     class Meta:
+#         managed = False
+#         db_table = 'customer_address'
+#         unique_together = (('customer', 'address'),)
+ 
 class Author(models.Model):
     author_id = models.IntegerField(primary_key=True)
     author_name = models.CharField(max_length=400, blank=True, null=True)
@@ -100,28 +119,6 @@ class BookAuthor(models.Model):
 #     class Meta:
 #         managed = False
 #         db_table = 'cust_order'
-
-
-# class Customer(models.Model):
-#     customer_id = models.IntegerField(primary_key=True)
-#     first_name = models.CharField(max_length=200, blank=True, null=True)
-#     last_name = models.CharField(max_length=200, blank=True, null=True)
-#     email = models.CharField(max_length=350, blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'customer'
-
-
-# class CustomerAddress(models.Model):
-#     customer = models.OneToOneField(Customer, models.DO_NOTHING, primary_key=True)
-#     address = models.ForeignKey(Address, models.DO_NOTHING)
-#     status_id = models.IntegerField(blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'customer_address'
-#         unique_together = (('customer', 'address'),)
 
 
 # class OrderHistory(models.Model):

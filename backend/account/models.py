@@ -91,3 +91,11 @@ class User(AbstractBaseUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
+
+
+class Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    address_id = models.IntegerField(primary_key=True)
+    address_name = models.TextField(blank=True, null=True)
+    postal_code = models.IntegerField(blank=True, null=True)
+    phone_number = models.IntegerField(blank=True, null=True)
