@@ -7,11 +7,6 @@ import Login from './components/Login'
 
 function App() {
   const [token, setToken] = useState();
-  
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/book/')
-        .then(response => console.log(response));
-  });
 
   if(!token) {
     return <Login setToken={setToken} />

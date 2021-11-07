@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-        method: 'POST',
+    let config = {
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
+            'Content-Type': 'application/json',
+        }
+    }
+    let data = JSON.stringify(credentials)
+
+    axios.post('http://127.0.0.1:8000/account/', data, config)
+        .then(response => console.log(response));
 }
 
 export default function Login({ setToken }) {
