@@ -1,30 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-async function loginUser(credentials) {
-    let config = {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-    let data = JSON.stringify(credentials)
+// async function loginUser(credentials) {
+//     let config = {
+//         headers: {
+//             'Content-Type': 'application/json',
+//         }
+//     }
+//     let data = JSON.stringify(credentials)
 
-    axios.post('http://127.0.0.1:8000/account/', data, config)
-        .then(response => console.log(response));
-}
+//     axios.post('http://127.0.0.1:8000/account/', data, config)
+//         .then(response => console.log(response));
+//     return 'chandra'
+// }
 
 export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    async function loginUser(credentials) {
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        let body = JSON.stringify(credentials)
+        axios.post(
+            'http://127.0.0.1:8000/account/',
+            body,
+            config
+        ).then(function (response){
+            setToken(response)
+            console.log(response)
+        });
+    }
+
+    useEffect(() => {
+        loginUser()
+    }, [])
+
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            email,
-            password
-        });
-        setToken(token);
+        await loginUser({ email, password })
     }
 
     return (

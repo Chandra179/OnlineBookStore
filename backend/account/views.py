@@ -9,9 +9,7 @@ from django.contrib.auth.hashers import make_password
 User = get_user_model()
 
 class Login(APIView):
-    """
-    List all snippets, or create a new snippet.
-    """
+    
     # def get(self, request, format=None):
     #     account_list = User.objects.all()
     #     serializer = AccountSerializer(account_list, many=True)
