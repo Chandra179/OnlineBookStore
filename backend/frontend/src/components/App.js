@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import axios from 'axios';
+
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    axios.get('http://127.0.0.1:8000/book/')
+        .then(response => console.log(response));
   }
 
   render() {
