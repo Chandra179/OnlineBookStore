@@ -1,35 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './components/Login'
+import React, { Component } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import AuthService from "./services/auth.service";
+import Login from "./components/Login"
 
-function App() {
-  const [token, setToken] = useState();
-
-  if(!token) {
-    return <Login setToken={setToken} />
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
+    this.state = {
+      currentUser: '',
+    };
   }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      this.setState({
+        currentUser: user,
+      });
+    }
+  }
+
+  logOut() {
+    AuthService.logout();
+  }
+
+  render() {
+    const { currentUser } = this.state;
+
+    return (
+    //   <Router>
+    //   <div>
+    //     <ul>
+    //       <li>
+    //         <Link to="/">Home</Link>
+    //       </li>
+    //     </ul>
+
+    //     <Switch>
+    //       <Route path="/">
+    //         <App />
+    //       </Route>
+    //       <Route path="/login">
+    //         <Login />
+    //       </Route>
+    //     </Switch>
+    //   </div>
+    // </Router>
+      <div>
+        {currentUser ? (
+          <a href="/login" onClick={this.logOut}>
+            LogOut
+          </a>
+        ) : (
+          <Link to={"/login"}>
+            Login
+          </Link>
+        )}
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
 export default App;
