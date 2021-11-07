@@ -31,33 +31,13 @@ class App extends Component {
     const { currentUser } = this.state;
 
     return (
-    //   <Router>
-    //   <div>
-    //     <ul>
-    //       <li>
-    //         <Link to="/">Home</Link>
-    //       </li>
-    //     </ul>
-
-    //     <Switch>
-    //       <Route path="/">
-    //         <App />
-    //       </Route>
-    //       <Route path="/login">
-    //         <Login />
-    //       </Route>
-    //     </Switch>
-    //   </div>
-    // </Router>
       <div>
         {currentUser ? (
           <a href="/login" onClick={this.logOut}>
             LogOut
           </a>
         ) : (
-          <Link to={"/login"}>
-            Login
-          </Link>
+          <p>Login first</p>
         )}
         <Routes>
           <Route exact path="/login" element={<Login />} />
