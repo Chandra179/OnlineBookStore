@@ -1,1 +1,2 @@
 https://www.databasestar.com/sample-bookstore-database/
+https://medium.com/analytics-vidhya/django-react-integration-37acc304e984
