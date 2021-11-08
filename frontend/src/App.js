@@ -1,50 +1,56 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "./App.css";
+
 import AuthService from "./services/auth.service";
-import Login from "./components/Login"
+import Login from "./components/Login";
+import ButtonAppBar from "./components/ButtonAppBar"
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
-    this.state = {
-      currentUser: '',
-    };
-  }
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-  componentDidMount() {
+  useEffect(() => {
     const user = AuthService.getCurrentUser();
-
     if (user) {
-      this.setState({
-        currentUser: user,
-      });
+      setCurrentUser(user);
     }
-  }
+  }, []);
 
-  logOut() {
+  const logOut = () => {
     AuthService.logout();
-  }
+  };
 
-  render() {
-    const { currentUser } = this.state;
-
-    return (
-      <div>
+  return (
+    <div>
+        <ButtonAppBar isLoggedin={currentUser} />
         {currentUser ? (
-          <a href="/login" onClick={this.logOut}>
-            LogOut
-          </a>
+          <div>
+            <li>
+                {currentUser}
+            </li>
+            <li>
+              <a href="/login" className="nav-link" onClick={logOut}>
+                LogOut
+              </a>
+            </li>
+          </div>
         ) : (
-          <p>Login first</p>
+          <div>
+            <li>
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+          </div>
         )}
+
+      <div className="container mt-3">
         <Switch>
           <Route exact path="/login" component={Login} />
         </Switch>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

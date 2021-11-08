@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import AuthService from "../services/auth.service";
-import TextField from "@material-ui/core/TextField";
-import { Button, Paper } from "@material-ui/core";
-
+import TextField from "@mui/material/TextField";
+//import { Button, Paper } from "@material-ui/core";
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
