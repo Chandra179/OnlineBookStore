@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/Login"
@@ -39,9 +39,9 @@ class App extends Component {
         ) : (
           <p>Login first</p>
         )}
-        <Routes>
-          <Route exact path="/login" element={<Login />} />
-        </Routes>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+        </Switch>
       </div>
     );
   }

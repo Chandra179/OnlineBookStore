@@ -1,49 +1,38 @@
-import React, { Component } from "react";
+import React, { useState, useRef } from "react";
 import AuthService from "../services/auth.service";
 import TextField from "@material-ui/core/TextField";
 import { Button, Paper } from "@material-ui/core";
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.handleLogin = this.handleLogin.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
 
-        this.state = {
-            email: "",
-            password: "",
-            loading: false,
-            message: ""
-        };
-    }
+const Login = (props) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
-    onChangeEmail(e) {
-        this.setState({
-            email: e.target.value
-        });
-    }
+    const onChangeEmail = (e) => {
+        const email = e.target.value;
+        setEmail(email);
+    };
 
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
+    const onChangePassword = (e) => {
+        const password = e.target.value;
+        setPassword(password);
+    };
 
-    handleLogin(e) {
+    const handleLogin = (e) => {
         e.preventDefault();
 
-        this.setState({
-            message: "",
-            loading: true
-        });
-        //HANDLE LOGIN HERE!
-        AuthService.login(this.state.email, this.state.password).then(
+        setMessage("");
+        setLoading(true);
+
+        //HANDLE LOGIN HERE!!
+        AuthService.login(email, password).then(
             () => {
-                this.props.history.push("/");
+                props.history.push("/");
                 window.location.reload();
             },
-            error => {
+            (error) => {
                 const resMessage =
                     (error.response &&
                         error.response.data &&
@@ -51,30 +40,30 @@ export default class Login extends Component {
                     error.message ||
                     error.toString();
 
-                this.setState({
-                    loading: false,
-                    message: resMessage
-                });
+                setLoading(false);
+                setMessage(resMessage);
             }
         );
-    }
+    };
 
-    render() {
-        return (
+    return (
+        <div>
             <Paper>
                 <h2>Login</h2>
                 <TextField
-                    onChange={this.onChangeEmail}
-                    value={this.state.email}
+                    onChange={onChangeEmail}
+                    value={email}
                     label={"Email"}
                 />
                 <TextField
-                    onChange={this.onChangePassword}
-                    value={this.state.password}
+                    onChange={onChangePassword}
+                    value={password}
                     label={"Password"}
                 />
-                <Button onClick={this.handleLogin}>Submit</Button>
+                <Button onClick={handleLogin}>Submit</Button>
             </Paper>
-        );
-    }
-}
+        </div>
+    );
+};
+
+export default Login;
