@@ -5,20 +5,31 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import get_object_or_404
 
 User = get_user_model()
 
-class Login(APIView):
-    
-    # def get(self, request, format=None):
-    #     account_list = User.objects.all()
-    #     serializer = AccountSerializer(account_list, many=True)
-    #     return Response(serializer.data)
+class SignIn(APIView):
 
     def post(self, request, format=None):
+        user_email = User.objects.filter(email=request.data['email'])
+        #user_email = get_object_or_404(User, email=request.data['email'])
+        if user_email:
+            return Response('user sudah terdaftar', status=status.HTTP_201_CREATED)
+        return Response('user belum terdaftar', status=status.HTTP_404_NOT_FOUND)
+
+
+class SigUp(APIView):
+    
+    def post(self, request, format=None):
         serializer = AccountSerializer(data=request.data)
-        print(serializer)
+        
         if serializer.is_valid():
+            email_seri = serializer.validated_data.get('email')
+            user_email = get_object_or_404(email__exact=email_seri)
+            print('--------------------------------------------------------------')
+            print(user_email)
+
             password = make_password(self.request.data['password'])
             serializer.save(password = password)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

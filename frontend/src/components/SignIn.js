@@ -60,15 +60,7 @@ export default function SignIn(props) {
                 window.location.reload();
             },
             (error) => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                setLoading(false);
-                setMessage(resMessage);
+                console.log(error.response);
             }
         );
     };
