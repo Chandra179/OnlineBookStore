@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Switch, Route, Link } from "react-router-dom";
-import Login from "./Login";
+import SignIn from "./SignIn";
 import AuthService from "../services/auth.service";
 import styles from "../static/css/ButtonAppBar.module.css"
 
@@ -34,22 +34,26 @@ const ButtonAppBar = ({ isLoggedin }) => {
                         News
                     </Typography>
                     {isLoggedin ? (
-                        <a href="/login" onClick={logOut}>
+                        <a href="/signin" onClick={logOut}>
                             <Button color="primary">
-                                LogOut
+                                <Typography variant="p" color="common.white">
+                                    Logout
+                                </Typography>
                             </Button>
                         </a>
                     ) : (
-                        <Link to={"/login"}>
+                        <Link to={"/signin"}>
                             <Button color="inherit">
-                                Login
+                                <Typography variant="p" color="common.white">
+                                    Sign In
+                                </Typography>
                             </Button>
                         </Link>
                     )}
                 </Toolbar>
             </AppBar>
             <Switch>
-                <Route exact path="/login" component={Login} />
+                <Route exact path="/signin" component={SignIn} />
             </Switch>
         </Box>
     )
