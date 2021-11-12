@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import AuthService from "./services/auth.service";
 import ButtonAppBar from "./components/ButtonAppBar"
+import SignIn from "./components/SignIn"
+import SignUp from "./components/SignUp"
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -12,10 +15,14 @@ const App = () => {
       setCurrentUser(user);
     }
   }, []);
-  
+
   return (
     <div>
-        <ButtonAppBar isLoggedin={currentUser} />
+      <ButtonAppBar isLoggedin={currentUser} />
+      <Switch>
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+      </Switch>
     </div>
   );
 };

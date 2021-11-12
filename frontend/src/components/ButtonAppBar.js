@@ -52,9 +52,6 @@ const ButtonAppBar = ({ isLoggedin }) => {
                     )}
                 </Toolbar>
             </AppBar>
-            <Switch>
-                <Route exact path="/signin" component={SignIn} />
-            </Switch>
         </Box>
     )
 };

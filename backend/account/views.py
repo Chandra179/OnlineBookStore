@@ -27,7 +27,9 @@ class SigUp(APIView):
         
         if serializer.is_valid():
             email_seri = serializer.validated_data.get('email')
-            user_email = get_object_or_404(email__exact=email_seri)
+            user_email = get_object_or_404(email=email_seri)
+            
+            
             print('--------------------------------------------------------------')
             print(user_email)
 
