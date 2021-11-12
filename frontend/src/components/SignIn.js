@@ -53,7 +53,7 @@ export default function SignIn(props) {
         setLoading(true);
 
         //HANDLE LOGIN HERE!!
-        AuthService.login(email, password).then(
+        AuthService.signin(email, password).then(
             () => {
                 props.history.push("/");
                 window.location.reload();

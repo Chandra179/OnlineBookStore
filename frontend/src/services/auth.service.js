@@ -1,10 +1,23 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/account/";
 
-const login = (email, password) => {
+const signin = (email, password) => {
   return axios
-    .post(API_URL, {
+    .post("http://127.0.0.1:8000/account/", {
+      email,
+      password,
+    })
+    .then((response) => {
+      if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+      return response.data;
+    });
+};
+
+const signup = (email, password) => {
+  return axios
+    .post("http://127.0.0.1:8000/account/", {
       email,
       password,
     })
@@ -25,7 +38,7 @@ const getCurrentUser = () => {
 };
 
 const AuthService = {
-  login,
+  signin,
   logout,
   getCurrentUser,
 };
