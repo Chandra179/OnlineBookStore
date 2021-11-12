@@ -12,9 +12,10 @@ User = get_user_model()
 class SignIn(APIView):
 
     def post(self, request, format=None):
-        user_email = User.objects.filter(email=request.data['email'])
-        #user_email = get_object_or_404(User, email=request.data['email'])
-        if user_email:
+        user_email = get_object_or_404(User, email=request.data['email'])
+        password = request.data['password']
+
+        if user_email.check_password(password):
             return Response('user sudah terdaftar', status=status.HTTP_201_CREATED)
         return Response('user belum terdaftar', status=status.HTTP_404_NOT_FOUND)
 

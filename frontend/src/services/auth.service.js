@@ -9,10 +9,10 @@ const login = (email, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.email) {
-        localStorage.setItem("user", JSON.stringify(response.data.email));
+      if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
       }
-      return response.data.email;
+      return response.data;
     });
 };
 
