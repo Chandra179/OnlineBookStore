@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
 

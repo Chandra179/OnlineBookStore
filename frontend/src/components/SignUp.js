@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
 
@@ -55,13 +55,13 @@ export default function SignUp(props) {
         setLoading(true);
 
         //HANDLE LOGIN HERE!!
-        AuthService.login(email, password).then(
+        AuthService.signup(email, password).then(
             () => {
                 props.history.push("/");
                 window.location.reload();
             },
             (error) => {
-                console.log(error.response);
+                console.log(error);
             }
         );
     };

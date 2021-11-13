@@ -34,15 +34,15 @@ const ButtonAppBar = ({ isLoggedin }) => {
                         News
                     </Typography>
                     {isLoggedin ? (
-                        <a href="/signin" onClick={logOut}>
+                        <Link to="/signin" onClick={logOut}>
                             <Button color="primary">
                                 <Typography variant="p" color="common.white">
                                     Logout
                                 </Typography>
                             </Button>
-                        </a>
+                        </Link>
                     ) : (
-                        <Link to={"/signin"}>
+                        <Link to="/signin">
                             <Button color="inherit">
                                 <Typography variant="p" color="common.white">
                                     Sign In

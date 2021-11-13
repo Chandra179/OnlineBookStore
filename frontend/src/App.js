@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import AuthService from "./services/auth.service";
 import ButtonAppBar from "./components/ButtonAppBar"
 import SignIn from "./components/SignIn"

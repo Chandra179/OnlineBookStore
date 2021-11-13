@@ -3,7 +3,7 @@ import axios from "axios";
 
 const signin = (email, password) => {
   return axios
-    .post("http://127.0.0.1:8000/account/", {
+    .post("http://127.0.0.1:8000/account/signin", {
       email,
       password,
     })
@@ -11,13 +11,14 @@ const signin = (email, password) => {
       if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
+      console.log(response)
       return response.data;
     });
 };
 
 const signup = (email, password) => {
   return axios
-    .post("http://127.0.0.1:8000/account/", {
+    .post("http://127.0.0.1:8000/account/signup", {
       email,
       password,
     })
@@ -25,6 +26,7 @@ const signup = (email, password) => {
       if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
+      console.log(response)
       return response.data;
     });
 };
@@ -39,6 +41,7 @@ const getCurrentUser = () => {
 
 const AuthService = {
   signin,
+  signup,
   logout,
   getCurrentUser,
 };
