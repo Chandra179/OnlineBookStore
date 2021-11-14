@@ -17,4 +17,4 @@ class BookList(APIView):
         for x in queryset:
             books = [book.author_name for book in x.book_author.all()]
             book_list.append({'title': x.title, 'book_author': books})
-        return Response(book_list)
+        return Response(book_list, status=status.HTTP_200_OK)

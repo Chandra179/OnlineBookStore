@@ -4,6 +4,8 @@ import AuthService from "./services/auth.service";
 import ButtonAppBar from "./components/ButtonAppBar"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./components/Home"
 
 
 const App = () => {
@@ -20,6 +22,7 @@ const App = () => {
     <div>
       <ButtonAppBar isLoggedin={currentUser} />
       <Switch>
+        <ProtectedRoute exact path="/" component={Home} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
       </Switch>
