@@ -83,7 +83,7 @@ class Book(models.Model):
     num_pages = models.IntegerField(blank=True, null=True)
     publication_date = models.DateField(blank=True, null=True)
     publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE,)
-    book_author_ids = models.ManyToManyField(Author, through='BookAuthor')
+    book_author = models.ManyToManyField(Author, through='BookAuthor')
 
     class Meta:
         db_table = 'book'
@@ -98,6 +98,7 @@ class BookAuthor(models.Model):
 
     class Meta:
         db_table = 'book_author'
+        unique_together = ('book', 'author',)
 
 
 # class Country(models.Model):
