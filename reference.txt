@@ -1,2 +1,13 @@
+DATABASE REFERENCE
+------------------
 https://www.databasestar.com/sample-bookstore-database/
+
+
+DJANGO REACT INTEGRATION
+------------------------
 https://medium.com/analytics-vidhya/django-react-integration-37acc304e984
+
+
+DJANGO M2M THROUGH MODEL PREFETCH RELATED
+-----------------------------------------
+https://betterprogramming.pub/django-select-related-and-prefetch-related-f23043fd635d

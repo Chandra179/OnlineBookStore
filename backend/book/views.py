@@ -12,7 +12,7 @@ class BookList(APIView):
     serializer_class = BookAuthorSerializer
 
     def get(self, request):
-        queryset = Book.objects.all()
+        queryset = Book.objects.prefetch_related('book_author')
         book_list = []
         for x in queryset:
             books = [book.author_name for book in x.book_author.all()]
