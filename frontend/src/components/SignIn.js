@@ -12,8 +12,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import AuthService from "../services/auth.service";
+
 
 function Copyright(props) {
     return (
@@ -33,8 +34,7 @@ const theme = createTheme();
 export default function SignIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    let history = useHistory();
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
@@ -48,15 +48,11 @@ export default function SignIn(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        setMessage("");
-        setLoading(true);
-
+        
         //HANDLE LOGIN HERE!!
         AuthService.signin(email, password).then(
             () => {
-                props.history.push("/");
-                window.location.reload();
+                history.push("/");
             },
             (error) => {
                 console.log(error.response);
@@ -116,6 +112,7 @@ export default function SignIn(props) {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={() => props.changeUserState}
                         >
                             Sign In
                         </Button>

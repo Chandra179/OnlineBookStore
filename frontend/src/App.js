@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import AuthService from "./services/auth.service";
-import ButtonAppBar from "./components/ButtonAppBar"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home"
+
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 const App = () => {
@@ -18,12 +25,56 @@ const App = () => {
     }
   }, []);
 
+  const logOut = () => {
+    AuthService.logout();
+    setCurrentUser(undefined);
+  };
+  
+  const handler =() => {
+    setCurrentUser(undefined);
+  }
+
   return (
     <div>
-      <ButtonAppBar isLoggedin={currentUser} />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              News
+            </Typography>
+            {currentUser ? (
+              <Link to="/signin" onClick={logOut}>
+                <Button color="primary">
+                  <Typography variant="p" color="common.white">
+                    Logout
+                  </Typography>
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/signin">
+                <Button color="inherit">
+                  <Typography variant="p" color="common.white">
+                    Sign In
+                  </Typography>
+                </Button>
+              </Link>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       <Switch>
         <ProtectedRoute exact path="/" component={Home} />
-        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signin" component={() => <SignIn changeUserState={handler} />}/>
         <Route exact path="/signup" component={SignUp} />
       </Switch>
     </div>
