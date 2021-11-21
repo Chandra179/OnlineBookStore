@@ -59,7 +59,6 @@ export default function SignUp(props) {
         //HANDLE LOGIN HERE!!
         AuthService.signup(email, password).then(
             (data) => {
-                console.log('auth sign up response => ', data)
                 props.changeUserState(data)
                 history.push("/");
             },

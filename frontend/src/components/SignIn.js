@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
+import Alert from "./Alert";
 
 
 function Copyright(props) {
@@ -36,6 +37,11 @@ const theme = createTheme();
 export default function SignIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginAlert, setLoginAlert] = useState("");
+    const [emailHelper, setEmailHelper] = useState("");
+    const [passwordHelper, setPasswordHelper] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
@@ -58,17 +64,35 @@ export default function SignIn(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //HANDLE LOGIN HERE!!
-        AuthService.signin(email, password).then(
-            (data) => {
-                console.log('auth sign in response => ', data)
-                props.changeUserState(data)
-                history.push("/");
-            },
-            (error) => {
-                console.log(error.response);
-            }
-        );
+        if (email === "") {
+            setEmailHelper("Enter email")
+            setEmailError(true)
+        }
+        if (password === "") {
+            setPasswordHelper("Enter password")
+            setPasswordError(true)
+        }
+
+        if (email != "" && password != "") {
+            AuthService.signin(email, password).then(
+                (data) => {
+                    // Update current user state (App.js)
+                    props.changeUserState(data)
+                    history.push("/");
+                },
+                (error) => {
+                    if (error.response.data === "User not found") {
+                        console.log(error.response.data)
+                        setLoginAlert(error.response.data)
+                    } else {
+                        // Password incorrect
+                        console.log(error.response.data)
+                        setLoginAlert(error.response.data)
+                    }
+                    console.log(error.response)
+                }
+            );
+        }
     };
 
     return (
@@ -83,6 +107,9 @@ export default function SignIn(props) {
                         alignItems: 'center',
                     }}
                 >
+                    <Box sx={{ pb: 2, width: '100%' }}>
+                        {loginAlert ? <Alert loginALert={loginAlert} /> : <div />}
+                    </Box>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
@@ -93,6 +120,8 @@ export default function SignIn(props) {
                         <TextField
                             onChange={onChangeEmail}
                             value={email}
+                            error={emailError ? true : false}
+                            helperText={emailHelper != "" ? emailHelper : false}
                             margin="normal"
                             required
                             fullWidth
@@ -105,6 +134,8 @@ export default function SignIn(props) {
                         <TextField
                             onChange={onChangePassword}
                             value={password}
+                            error={passwordError ? true : false}
+                            helperText={passwordHelper != "" ? passwordHelper : false}
                             margin="normal"
                             required
                             fullWidth

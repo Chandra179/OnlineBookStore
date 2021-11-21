@@ -12,12 +12,14 @@ User = get_user_model()
 class SignIn(APIView):
 
     def post(self, request, format=None):
-        user_email = get_object_or_404(User, email=request.data['email'])
-        password = request.data['password']
-
-        if user_email.check_password(password):
-            return Response('Login Succeed', status=status.HTTP_200_OK)
-        return Response('user belum terdaftar / password salah', status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user_email = User.objects.get(email=request.data['email'])
+            password = request.data['password']
+            if user_email.check_password(password):
+                return Response('Login Succeed', status=status.HTTP_200_OK)
+            return Response('Your password incorrect', status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response('User not found', status=status.HTTP_400_BAD_REQUEST)
 
 
 class SignUp(APIView):
