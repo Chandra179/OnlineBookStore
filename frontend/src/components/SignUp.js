@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +14,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
 
@@ -32,11 +34,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp(props) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    let history = useHistory();
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
@@ -56,9 +58,10 @@ export default function SignUp(props) {
 
         //HANDLE LOGIN HERE!!
         AuthService.signup(email, password).then(
-            () => {
-                props.history.push("/");
-                window.location.reload();
+            (data) => {
+                console.log('auth sign up response => ', data)
+                props.changeUserState(data)
+                history.push("/");
             },
             (error) => {
                 console.log(error);

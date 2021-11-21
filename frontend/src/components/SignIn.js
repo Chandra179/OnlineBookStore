@@ -1,4 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,8 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+
 import AuthService from "../services/auth.service";
 
 
@@ -36,6 +38,13 @@ export default function SignIn(props) {
     const [password, setPassword] = useState("");
     let history = useHistory();
 
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
+        if (user) {
+            history.push("/");
+        }
+    }, []);
+
     const onChangeEmail = (e) => {
         const email = e.target.value;
         setEmail(email);
@@ -48,10 +57,12 @@ export default function SignIn(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         //HANDLE LOGIN HERE!!
         AuthService.signin(email, password).then(
-            () => {
+            (data) => {
+                console.log('auth sign in response => ', data)
+                props.changeUserState(data)
                 history.push("/");
             },
             (error) => {
@@ -112,7 +123,6 @@ export default function SignIn(props) {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={() => props.changeUserState}
                         >
                             Sign In
                         </Button>

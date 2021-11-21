@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import AuthService from "./services/auth.service";
-import SignIn from "./components/SignIn"
-import SignUp from "./components/SignUp"
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./components/Home"
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,6 +8,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+
+import AuthService from "./services/auth.service";
+import SignIn from "./components/SignIn"
+import SignUp from "./components/SignUp"
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./components/Home";
 
 
 const App = () => {
@@ -26,13 +27,9 @@ const App = () => {
   }, []);
 
   const logOut = () => {
+    setCurrentUser(undefined);
     AuthService.logout();
-    setCurrentUser(undefined);
   };
-  
-  const handler =() => {
-    setCurrentUser(undefined);
-  }
 
   return (
     <div>
@@ -74,8 +71,10 @@ const App = () => {
 
       <Switch>
         <ProtectedRoute exact path="/" component={Home} />
-        <Route exact path="/signin" component={() => <SignIn changeUserState={handler} />}/>
-        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signin"
+          component={() => <SignIn changeUserState={currentUser => setCurrentUser(currentUser)} />} />
+        <Route exact path="/signup"
+          component={() => <SignUp changeUserState={currentUser => setCurrentUser(currentUser)} />} />
       </Switch>
     </div>
   );
