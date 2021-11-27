@@ -15,7 +15,6 @@ import SignUp from "./components/SignUp"
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 
-
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
