@@ -16,6 +16,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 
 import BookService from "../services/book.service"
 import usePagination from "./Pagination";
@@ -60,7 +61,7 @@ export default function Home(props) {
                                             justifyContent="center"
                                             alignItems="flex-start"
                                         >
-                                            <Grid item xs={2}>
+                                            <Grid item xs={2} sx={{ marginRight: 4 }}>
                                                 <Card sx={{ maxWidth: 220, height: 240 }}>
                                                     <CardMedia
                                                         component="img"
@@ -69,12 +70,21 @@ export default function Home(props) {
                                                     />
                                                 </Card>
                                             </Grid>
-                                            <Grid item xs={10}>
-                                                <ListItemText>{v.title}</ListItemText>
+                                            <Grid item xs={9}>
+                                                <ListItemText sx={{ margin: 0, padding: 0 }}>
+                                                    <Typography variant="h6">
+                                                        {v.title}
+                                                    </Typography>
+                                                </ListItemText>
+                                                <ListItemText sx={{ margin: 0, padding: 0 }}>
+                                                    <Typography variant="subtitle1" sx={{ color: "rgb(0, 113, 133)" }}>
+                                                        by {v.book_author}
+                                                    </Typography>
+                                                </ListItemText>
                                             </Grid>
                                         </Grid>
                                     </ListItem>
-                                    <Divider />
+                                    <Divider sx={{ margin: 2, borderBottomWidth: 2 }} />
                                 </div>
                             );
                         })}
