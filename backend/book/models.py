@@ -78,6 +78,7 @@ class Publisher(models.Model):
 class Book(models.Model):
     book_id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=400, blank=True, null=True)
+    cover = models.CharField(max_length=400, blank=True, null=True)
     isbn13 = models.CharField(max_length=13, blank=True, null=True)
     language = models.ForeignKey('BookLanguage', blank=True, null=True, on_delete=models.CASCADE)
     num_pages = models.IntegerField(blank=True, null=True)

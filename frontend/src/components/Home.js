@@ -23,7 +23,7 @@ import usePagination from "./Pagination";
 export default function Home(props) {
     const [bookList, setBookList] = useState([]);
     let [page, setPage] = useState(1);
-    const PER_PAGE = 10;
+    const PER_PAGE = 2;
     const count = Math.ceil(bookList.length / PER_PAGE);
     const _DATA = usePagination(bookList, PER_PAGE);
     const handleChange = (e, p) => {
@@ -61,12 +61,11 @@ export default function Home(props) {
                                             alignItems="flex-start"
                                         >
                                             <Grid item xs={2}>
-                                                <Card sx={{ maxWidth: 150, height: 170 }}>
+                                                <Card sx={{ maxWidth: 220, height: 240 }}>
                                                     <CardMedia
                                                         component="img"
-                                                        height="170"
-                                                        image="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-                                                        alt="green iguana"
+                                                        height="240"
+                                                        image={v.cover}
                                                     />
                                                 </Card>
                                             </Grid>
@@ -80,16 +79,23 @@ export default function Home(props) {
                             );
                         })}
                     </List>
-                    <Box p="5">
-                        <Pagination
-                            count={count}
-                            size="large"
-                            page={page}
-                            variant="outlined"
-                            shape="rounded"
-                            onChange={handleChange}
-                        />
-                    </Box>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Box p="5">
+                            <Pagination
+                                count={count}
+                                size="large"
+                                page={page}
+                                variant="outlined"
+                                shape="rounded"
+                                onChange={handleChange}
+                            />
+                        </Box>
+                    </Grid>
                 </Grid>
             </Grid>
         </Box>

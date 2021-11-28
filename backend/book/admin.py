@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Author, Book, BookAuthor, BookLanguage, Publisher
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'language', 'num_pages', 'publication_date', 'publisher', 'isbn13')
+    list_display = ('title', 'language', 'num_pages', 'publication_date', 'publisher', 'cover', 'isbn13')
 admin.site.register(Book, BookAdmin)
 
 class BookAuthorAdmin(admin.ModelAdmin):
