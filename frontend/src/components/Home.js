@@ -54,15 +54,26 @@ export default function Home(props) {
                             return (
                                 <div>
                                     <ListItem>
-                                        <Card sx={{ maxWidth: 150, height: 170 }}>
-                                            <CardMedia
-                                                component="img"
-                                                height="170"
-                                                image="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-                                                alt="green iguana"
-                                            />
-                                        </Card>
-                                        <ListItemText>{v.title}</ListItemText>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="flex-start"
+                                        >
+                                            <Grid item xs={2}>
+                                                <Card sx={{ maxWidth: 150, height: 170 }}>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="170"
+                                                        image="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+                                                        alt="green iguana"
+                                                    />
+                                                </Card>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                <ListItemText>{v.title}</ListItemText>
+                                            </Grid>
+                                        </Grid>
                                     </ListItem>
                                     <Divider />
                                 </div>
