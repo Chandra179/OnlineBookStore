@@ -14,6 +14,7 @@ import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
+import HomeDetail from "./components/HomeDetail";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -74,6 +75,8 @@ const App = () => {
           component={() => <SignIn changeUserState={currentUser => setCurrentUser(currentUser)} />} />
         <Route exact path="/signup"
           component={() => <SignUp changeUserState={currentUser => setCurrentUser(currentUser)} />} />
+        <Route exact path="/home-detail/:title/"
+          component={HomeDetail} />
       </Switch>
     </div>
   );

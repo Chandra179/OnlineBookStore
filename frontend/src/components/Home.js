@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Switch, Route, Link } from "react-router-dom";
 
 import Pagination from '@mui/material/Pagination';
 import List from '@mui/material/List';
@@ -72,9 +73,14 @@ export default function Home(props) {
                                             </Grid>
                                             <Grid item xs={9}>
                                                 <ListItemText sx={{ margin: 0, padding: 0 }}>
-                                                    <Typography variant="h6">
-                                                        {v.title}
-                                                    </Typography>
+                                                    <Link to={{
+                                                        pathname: `/home-detail/${v.title}`,
+                                                        item: {title: v.title}
+                                                    }}>
+                                                        <Typography variant="h6" sx={{ color: "black" }}>
+                                                            {v.title}
+                                                        </Typography>
+                                                    </Link>
                                                 </ListItemText>
                                                 <ListItemText sx={{ margin: 0, padding: 0 }}>
                                                     <Typography variant="subtitle1" sx={{ color: "rgb(0, 113, 133)" }}>
