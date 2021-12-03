@@ -22,6 +22,77 @@ import Typography from '@mui/material/Typography';
 import BookService from "../services/book.service"
 import usePagination from "./Pagination";
 
+function MyPagination({page, count, handleChange}) {
+    return (
+        <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <Box p="5">
+                <Pagination
+                    count={count}
+                    size="large"
+                    page={page}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={handleChange}
+                />
+            </Box>
+        </Grid>
+    )
+}
+
+function BookList({ _DATA }) {
+    return (
+        <List>
+            {_DATA.currentData().map(v => {
+                return (
+                    <div>
+                        <ListItem>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="center"
+                                alignItems="flex-start"
+                            >
+                                <Grid item xs={2} sx={{ marginRight: 4 }}>
+                                    <Card sx={{ maxWidth: 220, height: 240 }}>
+                                        <CardMedia
+                                            component="img"
+                                            height="240"
+                                            image={v.cover}
+                                        />
+                                    </Card>
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <ListItemText sx={{ margin: 0, padding: 0 }}>
+                                        <Link to={{
+                                            pathname: `/home-detail/${v.title}`,
+                                            item: { title: v.title }
+                                        }}>
+                                            <Typography variant="h6" sx={{ color: "black" }}>
+                                                {v.title}
+                                            </Typography>
+                                        </Link>
+                                    </ListItemText>
+                                    <ListItemText sx={{ margin: 0, padding: 0 }}>
+                                        <Typography variant="subtitle1" sx={{ color: "rgb(0, 113, 133)" }}>
+                                            by {v.book_author}
+                                        </Typography>
+                                    </ListItemText>
+                                </Grid>
+                            </Grid>
+                        </ListItem>
+                        <Divider sx={{ margin: 2, borderBottomWidth: 2 }} />
+                    </div>
+                );
+            })}
+        </List>
+    )
+}
+
 export default function Home(props) {
     const [bookList, setBookList] = useState([]);
     let [page, setPage] = useState(1);
@@ -47,71 +118,16 @@ export default function Home(props) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-                <Grid item xs={2}>
+                <Grid item
+                    lg={2}
+                    md={2}
+                    sm={3}
+                    xs={3}>
                     <p>Filter</p>
                 </Grid>
-                <Grid item xs={10}>
-                    <List>
-                        {_DATA.currentData().map(v => {
-                            return (
-                                <div>
-                                    <ListItem>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="flex-start"
-                                        >
-                                            <Grid item xs={2} sx={{ marginRight: 4 }}>
-                                                <Card sx={{ maxWidth: 220, height: 240 }}>
-                                                    <CardMedia
-                                                        component="img"
-                                                        height="240"
-                                                        image={v.cover}
-                                                    />
-                                                </Card>
-                                            </Grid>
-                                            <Grid item xs={9}>
-                                                <ListItemText sx={{ margin: 0, padding: 0 }}>
-                                                    <Link to={{
-                                                        pathname: `/home-detail/${v.title}`,
-                                                        item: {title: v.title}
-                                                    }}>
-                                                        <Typography variant="h6" sx={{ color: "black" }}>
-                                                            {v.title}
-                                                        </Typography>
-                                                    </Link>
-                                                </ListItemText>
-                                                <ListItemText sx={{ margin: 0, padding: 0 }}>
-                                                    <Typography variant="subtitle1" sx={{ color: "rgb(0, 113, 133)" }}>
-                                                        by {v.book_author}
-                                                    </Typography>
-                                                </ListItemText>
-                                            </Grid>
-                                        </Grid>
-                                    </ListItem>
-                                    <Divider sx={{ margin: 2, borderBottomWidth: 2 }} />
-                                </div>
-                            );
-                        })}
-                    </List>
-                    <Grid
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Box p="5">
-                            <Pagination
-                                count={count}
-                                size="large"
-                                page={page}
-                                variant="outlined"
-                                shape="rounded"
-                                onChange={handleChange}
-                            />
-                        </Box>
-                    </Grid>
+                <Grid item lg={10} md={10} sm={12} xs={12}>
+                    <BookList _DATA={_DATA}/>
+                    <MyPagination count={count} page={page} handleChange={handleChange}/>
                 </Grid>
             </Grid>
         </Box>
