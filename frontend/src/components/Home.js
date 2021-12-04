@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
 import BookService from "../services/book.service"
 import usePagination from "./Pagination";
 
-function MyPagination({page, count, handleChange}) {
+function MyPagination({ page, count, handleChange }) {
     return (
         <Grid
             container
@@ -57,16 +57,25 @@ function BookList({ _DATA }) {
                                 justifyContent="center"
                                 alignItems="flex-start"
                             >
-                                <Grid item xs={2} sx={{ marginRight: 4 }}>
-                                    <Card sx={{ maxWidth: 220, height: 240 }}>
+                                <Grid item
+                                    lg={2}
+                                    md={3}
+                                    sm={3}
+                                    xs={4}
+                                    sx={{ marginRight: 2 }}>
+                                    <Card sx={{ maxWidth: 200, height: 250 }}>
                                         <CardMedia
                                             component="img"
-                                            height="240"
+                                            height="250"
                                             image={v.cover}
                                         />
                                     </Card>
                                 </Grid>
-                                <Grid item xs={9}>
+                                <Grid item
+                                    lg={9}
+                                    md={8}
+                                    sm={8}
+                                    xs={6}>
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
                                             pathname: `/home-detail/${v.title}`,
@@ -116,20 +125,25 @@ export default function Home(props) {
     }, []);
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-                <Grid item
-                    lg={2}
-                    md={2}
-                    sm={3}
-                    xs={3}>
-                    <p>Filter</p>
-                </Grid>
-                <Grid item lg={10} md={10} sm={12} xs={12}>
-                    <BookList _DATA={_DATA}/>
-                    <MyPagination count={count} page={page} handleChange={handleChange}/>
-                </Grid>
+        <Grid container spacing={2}>
+            <Grid item
+                lg={2}
+                md={2}
+                sm={3}
+                xs={3}>
+                <p>Filter</p>
             </Grid>
-        </Box>
+            <Grid item
+                lg={10}
+                md={10}
+                sm={12}
+                xs={12}>
+                <BookList _DATA={_DATA} />
+                <MyPagination
+                    count={count}
+                    page={page}
+                    handleChange={handleChange} />
+            </Grid>
+        </Grid>
     );
 }
