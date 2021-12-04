@@ -59,23 +59,27 @@ function BookList({ _DATA }) {
                             >
                                 <Grid item
                                     lg={2}
-                                    md={3}
-                                    sm={3}
-                                    xs={4}
+                                    md={2}
+                                    sm={2}
+                                    xs={3}
                                     sx={{ marginRight: 2 }}>
-                                    <Card sx={{ maxWidth: 200, height: 250 }}>
-                                        <CardMedia
-                                            component="img"
-                                            height="250"
-                                            image={v.cover}
-                                        />
-                                    </Card>
+                                    <Link to={{
+                                        pathname: `/home-detail/${v.title}`,
+                                        item: { title: v.title }
+                                    }}>
+                                        <Card sx={{ maxWidth: 200, maxHeight: 240 }}>
+                                            <CardMedia
+                                                component="img"
+                                                image={v.cover}
+                                            />
+                                        </Card>
+                                    </Link>
                                 </Grid>
                                 <Grid item
                                     lg={9}
-                                    md={8}
-                                    sm={8}
-                                    xs={6}>
+                                    md={9}
+                                    sm={9}
+                                    xs={8}>
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
                                             pathname: `/home-detail/${v.title}`,
