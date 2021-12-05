@@ -17,6 +17,11 @@ class BookList(APIView):
         queryset = Book.objects.prefetch_related('book_author')
         book_list = []
         for x in queryset:
-            books = [book.author_name for book in x.book_author.all()]
-            book_list.append({'title': x.title, 'book_author': books, 'cover':x.cover})
+            book_author = [book.author_name for book in x.book_author.all()]
+            book_list.append({
+                'title': x.title, 
+                'author': book_author,
+                'desc':x.description,
+                'cover':x.cover
+            })
         return Response(book_list, status=status.HTTP_200_OK)

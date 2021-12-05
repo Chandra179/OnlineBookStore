@@ -40,9 +40,9 @@ function MyPagination({ page, count, handleChange }) {
 function BookList({ _DATA }) {
     return (
         <List>
-            {_DATA.currentData().map(v => {
+            {_DATA.currentData().map(function(v, i){
                 return (
-                    <div>
+                    <div key={i}>
                         <ListItem>
                             <Grid
                                 container
@@ -77,7 +77,12 @@ function BookList({ _DATA }) {
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
                                             pathname: `/home-detail/${v.title}`,
-                                            item: { title: v.title }
+                                            item: { 
+                                                title: v.title,
+                                                author: v.author,
+                                                desc: v.desc,
+                                                cover: v.cover
+                                            }
                                         }}>
                                             <Typography sx={{
                                                 color: "black",
@@ -102,7 +107,7 @@ function BookList({ _DATA }) {
                                                 xs: 14
                                             }
                                         }}>
-                                            by {v.book_author}
+                                            by {v.author}
                                         </Typography>
                                     </ListItemText>
                                 </Grid>
