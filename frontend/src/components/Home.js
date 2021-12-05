@@ -11,28 +11,9 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
 
 import BookService from "../services/book.service"
 import usePagination from "./Pagination";
-
-const useStyles = makeStyles({
-    coverGrid: {
-        marginRight: 20
-    },
-    coverCard: {
-        maxWidth: 200,
-        maxHeight: 240
-    },
-    item: {
-        margin: 0, 
-        padding: 0
-    },
-    divider: {
-        margin: 10, 
-        borderBottomWidth: 2
-    }
-  });
 
 function MyPagination({ page, count, handleChange }) {
     return (
@@ -57,7 +38,6 @@ function MyPagination({ page, count, handleChange }) {
 }
 
 function BookList({ _DATA }) {
-    const classes = useStyles();
     return (
         <List>
             {_DATA.currentData().map(v => {
@@ -70,20 +50,20 @@ function BookList({ _DATA }) {
                                 justifyContent="center"
                                 alignItems="flex-start"
                             >
-                                <Grid className={classes.coverGrid}
-                                    item
+                                <Grid item
                                     lg={2}
                                     md={2}
                                     sm={2}
-                                    xs={3}>
+                                    xs={3}
+                                    sx={{ marginRight: 2 }}>
                                     <Link to={{
                                         pathname: `/home-detail/${v.title}`,
                                         item: { title: v.title }
                                     }}>
-                                        <Card className={classes.coverCard}>
+                                        <Card sx={{ maxWidth: 250, maxHeight: 250 }}>
                                             <CardMedia
                                                 component="img"
-                                                height="240"
+                                                width="200"
                                                 image={v.cover}
                                             />
                                         </Card>
@@ -94,7 +74,7 @@ function BookList({ _DATA }) {
                                     md={9}
                                     sm={9}
                                     xs={8}>
-                                    <ListItemText className={classes.item}>
+                                    <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
                                             pathname: `/home-detail/${v.title}`,
                                             item: { title: v.title }
@@ -104,7 +84,7 @@ function BookList({ _DATA }) {
                                                 fontSize: {
                                                     lg: 20,
                                                     md: 20,
-                                                    sm: 20,
+                                                    sm: 18,
                                                     xs: 16
                                                 }
                                             }}>
@@ -118,7 +98,7 @@ function BookList({ _DATA }) {
                                             fontSize: {
                                                 lg: 16,
                                                 md: 16,
-                                                sm: 16,
+                                                sm: 14,
                                                 xs: 14
                                             }
                                         }}>
@@ -128,7 +108,7 @@ function BookList({ _DATA }) {
                                 </Grid>
                             </Grid>
                         </ListItem>
-                        <Divider className={classes.divider}/>
+                        <Divider sx={{ margin: 2, borderBottomWidth: 2 }} />
                     </div>
                 );
             })}
