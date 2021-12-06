@@ -40,7 +40,7 @@ function MyPagination({ page, count, handleChange }) {
 function BookList({ _DATA }) {
     return (
         <List>
-            {_DATA.currentData().map(function(v, i){
+            {_DATA.currentData().map(function (v, i) {
                 return (
                     <div key={i}>
                         <ListItem>
@@ -56,18 +56,13 @@ function BookList({ _DATA }) {
                                     sm={2}
                                     xs={3}
                                     sx={{ marginRight: 2 }}>
-                                    <Link to={{
-                                        pathname: `/home-detail/${v.title}`,
-                                        item: { title: v.title }
-                                    }}>
-                                        <Card sx={{ maxWidth: 250, maxHeight: 250 }}>
-                                            <CardMedia
-                                                component="img"
-                                                width="200"
-                                                image={v.cover}
-                                            />
-                                        </Card>
-                                    </Link>
+                                    <Card sx={{ maxWidth: 250, maxHeight: 250 }}>
+                                        <CardMedia
+                                            component="img"
+                                            width="200"
+                                            image={v.cover}
+                                        />
+                                    </Card>
                                 </Grid>
                                 <Grid item
                                     lg={9}
@@ -76,13 +71,7 @@ function BookList({ _DATA }) {
                                     xs={8}>
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
-                                            pathname: `/home-detail/${v.title}`,
-                                            item: { 
-                                                title: v.title,
-                                                author: v.author,
-                                                desc: v.desc,
-                                                cover: v.cover
-                                            }
+                                            pathname: `/home-detail/${v.title.replace(/\s+/g, '-').toLowerCase()}`
                                         }}>
                                             <Typography sx={{
                                                 color: "black",
@@ -98,7 +87,7 @@ function BookList({ _DATA }) {
                                         </Link>
                                     </ListItemText>
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
-                                        <Typography sx={{ 
+                                        <Typography sx={{
                                             color: "rgb(0, 113, 133)",
                                             fontSize: {
                                                 lg: 16,

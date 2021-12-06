@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Pagination from '@mui/material/Pagination';
 import List from '@mui/material/List';
@@ -44,12 +44,15 @@ function Item({ title, author, desc }) {
             <Typography>
                 {desc}
             </Typography>
-            
         </ListItemText>
     )
 }
 
 export default function HomeDetail(props) {
+    useEffect(() => {
+        console.log(window.location.pathname);
+    }, []);
+    
     return (
         <Grid
             container
@@ -64,7 +67,7 @@ export default function HomeDetail(props) {
                 sm={2}
                 xs={2}
                 sx={{ marginRight: 5 }}>
-                <Cover cover={props.location.item['cover']} />
+                <Cover />
             </Grid>
             <Grid item
                 lg={6}
@@ -72,10 +75,7 @@ export default function HomeDetail(props) {
                 sm={6}
                 xs={6}
                 sx={{ marginRight: 3 }}>
-                <Item
-                    title={props.location.item['title']}
-                    author={props.location.item['author']}
-                    desc={props.location.item['desc']} />
+                <Item />
             </Grid>
             <Grid item
                 lg={3}
@@ -84,6 +84,7 @@ export default function HomeDetail(props) {
                 xs={3}>
                     <p>Order detail</p>
             </Grid>
+            <p>url</p>
         </Grid>
     );
 }

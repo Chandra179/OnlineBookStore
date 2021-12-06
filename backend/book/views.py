@@ -21,7 +21,6 @@ class BookList(APIView):
             book_list.append({
                 'title': x.title, 
                 'author': book_author,
-                'desc':x.description,
                 'cover':x.cover
             })
         return Response(book_list, status=status.HTTP_200_OK)
