@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ShowMoreText from "react-show-more-text";
 import axios from "axios";
 
 import Pagination from '@mui/material/Pagination';
@@ -23,7 +24,7 @@ function Cover({ cover }) {
     )
 }
 
-function Item({ title, author, desc }) {
+function Item({ title, author, desc, expand, expandText }) {
     return (
         <ListItemText sx={{ margin: 0, padding: 0 }}>
             <Typography sx={{
@@ -43,7 +44,15 @@ function Item({ title, author, desc }) {
                 by {author}
             </Typography>
             <Typography>
-                {desc}
+                <ShowMoreText
+                    lines={5}
+                    more={"Show More"}
+                    less={"Show Less"}
+                    onClick={expandText}
+                    expanded={expand}
+                >
+                    {desc}
+                </ShowMoreText>
             </Typography>
         </ListItemText>
     )
@@ -58,6 +67,11 @@ export default function HomeDetail() {
     const [numPage, setNumPage] = useState('');
     const [pubDate, setPubDate] = useState('');
     const [publisher, setPublisher] = useState('');
+
+    const [expand, setExpand] = useState(false);
+    const expandText = () => {
+        setExpand(!expand);
+    };
 
     useEffect(() => {
         const title = window.location.pathname.split('/').pop().split('-').join(' ')
@@ -106,7 +120,7 @@ export default function HomeDetail() {
                 sm={6}
                 xs={6}
                 sx={{ marginRight: 3 }}>
-                <Item title={title} author={author} desc={desc} />
+                <Item title={title} author={author} desc={desc} expand={expand} expandText={expandText} />
             </Grid>
             <Grid item
                 lg={3}
