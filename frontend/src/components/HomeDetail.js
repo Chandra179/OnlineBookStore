@@ -48,8 +48,11 @@ function Item({ title, author, desc }) {
     )
 }
 
-export default function HomeDetail(props) {
+export default function HomeDetail() {
+    const [currentUrl, setCurrentUrl] = useState('');
+
     useEffect(() => {
+        setCurrentUrl(window.location.pathname);
         console.log(window.location.pathname);
     }, []);
     
@@ -84,7 +87,7 @@ export default function HomeDetail(props) {
                 xs={3}>
                     <p>Order detail</p>
             </Grid>
-            <p>url</p>
+            <p>{currentUrl}</p>
         </Grid>
     );
 }
