@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Pagination from '@mui/material/Pagination';
 import List from '@mui/material/List';
@@ -49,13 +50,40 @@ function Item({ title, author, desc }) {
 }
 
 export default function HomeDetail() {
-    const [currentUrl, setCurrentUrl] = useState('');
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [cover, setCover] = useState('');
+    const [desc, setDesc] = useState('');
+    const [language, setLanguage] = useState('');
+    const [numPage, setNumPage] = useState('');
+    const [pubDate, setPubDate] = useState('');
+    const [publisher, setPublisher] = useState('');
 
     useEffect(() => {
-        setCurrentUrl(window.location.pathname);
-        console.log(window.location.pathname);
+        const title = window.location.pathname.split('/').pop().split('-').join(' ')
+        let data = {
+            'title': title
+        }
+
+        axios
+            .post(
+                "http://127.0.0.1:8000/book/detail", data
+            )
+            .then(response => {
+                setTitle(response.data.title)
+                setAuthor(response.data.author)
+                setCover(response.data.cover)
+                setDesc(response.data.desc)
+                setLanguage(response.data.language)
+                setNumPage(response.data.num_pages)
+                setPubDate(response.data.publication_date)
+                setPublisher(response.data.publisher)
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
-    
+
     return (
         <Grid
             container
@@ -70,7 +98,7 @@ export default function HomeDetail() {
                 sm={2}
                 xs={2}
                 sx={{ marginRight: 5 }}>
-                <Cover />
+                <Cover cover={cover} />
             </Grid>
             <Grid item
                 lg={6}
@@ -78,16 +106,15 @@ export default function HomeDetail() {
                 sm={6}
                 xs={6}
                 sx={{ marginRight: 3 }}>
-                <Item />
+                <Item title={title} author={author} desc={desc} />
             </Grid>
             <Grid item
                 lg={3}
                 md={3}
                 sm={3}
                 xs={3}>
-                    <p>Order detail</p>
+                <p>Order detail</p>
             </Grid>
-            <p>{currentUrl}</p>
         </Grid>
     );
 }

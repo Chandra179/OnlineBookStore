@@ -3,11 +3,11 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from rest_framework import status
-from .serializers import BookSerializer, BookAuthorSerializer
+from .serializers import BookSerializer
 from .models import Book, BookAuthor
 from django.http import JsonResponse
 from django.core import serializers
-
+from django.shortcuts import get_object_or_404
 """
 BOOK API
 """
@@ -28,20 +28,21 @@ class BookList(APIView):
 
 class BookDetail(APIView):
 
-    def get(self, request):
+    def post(self, request):
         title = request.data['title']
-        book = Book.objects.get(title=title)
-        book_author = book.book_author.values_list('author_name', flat=True)[0]
-        book_detail = {
-            'title': book.title,
-            'author':book_author,
-            'cover': book.cover,
-            'desc': book.description,
-            'language':book.language.language_name,
-            'num_pages': book.num_pages,
-            'publication_date': book.publication_date,
-            'publisher': book.publisher.publisher_name
-        }
-        #book_title = Book.objects.filter(title=title)
-        #book_title = get_object_or_404(Book, title=title)
-        return Response(book_detail, status=status.HTTP_200_OK)
+        try:
+            book = Book.objects.get(title__iexact=title)
+            book_author = book.book_author.values_list('author_name', flat=True)[0]
+            book_detail = {
+                'title': book.title,
+                'author':book_author,
+                'cover': book.cover,
+                'desc': book.description,
+                'language':book.language.language_name,
+                'num_pages': book.num_pages,
+                'publication_date': book.publication_date,
+                'publisher': book.publisher.publisher_name
+            }
+            return Response(book_detail, status=status.HTTP_200_OK)
+        except:
+            return Response('Book not found', status=status.HTTP_404_NOT_FOUND)

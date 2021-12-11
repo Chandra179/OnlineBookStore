@@ -5,8 +5,3 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = "__all__"
-
-class BookAuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BookAuthor
-        fields = "__all__"
