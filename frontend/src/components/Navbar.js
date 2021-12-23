@@ -10,19 +10,20 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import AuthService from "../services/auth.service"
+import { useUser } from "../hooks/useUser";
 
 const Navbar = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
-
+  const { userState, setUserState } = useUser();
+  
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      setCurrentUser(user);
+      setUserState(user);
     }
   }, []);
 
   const logOut = () => {
-    setCurrentUser(undefined);
+    setUserState(undefined);
     AuthService.logout();
   };
 
@@ -43,7 +44,7 @@ const Navbar = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               News
             </Typography>
-            {currentUser ? (
+            {userState ? (
               <Link to="/signin" onClick={logOut}>
                 <Button color="primary">
                   <Typography variant="p" color="common.white">

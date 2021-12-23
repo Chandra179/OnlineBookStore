@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
+import { useUser } from "../hooks/useUser";
 
 
 function Copyright(props) {
@@ -34,10 +35,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp(props) {
+    const { userState, setUserState } = useUser();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
     let history = useHistory();
 
     const onChangeEmail = (e) => {
@@ -53,13 +53,10 @@ export default function SignUp(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setMessage("");
-        setLoading(true);
-
         //HANDLE LOGIN HERE!!
         AuthService.signup(email, password).then(
             (data) => {
-                props.changeUserState(data)
+                setUserState(data)
                 history.push("/");
             },
             (error) => {

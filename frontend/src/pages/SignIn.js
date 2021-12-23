@@ -16,8 +16,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
-import Alert from "./Alert";
-
+import Alert from "../components/Alert";
+import { useUser } from "../hooks/useUser";
 
 function Copyright(props) {
     return (
@@ -34,7 +34,9 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn(props) {
+export default function SignIn() {
+    const { userState, setUserState } = useUser();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginAlert, setLoginAlert] = useState("");
@@ -46,6 +48,7 @@ export default function SignIn(props) {
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
+        console.log('item',user);
         if (user) {
             history.push("/");
         }
@@ -76,8 +79,8 @@ export default function SignIn(props) {
         if (email != "" && password != "") {
             AuthService.signin(email, password).then(
                 (data) => {
-                    // Update current user state (App.js)
-                    props.changeUserState(data)
+                    // Update current user state (context.js)
+                    setUserState(data);
                     history.push("/");
                 },
                 (error) => {

@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import ShowMoreText from "react-show-more-text";
 import axios from "axios";
 
-import Pagination from '@mui/material/Pagination';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+
+import ShoppingCard from "../components/ShoppingCard";
 
 function Cover({ cover }) {
     return (
@@ -127,7 +124,7 @@ export default function HomeDetail() {
                 md={3}
                 sm={3}
                 xs={3}>
-                <p>Order detail</p>
+                <ShoppingCard />
             </Grid>
         </Grid>
     );

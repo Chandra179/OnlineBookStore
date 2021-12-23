@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import Routes from './Routes/routes'
 import './index.css';
 
-import CartContextProvider from './context/cartContext'
+import CartContextProvider from './context/cartContext';
+import UserContextProvider from './context/userContext';
 
 ReactDOM.render(
-  <CartContextProvider>
-    <Routes />
-  </CartContextProvider>,
+  <UserContextProvider>
+    <CartContextProvider>
+      <Routes />
+    </CartContextProvider>
+  </UserContextProvider>,
   document.getElementById('root')
 );
 
