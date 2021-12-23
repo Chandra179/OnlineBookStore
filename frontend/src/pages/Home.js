@@ -13,7 +13,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 import BookService from "../services/book.service"
-import usePagination from "./Pagination";
+import usePagination from "../components/Pagination";
+
+import { useCart } from "../hooks/useCart";
 
 function MyPagination({ page, count, handleChange }) {
     return (
@@ -111,6 +113,9 @@ function BookList({ _DATA }) {
 }
 
 export default function Home(props) {
+    const cartItem = useCart();
+    console.log(cartItem);
+
     const [bookList, setBookList] = useState([]);
     let [page, setPage] = useState(1);
     const PER_PAGE = 2;
@@ -140,6 +145,7 @@ export default function Home(props) {
                 sm={3}
                 xs={3}>
                 <p>Filter</p>
+                <h1>{cartItem.cartItem}</h1>
             </Grid>
             <Grid item
                 lg={10}

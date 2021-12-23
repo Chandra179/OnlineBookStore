@@ -9,14 +9,9 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import AuthService from "./services/auth.service";
-import SignIn from "./components/SignIn"
-import SignUp from "./components/SignUp"
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./components/Home";
-import HomeDetail from "./components/HomeDetail";
+import AuthService from "../services/auth.service"
 
-const App = () => {
+const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -69,7 +64,7 @@ const App = () => {
         </AppBar>
       </Box>
 
-      <Switch>
+      {/* <Switch>
         <ProtectedRoute exact path="/" component={Home} />
         <Route exact path="/signin"
           component={() => <SignIn changeUserState={currentUser => setCurrentUser(currentUser)} />} />
@@ -77,9 +72,9 @@ const App = () => {
           component={() => <SignUp changeUserState={currentUser => setCurrentUser(currentUser)} />} />
         <Route exact path="/home-detail/:title/"
           component={HomeDetail} />
-      </Switch>
+      </Switch> */}
     </div>
   );
 };
 
-export default App;
+export default Navbar;
