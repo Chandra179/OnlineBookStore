@@ -1,62 +1,71 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
+const styles = theme => ({
+    addToCart: {
+        margin: '10px 10px 0px 10px',
+    },
+    buyNow: {
+        margin: '10px 10px 10px 10px',
+    },
+    qtyBox: {
+        maxWidth: '80px',
+        minWidth: '80px',
+        margin: '10px 10px 0px 10px',
+    }
+});
 
-export default function ShoppingCard() {
-    const [expanded, setExpanded] = React.useState(false);
+function QtySelect({ classes }) {
+    const [qty, setQty] = useState(1);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
+    const handleChange = (event) => {
+        setQty(event.target.value);
     };
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
-            />
-            <CardMedia
-                component="img"
-                height="194"
-                image="/static/images/cards/paella.jpg"
-                alt="Paella dish"
-            />
+        <Box className={classes.qtyBox}>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Qty</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={qty}
+                    label="Qty"
+                    onChange={handleChange}
+                    displayEmpty
+                >
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                </Select>
+            </FormControl>
+        </Box>
+    );
+}
+
+function ShoppingCard(props) {
+    const { classes } = props;
+
+    return (
+        <Card sx={{ maxWidth: 300 }}>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     This impressive paella is a perfect party dish and a fun meal to cook
@@ -64,11 +73,12 @@ export default function ShoppingCard() {
                     if you like.
                 </Typography>
             </CardContent>
+            <QtySelect classes={classes} />
             <Stack>
-                <Button variant="contained" startIcon={<AddIcon />}>
+                <Button variant="contained" className={classes.addToCart} startIcon={<AddIcon />}>
                     Add to cart
                 </Button>
-                <Button variant="outlined" sx={{ mt: 1 }}>
+                <Button variant="outlined" className={classes.buyNow}>
                     Buy now
                 </Button>
             </Stack>
@@ -83,3 +93,5 @@ export default function ShoppingCard() {
         </Card>
     );
 }
+
+export default withStyles(styles)(ShoppingCard);

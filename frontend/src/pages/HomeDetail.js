@@ -106,16 +106,16 @@ export default function HomeDetail() {
             <Grid item
                 lg={2}
                 md={2}
-                sm={2}
-                xs={2}
+                sm={11}
+                xs={11}
                 sx={{ marginRight: 5 }}>
                 <Cover cover={cover} />
             </Grid>
             <Grid item
                 lg={6}
                 md={6}
-                sm={6}
-                xs={6}
+                sm={8}
+                xs={8}
                 sx={{ marginRight: 3 }}>
                 <Item title={title} author={author} desc={desc} expand={expand} expandText={expandText} />
             </Grid>
