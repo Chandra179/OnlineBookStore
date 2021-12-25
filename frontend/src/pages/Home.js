@@ -114,8 +114,6 @@ function BookList({ _DATA }) {
 
 export default function Home(props) {
     const { cartItem, setCartItem } = useCart();
-    console.log('state ->', cartItem);
-    console.log('setState ->', setCartItem);
 
     const [bookList, setBookList] = useState([]);
     let [page, setPage] = useState(1);
@@ -146,9 +144,7 @@ export default function Home(props) {
                 sm={3}
                 xs={3}>
                 <p>Filter</p>
-                <button onClick={() => setCartItem(1)}>
-                    Cart Item {cartItem}
-                </button>
+                Cart Item {cartItem}
             </Grid>
             <Grid item
                 lg={10}

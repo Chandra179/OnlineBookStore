@@ -17,6 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import { useCart } from "../hooks/useCart";
+
 
 const styles = theme => ({
     addToCart: {
@@ -32,8 +34,12 @@ const styles = theme => ({
     }
 });
 
-function QtySelect({ classes }) {
-    const [qty, setQty] = useState(1);
+function ClickAddToCart({ cartItem, setCartItem }) {
+    setCartItem(10);
+    console.log('clicked');
+}
+
+function QtySelect({ qty, setQty, classes }) {
 
     const handleChange = (event) => {
         setQty(event.target.value);
@@ -63,6 +69,8 @@ function QtySelect({ classes }) {
 
 function ShoppingCard(props) {
     const { classes } = props;
+    const { cartItem, setCartItem } = useCart();
+    const [qty, setQty] = useState(1);
 
     return (
         <Card sx={{ maxWidth: 300 }}>
@@ -73,9 +81,16 @@ function ShoppingCard(props) {
                     if you like.
                 </Typography>
             </CardContent>
-            <QtySelect classes={classes} />
+            <QtySelect
+                qty={qty}
+                setQty={setQty}
+                classes={classes} />
             <Stack>
-                <Button variant="contained" className={classes.addToCart} startIcon={<AddIcon />}>
+                <Button
+                    onClick={() => setCartItem(qty)}
+                    variant="contained"
+                    className={classes.addToCart}
+                    startIcon={<AddIcon />}>
                     Add to cart
                 </Button>
                 <Button variant="outlined" className={classes.buyNow}>

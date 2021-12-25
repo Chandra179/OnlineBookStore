@@ -12,7 +12,7 @@ import ShoppingCard from "../components/ShoppingCard";
 
 function Cover({ cover }) {
     return (
-        <Card sx={{ maxWidth: 380, maxHeight: 390 }}>
+        <Card sx={{ maxWidth: 240, maxHeight: 350 }}>
             <CardMedia
                 component="img"
                 image={cover}
@@ -56,6 +56,7 @@ function Item({ title, author, desc, expand, expandText }) {
 }
 
 export default function HomeDetail() {
+
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [cover, setCover] = useState('');
