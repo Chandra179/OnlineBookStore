@@ -31,8 +31,13 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:3000',
+)
+CORS_EXPOSE_HEADERS = (
+    'total_book',
+)
 # Application definition
 
 INSTALLED_APPS = [

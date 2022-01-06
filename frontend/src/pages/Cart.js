@@ -18,9 +18,9 @@ import usePagination from "../components/Pagination";
 import { useCart } from "../hooks/useCart";
 
 function CartItem() {
+    const { cartItem, setCartItem } = useCart();
     return (
         <Grid container sx={{ p: 4, boxShadow: 1 }} spacing={2}>
-            
             {/* ROW 1 */}
             <Grid item
                 lg={9}
@@ -35,6 +35,7 @@ function CartItem() {
                 sm={3}
                 xs={3}>
                 <Typography>Your items</Typography>
+                {cartItem}
             </Grid>
 
             {/* ROW 2 */}

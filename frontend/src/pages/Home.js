@@ -14,8 +14,7 @@ import Typography from '@mui/material/Typography';
 
 import BookService from "../services/book.service"
 import usePagination from "../components/Pagination";
-
-import { useCart } from "../hooks/useCart";
+import { useBook } from "../hooks/useBook";
 
 function MyPagination({ page, count, handleChange }) {
     return (
@@ -113,38 +112,32 @@ function BookList({ _DATA }) {
 }
 
 export default function Home(props) {
-    const { cartItem, setCartItem } = useCart();
+    const { bookItem, setBookItem } = useBook();
+    // const [page, setPage] = useState(1);
+    // const PER_PAGE = 2;
+    // const count = Math.ceil(bookItem.length / PER_PAGE);
+    // const _DATA = usePagination(bookItem, PER_PAGE);
+    // const handleChange = (e, p) => {
+    //     setPage(p);
+    //     _DATA.jump(p);
+    // };
 
-    const [bookList, setBookList] = useState([]);
-    let [page, setPage] = useState(1);
-    const PER_PAGE = 2;
-    const count = Math.ceil(bookList.length / PER_PAGE);
-    const _DATA = usePagination(bookList, PER_PAGE);
-    const handleChange = (e, p) => {
-        setPage(p);
-        _DATA.jump(p);
-    };
-
+    // console.log(bookItem, setBookItem)
     useEffect(() => {
         BookService.bookList().then(
-            (data) => {
-                setBookList(data)
-            },
-            (error) => {
-                console.log(error)
-            }
+            
         )
     }, []);
 
     return (
         <Grid container spacing={2}>
-            <Grid item
+            {bookItem}
+            {/* <Grid item
                 lg={2}
                 md={2}
                 sm={3}
                 xs={3}>
                 <p>Filter</p>
-                Cart Item {cartItem}
             </Grid>
             <Grid item
                 lg={10}
@@ -156,7 +149,7 @@ export default function Home(props) {
                     count={count}
                     page={page}
                     handleChange={handleChange} />
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 }
