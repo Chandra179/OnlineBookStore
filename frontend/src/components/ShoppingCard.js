@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -34,10 +33,10 @@ const styles = theme => ({
     }
 });
 
-function ClickAddToCart({ cartItem, setCartItem }) {
-    setCartItem(10);
-    console.log('clicked');
-}
+// function ClickAddToCart({ cartItem, setCartItem }) {
+//     setCartItem(10);
+//     console.log('clicked');
+// }
 
 function QtySelect({ qty, setQty, classes }) {
 
@@ -69,7 +68,7 @@ function QtySelect({ qty, setQty, classes }) {
 
 function ShoppingCard(props) {
     const { classes } = props;
-    const { cartItem, setCartItem } = useCart();
+    const { setCartItem } = useCart();
     const [qty, setQty] = useState(1);
 
     return (

@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-import Pagination from '@mui/material/Pagination';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
+import React from "react";
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-
-import BookService from "../services/book.service"
-import usePagination from "../components/Pagination";
-
 import { useCart } from "../hooks/useCart";
 
 function CartItem() {
-    const { cartItem, setCartItem } = useCart();
+    const { cartItem } = useCart();
     return (
         <Grid container sx={{ p: 4, boxShadow: 1 }} spacing={2}>
             {/* ROW 1 */}

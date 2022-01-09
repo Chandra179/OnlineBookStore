@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -35,7 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-    const { userState, setUserState } = useUser();
+    const { setUserState } = useUser();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -76,7 +76,7 @@ export default function SignIn() {
             setPasswordError(true)
         }
 
-        if (email != "" && password != "") {
+        if (email !== "" && password !== "") {
             AuthService.signin(email, password).then(
                 (data) => {
                     // Update current user state (context.js)
@@ -124,7 +124,7 @@ export default function SignIn() {
                             onChange={onChangeEmail}
                             value={email}
                             error={emailError ? true : false}
-                            helperText={emailHelper != "" ? emailHelper : false}
+                            helperText={emailHelper !== "" ? emailHelper : false}
                             margin="normal"
                             required
                             fullWidth
@@ -138,7 +138,7 @@ export default function SignIn() {
                             onChange={onChangePassword}
                             value={password}
                             error={passwordError ? true : false}
-                            helperText={passwordHelper != "" ? passwordHelper : false}
+                            helperText={passwordHelper !== "" ? passwordHelper : false}
                             margin="normal"
                             required
                             fullWidth

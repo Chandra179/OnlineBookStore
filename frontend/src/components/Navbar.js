@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -64,16 +64,6 @@ const Navbar = () => {
           </Toolbar>
         </AppBar>
       </Box>
-
-      {/* <Switch>
-        <ProtectedRoute exact path="/" component={Home} />
-        <Route exact path="/signin"
-          component={() => <SignIn changeUserState={currentUser => setCurrentUser(currentUser)} />} />
-        <Route exact path="/signup"
-          component={() => <SignUp changeUserState={currentUser => setCurrentUser(currentUser)} />} />
-        <Route exact path="/home-detail/:title/"
-          component={HomeDetail} />
-      </Switch> */}
     </div>
   );
 };

@@ -1,16 +1,13 @@
 import axios from "axios";
 
-const bookList = () => {
-  return axios
+async function bookList() {
+  const response = await axios
     .get("http://127.0.0.1:8000/book/")
     .then((response) => {
-      console.log('data =>', response.data)
-      console.log('headers ->', response.headers)
-      return response.data;
+      return response;
     });
-};
-
-
+  return response;
+}
 
 const BookService = {
     bookList,

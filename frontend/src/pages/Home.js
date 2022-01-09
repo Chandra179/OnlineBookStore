@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Pagination from '@mui/material/Pagination';
@@ -11,37 +11,16 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import BookService from "../services/book.service"
-import usePagination from "../components/Pagination";
 import { useBook } from "../hooks/useBook";
+import { ListItemButton } from "@mui/material";
 
-function MyPagination({ page, count, handleChange }) {
-    return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box p="5">
-                <Pagination
-                    count={count}
-                    size="large"
-                    page={page}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={handleChange}
-                />
-            </Box>
-        </Grid>
-    )
-}
-
-function BookList({ _DATA }) {
+function BookList({ data }) {
     return (
         <List>
-            {_DATA.currentData().map(function (v, i) {
+            {data.map(function (item, i) {
                 return (
                     <div key={i}>
                         <ListItem>
@@ -61,7 +40,7 @@ function BookList({ _DATA }) {
                                         <CardMedia
                                             component="img"
                                             width="200"
-                                            image={v.cover}
+                                            image={item.cover}
                                         />
                                     </Card>
                                 </Grid>
@@ -72,7 +51,7 @@ function BookList({ _DATA }) {
                                     xs={8}>
                                     <ListItemText sx={{ margin: 0, padding: 0 }}>
                                         <Link to={{
-                                            pathname: `/home-detail/${v.title.replace(/\s+/g, '-').toLowerCase()}`
+                                            pathname: `/home-detail/${item.title.replace(/\s+/g, '-').toLowerCase()}`
                                         }}>
                                             <Typography sx={{
                                                 color: "black",
@@ -83,7 +62,7 @@ function BookList({ _DATA }) {
                                                     xs: 16
                                                 }
                                             }}>
-                                                {v.title}
+                                                {item.title}
                                             </Typography>
                                         </Link>
                                     </ListItemText>
@@ -97,7 +76,7 @@ function BookList({ _DATA }) {
                                                 xs: 14
                                             }
                                         }}>
-                                            by {v.author}
+                                            by {item.author}
                                         </Typography>
                                     </ListItemText>
                                 </Grid>
@@ -111,28 +90,31 @@ function BookList({ _DATA }) {
     )
 }
 
+
 export default function Home(props) {
     const { bookItem, setBookItem } = useBook();
-    // const [page, setPage] = useState(1);
-    // const PER_PAGE = 2;
-    // const count = Math.ceil(bookItem.length / PER_PAGE);
-    // const _DATA = usePagination(bookItem, PER_PAGE);
-    // const handleChange = (e, p) => {
-    //     setPage(p);
-    //     _DATA.jump(p);
-    // };
+    // const bookList = bookItem.map((item, index) =>
+    //     <ul key={index}>
+    //         <li>{item.title}</li>
+    //         <li>{item.cover}</li>
+    //         <li>{item.author}</li>
+    //     </ul>
+    // );
 
-    // console.log(bookItem, setBookItem)
     useEffect(() => {
         BookService.bookList().then(
-            
+            (data) => {
+                setBookItem(data.data);
+            },
+            (error) => {
+                console.log(error)
+            }
         )
     }, []);
 
     return (
         <Grid container spacing={2}>
-            {bookItem}
-            {/* <Grid item
+            <Grid item
                 lg={2}
                 md={2}
                 sm={3}
@@ -144,12 +126,8 @@ export default function Home(props) {
                 md={10}
                 sm={12}
                 xs={12}>
-                <BookList _DATA={_DATA} />
-                <MyPagination
-                    count={count}
-                    page={page}
-                    handleChange={handleChange} />
-            </Grid> */}
+                <BookList data={bookItem} />
+            </Grid>
         </Grid>
     );
 }
