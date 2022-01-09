@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+
+import { useCart } from "../hooks/useCart";
+
+import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -16,10 +19,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useCart } from "../hooks/useCart";
 
-
-const styles = theme => ({
+const useStyles = makeStyles({
+    cardSize: {
+        maxWidth: '300'
+    },
     addToCart: {
         margin: '10px 10px 0px 10px',
     },
@@ -30,7 +34,7 @@ const styles = theme => ({
         maxWidth: '80px',
         minWidth: '80px',
         margin: '10px 10px 0px 10px',
-    }
+    },
 });
 
 // function ClickAddToCart({ cartItem, setCartItem }) {
@@ -66,13 +70,13 @@ function QtySelect({ qty, setQty, classes }) {
     );
 }
 
-function ShoppingCard(props) {
-    const { classes } = props;
+function ShoppingCard() {
+    const classes = useStyles();
     const { setCartItem } = useCart();
     const [qty, setQty] = useState(1);
 
     return (
-        <Card sx={{ maxWidth: 300 }}>
+        <Card className={classes.cardSize}>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     This impressive paella is a perfect party dish and a fun meal to cook
@@ -108,4 +112,4 @@ function ShoppingCard(props) {
     );
 }
 
-export default withStyles(styles)(ShoppingCard);
+export default ShoppingCard;
