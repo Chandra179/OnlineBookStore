@@ -1,48 +1,30 @@
 import React, { useState } from "react";
 
-function Pagination() {
-    const todos = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2;
-    const indexOfLastPage = currentPage * itemsPerPage;
-    const indexOfFirstPage = indexOfLastPage - itemsPerPage;
-    const currentItems = todos.slice(indexOfFirstPage, indexOfLastPage);
+function usePagination(itemLength, items, itemsPerPage) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const maxPage = Math.ceil(itemLength / itemsPerPage);
 
-    function handleClick(e) {
-        setCurrentPage(Number(e.target.id))
-    }
+  function currentData() {
+    // const begin = (currentPage - 1) * itemsPerPage;
+    // const end = begin + itemsPerPage;
+    // return items.slice(begin, end);
+    return items;
+  }
 
-    const renderItems = currentItems.map((item, index) => {
-        return <li key={index}>{item}</li>;
-    });
+  function next() {
+    setCurrentPage(currentPage => Math.min(currentPage + 1, maxPage));
+  }
 
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(todos.length / itemsPerPage); i++) {
-        pageNumbers.push(i);
-    }
+  function prev() {
+    setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
+  }
 
-    const renderPageNumbers = pageNumbers.map(number => {
-        return (
-            <li
-                key={number}
-                id={number}
-                onClick={handleClick}
-            >
-                {number}
-            </li>
-        );
-    });
+  function jump(page) {
+    const pageNumber = Math.max(1, page);
+    setCurrentPage(currentPage => Math.min(pageNumber, maxPage));
+  }
 
-    return (
-        <div>
-            <ul>
-                {renderItems}
-            </ul>
-            <ul id="page-numbers">
-                {renderPageNumbers}
-            </ul>
-        </div>
-    );
+  return { next, prev, jump, currentData, currentPage, maxPage };
 }
 
-export default Pagination;
+export default usePagination;

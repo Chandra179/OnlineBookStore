@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import BookService from "../services/book.service"
 import { useBook } from "../hooks/useBook";
+import usePagination from "../components/Pagination";
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Box from '@mui/material/Box';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
+import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
@@ -33,6 +36,28 @@ const useStyles = makeStyles({
         borderBottomWidth: 2
     }
 });
+
+function MyPagination({ page, count, handleChange }) {
+    return (
+        <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <Box p="5">
+                <Pagination
+                    count={count}
+                    size="large"
+                    page={page}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={handleChange}
+                />
+            </Box>
+        </Grid>
+    )
+}
 
 function Cover({ cover, classes }) {
     return (
@@ -85,7 +110,7 @@ function Content({ title, author, classes }) {
 function BookList({ data, classes }) {
     return (
         <List>
-            {data.map(function (item, i) {
+            {data.currentData().map(function (item, i) {
                 return (
                     <div key={i}>
                         <ListItem>
@@ -128,11 +153,23 @@ function BookList({ data, classes }) {
 function Home() {
     const classes = useStyles();
     const { bookItem, setBookItem } = useBook();
+    const [totalBook, setTotalBook] = useState();
 
+    // PAGINATION
+    const [page, setPage] = useState(1);
+    const PER_PAGE = 2;
+    const count = Math.ceil(5 / PER_PAGE);
+    const _DATA = usePagination(5, bookItem, PER_PAGE);
+    const handleChange = (e, p) => {
+        setPage(p);
+        _DATA.jump(p);
+    };
+    
     useEffect(() => {
         BookService.bookList().then(
             (data) => {
                 setBookItem(data.data);
+                // setTotalBook(data.header.total_book);
             },
             (error) => {
                 console.log(error)
@@ -154,7 +191,11 @@ function Home() {
                 md={10}
                 sm={12}
                 xs={12}>
-                <BookList data={bookItem} classes={classes} />
+                <BookList data={_DATA} classes={classes} />
+                <MyPagination
+                    count={count}
+                    page={page}
+                    handleChange={handleChange} />
             </Grid>
         </Grid>
     );
