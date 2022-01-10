@@ -12,7 +12,6 @@ BOOK API
 class BookList(APIView):
     
     def get(self, request, format=None):
-        #user = request.user
         total_book = Book.objects.all().count()
         books = Book.objects.prefetch_related('book_author')
         book_list = []

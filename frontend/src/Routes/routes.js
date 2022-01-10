@@ -5,13 +5,15 @@ import {
   Route
 } from "react-router-dom";
 
+import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "../components/Navbar";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Home from '../pages/Home';
 import HomeDetail from "../pages/HomeDetail";
-import ProtectedRoute from "./ProtectedRoute";
 import Cart from "../pages/Cart";
+import Pagination from "../components/Pagination";
+
 
 const Routes = () => {
   return (
@@ -23,6 +25,7 @@ const Routes = () => {
           <Route path="/signup" component={SignUp} />
           <Route path="/home-detail" component={HomeDetail} />
           <Route path="/cart" component={Cart} />
+          <Route path="/paginate" component={Pagination} />
         </Switch>
     </Router>
   );
