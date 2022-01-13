@@ -3,10 +3,10 @@ import React, { useState, createContext } from 'react';
 export const BookContext = createContext()
 
 const BookContextProvider = ({children}) => {
-    const [bookItem, setBookItem] = useState([]);
+    const [bookList, setBookList] = useState([]);
 
     return ( 
-        <BookContext.Provider value={{bookItem, setBookItem}} >
+        <BookContext.Provider value={{bookList, setBookList}} >
             { children }
         </BookContext.Provider>
      );

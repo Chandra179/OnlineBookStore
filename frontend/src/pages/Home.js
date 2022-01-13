@@ -6,14 +6,17 @@ import { useBook } from "../hooks/useBook";
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { makeStyles } from '@mui/styles';
 
 
@@ -127,43 +130,27 @@ function BookList({ data, classes }) {
     )
 }
 
-function PageNumbers({ totalBook, bookPerPage, handlePageClick }) {
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(totalBook / bookPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
+function PageNumbers({ currentPage, totalPageNumber, handlePageClick }) {
     return (
-        <>
-            {pageNumbers.map(number => {
-                return (
-                    <button
-                        key={number}
-                        id={number}
-                        onClick={handlePageClick}
-                    >
-                        {number}
-                    </button>
-                );
-            })}
-        </>
+        <Stack spacing={2}>
+            <Pagination count={totalPageNumber} page={currentPage} onChange={handlePageClick} />
+        </Stack>
     );
 }
 
 function Home() {
     const classes = useStyles();
     const bookPerPage = 2;
-    const { bookItem, setBookItem } = useBook();
-    const [totalBook, setTotalBook] = useState();
-    const [currentPage, setCurrentPage] = useState();
+    const { bookList, setBookList } = useBook(0);
+    const [totalBook, setTotalBook] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPageNumber = Math.ceil(totalBook / bookPerPage);
 
     useEffect(() => {
-        const numPage = 1;
-
         // set param page dafault to 1
-        BookService.bookList(numPage).then(
+        BookService.bookList(currentPage).then(
             (data) => {
-                setBookItem(data.book);
+                setBookList(data.book);
                 setTotalBook(data.total_book);
             },
             (error) => {
@@ -172,21 +159,19 @@ function Home() {
         )
     }, []);
 
-    async function handlePageClick(e) {
-        const numPage = Number(e.target.id);
-
-        // set param page from clicked page number
-        await BookService.bookList(numPage).then(
+    const handlePageClick = async(event, value) => {
+        // set param page to clicked page number
+        await BookService.bookList(value).then(
             (data) => {
-                setBookItem(data.book);
+                setBookList(data.book);
                 setTotalBook(data.total_book);
+                setCurrentPage(value);
             },
             (error) => {
                 console.log(error)
             }
         )
-        setCurrentPage(numPage);
-    }
+    };
 
     return (
         <Grid container spacing={2}>
@@ -202,11 +187,11 @@ function Home() {
                 md={10}
                 sm={12}
                 xs={12}>
-                <BookList data={bookItem} classes={classes} />
+                <BookList data={bookList} classes={classes} />
                 <PageNumbers
+                    currentPage={currentPage}
                     handlePageClick={handlePageClick}
-                    totalBook={totalBook}
-                    bookPerPage={bookPerPage} />
+                    totalPageNumber={totalPageNumber} />
             </Grid>
         </Grid>
     );
