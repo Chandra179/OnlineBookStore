@@ -13,10 +13,8 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { makeStyles } from '@mui/styles';
 
 
@@ -130,9 +128,9 @@ function BookList({ data, classes }) {
     )
 }
 
-function PageNumbers({ currentPage, totalPageNumber, handlePageClick }) {
+function MyPagination({ currentPage, totalPageNumber, handlePageClick }) {
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ alignItems: 'center' }}>
             <Pagination count={totalPageNumber} page={currentPage} onChange={handlePageClick} />
         </Stack>
     );
@@ -159,7 +157,7 @@ function Home() {
         )
     }, []);
 
-    const handlePageClick = async(event, value) => {
+    const handlePageClick = async (event, value) => {
         // set param page to clicked page number
         await BookService.bookList(value).then(
             (data) => {
@@ -182,13 +180,14 @@ function Home() {
                 xs={3}>
                 <p>Filter</p>
             </Grid>
-            <Grid item
+            <Grid
+                item
                 lg={10}
                 md={10}
                 sm={12}
                 xs={12}>
                 <BookList data={bookList} classes={classes} />
-                <PageNumbers
+                <MyPagination
                     currentPage={currentPage}
                     handlePageClick={handlePageClick}
                     totalPageNumber={totalPageNumber} />
