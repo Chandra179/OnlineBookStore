@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import BookService from "../services/book.service"
 import { useBook } from "../hooks/useBook";
-import usePagination from "../components/Pagination";
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -32,32 +31,10 @@ const useStyles = makeStyles({
         padding: 0
     },
     dividerProperties: {
-        margin: "20px 0px 20px 0px", 
+        margin: "20px 0px 20px 0px",
         borderBottomWidth: 2
     }
 });
-
-function MyPagination({ page, count, handleChange }) {
-    return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box p="5">
-                <Pagination
-                    count={count}
-                    size="large"
-                    page={page}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={handleChange}
-                />
-            </Box>
-        </Grid>
-    )
-}
 
 function Cover({ cover, classes }) {
     return (
@@ -110,7 +87,7 @@ function Content({ title, author, classes }) {
 function BookList({ data, classes }) {
     return (
         <List>
-            {data.currentData().map(function (item, i) {
+            {data.map(function (item, i) {
                 return (
                     <div key={i}>
                         <ListItem>
@@ -150,32 +127,66 @@ function BookList({ data, classes }) {
     )
 }
 
+function PageNumbers({ totalBook, bookPerPage, handlePageClick }) {
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(totalBook / bookPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    return (
+        <>
+            {pageNumbers.map(number => {
+                return (
+                    <button
+                        key={number}
+                        id={number}
+                        onClick={handlePageClick}
+                    >
+                        {number}
+                    </button>
+                );
+            })}
+        </>
+    );
+}
+
 function Home() {
     const classes = useStyles();
+    const bookPerPage = 2;
     const { bookItem, setBookItem } = useBook();
     const [totalBook, setTotalBook] = useState();
+    const [currentPage, setCurrentPage] = useState();
 
-    // PAGINATION
-    const [page, setPage] = useState(1);
-    const PER_PAGE = 2;
-    const count = Math.ceil(5 / PER_PAGE);
-    const _DATA = usePagination(5, bookItem, PER_PAGE);
-    const handleChange = (e, p) => {
-        setPage(p);
-        _DATA.jump(p);
-    };
-    
     useEffect(() => {
-        BookService.bookList().then(
+        const numPage = 1;
+
+        // set param page dafault to 1
+        BookService.bookList(numPage).then(
             (data) => {
-                setBookItem(data.data);
-                // setTotalBook(data.header.total_book);
+                setBookItem(data.book);
+                setTotalBook(data.total_book);
             },
             (error) => {
                 console.log(error)
             }
         )
     }, []);
+
+    async function handlePageClick(e) {
+        const numPage = Number(e.target.id);
+
+        // set param page from clicked page number
+        await BookService.bookList(numPage).then(
+            (data) => {
+                setBookItem(data.book);
+                setTotalBook(data.total_book);
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+        setCurrentPage(numPage);
+    }
 
     return (
         <Grid container spacing={2}>
@@ -191,11 +202,11 @@ function Home() {
                 md={10}
                 sm={12}
                 xs={12}>
-                <BookList data={_DATA} classes={classes} />
-                <MyPagination
-                    count={count}
-                    page={page}
-                    handleChange={handleChange} />
+                <BookList data={bookItem} classes={classes} />
+                <PageNumbers
+                    handlePageClick={handlePageClick}
+                    totalBook={totalBook}
+                    bookPerPage={bookPerPage} />
             </Grid>
         </Grid>
     );
