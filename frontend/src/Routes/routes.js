@@ -2,7 +2,8 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  IndexRedirect
 } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
@@ -17,14 +18,14 @@ import Cart from "../pages/Cart";
 const Routes = () => {
   return (
     <Router>
-        <Navbar />
-        <Switch>
-          <ProtectedRoute exact path="/book" component={Home} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/book/:title" component={HomeDetail} />
-          <Route path="/cart" component={Cart} />
-        </Switch>
+      <Navbar />
+      <Switch>
+        <ProtectedRoute exact path={["/","/book"]} component={Home} />
+        <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/book/:title" component={HomeDetail} />
+        <Route path="/cart" component={Cart} />
+      </Switch>
     </Router>
   );
 }
