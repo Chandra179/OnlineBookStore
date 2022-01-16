@@ -71,7 +71,7 @@ export default function HomeDetail() {
             }
         )
     }, []);
-
+    
     return (
         <Grid
             container

@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { useCart } from "../hooks/useCart";
 
 function CartItem() {
-    const { cartItem } = useCart();
+    const { cartItem, setCartItem } = useCart();
     return (
         <Grid container sx={{ p: 4, boxShadow: 1 }} spacing={2}>
             {/* ROW 1 */}

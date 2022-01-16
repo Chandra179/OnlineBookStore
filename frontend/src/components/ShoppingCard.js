@@ -12,6 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -36,11 +37,6 @@ const useStyles = makeStyles({
         margin: '10px 10px 0px 10px',
     },
 });
-
-// function ClickAddToCart({ cartItem, setCartItem }) {
-//     setCartItem(10);
-//     console.log('clicked');
-// }
 
 function QtySelect({ qty, setQty, classes }) {
 
@@ -70,10 +66,47 @@ function QtySelect({ qty, setQty, classes }) {
     );
 }
 
+function AddToCartButton({ disabled, handleAddToCart, handleDeleteFromCart, classes }) {
+    if (disabled === false) {
+        return (
+            <Button
+                onClick={handleAddToCart}
+                variant="contained"
+                className={classes.addToCart}
+                startIcon={<AddIcon />}>
+                Add to cart
+            </Button>
+        );
+    } else {
+        return (
+            <Button
+                onClick={handleDeleteFromCart}
+                variant="contained"
+                className={classes.addToCart}
+                startIcon={<DeleteIcon />}
+                color="error">
+                Remove from cart
+            </Button>
+        );
+    }
+
+}
+
 function ShoppingCard() {
     const classes = useStyles();
-    const { setCartItem } = useCart();
+    const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
+    const [disabled, setDisabled] = useState(false);
+
+    const handleAddToCart = (event, value) => {
+        setDisabled(true);
+        console.log(qty)
+    };
+
+    const handleDeleteFromCart = (event, value) => {
+        setDisabled(false);
+        console.log(qty)
+    };
 
     return (
         <Card className={classes.cardSize}>
@@ -89,13 +122,12 @@ function ShoppingCard() {
                 setQty={setQty}
                 classes={classes} />
             <Stack>
-                <Button
-                    onClick={() => setCartItem(qty)}
-                    variant="contained"
-                    className={classes.addToCart}
-                    startIcon={<AddIcon />}>
-                    Add to cart
-                </Button>
+                <AddToCartButton
+                    disabled={disabled}
+                    handleAddToCart={handleAddToCart}
+                    handleDeleteFromCart={handleDeleteFromCart}
+                    classes={classes}
+                />
                 <Button variant="outlined" className={classes.buyNow}>
                     Buy now
                 </Button>
