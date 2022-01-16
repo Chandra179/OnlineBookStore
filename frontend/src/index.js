@@ -5,15 +5,12 @@ import './index.css';
 
 import CartContextProvider from './context/cartContext';
 import UserContextProvider from './context/userContext';
-import BookContextProvider from './context/bookContext';
 
 ReactDOM.render(
   <UserContextProvider>
-    <BookContextProvider>
       <CartContextProvider>
         <Routes />
       </CartContextProvider>
-    </BookContextProvider>
   </UserContextProvider>,
   document.getElementById('root')
 );

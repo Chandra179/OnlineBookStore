@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import BookService from "../services/book.service"
-import { useBook } from "../hooks/useBook";
+import BookService from "../services/book.service";
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,7 +12,6 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from '@mui/styles';
 
@@ -53,7 +51,7 @@ function Content({ title, author, classes }) {
         <>
             <ListItemText className={classes.titleProperties}>
                 <Link to={{
-                    pathname: `/home-detail/${title.replace(/\s+/g, '-').toLowerCase()}`
+                    pathname: `/book/${title.replace(/\s+/g, '-').toLowerCase()}`
                 }}>
                     <Typography sx={{
                         color: "black",
@@ -139,7 +137,7 @@ function MyPagination({ currentPage, totalPageNumber, handlePageClick }) {
 function Home() {
     const classes = useStyles();
     const bookPerPage = 2;
-    const { bookList, setBookList } = useBook(0);
+    const [bookList, setBookList] = useState([]);
     const [totalBook, setTotalBook] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPageNumber = Math.ceil(totalBook / bookPerPage);

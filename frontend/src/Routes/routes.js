@@ -19,10 +19,10 @@ const Routes = () => {
     <Router>
         <Navbar />
         <Switch>
-          <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/book" component={Home} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/home-detail" component={HomeDetail} />
+          <Route path="/book/:title" component={HomeDetail} />
           <Route path="/cart" component={Cart} />
         </Switch>
     </Router>

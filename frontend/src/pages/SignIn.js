@@ -50,7 +50,7 @@ export default function SignIn() {
         const user = AuthService.getCurrentUser();
         console.log('item',user);
         if (user) {
-            history.push("/");
+            history.push("/book");
         }
     }, []);
 
@@ -81,7 +81,7 @@ export default function SignIn() {
                 (data) => {
                     // Update current user state (context.js)
                     setUserState(data);
-                    history.push("/");
+                    history.push("/book");
                 },
                 (error) => {
                     if (error.response.data === "User not found") {

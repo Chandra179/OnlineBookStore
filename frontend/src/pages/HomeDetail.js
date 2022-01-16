@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import ShowMoreText from "react-show-more-text";
+import React, { useState, useEffect } from "react";
+import BookService from "../services/book.service";
 
+import ShowMoreText from "react-show-more-text";
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -9,18 +10,18 @@ import Typography from '@mui/material/Typography';
 
 import ShoppingCard from "../components/ShoppingCard";
 
-function Cover({ cover }) {
+function Cover({ bookDetail }) {
     return (
         <Card sx={{ maxWidth: 240, maxHeight: 350 }}>
             <CardMedia
                 component="img"
-                image={cover}
+                image={bookDetail.cover}
             />
         </Card>
     )
 }
 
-function Item({ title, author, desc, expand, expandText }) {
+function Item({ bookDetail, expand, expandText }) {
     return (
         <ListItemText sx={{ margin: 0, padding: 0 }}>
             <Typography sx={{
@@ -32,12 +33,12 @@ function Item({ title, author, desc, expand, expandText }) {
                     xs: 20
                 }
             }}>
-                {title}
+                {bookDetail.title}
             </Typography>
             <Typography sx={{
                 color: "rgb(0, 113, 133)"
             }}>
-                by {author}
+                by {bookDetail.author}
             </Typography>
             <ShowMoreText
                 lines={5}
@@ -46,17 +47,30 @@ function Item({ title, author, desc, expand, expandText }) {
                 onClick={expandText}
                 expanded={expand}
             >
-                {desc}
+                {bookDetail.desc}
             </ShowMoreText>
         </ListItemText>
     )
 }
 
 export default function HomeDetail() {
+    const [bookDetail, setBookDetail] = useState([]);
     const [expand, setExpand] = useState(false);
     const expandText = () => {
         setExpand(!expand);
     };
+
+    useEffect(() => {
+        const title = window.location.pathname.split('/').pop().split('-').join(' ')
+        BookService.bookDetail(title).then(
+            (data) => {
+                setBookDetail(data);
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    }, []);
 
     return (
         <Grid
@@ -72,7 +86,7 @@ export default function HomeDetail() {
                 sm={11}
                 xs={11}
                 sx={{ marginRight: 5 }}>
-                <Cover />
+                <Cover bookDetail={bookDetail} />
             </Grid>
             <Grid item
                 lg={6}
@@ -80,7 +94,9 @@ export default function HomeDetail() {
                 sm={8}
                 xs={8}
                 sx={{ marginRight: 3 }}>
-                <Item expandText={expandText} />
+                <Item 
+                    bookDetail={bookDetail}
+                    expandText={expandText} />
             </Grid>
             <Grid item
                 lg={3}
