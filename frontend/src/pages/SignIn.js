@@ -81,7 +81,7 @@ export default function SignIn() {
                 (data) => {
                     // Update current user state (context.js)
                     setUserState(data);
-                    history.push("/book");
+                    history.push("/");
                 },
                 (error) => {
                     if (error.response.data === "User not found") {

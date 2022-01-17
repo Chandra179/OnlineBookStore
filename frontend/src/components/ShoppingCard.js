@@ -92,20 +92,21 @@ function AddToCartButton({ disabled, handleAddToCart, handleDeleteFromCart, clas
 
 }
 
-function ShoppingCard() {
+function ShoppingCard({ bookDetail }) {
     const classes = useStyles();
     const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
     const [disabled, setDisabled] = useState(false);
 
-    const handleAddToCart = (event, value) => {
+    const handleAddToCart = () => {
         setDisabled(true);
-        console.log(qty)
+        setCartItem(localStorage.setItem('dark-mode', 's'));
+        console.log(bookDetail.title);
+        console.log(qty);
     };
 
-    const handleDeleteFromCart = (event, value) => {
+    const handleDeleteFromCart = () => {
         setDisabled(false);
-        console.log(qty)
     };
 
     return (

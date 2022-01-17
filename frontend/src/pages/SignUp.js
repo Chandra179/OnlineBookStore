@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from "../components/Alert";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
@@ -37,7 +38,13 @@ const theme = createTheme();
 export default function SignUp(props) {
     const { setUserState } = useUser();
     const [email, setEmail] = useState("");
+    const [signupAlert, setSignupAlert] = useState("");
     const [password, setPassword] = useState("");
+    const [emailHelper, setEmailHelper] = useState("");
+    const [passwordHelper, setPasswordHelper] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
     let history = useHistory();
 
     const onChangeEmail = (e) => {
@@ -53,16 +60,37 @@ export default function SignUp(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //HANDLE LOGIN HERE!!
-        AuthService.signup(email, password).then(
-            (data) => {
-                setUserState(data)
-                history.push("/");
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        if (email === "") {
+            setEmailHelper("Enter email")
+            setEmailError(true)
+        }
+        if (password === "") {
+            setPasswordHelper("Enter password")
+            setPasswordError(true)
+        }
+
+        if (email !== "" && password !== "") {
+            //HANDLE LOGIN HERE!!
+            AuthService.signup(email, password).then(
+                (data) => {
+                    setUserState(data)
+                    history.push("/");
+                },
+                (error) => {
+                    if (error.response.data === "User sudah terdaftar!") {
+                        console.log(error.response.data);
+                        setSignupAlert(error.response.data);
+                    } else if (error.response.data === "validasi error") {
+                        console.log(error.response.data);
+                        setSignupAlert(error.response.data);
+                    }
+                    else {
+                        console.log(error);
+                    }
+                    console.log(error);
+                }
+            );
+        }
     };
 
     return (
@@ -77,6 +105,7 @@ export default function SignUp(props) {
                         alignItems: 'center',
                     }}
                 >
+                    {signupAlert ? <Alert signupAlert={signupAlert} /> : <div />}
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
@@ -89,18 +118,23 @@ export default function SignUp(props) {
                                 <TextField
                                     onChange={onChangeEmail}
                                     value={email}
+                                    error={emailError ? true : false}
+                                    helperText={emailHelper !== "" ? emailHelper : false}
                                     required
                                     fullWidth
                                     id="email"
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     onChange={onChangePassword}
                                     value={password}
+                                    error={passwordError ? true : false}
+                                    helperText={passwordHelper !== "" ? passwordHelper : false}
                                     required
                                     fullWidth
                                     name="password"

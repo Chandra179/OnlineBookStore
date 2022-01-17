@@ -67,7 +67,7 @@ export default function HomeDetail() {
                 setBookDetail(data);
             },
             (error) => {
-                console.log(error)
+                console.log(error);
             }
         )
     }, []);
@@ -103,7 +103,7 @@ export default function HomeDetail() {
                 md={3}
                 sm={3}
                 xs={3}>
-                <ShoppingCard />
+                <ShoppingCard bookDetail={bookDetail} />
             </Grid>
         </Grid>
     );
