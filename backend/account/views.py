@@ -33,7 +33,7 @@ class SignUp(APIView):
         serializer = AccountSerializer(data=request.data)
 
         if user_email:
-            return Response('User sudah terdaftar!', status=status.HTTP_200_OK)
+            return Response('User sudah terdaftar!', status=status.HTTP_400_BAD_REQUEST)
         else:
             if serializer.is_valid():
                 password = make_password(self.request.data['password'])
@@ -42,8 +42,12 @@ class SignUp(APIView):
                 # get created user, and set the token
                 user_email = User.objects.get(email=request.data['email'])
                 token = Token.objects.get_or_create(user=user_email)
+                response = {
+                    'token': str(token[0]),
+                    'email': request.data['email']
+                }
 
-                return Response('User berhasil terdaftar', status=status.HTTP_200_OK)
+                return Response(response, status=status.HTTP_200_OK)
             else:
                 return Response('validasi error', status=status.HTTP_400_BAD_REQUEST)
         

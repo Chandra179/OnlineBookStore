@@ -10,7 +10,6 @@ const signin = (email, password) => {
     .then((response) => {
       if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        console.log(response.data);
       }
       return response.data;
     });
