@@ -39,6 +39,7 @@ class SignUp(APIView):
                 password = make_password(self.request.data['password'])
                 serializer.save(password = password)
                 
+                # get created user, and set the token
                 user_email = User.objects.get(email=request.data['email'])
                 token = Token.objects.get_or_create(user=user_email)
 
