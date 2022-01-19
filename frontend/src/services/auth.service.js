@@ -9,7 +9,10 @@ const signin = (email, password) => {
     })
     .then((response) => {
       if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify({
+          'token': response.data.token,
+          'email': response.data.email
+        }));
       }
       return response.data;
     });
@@ -23,7 +26,10 @@ const signup = (email, password) => {
     })
     .then((response) => {
       if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify({
+          'token': response.data.token,
+          'email': response.data.email
+        }));
       }
       return response.data;
     });

@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  IndexRedirect
 } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
@@ -20,7 +19,7 @@ const Routes = () => {
     <Router>
       <Navbar />
       <Switch>
-        <ProtectedRoute exact path={["/","/book"]} component={Home} />
+        <ProtectedRoute exact path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/book/:title" component={HomeDetail} />

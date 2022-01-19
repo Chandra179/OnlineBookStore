@@ -97,16 +97,22 @@ function ShoppingCard({ bookDetail }) {
     const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
     const [disabled, setDisabled] = useState(false);
+    const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
 
     const handleAddToCart = () => {
         setDisabled(true);
-        setCartItem(localStorage.setItem('dark-mode', 's'));
-        console.log(bookDetail.title);
-        console.log(qty);
+        // Store cart item to local storage Use user email as key
+        localStorage.setItem(userEmail, 
+            JSON.stringify({ 
+                title: bookDetail.title,
+                qty: qty
+            })
+        );
     };
 
     const handleDeleteFromCart = () => {
         setDisabled(false);
+        localStorage.removeItem(userEmail);
     };
 
     return (

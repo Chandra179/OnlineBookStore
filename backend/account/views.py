@@ -17,9 +17,16 @@ class SignIn(APIView):
         try:
             user_email = User.objects.get(email=request.data['email'])
             password = request.data['password']
+            
+            # if token exist get, else create token
             token = Token.objects.get_or_create(user=user_email)
+            response = {
+                'token': str(token[0]),
+                'email': request.data['email']
+            }
+
             if user_email.check_password(password):
-                return Response({'token': str(token[0])}, status=status.HTTP_200_OK)
+                return Response(response, status=status.HTTP_200_OK)
             else:
                 return Response('Your password incorrect', status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
@@ -37,8 +44,8 @@ class SignUp(APIView):
         else:
             if serializer.is_valid():
                 password = make_password(self.request.data['password'])
-                serializer.save(password = password)
-                
+                serializer.save(password=password)
+
                 # get created user, and set the token
                 user_email = User.objects.get(email=request.data['email'])
                 token = Token.objects.get_or_create(user=user_email)
@@ -50,5 +57,3 @@ class SignUp(APIView):
                 return Response(response, status=status.HTTP_200_OK)
             else:
                 return Response('validasi error', status=status.HTTP_400_BAD_REQUEST)
-        
-        

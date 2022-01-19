@@ -50,7 +50,7 @@ export default function SignIn() {
         const user = AuthService.getCurrentUser();
         console.log('item',user);
         if (user) {
-            history.push("/book");
+            history.push("/");
         }
     }, []);
 
