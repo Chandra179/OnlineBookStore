@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useCart } from "../hooks/useCart";
+import MyDialog from "../components/Dialog";
 
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
@@ -12,7 +13,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -66,67 +66,55 @@ function QtySelect({ qty, setQty, classes }) {
     );
 }
 
-function AddToCartButton({ disabled, handleAddToCart, handleDeleteFromCart, classes }) {
-    if (disabled === false) {
-        return (
-            <Button
-                onClick={handleAddToCart}
-                variant="contained"
-                className={classes.addToCart}
-                startIcon={<AddIcon />}>
-                Add to cart
-            </Button>
-        );
-    } else {
-        return (
-            <Button
-                onClick={handleDeleteFromCart}
-                variant="contained"
-                className={classes.addToCart}
-                startIcon={<DeleteIcon />}
-                color="error">
-                Remove from cart
-            </Button>
-        );
-    }
-
+function AddToCartButton({ handleAddToCart, classes }) {
+    return (
+        <Button
+            onClick={handleAddToCart}
+            variant="contained"
+            className={classes.addToCart}
+            startIcon={<AddIcon />}>
+            Add to cart
+        </Button>
+    );
 }
 
 function ShoppingCard({ bookDetail }) {
     const classes = useStyles();
-    const { cartItem, setCartItem } = useCart();
+    //const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
-    const [disabled, setDisabled] = useState(false);
+    const [dialog, setDialog] = useState(false);
     const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
 
+    // We are using email as key to store user items to cart
+    const userCart = localStorage.getItem(userEmail);
+
     const handleAddToCart = () => {
-        setDisabled(true);
-        const userKeys = localStorage.getItem(userEmail)
-        if (userKeys === "undefined") {
-            localStorage.removeItem(userEmail);
-        }
-        var oldItems = JSON.parse(localStorage.getItem(userEmail)) || [];
+        // items that user added
         var newItems = {
             title: bookDetail.title,
             qty: qty
         }
-        oldItems.push(newItems)
-        localStorage.setItem(userEmail, JSON.stringify(oldItems));
-    };
+        // store items to cart if cart is empty or not exist
+        if (userCart === "undefined" || userCart === null) {
+            var items = []
+            items.push(newItems)
+            localStorage.setItem(userEmail, JSON.stringify(items));
+        } else { // if an items already exist in cart, then update cart item
+            var oldItems = JSON.parse(localStorage.getItem(userEmail));
+            var duplicateItems = JSON.stringify(oldItems).includes(JSON.stringify(newItems));
 
-    const handleDeleteFromCart = () => {
-        setDisabled(false);
-        var items = JSON.parse(localStorage.getItem(userEmail)) || [];
-        if (items.length === 0) {
-            localStorage.removeItem(userEmail);
-        } else {
-            var filtered = items.filter(function(el) { return el.title != bookDetail.title; }); 
-            localStorage.setItem(userEmail, filtered[0]);
-            console.log('itemssss',filtered[0]);
-        }        
+            if (duplicateItems) {
+                setDialog(true);
+            } else {
+                oldItems.push(newItems);
+                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+            }
+        }
     };
 
     return (
+        <>
+        {dialog ? <MyDialog openDialog={true} /> : <div />}
         <Card className={classes.cardSize}>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -141,9 +129,7 @@ function ShoppingCard({ bookDetail }) {
                 classes={classes} />
             <Stack>
                 <AddToCartButton
-                    disabled={disabled}
                     handleAddToCart={handleAddToCart}
-                    handleDeleteFromCart={handleDeleteFromCart}
                     classes={classes}
                 />
                 <Button variant="outlined" className={classes.buyNow}>
@@ -159,6 +145,8 @@ function ShoppingCard({ bookDetail }) {
                 </IconButton>
             </CardActions>
         </Card>
+        </>
+        
     );
 }
 
