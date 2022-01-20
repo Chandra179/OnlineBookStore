@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useCart } from "../hooks/useCart";
+import Alert from "./Alert";
 
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
@@ -81,9 +82,9 @@ function ShoppingCard({ bookDetail }) {
     const classes = useStyles();
     //const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
+    const [itemExistAlert, setItemExistAlert] = useState(false);
+    const [itemAddedAlert, setItemAddedAlert] = useState(false);
     const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
-
-    // We are using email as key to store user items to cart
     const userCart = localStorage.getItem(userEmail);
 
     const handleAddToCart = () => {
@@ -91,24 +92,31 @@ function ShoppingCard({ bookDetail }) {
         var newItems = {}
         newItems[bookDetail.title] = qty
 
-        // set new cart
+        // add new items to cart
         if (userCart === "undefined" || userCart === null) {
             localStorage.setItem(userEmail, JSON.stringify(newItems));
-        } else { // update cart
+            setItemAddedAlert(true);
+        } else { // update cart items
             var oldItems = JSON.parse(localStorage.getItem(userEmail));
             var duplicateItems = bookDetail.title in oldItems;
             if (duplicateItems) {
+                setItemExistAlert(true);
+                setItemAddedAlert(false);
                 console.log('item exist');
                 return false;
             } else {
-                //oldItems.push(newItems);
-                localStorage.setItem(userEmail, JSON.stringify(newItems));
+                oldItems[bookDetail.title] = qty
+                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+                setItemAddedAlert(true);
             }
         }
     };
 
     return (
         <>
+        {itemExistAlert ? <Alert cartItemExist={"Item is in cart"}/> : <div />}
+        {itemAddedAlert ? <Alert cartItemAdded={"Item is added to cart"}/> : <div />}
+
         <Card className={classes.cardSize}>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
