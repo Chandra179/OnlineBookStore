@@ -101,18 +101,29 @@ function ShoppingCard({ bookDetail }) {
 
     const handleAddToCart = () => {
         setDisabled(true);
-        // Store cart item to local storage Use user email as key
-        localStorage.setItem(userEmail, 
-            JSON.stringify({ 
-                title: bookDetail.title,
-                qty: qty
-            })
-        );
+        const userKeys = localStorage.getItem(userEmail)
+        if (userKeys === "undefined") {
+            localStorage.removeItem(userEmail);
+        }
+        var oldItems = JSON.parse(localStorage.getItem(userEmail)) || [];
+        var newItems = {
+            title: bookDetail.title,
+            qty: qty
+        }
+        oldItems.push(newItems)
+        localStorage.setItem(userEmail, JSON.stringify(oldItems));
     };
 
     const handleDeleteFromCart = () => {
         setDisabled(false);
-        localStorage.removeItem(userEmail);
+        var items = JSON.parse(localStorage.getItem(userEmail)) || [];
+        if (items.length === 0) {
+            localStorage.removeItem(userEmail);
+        } else {
+            var filtered = items.filter(function(el) { return el.title != bookDetail.title; }); 
+            localStorage.setItem(userEmail, filtered[0]);
+            console.log('itemssss',filtered[0]);
+        }        
     };
 
     return (
