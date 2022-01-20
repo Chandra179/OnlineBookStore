@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { useCart } from "../hooks/useCart";
-import MyDialog from "../components/Dialog";
 
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
@@ -82,39 +81,34 @@ function ShoppingCard({ bookDetail }) {
     const classes = useStyles();
     //const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
-    const [dialog, setDialog] = useState(false);
     const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
 
     // We are using email as key to store user items to cart
     const userCart = localStorage.getItem(userEmail);
 
     const handleAddToCart = () => {
-        // items that user added
-        var newItems = {
-            title: bookDetail.title,
-            qty: qty
-        }
-        // store items to cart if cart is empty or not exist
-        if (userCart === "undefined" || userCart === null) {
-            var items = []
-            items.push(newItems)
-            localStorage.setItem(userEmail, JSON.stringify(items));
-        } else { // if an items already exist in cart, then update cart item
-            var oldItems = JSON.parse(localStorage.getItem(userEmail));
-            var duplicateItems = JSON.stringify(oldItems).includes(JSON.stringify(newItems));
+        // items that user added to cart
+        var newItems = {}
+        newItems[bookDetail.title] = qty
 
+        // set new cart
+        if (userCart === "undefined" || userCart === null) {
+            localStorage.setItem(userEmail, JSON.stringify(newItems));
+        } else { // update cart
+            var oldItems = JSON.parse(localStorage.getItem(userEmail));
+            var duplicateItems = bookDetail.title in oldItems;
             if (duplicateItems) {
-                setDialog(true);
+                console.log('item exist');
+                return false;
             } else {
-                oldItems.push(newItems);
-                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+                //oldItems.push(newItems);
+                localStorage.setItem(userEmail, JSON.stringify(newItems));
             }
         }
     };
 
     return (
         <>
-        {dialog ? <MyDialog openDialog={true} /> : <div />}
         <Card className={classes.cardSize}>
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
