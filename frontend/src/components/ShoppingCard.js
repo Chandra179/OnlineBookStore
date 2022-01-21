@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Alert from "./Alert";
 import AuthService from '../services/auth.service';
@@ -80,6 +80,7 @@ function AddToCartButton({ handleAddToCart, classes }) {
 }
 
 function ShoppingCard({ bookDetail }) {
+    // const { cartItem, setCartItem } = useCart();
     const history = useHistory();
     const classes = useStyles();
     const [qty, setQty] = useState(1);
@@ -91,12 +92,14 @@ function ShoppingCard({ bookDetail }) {
         if (userEmail === "") {
             history.push('/signin');
         } else {
+            // get user items using user email as key
             const userCart = localStorage.getItem(userEmail);
+
             // items that user added to cart
             var newItems = {}
             newItems[bookDetail.title] = qty
 
-            // add new items to cart
+            // create new cart with first item assgined
             if (userCart === "undefined" || userCart === null) {
                 localStorage.setItem(userEmail, JSON.stringify(newItems));
                 setItemAddedAlert(true);
@@ -114,11 +117,37 @@ function ShoppingCard({ bookDetail }) {
             }
         }
     };
+    
+    // const handleAddToCart = () => {
+    //     const userEmail = AuthService.getCurrentUser();
+    //     if (userEmail === "") {
+    //         history.push('/signin');
+    //     } else {
+    //         // get user items using user email as key
+    //         const userCart = localStorage.getItem(userEmail);
 
-    // useEffect(() => {
-    //     const user = AuthService.getCurrentUser();
-    //     console.log('iteasasam',user);
-    // }, []);
+    //         // items that user added to cart
+    //         var newItems = {}
+    //         newItems[bookDetail.title] = qty
+
+    //         // create new cart with first item assgined
+    //         if (userCart === "undefined" || userCart === null) {
+    //             localStorage.setItem(userEmail, JSON.stringify(newItems));
+    //             setItemAddedAlert(true);
+    //         } else { // update cart items
+    //             var oldItems = JSON.parse(localStorage.getItem(userEmail));
+    //             var duplicateItems = bookDetail.title in oldItems;
+    //             if (duplicateItems) {
+    //                 setItemExistAlert(true);
+    //                 setItemAddedAlert(false);
+    //             } else {
+    //                 oldItems[bookDetail.title] = qty
+    //                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
+    //                 setItemAddedAlert(true);
+    //             }
+    //         }
+    //     }
+    // };
 
     return (
         <>

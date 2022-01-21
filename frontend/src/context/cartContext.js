@@ -1,15 +1,16 @@
 import React, { useState, createContext } from 'react';
+import AuthService from '../services/auth.service';
 
 export const CartContext = createContext()
 
 const CartContextProvider = ({children}) => {
-    const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
+    const userEmail = AuthService.getCurrentUser();
     const [cartItem, setCartItem] = useState(
-        localStorage.getItem(userEmail)
+        JSON.parse(localStorage.getItem(userEmail))
     );
 
     return ( 
-        <CartContext.Provider value={{cartItem, setCartItem}} >
+        <CartContext.Provider value={{userEmail, cartItem, setCartItem}} >
             { children }
         </CartContext.Provider>
      );
