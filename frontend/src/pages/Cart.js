@@ -4,13 +4,13 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from "../hooks/useCart";
 import { useHistory } from "react-router-dom";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 
-function ItemList({ cartItem }) {
+
+function CartHeader() {
     return (
-        <Grid container sx={{ p: 4, boxShadow: 1 }} spacing={2}>
-            {/* ROW 1 */}
+        <Grid container sx={{ p: 5, boxShadow: 1 }}>
             <Grid item
                 lg={9}
                 md={9}
@@ -25,40 +25,61 @@ function ItemList({ cartItem }) {
                 xs={3}>
                 <Typography>Your items</Typography>
             </Grid>
+        </Grid>
+    );
+}
 
+function ItemList({ cartItem }) {
+    return (
+        <>
             {Object.keys(cartItem).map(function (key) {
                 var title = key;
-                var qty = cartItem[key];
+                var cover = cartItem[key]['cover'];
+                var qty = cartItem[key]['qty'];
                 return (
-                    <Grid item
-                        key={key}
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xs={12}>
-                        <Grid lg={4}
-                        md={4}
-                        sm={4}
-                        xs={4}>
-                            {title}
+                    <Grid container key={key} sx={{ paddingLeft: 5, paddingTop: 3}}>
+                        <Grid item 
+                            lg={2}
+                            md={2}
+                            sm={2}
+                            xs={2}
+                            sx={{boxShadow: 1}}>
+                            <Card sx={{ width: 115 }}>
+                                <CardMedia
+                                    component="img"
+                                    image={cover}
+                                />
+                            </Card>
                         </Grid>
-                        <Grid lg={4}
-                        md={4}
-                        sm={4}
-                        xs={4}>
+                        <Grid item 
+                            lg={4}
+                            md={4}
+                            sm={4}
+                            xs={4}
+                            sx={{boxShadow: 1}}>
+                                <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
+                                    {title}
+                                </Typography>
+                        </Grid>
+                        <Grid item 
+                            lg={3}
+                            md={3}
+                            sm={3}
+                            xs={3}
+                            sx={{boxShadow: 1}}>
                             {qty}
                         </Grid>
                     </Grid>
                 );
             })}
-        </Grid>
+        </>
     )
 }
 
 function CheckoutCard() {
     return (
         <Grid container sx={{ boxShadow: 1 }}>
-            <Typography>checkout</Typography>
+            <p>chandra</p>
         </Grid>
     )
 }
@@ -87,6 +108,7 @@ export default function Cart() {
                     md={8}
                     sm={8}
                     xs={8}>
+                    <CartHeader />
                     <ItemList cartItem={cartItem} />
                 </Grid>
                 <Grid item

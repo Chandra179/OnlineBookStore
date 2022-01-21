@@ -97,7 +97,7 @@ function ShoppingCard({ bookDetail }) {
 
             // items that user added to cart
             var newItems = {}
-            newItems[bookDetail.title] = qty
+            newItems[bookDetail.title] = {'cover':bookDetail.cover, 'qty':qty}
 
             // create new cart with first item assgined
             if (userCart === "undefined" || userCart === null) {
@@ -110,44 +110,13 @@ function ShoppingCard({ bookDetail }) {
                     setItemExistAlert(true);
                     setItemAddedAlert(false);
                 } else {
-                    oldItems[bookDetail.title] = qty
+                    oldItems[bookDetail.title] = {'cover':bookDetail.cover, 'qty':qty}
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
                     setItemAddedAlert(true);
                 }
             }
         }
     };
-    
-    // const handleAddToCart = () => {
-    //     const userEmail = AuthService.getCurrentUser();
-    //     if (userEmail === "") {
-    //         history.push('/signin');
-    //     } else {
-    //         // get user items using user email as key
-    //         const userCart = localStorage.getItem(userEmail);
-
-    //         // items that user added to cart
-    //         var newItems = {}
-    //         newItems[bookDetail.title] = qty
-
-    //         // create new cart with first item assgined
-    //         if (userCart === "undefined" || userCart === null) {
-    //             localStorage.setItem(userEmail, JSON.stringify(newItems));
-    //             setItemAddedAlert(true);
-    //         } else { // update cart items
-    //             var oldItems = JSON.parse(localStorage.getItem(userEmail));
-    //             var duplicateItems = bookDetail.title in oldItems;
-    //             if (duplicateItems) {
-    //                 setItemExistAlert(true);
-    //                 setItemAddedAlert(false);
-    //             } else {
-    //                 oldItems[bookDetail.title] = qty
-    //                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
-    //                 setItemAddedAlert(true);
-    //             }
-    //         }
-    //     }
-    // };
 
     return (
         <>
