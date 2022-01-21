@@ -3,8 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from "../hooks/useCart";
 
-function CartItem() {
-    const { cartItem, setCartItem } = useCart();
+function ItemList() {
     return (
         <Grid container sx={{ p: 4, boxShadow: 1 }} spacing={2}>
             {/* ROW 1 */}
@@ -21,7 +20,6 @@ function CartItem() {
                 sm={3}
                 xs={3}>
                 <Typography>Your items</Typography>
-                {cartItem}
             </Grid>
 
             {/* ROW 2 */}
@@ -73,9 +71,8 @@ function CheckoutCard() {
     )
 }
 
-
-export default function Cart(props) {
-
+export default function Cart() {
+    const { cartItem, setCartItem } = useCart();
     return (
         <Grid container spacing={2}>
             <Grid item
@@ -83,7 +80,8 @@ export default function Cart(props) {
                 md={8}
                 sm={8}
                 xs={8}>
-                <CartItem />
+                <ItemList />
+                {cartItem}
             </Grid>
             <Grid item
                 lg={4}

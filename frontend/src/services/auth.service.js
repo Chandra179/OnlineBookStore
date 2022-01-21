@@ -40,7 +40,12 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-   return localStorage.getItem("user");
+   var userToken = localStorage.getItem("user");
+   if (userToken === null) {
+     return ""
+   } else {
+     return JSON.parse(userToken)['email'];
+   }
 };
 
 const AuthService = {

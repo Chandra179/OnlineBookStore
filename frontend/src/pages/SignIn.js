@@ -48,7 +48,6 @@ export default function SignIn() {
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
-        console.log('item',user);
         if (user) {
             history.push("/");
         }

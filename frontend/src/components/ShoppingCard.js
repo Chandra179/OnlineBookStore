@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { Redirect } from 'react-router-dom';
-import { useCart } from "../hooks/useCart";
 import Alert from "./Alert";
+import AuthService from '../services/auth.service';
 import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@mui/styles';
@@ -88,11 +87,10 @@ function ShoppingCard({ bookDetail }) {
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
     
     const handleAddToCart = () => {
-        const userToken = localStorage.getItem('user');
-        if (userToken === null) {
+        const userEmail = AuthService.getCurrentUser();
+        if (userEmail === "") {
             history.push('/signin');
         } else {
-            const userEmail = JSON.parse(userToken)['email'];
             const userCart = localStorage.getItem(userEmail);
             // items that user added to cart
             var newItems = {}
@@ -116,6 +114,11 @@ function ShoppingCard({ bookDetail }) {
             }
         }
     };
+
+    // useEffect(() => {
+    //     const user = AuthService.getCurrentUser();
+    //     console.log('iteasasam',user);
+    // }, []);
 
     return (
         <>
