@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import  { Redirect } from 'react-router-dom';
-import AuthService from '../services/auth.service';
+import { Redirect } from 'react-router-dom';
 import { useCart } from "../hooks/useCart";
 import Alert from "./Alert";
+import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
@@ -81,81 +81,87 @@ function AddToCartButton({ handleAddToCart, classes }) {
 }
 
 function ShoppingCard({ bookDetail }) {
+    const history = useHistory();
     const classes = useStyles();
-    const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
-    const [userEmail, setUserEmail] = useState("");
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
-    const userCart = localStorage.getItem(userEmail);
+    
 
-    useEffect(() => {
-        const userToken = localStorage.getItem('user');
-        if (userToken === null) {
-            <Redirect to='/signin' />
-        } else {
-            setUserEmail(JSON.parse(userToken)['email']);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const userToken = localStorage.getItem('user');
+    //     if (userToken === null) {
+    //         setUserEmail("null");
+    //     } else {
+    //         setUserEmail(JSON.parse(userToken)['email']);
+    //     }
+    // }, []);
 
     const handleAddToCart = () => {
-        // items that user added to cart
-        var newItems = {}
-        newItems[bookDetail.title] = qty
+        const userToken = localStorage.getItem('user');
+        if (userToken === null) {
+            history.push('/');
+        } else {
+            const userEmail = JSON.parse(userToken)['email'];
+            const userCart = localStorage.getItem(userEmail);
+            // items that user added to cart
+            var newItems = {}
+            newItems[bookDetail.title] = qty
 
-        // add new items to cart
-        if (userCart === "undefined" || userCart === null) {
-            localStorage.setItem(userEmail, JSON.stringify(newItems));
-            setItemAddedAlert(true);
-        } else { // update cart items
-            var oldItems = JSON.parse(localStorage.getItem(userEmail));
-            var duplicateItems = bookDetail.title in oldItems;
-            if (duplicateItems) {
-                setItemExistAlert(true);
-                setItemAddedAlert(false);
-            } else {
-                oldItems[bookDetail.title] = qty
-                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+            // add new items to cart
+            if (userCart === "undefined" || userCart === null) {
+                localStorage.setItem(userEmail, JSON.stringify(newItems));
                 setItemAddedAlert(true);
+            } else { // update cart items
+                var oldItems = JSON.parse(localStorage.getItem(userEmail));
+                var duplicateItems = bookDetail.title in oldItems;
+                if (duplicateItems) {
+                    setItemExistAlert(true);
+                    setItemAddedAlert(false);
+                } else {
+                    oldItems[bookDetail.title] = qty
+                    localStorage.setItem(userEmail, JSON.stringify(oldItems));
+                    setItemAddedAlert(true);
+                }
             }
         }
     };
 
     return (
         <>
-        {itemExistAlert ? <Alert cartItemExist={"Item is in cart"}/> : <div />}
-        {itemAddedAlert ? <Alert cartItemAdded={"Item is added to cart"}/> : <div />}
+            {itemExistAlert ? <Alert cartItemExist={"Item is in cart"} /> : <div />}
+            {itemAddedAlert ? <Alert cartItemAdded={"Item is added to cart"} /> : <div />}
 
-        <Card className={classes.cardSize}>
-            <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
-                </Typography>
-            </CardContent>
-            <QtySelect
-                qty={qty}
-                setQty={setQty}
-                classes={classes} />
-            <Stack>
-                <AddToCartButton
-                    handleAddToCart={handleAddToCart}
-                    classes={classes}
-                />
-                <Button variant="outlined" className={classes.buyNow}>
-                    Buy now
-                </Button>
-            </Stack>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-            </CardActions>
-        </Card>
+            <Card className={classes.cardSize}>
+                <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                        This impressive paella is a perfect party dish and a fun meal to cook
+                        together with your guests. Add 1 cup of frozen peas along with the mussels,
+                        if you like.
+                    </Typography>
+                </CardContent>
+                <QtySelect
+                    qty={qty}
+                    setQty={setQty}
+                    classes={classes} />
+                <Stack>
+                    <AddToCartButton
+                        handleAddToCart={handleAddToCart}
+                        classes={classes}
+                    />
+                    <Button variant="outlined" className={classes.buyNow}>
+                        Buy now
+                    </Button>
+                </Stack>
+                <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
+                </CardActions>
+            </Card>
         </>
     );
 }
