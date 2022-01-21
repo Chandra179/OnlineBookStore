@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import  { Redirect } from 'react-router-dom';
+import AuthService from '../services/auth.service';
 import { useCart } from "../hooks/useCart";
 import Alert from "./Alert";
 
@@ -80,12 +82,21 @@ function AddToCartButton({ handleAddToCart, classes }) {
 
 function ShoppingCard({ bookDetail }) {
     const classes = useStyles();
-    //const { cartItem, setCartItem } = useCart();
+    const { cartItem, setCartItem } = useCart();
     const [qty, setQty] = useState(1);
+    const [userEmail, setUserEmail] = useState("");
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
-    const userEmail = JSON.parse(localStorage.getItem('user'))['email'];
     const userCart = localStorage.getItem(userEmail);
+
+    useEffect(() => {
+        const userToken = localStorage.getItem('user');
+        if (userToken === null) {
+            <Redirect to='/signin' />
+        } else {
+            setUserEmail(JSON.parse(userToken)['email']);
+        }
+    }, []);
 
     const handleAddToCart = () => {
         // items that user added to cart
@@ -102,8 +113,6 @@ function ShoppingCard({ bookDetail }) {
             if (duplicateItems) {
                 setItemExistAlert(true);
                 setItemAddedAlert(false);
-                console.log('item exist');
-                return false;
             } else {
                 oldItems[bookDetail.title] = qty
                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
@@ -148,7 +157,6 @@ function ShoppingCard({ bookDetail }) {
             </CardActions>
         </Card>
         </>
-        
     );
 }
 

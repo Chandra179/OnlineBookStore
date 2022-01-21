@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import  { Redirect } from 'react-router-dom';
 
 const signin = (email, password) => {
   return axios
@@ -40,7 +40,7 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+   return localStorage.getItem("user");
 };
 
 const AuthService = {
