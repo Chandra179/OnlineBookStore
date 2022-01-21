@@ -87,20 +87,10 @@ function ShoppingCard({ bookDetail }) {
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
     
-
-    // useEffect(() => {
-    //     const userToken = localStorage.getItem('user');
-    //     if (userToken === null) {
-    //         setUserEmail("null");
-    //     } else {
-    //         setUserEmail(JSON.parse(userToken)['email']);
-    //     }
-    // }, []);
-
     const handleAddToCart = () => {
         const userToken = localStorage.getItem('user');
         if (userToken === null) {
-            history.push('/');
+            history.push('/signin');
         } else {
             const userEmail = JSON.parse(userToken)['email'];
             const userCart = localStorage.getItem(userEmail);
