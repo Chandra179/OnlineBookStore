@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
 
 function CartHeader() {
     return (
@@ -36,7 +37,7 @@ function ItemList({ history, userEmail, cartItem }) {
 
     const handleQtySelect = (title, event) => {
         var newQty = event.target.value;
-        
+
         if (userEmail === "") {
             history.push('/signin');
         } else {
@@ -46,7 +47,7 @@ function ItemList({ history, userEmail, cartItem }) {
             } else {
                 var oldItems = JSON.parse(userCart);
                 oldItems[title] = {
-                    'qty':newQty,
+                    'qty': newQty,
                 }
                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
             }
@@ -59,6 +60,10 @@ function ItemList({ history, userEmail, cartItem }) {
             elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
         }
         return elements;
+    }
+
+    const removeProduct = () => {
+
     }
 
     return (
@@ -92,6 +97,8 @@ function ItemList({ history, userEmail, cartItem }) {
                             <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
                                 {title}
                             </Typography>
+
+                            {/* AVAILABLE STOCK */}
                             {stock >= 10 ?
                                 <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'green' }}>
                                     In stock
@@ -102,19 +109,11 @@ function ItemList({ history, userEmail, cartItem }) {
                                 </Typography>
                             }
 
-                        </Grid>
-                        <Grid item
-                            lg={3}
-                            md={3}
-                            sm={3}
-                            xs={3}
-                            sx={{ boxShadow: 1 }}>
-                            <Box>
+                            {/* PRODUCT QTY */}
+                            <Box sx={{ paddingTop: 2, width: 80 }}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Qty</InputLabel>
+                                    <InputLabel>Qty</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
                                         value={qty}
                                         label="Qty"
                                         onChange={(e) => handleQtySelect(title, e)}
@@ -125,6 +124,25 @@ function ItemList({ history, userEmail, cartItem }) {
                                     </Select>
                                 </FormControl>
                             </Box>
+
+                            {/* REMOVE PRODUCT */}
+                            <Box sx={{ paddingTop: 2, color: 'blue' }}>
+                                <Button 
+                                onClick={removeProduct}
+                                size="small"
+                                sx={{ fontSize: 10, padding: 0 }}>
+                                    Delete
+                                </Button>
+                            </Box>
+
+                        </Grid>
+                        <Grid item
+                            lg={3}
+                            md={3}
+                            sm={3}
+                            xs={3}
+                            sx={{ boxShadow: 1 }}>
+
                         </Grid>
                     </Grid>
                 );
