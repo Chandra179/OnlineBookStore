@@ -42,18 +42,16 @@ const useStyles = makeStyles({
 function QtySelect({ qty, stock, setQty, classes }) {
 
     const handleChange = (event) => {
-        //setQty(event.target.value);
+        setQty(event.target.value);
     };
-
-    console.log(qty);
+    
     const createElements = (n) => {
         var elements = [];
-        for (var i=2; i < n+1; i++) {
+        for(var i=2; i < n+1; i++){
             elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
         }
         return elements;
     }
-
 
     return (
         <Box className={classes.qtyBox}>
@@ -62,13 +60,18 @@ function QtySelect({ qty, stock, setQty, classes }) {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={stock}
+                    value={qty}
                     label="Qty"
                     onChange={handleChange}
                     displayEmpty
-                >   
-                    <MenuItem defaultValue={1} key={1}>{1}</MenuItem>
+                >  
+                    <MenuItem value={1} key={1}>{1}</MenuItem>
                     {createElements(stock)}
+
+                    {/* <MenuItem value={1}>{1}</MenuItem>
+                    <MenuItem value={2}>{2}</MenuItem>
+                    <MenuItem value={3}>{3}</MenuItem>
+                    <MenuItem value={4}>{4}</MenuItem> */}
                 </Select>
             </FormControl>
         </Box>
@@ -114,6 +117,7 @@ function ShoppingCard({ bookDetail }) {
             if (userCart === "undefined" || userCart === null) {
                 localStorage.setItem(userEmail, JSON.stringify(newItems));
                 setItemAddedAlert(true);
+                setItemExistAlert(false);
             } else { // update cart items
                 var oldItems = JSON.parse(localStorage.getItem(userEmail));
                 var duplicateItems = bookDetail.title in oldItems;
