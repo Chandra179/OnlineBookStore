@@ -45,7 +45,7 @@ function QtySelect({ qty, stock, setQty, classes }) {
         setQty(event.target.value);
     };
     
-    const createElements = (n) => {
+    const StockQty = (n) => {
         var elements = [];
         for(var i=2; i < n+1; i++){
             elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
@@ -66,12 +66,7 @@ function QtySelect({ qty, stock, setQty, classes }) {
                     displayEmpty
                 >  
                     <MenuItem value={1} key={1}>{1}</MenuItem>
-                    {createElements(stock)}
-
-                    {/* <MenuItem value={1}>{1}</MenuItem>
-                    <MenuItem value={2}>{2}</MenuItem>
-                    <MenuItem value={3}>{3}</MenuItem>
-                    <MenuItem value={4}>{4}</MenuItem> */}
+                    {StockQty(stock)}
                 </Select>
             </FormControl>
         </Box>
@@ -91,7 +86,6 @@ function AddToCartButton({ handleAddToCart, classes }) {
 }
 
 function ShoppingCard({ bookDetail }) {
-    // const { cartItem, setCartItem } = useCart();
     const history = useHistory();
     const classes = useStyles();
     const [qty, setQty] = useState(1);
@@ -110,7 +104,8 @@ function ShoppingCard({ bookDetail }) {
             var newItems = {}
             newItems[bookDetail.title] = {
                 'cover': bookDetail.cover,
-                'qty': bookDetail.stock
+                'qty':qty,
+                'stock': bookDetail.stock,
             }
 
             // create new cart with first item assgined
@@ -127,7 +122,8 @@ function ShoppingCard({ bookDetail }) {
                 } else {
                     oldItems[bookDetail.title] = {
                         'cover': bookDetail.cover,
-                        'qty': bookDetail.qty
+                        'qty':qty,
+                        'stock': bookDetail.stock,
                     }
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
                     setItemAddedAlert(true);
