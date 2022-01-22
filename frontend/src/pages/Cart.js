@@ -32,21 +32,42 @@ function CartHeader() {
     );
 }
 
-function ItemList({ cartItem }) {
-    // const StockQty = (n) => {
-    //     var elements = [];
-    //     for(var i=2; i < n+1; i++){
-    //         elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
-    //     }
-    //     return elements;
-    // }
-    
+function ItemList({ history, userEmail, cartItem }) {
+
+    const handleQtySelect = (title, event) => {
+        var newQty = event.target.value;
+        
+        if (userEmail === "") {
+            history.push('/signin');
+        } else {
+            const userCart = localStorage.getItem(userEmail);
+            if (userCart === "undefined" || userCart === null) {
+                history.push('/cart');
+            } else {
+                var oldItems = JSON.parse(userCart);
+                oldItems[title] = {
+                    'qty':newQty,
+                }
+                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+            }
+        }
+    };
+
+    const StockQty = (n) => {
+        var elements = [];
+        for (var i = 2; i < n + 1; i++) {
+            elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
+        }
+        return elements;
+    }
+
     return (
         <>
             {Object.keys(cartItem).map(function (key) {
                 var title = key;
                 var cover = cartItem[key]['cover'];
                 var qty = cartItem[key]['qty'];
+                var stock = cartItem[key]['stock'];
                 return (
                     <Grid container key={key} sx={{ paddingLeft: 5, paddingTop: 3 }}>
                         <Grid item
@@ -71,13 +92,13 @@ function ItemList({ cartItem }) {
                             <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
                                 {title}
                             </Typography>
-                            {qty >= 10 ?
+                            {stock >= 10 ?
                                 <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'green' }}>
                                     In stock
                                 </Typography>
                                 :
                                 <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'red' }}>
-                                    {qty} items left!
+                                    {stock} items left!
                                 </Typography>
                             }
 
@@ -88,7 +109,7 @@ function ItemList({ cartItem }) {
                             sm={3}
                             xs={3}
                             sx={{ boxShadow: 1 }}>
-                            {/* <Box>
+                            <Box>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">Qty</InputLabel>
                                     <Select
@@ -96,14 +117,14 @@ function ItemList({ cartItem }) {
                                         id="demo-simple-select"
                                         value={qty}
                                         label="Qty"
-                                        onChange={handleChange}
+                                        onChange={(e) => handleQtySelect(title, e)}
                                         displayEmpty
                                     >
                                         <MenuItem value={1} key={1}>{1}</MenuItem>
                                         {StockQty(stock)}
                                     </Select>
                                 </FormControl>
-                            </Box> */}
+                            </Box>
                         </Grid>
                     </Grid>
                 );
@@ -145,7 +166,10 @@ export default function Cart() {
                     sm={8}
                     xs={8}>
                     <CartHeader />
-                    <ItemList cartItem={cartItem} />
+                    <ItemList
+                        history={history}
+                        userEmail={userEmail}
+                        cartItem={cartItem} />
                 </Grid>
                 <Grid item
                     lg={4}
