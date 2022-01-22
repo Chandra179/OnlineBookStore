@@ -153,7 +153,7 @@ function Home() {
                 console.log(error)
             }
         )
-    }, []);
+    });
 
     const handlePageClick = async (event, value) => {
         // set param page to clicked page number

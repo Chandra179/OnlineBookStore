@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import AuthService from '../services/auth.service';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from "../hooks/useCart";
@@ -86,7 +85,7 @@ function CheckoutCard() {
 
 export default function Cart() {
     const history = useHistory();
-    const { userEmail, cartItem, setCartItem } = useCart();
+    const { userEmail, cartItem } = useCart();
 
     useEffect(() => {
         if (userEmail === "") {
@@ -94,7 +93,7 @@ export default function Cart() {
         } else {
             return false;
         }
-    }, []);
+    });
 
     if (cartItem === null) {
         return (

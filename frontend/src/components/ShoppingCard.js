@@ -39,11 +39,21 @@ const useStyles = makeStyles({
     },
 });
 
-function QtySelect({ qty, setQty, classes }) {
+function QtySelect({ qty, stock, setQty, classes }) {
 
     const handleChange = (event) => {
-        setQty(event.target.value);
+        //setQty(event.target.value);
     };
+
+    console.log(qty);
+    const createElements = (n) => {
+        var elements = [];
+        for (var i=2; i < n+1; i++) {
+            elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
+        }
+        return elements;
+    }
+
 
     return (
         <Box className={classes.qtyBox}>
@@ -52,15 +62,13 @@ function QtySelect({ qty, setQty, classes }) {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={qty}
+                    value={stock}
                     label="Qty"
                     onChange={handleChange}
                     displayEmpty
-                >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
+                >   
+                    <MenuItem defaultValue={1} key={1}>{1}</MenuItem>
+                    {createElements(stock)}
                 </Select>
             </FormControl>
         </Box>
@@ -86,7 +94,7 @@ function ShoppingCard({ bookDetail }) {
     const [qty, setQty] = useState(1);
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
-    
+
     const handleAddToCart = () => {
         const userEmail = AuthService.getCurrentUser();
         if (userEmail === "") {
@@ -97,7 +105,10 @@ function ShoppingCard({ bookDetail }) {
 
             // items that user added to cart
             var newItems = {}
-            newItems[bookDetail.title] = {'cover':bookDetail.cover, 'qty':qty}
+            newItems[bookDetail.title] = {
+                'cover': bookDetail.cover,
+                'qty': bookDetail.stock
+            }
 
             // create new cart with first item assgined
             if (userCart === "undefined" || userCart === null) {
@@ -110,7 +121,10 @@ function ShoppingCard({ bookDetail }) {
                     setItemExistAlert(true);
                     setItemAddedAlert(false);
                 } else {
-                    oldItems[bookDetail.title] = {'cover':bookDetail.cover, 'qty':qty}
+                    oldItems[bookDetail.title] = {
+                        'cover': bookDetail.cover,
+                        'qty': bookDetail.qty
+                    }
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
                     setItemAddedAlert(true);
                 }
@@ -133,6 +147,7 @@ function ShoppingCard({ bookDetail }) {
                 </CardContent>
                 <QtySelect
                     qty={qty}
+                    stock={bookDetail.stock}
                     setQty={setQty}
                     classes={classes} />
                 <Stack>

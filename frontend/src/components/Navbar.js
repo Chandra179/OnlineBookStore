@@ -14,13 +14,16 @@ import { useUser } from "../hooks/useUser";
 
 const Navbar = () => {
   const { userState, setUserState } = useUser();
-  
+
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setUserState(user);
+    function checkUser() {
+      const user = AuthService.getCurrentUser();
+      if (user) {
+        setUserState(user);
+      }
     }
-  }, []);
+    checkUser()
+  });
 
   const logOut = () => {
     setUserState(undefined);

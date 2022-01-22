@@ -51,7 +51,7 @@ export default function SignIn() {
         if (user) {
             history.push("/");
         }
-    }, []);
+    });
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
