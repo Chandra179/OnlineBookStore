@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
-from .models import Book
+from .models import Book, Inventory
 from .serializers import BookSerializer
 
 """
@@ -37,6 +37,7 @@ def BookDetail(request):
     if request.method == 'GET':
         title = request.query_params.get('title')
         book = Book.objects.get(title__iexact=title)
+        inventory = Inventory.objects.get(book__title__iexact=title)
         book_author = book.book_author.values_list('author_name', flat=True)[0]
         response = {
             'title': book.title,
@@ -46,6 +47,7 @@ def BookDetail(request):
             'language':book.language.language_name,
             'num_pages': book.num_pages,
             'publication_date': book.publication_date,
+            'stock': inventory.stock,
             'publisher': book.publisher.publisher_name
         }
         return Response(response, status=status.HTTP_200_OK)

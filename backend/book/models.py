@@ -84,7 +84,7 @@ class Book(models.Model):
     language = models.ForeignKey('BookLanguage', blank=True, null=True, on_delete=models.CASCADE)
     num_pages = models.IntegerField(blank=True, null=True)
     publication_date = models.DateField(blank=True, null=True)
-    publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE,)
+    publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE)
     book_author = models.ManyToManyField(Author, through='BookAuthor')
 
     class Meta:
@@ -92,6 +92,16 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class Inventory(models.Model):
+    book = models.ForeignKey('Book', blank=True, null=True, on_delete=models.CASCADE)
+    stock = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'inventory'
+
+    def __str__(self):
+        return self.book.title
 
 
 class BookAuthor(models.Model):
@@ -101,6 +111,8 @@ class BookAuthor(models.Model):
     class Meta:
         db_table = 'book_author'
         unique_together = ('book', 'author',)
+
+
 
 
 # class Country(models.Model):
