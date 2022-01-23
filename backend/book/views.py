@@ -1,11 +1,9 @@
-from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from .models import Book, Genre
 from inventory.models import Inventory
-from django.db.models import Prefetch
 
 
 @api_view(['GET'])
@@ -14,19 +12,12 @@ def BooksPerGenre(request):
     if request.method == 'GET':
         response = []
         books = []
-        book_author = Prefetch('book_author')
-        book_genre = Prefetch('book_genre')
 
-        for genre in Genre.objects.all():
-            book = Book.objects \
-                        .filter(book_genre=genre.id) \
-                        .prefetch_related(book_author, book_genre)[:10]
-            if len(book) == 0:
-                pass
-            else:
-                books.append(book)
-        
-        for book in books[0]:
+        # retrieve latest 10 books for each genre
+        for genre in Genre.objects.all().distinct():
+            books.extend(list(Book.objects.filter(book_genre=genre.id)[:10]))
+
+        for book in books:
             book_author = [x.name for x in book.book_author.all()]
             book_genre = [x.name for x in book.book_genre.all()]
             response.append({
@@ -35,7 +26,6 @@ def BooksPerGenre(request):
                 'genre': book_genre,
                 'cover': book.cover,
             })
-
         return Response(response, content_type='application/json', status=status.HTTP_200_OK)
 
 
