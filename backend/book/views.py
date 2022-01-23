@@ -5,17 +5,38 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from .models import Book, Genre
 from inventory.models import Inventory
+from django.db.models import Prefetch
 
 
 @api_view(['GET'])
 def BooksPerGenre(request):
 
     if request.method == 'GET':
-        response ={}
+        response = []
+        books = []
+        book_author = Prefetch('book_author')
+        book_genre = Prefetch('book_genre')
+
         for genre in Genre.objects.all():
-            data = list(Book.objects.filter(book_genre=genre.id).values()[:10])
-            response[str(genre)] = data
-        return JsonResponse(response, content_type='application/json', status=status.HTTP_200_OK)
+            book = Book.objects \
+                        .filter(book_genre=genre.id) \
+                        .prefetch_related(book_author, book_genre)[:10]
+            if len(book) == 0:
+                pass
+            else:
+                books.append(book)
+        
+        for book in books[0]:
+            book_author = [x.name for x in book.book_author.all()]
+            book_genre = [x.name for x in book.book_genre.all()]
+            response.append({
+                'name': book.name,
+                'author': book_author,
+                'genre': book_genre,
+                'cover': book.cover,
+            })
+
+        return Response(response, content_type='application/json', status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -28,10 +49,10 @@ def BookList(request):
         for x in books:
             book_author = [book.name for book in x.book_author.all()]
             book_list.append({
-                'name': x.name, 
+                'name': x.name,
                 'author': book_author,
-                'cover':x.cover,
-        })
+                'cover': x.cover,
+            })
         headers = {
             'total_book': total_book
         }
@@ -50,10 +71,10 @@ def BookDetail(request):
         book_author = book.book_author.values_list('name', flat=True)[0]
         response = {
             'name': book.name,
-            'author':book_author,
+            'author': book_author,
             'cover': book.cover,
             'desc': book.description,
-            'language':book.language.name,
+            'language': book.language.name,
             'num_pages': book.num_pages,
             'publication_date': book.publication_date,
             'stock': inventory.stock,

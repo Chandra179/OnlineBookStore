@@ -22,14 +22,19 @@ function BooksPerGenre() {
     const bookPerGenreList = () => {
         var result = [];
         for (const key in booksPerGenre) {
-            result.push(<Typography key={key}>{key}</Typography>)
+            result.push(
+                <Typography key={key}>{key}</Typography>
+            )
             booksPerGenre[key].map(x => {
-                result.push(<MenuItem key={x.name}>{x.name}</MenuItem>)
+                result.push(
+                    <MenuItem key={x.name}>{x.name}</MenuItem>
+                )
             })
         }
         return result;
     }
 
+    console.log(booksPerGenre);
     return (
         <Grid container spacing={2}>
             <Grid item
