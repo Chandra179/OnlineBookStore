@@ -4,38 +4,41 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from .models import Book, Genre
 from inventory.models import Inventory
-from django.db.models import Prefetch
+import collections
 
 
 @api_view(['GET'])
 def BooksPerGenre(request):
-
+    """
+    return 10 books for each category
+    """
     if request.method == 'GET':
-        response = []
+        response = collections.defaultdict(list)
         books = []
 
-        # retrieve latest 10 books for each genre
+        # retrieve latest 10 books for each genre ID
         for genre in Genre.objects.all().distinct():
             books.extend(Book.objects 
                     .filter(genre=genre.id) 
-                    .prefetch_related('book_author')[:1]
+                    .prefetch_related('book_author')[:10]
             )
 
         for book in books:
             book_author = [x.name for x in book.book_author.all()]
-            response.append({
+            result = {
                 'name': book.name,
                 'author': book_author,
-                'genre': book.genre.name,
                 'cover': book.cover,
-            })
-
+            }
+            response[book.genre.name].append(result)
         return Response(response, content_type='application/json', status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def BookList(request):
-
+    """
+    Paginate list of book for each genre
+    """
     if request.method == 'GET':
         total_book = Book.objects.all().count()
         books = Book.objects.prefetch_related('book_author')
@@ -57,7 +60,9 @@ def BookList(request):
 
 @api_view(['GET'])
 def BookDetail(request):
-
+    """
+    Return book detail response
+    """
     if request.method == 'GET':
         name = request.query_params.get('name')
         book = Book.objects.get(name__iexact=name)
