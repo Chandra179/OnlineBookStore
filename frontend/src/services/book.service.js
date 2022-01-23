@@ -13,9 +13,9 @@ async function bookList(numPage) {
   return response;
 }
 
-async function bookDetail(title) {
+async function bookDetail(name) {
   const response = await axios
-    .get("http://127.0.0.1:8000/book/detail", { params: { title: title} })
+    .get("http://127.0.0.1:8000/book/detail", { params: { name: name} })
     .then((response) => {
       return response.data;
     });

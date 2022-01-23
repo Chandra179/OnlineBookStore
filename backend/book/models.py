@@ -1,5 +1,67 @@
 from django.db import models
 
+
+class Author(models.Model):
+    name = models.CharField(max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Language(models.Model):
+    code = models.CharField(max_length=8, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Book(models.Model):
+    name = models.CharField(max_length=400, blank=True, null=True)
+    cover = models.CharField(max_length=400, blank=True, null=True)
+    isbn13 = models.CharField(max_length=13, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    num_pages = models.IntegerField(blank=True, null=True)
+    publication_date = models.DateField(blank=True, null=True)
+    language = models.ForeignKey('Language', blank=True, null=True, on_delete=models.CASCADE)
+    publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE)
+    book_genre = models.ManyToManyField('Genre', through='BookGenre')
+    book_author = models.ManyToManyField('Author', through='BookAuthor')
+
+    def __str__(self):
+        return self.name
+
+
+class BookGenre(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('book', 'genre',)
+
+
+class BookAuthor(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('book', 'author',)
+
+
 # class Customer(models.Model):
 #     customer_id = models.IntegerField(primary_key=True)
 #     first_name = models.CharField(max_length=200, blank=True, null=True)
@@ -41,77 +103,6 @@ from django.db import models
 #         db_table = 'customer_address'
 #         unique_together = (('customer', 'address'),)
  
-class Author(models.Model):
-    author_id = models.IntegerField(primary_key=True)
-    author_name = models.CharField(max_length=400, blank=True, null=True)
-
-    class Meta:
-        db_table = 'author'
-    
-    def __str__(self):
-        return self.author_name
-
-
-class BookLanguage(models.Model):
-    language_id = models.IntegerField(primary_key=True)
-    language_code = models.CharField(max_length=8, blank=True, null=True)
-    language_name = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        db_table = 'book_language'
-
-    def __str__(self):
-        return self.language_name
-
-
-class Publisher(models.Model):
-    publisher_id = models.IntegerField(primary_key=True)
-    publisher_name = models.CharField(max_length=400, blank=True, null=True)
-
-    class Meta:
-        db_table = 'publisher'
-
-    def __str__(self):
-        return self.publisher_name
-
-
-class Book(models.Model):
-    book_id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=400, blank=True, null=True)
-    cover = models.CharField(max_length=400, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    isbn13 = models.CharField(max_length=13, blank=True, null=True)
-    language = models.ForeignKey('BookLanguage', blank=True, null=True, on_delete=models.CASCADE)
-    num_pages = models.IntegerField(blank=True, null=True)
-    publication_date = models.DateField(blank=True, null=True)
-    publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE)
-    book_author = models.ManyToManyField(Author, through='BookAuthor')
-
-    class Meta:
-        db_table = 'book'
-
-    def __str__(self):
-        return self.title
-
-class Inventory(models.Model):
-    book = models.ForeignKey('Book', blank=True, null=True, on_delete=models.CASCADE)
-    stock = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'inventory'
-
-    def __str__(self):
-        return self.book.title
-
-
-class BookAuthor(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'book_author'
-        unique_together = ('book', 'author',)
-
 
 
 

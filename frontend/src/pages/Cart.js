@@ -169,7 +169,7 @@ export default function Cart() {
         } else {
             return false;
         }
-    });
+    }, []);
 
     if (cartItem === null) {
         return (

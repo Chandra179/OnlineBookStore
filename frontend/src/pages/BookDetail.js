@@ -33,7 +33,7 @@ function Item({ bookDetail, expand, expandText }) {
                     xs: 20
                 }
             }}>
-                {bookDetail.title}
+                {bookDetail.name}
             </Typography>
             <Typography sx={{
                 color: "rgb(0, 113, 133)"
@@ -61,8 +61,8 @@ export default function HomeDetail() {
     };
 
     useEffect(() => {
-        const title = window.location.pathname.split('/').pop().split('-').join(' ')
-        BookService.bookDetail(title).then(
+        const name = window.location.pathname.split('/').pop().split('-').join(' ')
+        BookService.bookDetail(name).then(
             (data) => {
                 setBookDetail(data);
             },
