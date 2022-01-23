@@ -61,38 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
-    const { userState, setUserState } = useUser();
-    const logOut = () => {
-        setUserState(undefined);
-        AuthService.logout();
-    };
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
+const RenderMenu = ({ anchorEl, menuId, isMenuOpen, handleMenuClose, logOut }) => {
+    return (
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -113,9 +83,11 @@ export default function PrimarySearchAppBar() {
             </Link>
         </Menu>
     );
+}
 
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
+const RenderMobileMenu = ({ userState, mobileMoreAnchorEl, mobileMenuId, 
+    isMobileMenuOpen, handleMobileMenuClose, handleProfileMenuOpen }) => {
+    return (
         <Menu
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
@@ -162,6 +134,41 @@ export default function PrimarySearchAppBar() {
             )}
         </Menu>
     );
+}
+
+export default function PrimarySearchAppBar() {
+    const { userState, setUserState } = useUser();
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+    const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const menuId = 'primary-search-account-menu';
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+
+    const logOut = () => {
+        setUserState(undefined);
+        AuthService.logout();
+    };
+
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
+
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
 
     useEffect(() => {
         function checkUser() {
@@ -172,7 +179,6 @@ export default function PrimarySearchAppBar() {
         }
         checkUser()
     }, [setUserState]);
-
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -225,8 +231,6 @@ export default function PrimarySearchAppBar() {
                                 </Button>
                             </Link>
                         )}
-
-
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -242,8 +246,20 @@ export default function PrimarySearchAppBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
+            <RenderMenu
+                anchorEl={anchorEl}
+                menuId={menuId}
+                isMenuOpen={isMenuOpen}
+                handleMenuClose={handleMenuClose}
+                logOut={logOut} />
+            <RenderMobileMenu
+                userState={userState}
+                mobileMoreAnchorEl={mobileMoreAnchorEl}
+                mobileMenuId={mobileMenuId}
+                isMobileMenuOpen={isMobileMenuOpen}
+                handleMobileMenuClose={handleMobileMenuClose}
+                handleProfileMenuOpen={handleProfileMenuOpen}
+            />
         </Box>
     );
 }
