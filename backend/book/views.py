@@ -3,20 +3,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
-from django.db.models import Count
-from .models import Book, BookGenre, Genre
+from .models import Book, Genre
 from inventory.models import Inventory
-from django.core import serializers
+
 
 @api_view(['GET'])
-def BookPerCategory(request):
+def BooksPerGenre(request):
 
     if request.method == 'GET':
         response ={}
         for genre in Genre.objects.all():
             data = list(Book.objects.filter(book_genre=genre.id).values()[:10])
             response[str(genre)] = data
-
         return JsonResponse(response, content_type='application/json', status=status.HTTP_200_OK)
 
 
