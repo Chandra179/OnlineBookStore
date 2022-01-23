@@ -1,5 +1,0 @@
-from book.models import *
-
-a1 = Author.objects.filter(author_name='Liesl Mueller')
-b1 = Book.objects.filter(title='Good Poems for Hard Times')
-b1.book_author_ids.all()

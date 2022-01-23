@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from '@mui/material/Grid';
-import BooksPerGenre from "../components/BooksPerGenre";
 
 
 function Home() {
@@ -11,7 +10,6 @@ function Home() {
                 md={12}
                 sm={12}
                 xs={12}>
-                <BooksPerGenre />
             </Grid>
         </Grid>
     );

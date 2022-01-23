@@ -14,7 +14,6 @@ import BookDetail from "../pages/BookDetail";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 
-
 const Routes = () => {
   return (
     <Router>
