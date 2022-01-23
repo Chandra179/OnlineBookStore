@@ -169,7 +169,7 @@ export default function Cart() {
         } else {
             return false;
         }
-    }, []);
+    }, [userEmail, history]);
 
     if (cartItem === null) {
         return (

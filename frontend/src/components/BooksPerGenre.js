@@ -22,14 +22,14 @@ function BooksPerGenre() {
     const bookPerGenreList = () => {
         var result = [];
         for (const item in booksPerGenre) {
-            result.push(<h1>{item}</h1>)
-            booksPerGenre[item].map((e, i) => {
+            result.push(<Typography key={item}>{item}</Typography>)
+            booksPerGenre[item].map((e, i) => (
                 result.push(
-                    <p key={e.name}>
+                    <MenuItem key={e.name}>
                         {e.name}
-                    </p>
+                    </MenuItem>
                 )
-            })
+            ))
         }
         return result;
     }

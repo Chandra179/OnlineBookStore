@@ -23,7 +23,7 @@ const Navbar = () => {
       }
     }
     checkUser()
-  }, []);
+  }, [setUserState]);
 
   const logOut = () => {
     setUserState(undefined);
