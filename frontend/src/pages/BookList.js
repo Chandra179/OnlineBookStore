@@ -51,7 +51,7 @@ function Body({ name, author, classes }) {
         <>
             <ListItemText className={classes.nameProperties}>
                 <Link to={{
-                    pathname: `/${name.replace(/\s+/g, '-').toLowerCase()}`
+                    pathname: `/book/${name.replace(/\s+/g, '-').toLowerCase()}`
                 }}>
                     <Typography sx={{
                         color: "black",

@@ -1,5 +1,15 @@
 import axios from "axios";
 
+async function booksPerGenre() {
+  const response = await axios
+    .get("http://127.0.0.1:8000/book/books-per-genre")
+    .then((response) => {
+      return response.data;
+    });
+  return response;
+}
+
+
 async function bookList(numPage) {
   const response = await axios
     .get("http://127.0.0.1:8000/book", { params: { page: numPage} })
@@ -23,6 +33,7 @@ async function bookDetail(name) {
 }
 
 const BookService = {
+    booksPerGenre,
     bookList,
     bookDetail
 };
