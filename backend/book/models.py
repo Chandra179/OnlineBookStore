@@ -39,7 +39,7 @@ class Book(models.Model):
     publication_date = models.DateField(blank=True, null=True)
     language = models.ForeignKey('Language', blank=True, null=True, on_delete=models.CASCADE)
     publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE)
-    book_genre = models.ManyToManyField('Genre', through='BookGenre')
+    genre = models.ForeignKey('Genre',  blank=True, null=True, on_delete=models.CASCADE)
     book_author = models.ManyToManyField('Author', through='BookAuthor')
 
     def __str__(self):

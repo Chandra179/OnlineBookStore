@@ -13,25 +13,20 @@ def BooksPerGenre(request):
     if request.method == 'GET':
         response = []
         books = []
-        book_author = Prefetch('book_author')
-        book_genre = Prefetch('book_genre')
 
         # retrieve latest 10 books for each genre
         for genre in Genre.objects.all().distinct():
-            books.extend(list(
-                Book.objects 
-                    .filter(book_genre=genre.id) 
-                    .prefetch_related(book_author, book_genre)[:1]
-                )
+            books.extend(Book.objects 
+                    .filter(genre=genre.id) 
+                    .prefetch_related('book_author')[:1]
             )
 
         for book in books:
             book_author = [x.name for x in book.book_author.all()]
-            book_genre = [x.name for x in book.book_genre.all()]
             response.append({
                 'name': book.name,
                 'author': book_author,
-                'genre': book_genre,
+                'genre': book.genre.name,
                 'cover': book.cover,
             })
 

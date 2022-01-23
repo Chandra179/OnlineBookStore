@@ -12,6 +12,7 @@ function BooksPerGenre() {
         BookService.booksPerGenre().then(
             (data) => {
                 setBooksPerGenre(data);
+                console.log(data);
             },
             (error) => {
                 console.log(error)
@@ -19,22 +20,21 @@ function BooksPerGenre() {
         )
     }, []);
 
-    const bookPerGenreList = () => {
-        var result = [];
-        for (const key in booksPerGenre) {
-            result.push(
-                <Typography key={key}>{key}</Typography>
-            )
-            booksPerGenre[key].map(x => {
-                result.push(
-                    <MenuItem key={x.name}>{x.name}</MenuItem>
-                )
-            })
-        }
-        return result;
-    }
+    // const bookPerGenreList = () => {
+    //     var result = [];
+    //     for (const key in booksPerGenre) {
+    //         result.push(
+    //             <Typography key={key}>{key}</Typography>
+    //         )
+    //         booksPerGenre[key].map(x => {
+    //             result.push(
+    //                 <MenuItem key={x.name}>{x.name}</MenuItem>
+    //             )
+    //         })
+    //     }
+    //     return result;
+    // }
 
-    console.log(booksPerGenre);
     return (
         <Grid container spacing={2}>
             <Grid item
@@ -42,7 +42,7 @@ function BooksPerGenre() {
                 md={12}
                 sm={12}
                 xs={12}>
-                {bookPerGenreList()}
+                {/* {bookPerGenreList()} */}
             </Grid>
         </Grid>
     );
