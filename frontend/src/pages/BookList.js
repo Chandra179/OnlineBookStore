@@ -146,7 +146,6 @@ function BookList() {
         // set param page dafault to 1
         BookService.bookList(currentPage).then(
             (data) => {
-                console.log(data.book);
                 setBookList(data.book);
                 setTotalBook(data.total_book);
             },

@@ -102,7 +102,7 @@ function ShoppingCard({ bookDetail }) {
 
             // items that user added to cart
             var newItems = {}
-            newItems[bookDetail.title] = {
+            newItems[bookDetail.name] = {
                 'cover': bookDetail.cover,
                 'qty':qty,
                 'stock': bookDetail.stock,
@@ -115,12 +115,12 @@ function ShoppingCard({ bookDetail }) {
                 setItemExistAlert(false);
             } else { // update cart items
                 var oldItems = JSON.parse(localStorage.getItem(userEmail));
-                var duplicateItems = bookDetail.title in oldItems;
+                var duplicateItems = bookDetail.name in oldItems;
                 if (duplicateItems) {
                     setItemExistAlert(true);
                     setItemAddedAlert(false);
                 } else {
-                    oldItems[bookDetail.title] = {
+                    oldItems[bookDetail.name] = {
                         'cover': bookDetail.cover,
                         'qty':qty,
                         'stock': bookDetail.stock,

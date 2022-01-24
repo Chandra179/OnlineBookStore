@@ -9,19 +9,16 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from "react-router-dom";
-import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
+import { useCart } from "../hooks/useCart";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -66,6 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const { userState, setUserState } = useUser();
+    const [ cartBadge, setCartBadge ] = useState(0);
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -99,6 +98,8 @@ export default function PrimarySearchAppBar() {
             const user = AuthService.getCurrentUser();
             if (user) {
                 setUserState(user);
+                const cartBadge = JSON.parse(localStorage.getItem(user));
+                setCartBadge(Object.keys(cartBadge).length);
             }
         }
         checkUser()
@@ -146,8 +147,8 @@ export default function PrimarySearchAppBar() {
         >
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
+                    <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
+                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="primary" />
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -203,8 +204,8 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
+                            <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
+                                <ShoppingCartIcon sx={{ fontSize: 30 }} color="primary" />
                             </Badge>
                         </IconButton>
 
@@ -217,7 +218,7 @@ export default function PrimarySearchAppBar() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <AccountCircle />
+                                    <AccountCircle sx={{ fontSize: 30 }} color="primary"/>
                                 </IconButton>
                             </MenuItem>
                         ) : (
