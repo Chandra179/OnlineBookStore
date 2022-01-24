@@ -63,7 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const { userState, setUserState } = useUser();
-    const [ cartBadge, setCartBadge ] = useState(0);
+    const { cartItem, setCartItem } = useCart();
+    const [cartBadge, setCartBadge] = useState(0);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -90,6 +91,7 @@ export default function PrimarySearchAppBar() {
 
     const logOut = () => {
         setUserState(undefined);
+        setCartBadge(0);
         AuthService.logout();
     };
 
@@ -98,8 +100,9 @@ export default function PrimarySearchAppBar() {
             const user = AuthService.getCurrentUser();
             if (user) {
                 setUserState(user);
-                const cartBadge = JSON.parse(localStorage.getItem(user));
-                setCartBadge(Object.keys(cartBadge).length);
+                console.log(cartItem);
+                console.log(Object.keys(cartItem).length);
+                setCartBadge(Object.keys(cartItem).length);
             }
         }
         checkUser()
@@ -148,10 +151,10 @@ export default function PrimarySearchAppBar() {
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
-                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="primary" />
+                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
                     </Badge>
                 </IconButton>
-                <p>Messages</p>
+                <p>Cart</p>
             </MenuItem>
             {userState ? (
                 <MenuItem onClick={handleProfileMenuOpen}>
@@ -172,8 +175,7 @@ export default function PrimarySearchAppBar() {
                         <IconButton size="large" color="inherit">
                             <LoginIcon />
                         </IconButton>
-                                        
-                    <Typography variant="p">Sign in</Typography>
+                        <Typography variant="p">Sign in</Typography>
                     </Link>
                 </MenuItem>
             )}
@@ -182,7 +184,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar elevation={1} position="static" color="transparent">
+            <AppBar elevation={1} position="static" color="primary">
                 <Toolbar>
                     <Typography
                         variant="h6"
@@ -205,7 +207,7 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
-                                <ShoppingCartIcon sx={{ fontSize: 30 }} color="primary" />
+                                <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
                             </Badge>
                         </IconButton>
 
@@ -218,7 +220,7 @@ export default function PrimarySearchAppBar() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <AccountCircle sx={{ fontSize: 30 }} color="primary"/>
+                                    <AccountCircle sx={{ fontSize: 30 }} color="inherit" />
                                 </IconButton>
                             </MenuItem>
                         ) : (
