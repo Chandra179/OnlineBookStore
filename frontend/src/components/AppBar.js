@@ -9,13 +9,16 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';
+
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
@@ -29,11 +32,11 @@ const Search = styled('div')(({ theme }) => ({
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
-    marginLeft: 30,
+    marginLeft: 0,
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-        marginLeft: theme.spacing(1),
-        width: '30%',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(3),
+        width: 'auto',
     },
 }));
 
@@ -61,8 +64,48 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const RenderMenu = ({ anchorEl, menuId, isMenuOpen, handleMenuClose, logOut }) => {
-    return (
+export default function PrimarySearchAppBar() {
+    const { userState, setUserState } = useUser();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+    const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
+
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+    const logOut = () => {
+        setUserState(undefined);
+        AuthService.logout();
+    };
+
+    useEffect(() => {
+        function checkUser() {
+            const user = AuthService.getCurrentUser();
+            if (user) {
+                setUserState(user);
+            }
+        }
+        checkUser()
+    }, [setUserState]);
+
+    const menuId = 'primary-search-account-menu';
+    const renderMenu = (
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -78,16 +121,14 @@ const RenderMenu = ({ anchorEl, menuId, isMenuOpen, handleMenuClose, logOut }) =
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <Link to="/signin" onClick={logOut}>
-                <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
-            </Link>
+            <MenuItem onClick={handleMenuClose}>
+                <Link to="/signin" onClick={logOut}><p>Logout</p></Link>
+            </MenuItem>
         </Menu>
     );
-}
 
-const RenderMobileMenu = ({ userState, mobileMoreAnchorEl, mobileMenuId, 
-    isMobileMenuOpen, handleMobileMenuClose, handleProfileMenuOpen }) => {
-    return (
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
@@ -126,63 +167,21 @@ const RenderMobileMenu = ({ userState, mobileMoreAnchorEl, mobileMenuId,
                 </MenuItem>
             ) : (
                 <MenuItem>
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                        <LoginIcon />
-                    </IconButton>
-                    <Link to="/signin"><p>Sign in</p></Link>
+                    <Link to="/signin" onClick={logOut}>
+                        <IconButton size="large" color="inherit">
+                            <LoginIcon />
+                        </IconButton>
+                                        
+                    <Typography variant="p">Sign in</Typography>
+                    </Link>
                 </MenuItem>
             )}
         </Menu>
     );
-}
-
-export default function PrimarySearchAppBar() {
-    const { userState, setUserState } = useUser();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const menuId = 'primary-search-account-menu';
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-
-    const logOut = () => {
-        setUserState(undefined);
-        AuthService.logout();
-    };
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    useEffect(() => {
-        function checkUser() {
-            const user = AuthService.getCurrentUser();
-            if (user) {
-                setUserState(user);
-            }
-        }
-        checkUser()
-    }, [setUserState]);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar elevation={0} position="static">
+            <AppBar elevation={1} position="static" color="transparent">
                 <Toolbar>
                     <Typography
                         variant="h6"
@@ -192,8 +191,7 @@ export default function PrimarySearchAppBar() {
                     >
                         Alexandria
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Search sx={{ border: 'black 10px' }}>
+                    <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -202,34 +200,32 @@ export default function PrimarySearchAppBar() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
+                    <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton sx={{ paddingRight: 3 }} size="large" color="inherit">
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
 
                         {userState ? (
-                            <IconButton
-                                sx={{ paddingRight: 3 }}
-                                size="large"
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
+                            <MenuItem onClick={handleProfileMenuOpen}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="primary-search-account-menu"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                            </MenuItem>
                         ) : (
-                            <Link to="/signin">
-                                <Button color="inherit" sx={{ paddingTop: 1.3 }}>
-                                    <Typography variant="p" color="common.white">
-                                        Sign In
-                                    </Typography>
-                                </Button>
-                            </Link>
+                            <MenuItem>
+                                <Link to="/signin">
+                                    <Typography variant="p" sx={{ color: 'white' }}>SIGN IN</Typography>
+                                </Link>
+                            </MenuItem>
                         )}
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -246,20 +242,8 @@ export default function PrimarySearchAppBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <RenderMenu
-                anchorEl={anchorEl}
-                menuId={menuId}
-                isMenuOpen={isMenuOpen}
-                handleMenuClose={handleMenuClose}
-                logOut={logOut} />
-            <RenderMobileMenu
-                userState={userState}
-                mobileMoreAnchorEl={mobileMoreAnchorEl}
-                mobileMenuId={mobileMenuId}
-                isMobileMenuOpen={isMobileMenuOpen}
-                handleMobileMenuClose={handleMobileMenuClose}
-                handleProfileMenuOpen={handleProfileMenuOpen}
-            />
+            {renderMobileMenu}
+            {renderMenu}
         </Box>
     );
 }
