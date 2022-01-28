@@ -63,8 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const { userState, setUserState } = useUser();
-    const { cartItem, setCartItem } = useCart();
-    const [cartBadge, setCartBadge] = useState(0);
+    const { cartLength, setCartLength } = useCart();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -91,7 +90,7 @@ export default function PrimarySearchAppBar() {
 
     const logOut = () => {
         setUserState(undefined);
-        setCartBadge(0);
+        setCartLength(0);
         AuthService.logout();
     };
 
@@ -100,10 +99,8 @@ export default function PrimarySearchAppBar() {
             const user = AuthService.getCurrentUser();
             if (user) {
                 setUserState(user);
-                console.log(cartItem);
-                console.log(Object.keys(cartItem).length);
-                setCartBadge(Object.keys(cartItem).length);
             }
+            console.log(user);
         }
         checkUser()
     }, [setUserState]);
@@ -150,7 +147,7 @@ export default function PrimarySearchAppBar() {
         >
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
+                    <Badge badgeContent={cartLength} color="error">
                         <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
                     </Badge>
                 </IconButton>
@@ -206,7 +203,7 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={cartBadge ? cartBadge : 0} color="error">
+                            <Badge badgeContent={cartLength} color="error">
                                 <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
                             </Badge>
                         </IconButton>
@@ -225,9 +222,7 @@ export default function PrimarySearchAppBar() {
                             </MenuItem>
                         ) : (
                             <MenuItem>
-                                <Link to="/signin">
-                                    <Typography variant="p" sx={{ color: 'white' }}>SIGN IN</Typography>
-                                </Link>
+                                <Typography variant="p" sx={{ color: 'white' }}>SIGN IN</Typography>
                             </MenuItem>
                         )}
                     </Box>
