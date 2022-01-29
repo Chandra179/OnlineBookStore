@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import AuthService from '../services/auth.service';
 
 export const CartContext = createContext()
@@ -9,6 +9,12 @@ const CartContextProvider = ({children}) => {
         JSON.parse(localStorage.getItem(userEmail))
     );
     const [cartLength, setCartLength] = useState(0);
+
+    useEffect(() => {
+        if (cartItem !== null) {
+            setCartLength(Object.keys(cartItem).length);
+        }
+    }, [cartItem]);
 
     return ( 
         <CartContext.Provider value={{userEmail, cartItem, setCartItem, cartLength, setCartLength}} >
