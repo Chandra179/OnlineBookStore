@@ -18,7 +18,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
-import { useCart } from "../hooks/useCart";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -63,8 +62,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const { userState, setUserState } = useUser();
-    const { cartLength, setCartLength } = useCart();
-
+    
+    const [cartLength, setCartLength ] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -99,8 +98,11 @@ export default function PrimarySearchAppBar() {
             const user = AuthService.getCurrentUser();
             if (user) {
                 setUserState(user);
+                const item = JSON.parse(localStorage.getItem(user))
+                if (item !== null) {
+                    setCartLength(Object.keys(item).length);
+                }
             }
-            console.log(user);
         }
         checkUser()
     }, [setUserState]);

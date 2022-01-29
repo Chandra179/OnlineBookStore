@@ -34,7 +34,7 @@ function CartHeader() {
 }
 
 function ItemList({ history, userEmail, cartItem }) {
-
+    
     const handleQtySelect = (title, event) => {
         var newQty = event.target.value;
 

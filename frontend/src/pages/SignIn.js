@@ -18,7 +18,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AuthService from "../services/auth.service";
 import Alert from "../components/Alert";
 import { useUser } from "../hooks/useUser";
-import { useCart } from "../hooks/useCart";
 
 
 function Copyright(props) {
@@ -38,8 +37,6 @@ const theme = createTheme();
 
 export default function SignIn() {
     const { setUserState } = useUser();
-    const { cartLength, setCartLength } = useCart();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginAlert, setLoginAlert] = useState("");
@@ -77,11 +74,8 @@ export default function SignIn() {
                 (data) => {
                     // Update current user state (context.js)
                     setUserState(data);
-                    const tes = JSON.parse(localStorage.getItem(email))
-                    if (tes !== null) {
-                        setCartLength(Object.keys(tes).length);
-                    }
                     history.push(`/`);
+                    window.location.reload();
                 },
                 (error) => {
                     if (error.response.data === "User not found") {
