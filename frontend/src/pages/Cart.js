@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
+
 function CartHeader() {
     return (
         <Grid container sx={{ p: 5, boxShadow: 1 }}>
@@ -34,7 +35,7 @@ function CartHeader() {
 }
 
 function ItemList({ history, userEmail, cartItem }) {
-    
+
     const handleQtySelect = (title, event) => {
         var newQty = event.target.value;
 
@@ -42,13 +43,9 @@ function ItemList({ history, userEmail, cartItem }) {
             history.push('/signin');
         } else {
             const userCart = localStorage.getItem(userEmail);
-            if (userCart === "undefined" || userCart === null) {
-                history.push('/cart');
-            } else {
+            if (userCart !== null) {
                 var oldItems = JSON.parse(userCart);
-                oldItems[title] = {
-                    'qty': newQty,
-                }
+                oldItems[title]['qty'] = newQty;
                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
             }
         }
@@ -63,7 +60,6 @@ function ItemList({ history, userEmail, cartItem }) {
     }
 
     const removeProduct = () => {
-
     }
 
     return (
@@ -127,10 +123,10 @@ function ItemList({ history, userEmail, cartItem }) {
 
                             {/* REMOVE PRODUCT */}
                             <Box sx={{ paddingTop: 2, color: 'blue' }}>
-                                <Button 
-                                onClick={removeProduct}
-                                size="small"
-                                sx={{ fontSize: 10, padding: 0 }}>
+                                <Button
+                                    onClick={removeProduct}
+                                    size="small"
+                                    sx={{ fontSize: 10, padding: 0 }}>
                                     Delete
                                 </Button>
                             </Box>
@@ -162,41 +158,40 @@ function CheckoutCard() {
 export default function Cart() {
     const history = useHistory();
     const { userEmail, cartItem } = useCart();
+    console.log(cartItem);
 
     useEffect(() => {
         if (userEmail === "") {
             history.push("/signin");
-        } else {
-            return false;
         }
     }, [userEmail, history]);
 
-    if (cartItem === null) {
-        return (
-            <p>cart empty</p>
-        );
-    } else {
-        return (
-            <Grid container spacing={2}>
-                <Grid item
-                    lg={8}
-                    md={8}
-                    sm={8}
-                    xs={8}>
-                    <CartHeader />
-                    <ItemList
-                        history={history}
-                        userEmail={userEmail}
-                        cartItem={cartItem} />
+    return (
+        <>
+            {cartItem === null ?
+                <p>cart empty</p>
+                :
+                <Grid container spacing={2}>
+                    <Grid item
+                        lg={8}
+                        md={8}
+                        sm={8}
+                        xs={8}>
+                        <CartHeader />
+                        <ItemList
+                            history={history}
+                            userEmail={userEmail}
+                            cartItem={cartItem} />
+                    </Grid>
+                    <Grid item
+                        lg={4}
+                        md={4}
+                        sm={4}
+                        xs={4}>
+                        <CheckoutCard />
+                    </Grid>
                 </Grid>
-                <Grid item
-                    lg={4}
-                    md={4}
-                    sm={4}
-                    xs={4}>
-                    <CheckoutCard />
-                </Grid>
-            </Grid>
-        );
-    }
+            }
+        </>
+    );
 }

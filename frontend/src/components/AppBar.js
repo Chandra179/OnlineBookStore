@@ -106,7 +106,7 @@ export default function PrimarySearchAppBar() {
             }
         }
         checkUser()
-    }, [setUserState]);
+    }, [setUserState, setCartLength]);
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (

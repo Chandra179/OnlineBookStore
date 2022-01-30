@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Alert from "./Alert";
 import AuthService from '../services/auth.service';
 import { useHistory } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
@@ -16,10 +17,8 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 
 const useStyles = makeStyles({
@@ -41,33 +40,23 @@ const useStyles = makeStyles({
 
 function QtySelect({ qty, stock, setQty, classes }) {
 
-    const handleChange = (event) => {
+    const handleQtyChange = (event) => {
         setQty(event.target.value);
     };
-    
-    const StockQty = (n) => {
-        var elements = [];
-        for(var i=2; i < n+1; i++){
-            elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
-        }
-        return elements;
-    }
 
     return (
         <Box className={classes.qtyBox}>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Qty</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                <TextField
+                    id="outlined-number"
+                    label="Number"
+                    type="number"
+                    onChange={handleQtyChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                     value={qty}
-                    label="Qty"
-                    onChange={handleChange}
-                    displayEmpty
-                >  
-                    <MenuItem value={1} key={1}>{1}</MenuItem>
-                    {StockQty(stock)}
-                </Select>
+                />
             </FormControl>
         </Box>
     );
@@ -88,6 +77,7 @@ function AddToCartButton({ handleAddToCart, classes }) {
 function ShoppingCard({ bookDetail }) {
     const history = useHistory();
     const classes = useStyles();
+    const { setCartLength } = useCart();
     const [qty, setQty] = useState(1);
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
@@ -104,13 +94,17 @@ function ShoppingCard({ bookDetail }) {
             var newItems = {}
             newItems[bookDetail.name] = {
                 'cover': bookDetail.cover,
-                'qty':qty,
+                'qty': qty,
                 'stock': bookDetail.stock,
             }
 
-            // create new cart with first item assgined
+            // add first new item to cart
             if (userCart === "undefined" || userCart === null) {
                 localStorage.setItem(userEmail, JSON.stringify(newItems));
+                const item = JSON.parse(localStorage.getItem(userEmail));
+                if (item !== null) {
+                    setCartLength(Object.keys(item).length);
+                }
                 setItemAddedAlert(true);
                 setItemExistAlert(false);
             } else { // update cart items
@@ -122,10 +116,14 @@ function ShoppingCard({ bookDetail }) {
                 } else {
                     oldItems[bookDetail.name] = {
                         'cover': bookDetail.cover,
-                        'qty':qty,
+                        'qty': qty,
                         'stock': bookDetail.stock,
                     }
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
+                    const item = JSON.parse(localStorage.getItem(userEmail));
+                    if (item !== null) {
+                        setCartLength(Object.keys(item).length);
+                    }
                     setItemAddedAlert(true);
                 }
             }

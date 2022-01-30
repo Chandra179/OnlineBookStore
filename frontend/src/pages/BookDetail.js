@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import ShoppingCard from "../components/ShoppingCard";
 
+
 function Cover({ bookDetail }) {
     return (
         <Card sx={{ maxWidth: 240, maxHeight: 350 }}>

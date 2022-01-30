@@ -4,8 +4,8 @@ from book.models import Book
 
 # Create your models here.
 class Inventory(models.Model):
-    book = models.ForeignKey(Book, blank=True, null=True, on_delete=models.CASCADE)
     stock = models.IntegerField(blank=True, null=True)
+    book = models.OneToOneField(Book, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.book.name
