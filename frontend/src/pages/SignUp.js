@@ -36,7 +36,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp(props) {
-    const { setUserState } = useUser();
+    const { setUserLoggedIn } = useUser();
     const [email, setEmail] = useState("");
     const [signupAlert, setSignupAlert] = useState("");
     const [password, setPassword] = useState("");
@@ -73,7 +73,7 @@ export default function SignUp(props) {
             //HANDLE LOGIN HERE!!
             AuthService.signup(email, password).then(
                 (data) => {
-                    setUserState(data)
+                    setUserLoggedIn(data)
                     history.push("/");
                 },
                 (error) => {

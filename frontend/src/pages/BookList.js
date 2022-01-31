@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-function Cover({ cover, classes }) {
+function BookCover({ cover, classes }) {
     return (
         <Card className={classes.coverSize}>
             <CardMedia
@@ -46,7 +46,7 @@ function Cover({ cover, classes }) {
     );
 }
 
-function Body({ name, author, classes }) {
+function BookDescription({ name, author, classes }) {
     return (
         <>
             <ListItemText className={classes.nameProperties}>
@@ -83,10 +83,10 @@ function Body({ name, author, classes }) {
     );
 }
 
-function Book({ data, classes }) {
+function Book({ bookList, classes }) {
     return (
         <List>
-            {data.map(function (item, i) {
+            {bookList.map(function (item, i) {
                 return (
                     <div key={i}>
                         <ListItem>
@@ -102,7 +102,7 @@ function Book({ data, classes }) {
                                     sm={2}
                                     xs={3}
                                     sx={{ marginRight: 2 }}>
-                                    <Cover
+                                    <BookCover
                                         cover={item.cover}
                                         classes={classes} />
                                 </Grid>
@@ -111,7 +111,7 @@ function Book({ data, classes }) {
                                     md={9}
                                     sm={9}
                                     xs={8}>
-                                    <Body
+                                    <BookDescription
                                         name={item.name}
                                         author={item.author}
                                         classes={classes} />
@@ -129,7 +129,10 @@ function Book({ data, classes }) {
 function MyPagination({ currentPage, totalPageNumber, handlePageClick }) {
     return (
         <Stack spacing={2} sx={{ alignItems: 'center' }}>
-            <Pagination count={totalPageNumber} page={currentPage} onChange={handlePageClick} />
+            <Pagination
+                count={totalPageNumber}
+                page={currentPage}
+                onChange={handlePageClick} />
         </Stack>
     );
 }
@@ -184,7 +187,7 @@ function BookList() {
                 md={10}
                 sm={12}
                 xs={12}>
-                <Book data={bookList} classes={classes} />
+                <Book bookList={bookList} classes={classes} />
                 <MyPagination
                     currentPage={currentPage}
                     handlePageClick={handlePageClick}

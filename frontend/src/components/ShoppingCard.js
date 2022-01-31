@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     },
 });
 
-function QtySelect({ qty, stock, setQty, classes }) {
+function QtyInput({ qty, stock, setQty, classes }) {
 
     const handleQtyChange = (event) => {
         setQty(event.target.value);
@@ -143,7 +143,7 @@ function ShoppingCard({ bookDetail }) {
                         if you like.
                     </Typography>
                 </CardContent>
-                <QtySelect
+                <QtyInput
                     qty={qty}
                     stock={bookDetail.stock}
                     setQty={setQty}

@@ -17,6 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
 import Alert from "../components/Alert";
+import Home from "../pages/Home";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
@@ -37,7 +38,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-    const { setUserState } = useUser();
+    const { userLoggedIn, setUserLoggedIn } = useUser();
     const { setCartLength } = useCart();
 
     const [email, setEmail] = useState("");
@@ -49,7 +50,7 @@ export default function SignIn() {
     const [passwordError, setPasswordError] = useState(false);
     let history = useHistory();
 
-    
+
     const onChangeEmail = (e) => {
         const email = e.target.value;
         setEmail(email);
@@ -60,7 +61,7 @@ export default function SignIn() {
         setPassword(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
 
         if (email === "") {
@@ -71,15 +72,14 @@ export default function SignIn() {
             setPasswordHelper("Enter password")
             setPasswordError(true)
         }
-
         if (email !== "" && password !== "") {
             AuthService.signin(email, password).then(
                 (data) => {
-                    // Update current user state (context.js)
-                    setUserState(data);
-                    const item = JSON.parse(localStorage.getItem(email));
-                    if (item !== null) {
-                        setCartLength(Object.keys(item).length);
+                    // set user to logged in
+                    setUserLoggedIn(data);
+                    const itemInCart = JSON.parse(localStorage.getItem(email));
+                    if (itemInCart !== null) {
+                        setCartLength(Object.keys(itemInCart).length);
                     }
                     history.push(`/`);
                 },
@@ -98,84 +98,90 @@ export default function SignIn() {
         }
     };
 
-    return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Box sx={{ pb: 2, width: '100%' }}>
-                        {loginAlert ? <Alert loginALert={loginAlert} /> : <div />}
-                    </Box>
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            onChange={onChangeEmail}
-                            value={email}
-                            error={emailError ? true : false}
-                            helperText={emailHelper !== "" ? emailHelper : false}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            onChange={onChangePassword}
-                            value={password}
-                            error={passwordError ? true : false}
-                            helperText={passwordHelper !== "" ? passwordHelper : false}
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link to="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+    if (userLoggedIn) {
+        return (
+            <Home />
+        );
+    } else {
+        return (
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Box sx={{ pb: 2, width: '100%' }}>
+                            {loginAlert ? <Alert loginALert={loginAlert} /> : <div />}
+                        </Box>
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <Box component="form" onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
+                            <TextField
+                                onChange={onChangeEmail}
+                                value={email}
+                                error={emailError ? true : false}
+                                helperText={emailHelper !== "" ? emailHelper : false}
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                            />
+                            <TextField
+                                onChange={onChangePassword}
+                                value={password}
+                                error={passwordError ? true : false}
+                                helperText={passwordHelper !== "" ? passwordHelper : false}
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link to="#" variant="body2">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link to="/signup">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Link to="/signup">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        </Box>
                     </Box>
-                </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-            </Container>
-        </ThemeProvider>
-    );
+                    <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Container>
+            </ThemeProvider>
+        );
+    }
 }

@@ -6,11 +6,9 @@ import { useHistory } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 
 function CartHeader() {
@@ -34,11 +32,10 @@ function CartHeader() {
     );
 }
 
-function ItemList({ history, userEmail, cartItem }) {
+function Book({ history, userEmail, cartItem, setCartItem }) {
 
-    const handleQtySelect = (title, event) => {
+    const handleQtyChange = (title, event) => {
         var newQty = event.target.value;
-
         if (userEmail === "") {
             history.push('/signin');
         } else {
@@ -47,17 +44,10 @@ function ItemList({ history, userEmail, cartItem }) {
                 var oldItems = JSON.parse(userCart);
                 oldItems[title]['qty'] = newQty;
                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
+                setCartItem(JSON.parse(localStorage.getItem(userEmail)));
             }
         }
     };
-
-    const StockQty = (n) => {
-        var elements = [];
-        for (var i = 2; i < n + 1; i++) {
-            elements.push(<MenuItem value={i} key={i}>{i}</MenuItem>);
-        }
-        return elements;
-    }
 
     const removeProduct = () => {
     }
@@ -108,16 +98,16 @@ function ItemList({ history, userEmail, cartItem }) {
                             {/* PRODUCT QTY */}
                             <Box sx={{ paddingTop: 2, width: 80 }}>
                                 <FormControl fullWidth>
-                                    <InputLabel>Qty</InputLabel>
-                                    <Select
+                                    <TextField
+                                        id="outlined-number"
+                                        label="Number"
+                                        type="number"
+                                        onChange={(e) => handleQtyChange(title, e)}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                         value={qty}
-                                        label="Qty"
-                                        onChange={(e) => handleQtySelect(title, e)}
-                                        displayEmpty
-                                    >
-                                        <MenuItem value={1} key={1}>{1}</MenuItem>
-                                        {StockQty(stock)}
-                                    </Select>
+                                    />
                                 </FormControl>
                             </Box>
 
@@ -138,7 +128,6 @@ function ItemList({ history, userEmail, cartItem }) {
                             sm={3}
                             xs={3}
                             sx={{ boxShadow: 1 }}>
-
                         </Grid>
                     </Grid>
                 );
@@ -157,8 +146,7 @@ function CheckoutCard() {
 
 export default function Cart() {
     const history = useHistory();
-    const { userEmail, cartItem } = useCart();
-    console.log(cartItem);
+    const { userEmail, cartItem, setCartItem } = useCart();
 
     useEffect(() => {
         if (userEmail === "") {
@@ -178,10 +166,11 @@ export default function Cart() {
                         sm={8}
                         xs={8}>
                         <CartHeader />
-                        <ItemList
+                        <Book
                             history={history}
                             userEmail={userEmail}
-                            cartItem={cartItem} />
+                            cartItem={cartItem} 
+                            setCartItem={setCartItem} />
                     </Grid>
                     <Grid item
                         lg={4}

@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-    const { userState, setUserState } = useUser();
+    const { userLoggedIn, setUserLoggedIn } = useUser();
     const { cartLength, setCartLength } = useCart();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -89,24 +89,24 @@ export default function PrimarySearchAppBar() {
     };
 
     const logOut = () => {
-        setUserState(undefined);
+        setUserLoggedIn(undefined);
         setCartLength(0);
         AuthService.logout();
     };
 
     useEffect(() => {
-        function checkUser() {
-            const user = AuthService.getCurrentUser();
-            if (user) {
-                setUserState(user);
-                const item = JSON.parse(localStorage.getItem(user))
-                if (item !== null) {
-                    setCartLength(Object.keys(item).length);
+        function isUserCartExist() {
+            const userEmail = AuthService.getCurrentUser();
+            if (userEmail) {
+                setUserLoggedIn(userEmail);
+                const itemInCart = JSON.parse(localStorage.getItem(userEmail))
+                if (itemInCart !== null) {
+                    setCartLength(Object.keys(itemInCart).length);
                 }
             }
         }
-        checkUser()
-    }, [setUserState, setCartLength]);
+        isUserCartExist()
+    }, [setUserLoggedIn, setCartLength]);
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -156,7 +156,7 @@ export default function PrimarySearchAppBar() {
                 </IconButton>
                 <p>Cart</p>
             </MenuItem>
-            {userState ? (
+            {userLoggedIn ? (
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
                         size="large"
@@ -211,7 +211,7 @@ export default function PrimarySearchAppBar() {
                             </Badge>
                         </IconButton>
 
-                        {userState ? (
+                        {userLoggedIn ? (
                             <MenuItem onClick={handleProfileMenuOpen}>
                                 <IconButton
                                     size="large"

@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import ShoppingCard from "../components/ShoppingCard";
 
 
-function Cover({ bookDetail }) {
+function BookCover({ bookDetail }) {
     return (
         <Card sx={{ maxWidth: 240, maxHeight: 350 }}>
             <CardMedia
@@ -22,7 +22,7 @@ function Cover({ bookDetail }) {
     )
 }
 
-function Item({ bookDetail, expand, expandText }) {
+function BookDescription({ bookDetail, expand, expandText }) {
     return (
         <ListItemText sx={{ margin: 0, padding: 0 }}>
             <Typography sx={{
@@ -87,7 +87,7 @@ export default function HomeDetail() {
                 sm={11}
                 xs={11}
                 sx={{ marginRight: 5 }}>
-                <Cover bookDetail={bookDetail} />
+                <BookCover bookDetail={bookDetail} />
             </Grid>
             <Grid item
                 lg={6}
@@ -95,7 +95,7 @@ export default function HomeDetail() {
                 sm={8}
                 xs={8}
                 sx={{ marginRight: 3 }}>
-                <Item 
+                <BookDescription 
                     bookDetail={bookDetail}
                     expandText={expandText} />
             </Grid>
