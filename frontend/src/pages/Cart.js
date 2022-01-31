@@ -36,6 +36,7 @@ function Book({ history, userEmail, cartItem, setCartItem }) {
 
     const handleQtyChange = (title, event) => {
         var newQty = event.target.value;
+
         if (userEmail === "") {
             history.push('/signin');
         } else {
@@ -48,6 +49,23 @@ function Book({ history, userEmail, cartItem, setCartItem }) {
             }
         }
     };
+
+    const InputNumberOnly = (event) => {
+        var theEvent = event || window.event;
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
 
     const removeProduct = () => {
     }
@@ -106,6 +124,13 @@ function Book({ history, userEmail, cartItem, setCartItem }) {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
+                                        InputProps={{
+                                            inputProps: {
+                                                max: stock,
+                                                min: 1
+                                            }
+                                        }}
+                                        onKeyPress={(event) => InputNumberOnly(event)}
                                         value={qty}
                                     />
                                 </FormControl>
@@ -169,7 +194,7 @@ export default function Cart() {
                         <Book
                             history={history}
                             userEmail={userEmail}
-                            cartItem={cartItem} 
+                            cartItem={cartItem}
                             setCartItem={setCartItem} />
                     </Grid>
                     <Grid item
