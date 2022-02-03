@@ -205,12 +205,15 @@ export default function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={cartLength} color="error">
-                                <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
-                            </Badge>
-                        </IconButton>
-
+                        <Box sx={{ marginTop: 0.80 }}>
+                            <Link to="/cart">
+                                <IconButton size="large" sx={{ color: 'white' }}>
+                                    <Badge badgeContent={cartLength} color="error">
+                                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
+                                    </Badge>
+                                </IconButton>
+                            </Link>
+                        </Box>
                         {userLoggedIn ? (
                             <MenuItem onClick={handleProfileMenuOpen}>
                                 <IconButton

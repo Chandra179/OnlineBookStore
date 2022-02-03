@@ -85,6 +85,7 @@ function ShoppingCard({ bookDetail }) {
     const handleAddToCart = () => {
         const userEmail = AuthService.getCurrentUser();
         if (userEmail === "") {
+            console.log(userEmail);
             history.push('/signin');
         } else {
             // get user items using user email as key

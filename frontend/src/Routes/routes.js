@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 
-//import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 import AppBar from "../components/AppBar";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
