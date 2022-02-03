@@ -9,17 +9,30 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
+import { Divider } from '@mui/material';
 
 
 function CartHeader() {
     return (
-        <Grid container sx={{ boxShadow: 1, paddingLeft: 6, paddingTop: 6 }}>
+        <Grid container
+            display="flex"
+            direction="row"
+            sx={{ paddingLeft: 6, paddingTop: 6 }}
+        >
             <Grid item
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}>
+                lg={10}
+                md={10}
+                sm={10}
+                xs={10}>
                 <Typography variant="h6">Your cart</Typography>
+            </Grid>
+            <Grid item
+                lg={2}
+                md={2}
+                sm={2}
+                xs={2}
+                sx={{  }}>
+                <Typography variant="p">Select all</Typography>
             </Grid>
         </Grid>
     );
@@ -27,7 +40,7 @@ function CartHeader() {
 
 function CheckoutCard() {
     return (
-        <Grid container sx={{ boxShadow: 1 }}>
+        <Grid container sx={{  }}>
             <p>chandra</p>
         </Grid>
     )
@@ -89,72 +102,92 @@ function Book({ userEmail, cartItem, setCartItem }) {
                 return (
                     <Grid container
                         direction="row"
-                        alignItems="center"
                         key={key}
                         sx={{ paddingLeft: 5, paddingTop: 3 }}
                     >
-                        {/* CHECKBOX */}
-                        <Box sx={{ boxShadow: 1, marginRight: 1 }}>
-                            <Checkbox label="checkbox" />
-                        </Box>
+                        <Grid
+                            display="flex"
+                            item
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            sx={{  }}
+                        >
+                            {/* CHECKBOX */}
+                            <Box sx={{ marginRight: 1 }}>
+                                <Checkbox sx={{ paddingTop: 10 }} label="checkbox" />
+                            </Box>
 
-                        {/* BOOK COVER */}
-                        <Card sx={{ width: 120, marginRight: 2 }}>
-                            <CardMedia
-                                component="img"
-                                image={cover}
-                            />
-                        </Card>
+                            {/* BOOK COVER */}
+                            <Card sx={{ width: 120, marginRight: 2 }}>
+                                <CardMedia
+                                    component="img"
+                                    image={cover}
+                                />
+                            </Card>
 
-                        <Box sx={{ boxShadow: 1 }}>
-                            <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
-                                {title}
+                            <Box sx={{  }}>
+                                <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
+                                    {title}
+                                </Typography>
+
+                                {/* AVAILABLE STOCK */}
+                                {stock >= 10 ?
+                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'green' }}>
+                                        In stock
+                                    </Typography>
+                                    :
+                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'red' }}>
+                                        {stock} items left!
+                                    </Typography>
+                                }
+
+                                {/* PRODUCT QTY */}
+                                <Box sx={{ paddingTop: 3, width: 80 }}>
+                                    <FormControl fullWidth>
+                                        <TextField
+                                            id="outlined-number"
+                                            label="Qty"
+                                            type="number"
+                                            onChange={(e) => handleQtyChange(title, stock, e)}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            InputProps={{
+                                                inputProps: {
+                                                    max: stock,
+                                                    min: 1
+                                                }
+                                            }}
+                                            onKeyPress={(event) => InputNumberOnly(event)}
+                                            value={qty}
+                                        />
+                                    </FormControl>
+                                </Box>
+
+                                {/* REMOVE PRODUCT */}
+                                <Box sx={{ paddingTop: 5, color: 'blue' }}>
+                                    <Button
+                                        onClick={(e) => removeProduct(title, e)}
+                                        size="small"
+                                        sx={{ fontSize: 10, minWidth: '0px' }}>
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item
+                            lg={2}
+                            md={2}
+                            sm={2}
+                            xs={2}
+                            sx={{ }}
+                        >
+                            <Typography>
+                                $28.00
                             </Typography>
-
-                            {/* AVAILABLE STOCK */}
-                            {stock >= 10 ?
-                                <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'green' }}>
-                                    In stock
-                                </Typography>
-                                :
-                                <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'red' }}>
-                                    {stock} items left!
-                                </Typography>
-                            }
-
-                            {/* PRODUCT QTY */}
-                            <Box sx={{ paddingTop: 2, width: 80 }}>
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="outlined-number"
-                                        label="Number"
-                                        type="number"
-                                        onChange={(e) => handleQtyChange(title, stock, e)}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        InputProps={{
-                                            inputProps: {
-                                                max: stock,
-                                                min: 1
-                                            }
-                                        }}
-                                        onKeyPress={(event) => InputNumberOnly(event)}
-                                        value={qty}
-                                    />
-                                </FormControl>
-                            </Box>
-
-                            {/* REMOVE PRODUCT */}
-                            <Box sx={{ paddingTop: 2, color: 'blue' }}>
-                                <Button
-                                    onClick={(e) => removeProduct(title, e)}
-                                    size="small"
-                                    sx={{ fontSize: 10, minWidth: '0px' }}>
-                                    Delete
-                                </Button>
-                            </Box>
-                        </Box>
+                        </Grid>
                     </Grid>
                 );
             })}
@@ -184,6 +217,7 @@ export default function Cart() {
                         sm={8}
                         xs={8}>
                         <CartHeader />
+                        <Divider sx={{ marginLeft: 6, paddingTop: 2 }} />
                         <Book
                             userEmail={userEmail}
                             cartItem={cartItem}
