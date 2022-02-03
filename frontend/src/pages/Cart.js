@@ -31,7 +31,7 @@ function CartHeader() {
                 md={2}
                 sm={2}
                 xs={2}
-                sx={{  }}>
+                sx={{ boxShadow: 1 }}>
                 <Typography variant="p">Select all</Typography>
             </Grid>
         </Grid>
@@ -40,7 +40,7 @@ function CartHeader() {
 
 function CheckoutCard() {
     return (
-        <Grid container sx={{  }}>
+        <Grid container sx={{ boxShadow: 1 }}>
             <p>chandra</p>
         </Grid>
     )
@@ -112,11 +112,11 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             md={10}
                             sm={10}
                             xs={10}
-                            sx={{  }}
+                            sx={{ boxShadow: 1 }}
                         >
                             {/* CHECKBOX */}
-                            <Box sx={{ marginRight: 1 }}>
-                                <Checkbox sx={{ paddingTop: 10 }} label="checkbox" />
+                            <Box sx={{ boxShadow: 1, marginRight: 1 }}>
+                                <Checkbox sx={{ marginTop:9 }}label="checkbox" />
                             </Box>
 
                             {/* BOOK COVER */}
@@ -127,7 +127,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                                 />
                             </Card>
 
-                            <Box sx={{  }}>
+                            <Box sx={{ boxShadow: 1 }}>
                                 <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
                                     {title}
                                 </Typography>
@@ -182,7 +182,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             md={2}
                             sm={2}
                             xs={2}
-                            sx={{ }}
+                            sx={{ boxShadow: 1}}
                         >
                             <Typography>
                                 $28.00
