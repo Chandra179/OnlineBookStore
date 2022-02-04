@@ -18,7 +18,7 @@ function CartHeader() {
         <Grid container
             display="flex"
             direction="row"
-            sx={{ paddingLeft: 6, paddingTop: 6 }}
+            sx={{ paddingLeft:6, paddingTop:6 }}
         >
             <Grid item
                 lg={10}
@@ -31,7 +31,8 @@ function CartHeader() {
                 lg={2}
                 md={2}
                 sm={2}
-                xs={2}>
+                xs={2}
+                sx={{ boxShadow:1 }}>
                 <Typography variant="p">Select all</Typography>
             </Grid>
         </Grid>
@@ -40,8 +41,7 @@ function CartHeader() {
 
 function CheckoutCard() {
     return (
-        <Grid container sx={{  }}>
-            <p>chandra</p>
+        <Grid container>
         </Grid>
     )
 }
@@ -103,7 +103,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                     <Grid container
                         direction="row"
                         key={key}
-                        sx={{ paddingLeft: 5, paddingTop: 3 }}
+                        sx={{ paddingLeft: 5, paddingBottom: 5 }}
                     >
                         <Grid display="flex"
                             item
@@ -113,20 +113,19 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             xs={10}
                         >
                             {/* CHECKBOX */}
-                            <Box sx={{ boxShadow: 1, marginRight: 1 }}>
-                                <Checkbox sx={{ marginTop: 9 }} label="checkbox" />
+                            <Box sx={{ marginRight: 1 }}>
+                                <Checkbox sx={{ marginTop: 9, marginRight:3 }} label="checkbox" />
                             </Box>
 
                             {/* BOOK COVER */}
-                            <Card sx={{ width: 120, marginRight: 2 }}>
+                            <Card sx={{ width: 120, marginRight: 2, boxShadow: "none"}}>
                                 <CardMedia
                                     component="img"
                                     image={cover}
                                 />
                             </Card>
 
-                            <Box sx={{ boxShadow: 1 }}>
-
+                            <Box>
                                 {/* BOOK TITLE */}
                                 <Typography sx={{
                                     fontWeight: 500,
@@ -179,7 +178,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                                 </Box>
 
                                 {/* REMOVE PRODUCT */}
-                                <Box sx={{ marginTop: 6, color: 'blue' }}>
+                                <Box sx={{ marginTop: 4, color: 'blue' }}>
                                     <Button
                                         onClick={(e) => removeProduct(title, e)}
                                         size="small"
@@ -194,7 +193,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             md={2}
                             sm={2}
                             xs={2}
-                            sx={{ boxShadow: 1 }}
+                            sx={{ boxShadow:1 }}
                         >
                             <Typography>
                                 $28.00
@@ -231,7 +230,7 @@ export default function Cart() {
                         sm={8}
                         xs={8}>
                         <CartHeader />
-                        <Divider sx={{ marginLeft: 6, paddingTop: 2 }} />
+                        <Divider sx={{ marginLeft: 6, paddingTop: 2, marginBottom:5 }} />
                         <Book
                             userEmail={userEmail}
                             cartItem={cartItem}
