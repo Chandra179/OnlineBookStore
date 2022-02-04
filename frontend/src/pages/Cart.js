@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useCart } from "../hooks/useCart";
-import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -11,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import { Divider } from '@mui/material';
 import { useHistory } from "react-router-dom";
+import Card from '@mui/material/Card';
 
 
 function CartHeader() {
@@ -31,8 +31,7 @@ function CartHeader() {
                 lg={2}
                 md={2}
                 sm={2}
-                xs={2}
-                sx={{ boxShadow: 1 }}>
+                xs={2}>
                 <Typography variant="p">Select all</Typography>
             </Grid>
         </Grid>
@@ -41,7 +40,7 @@ function CartHeader() {
 
 function CheckoutCard() {
     return (
-        <Grid container sx={{ boxShadow: 1 }}>
+        <Grid container sx={{  }}>
             <p>chandra</p>
         </Grid>
     )
@@ -106,14 +105,12 @@ function Book({ userEmail, cartItem, setCartItem }) {
                         key={key}
                         sx={{ paddingLeft: 5, paddingTop: 3 }}
                     >
-                        <Grid
-                            display="flex"
+                        <Grid display="flex"
                             item
                             lg={10}
                             md={10}
                             sm={10}
                             xs={10}
-                            sx={{ boxShadow: 1 }}
                         >
                             {/* CHECKBOX */}
                             <Box sx={{ boxShadow: 1, marginRight: 1 }}>
@@ -182,7 +179,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                                 </Box>
 
                                 {/* REMOVE PRODUCT */}
-                                <Box sx={{ paddingTop: 5, color: 'blue' }}>
+                                <Box sx={{ marginTop: 6, color: 'blue' }}>
                                     <Button
                                         onClick={(e) => removeProduct(title, e)}
                                         size="small"
@@ -221,6 +218,7 @@ export default function Cart() {
         }
     }, [userEmail]);
 
+    console.log(cartItem.length)
     return (
         <>
             {cartItem === null ?

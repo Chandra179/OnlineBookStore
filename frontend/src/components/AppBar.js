@@ -232,6 +232,7 @@ export default function PrimarySearchAppBar() {
                                 </IconButton>
                             </Link>
                         </Box>
+
                         {userLoggedIn ? (
                             <MenuItem onClick={handleProfileMenuOpen}>
                                 <IconButton
