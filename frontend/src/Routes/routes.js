@@ -13,6 +13,8 @@ import BookList from '../pages/BookList';
 import BookDetail from "../pages/BookDetail";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
+import Tess from "../components/Tess";
+
 
 const Routes = () => {
   return (
@@ -20,7 +22,8 @@ const Routes = () => {
       <AppBar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/book" component={BookList} />
+        <Route path="/tess" component={Tess} />
+        <Route path="/book" component={BookList} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/book/:title" component={BookDetail} />

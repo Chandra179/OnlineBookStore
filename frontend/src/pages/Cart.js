@@ -18,7 +18,7 @@ function CartHeader() {
         <Grid container
             display="flex"
             direction="row"
-            sx={{ paddingLeft:6, paddingTop:6 }}
+            sx={{ paddingLeft: 6, paddingTop: 6 }}
         >
             <Grid item
                 lg={10}
@@ -32,7 +32,7 @@ function CartHeader() {
                 md={2}
                 sm={2}
                 xs={2}
-                sx={{ boxShadow:1 }}>
+                sx={{ boxShadow: 1 }}>
                 <Typography variant="p">Select all</Typography>
             </Grid>
         </Grid>
@@ -99,26 +99,37 @@ function Book({ userEmail, cartItem, setCartItem }) {
                 var cover = cartItem[key]['cover'];
                 var qty = cartItem[key]['qty'];
                 var stock = cartItem[key]['stock'];
+
                 return (
                     <Grid container
                         direction="row"
                         key={key}
                         sx={{ paddingLeft: 5, paddingBottom: 5 }}
                     >
-                        <Grid display="flex"
-                            item
+                        <Grid item
+                            display="flex"
                             lg={10}
                             md={10}
                             sm={10}
                             xs={10}
                         >
                             {/* CHECKBOX */}
-                            <Box sx={{ marginRight: 1 }}>
-                                <Checkbox sx={{ marginTop: 9, marginRight:3 }} label="checkbox" />
+                            <Box sx={{
+                                marginTop: 9,
+                                marginRight: 1
+                            }}>
+                                <Checkbox sx={{
+                                    marginRight: 3
+                                }}
+                                    label="checkbox" />
                             </Box>
 
                             {/* BOOK COVER */}
-                            <Card sx={{ width: 120, marginRight: 2, boxShadow: "none"}}>
+                            <Card sx={{
+                                width: 120,
+                                marginRight: 2,
+                                boxShadow: "none"
+                            }}>
                                 <CardMedia
                                     component="img"
                                     image={cover}
@@ -155,7 +166,10 @@ function Book({ userEmail, cartItem, setCartItem }) {
                                 }
 
                                 {/* PRODUCT QTY */}
-                                <Box sx={{ paddingTop: 3, width: 80 }}>
+                                <Box sx={{
+                                    paddingTop: 3,
+                                    width: 80
+                                }}>
                                     <FormControl fullWidth>
                                         <TextField
                                             id="outlined-number"
@@ -193,7 +207,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             md={2}
                             sm={2}
                             xs={2}
-                            sx={{ boxShadow:1 }}
+                            sx={{ boxShadow: 1 }}
                         >
                             <Typography>
                                 $28.00
@@ -215,9 +229,9 @@ export default function Cart() {
         if (userEmail === "") {
             history.push("/signin");
         }
-    }, [userEmail]);
+    }, [userEmail, history]);
 
-    console.log(cartItem.length)
+    console.log(Object.keys(cartItem));
     return (
         <>
             {cartItem === null ?
@@ -230,7 +244,7 @@ export default function Cart() {
                         sm={8}
                         xs={8}>
                         <CartHeader />
-                        <Divider sx={{ marginLeft: 6, paddingTop: 2, marginBottom:5 }} />
+                        <Divider sx={{ marginLeft: 6, paddingTop: 2, marginBottom: 5 }} />
                         <Book
                             userEmail={userEmail}
                             cartItem={cartItem}
