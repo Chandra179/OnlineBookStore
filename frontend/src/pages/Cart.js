@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useCart } from "../hooks/useCart";
@@ -11,21 +11,83 @@ import Checkbox from "@mui/material/Checkbox";
 import { Divider } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Card from "@mui/material/Card";
+import { makeStyles } from '@mui/styles';
 
 
-function CartHeader() {
+const useStyles = makeStyles({
+    cartHeaderGrid: {
+        paddingLeft: 60,
+        paddingTop: 60
+    },
+    bookContainerGrid: {
+        paddingLeft: 45,
+        paddingBottom: 45,
+    },
+    boxCheckbox: {
+        marginTop: 65,
+        marginRight: 20
+    },
+    bookCoverCard: {
+        width: 120,
+        marginRight: 25,
+        boxShadow: "none"
+    },
+    bookTitle: {
+        fontWeight: 500,
+        letterSpacing: 1.3,
+        fontSize: 17
+    },
+    availableStock: {
+        letterSpacing: 1.3,
+        fontSize: 12,
+        color: "green"
+    },
+    limitedStock: {
+        letterSpacing: 1.3,
+        fontSize: 12,
+        color: "red"
+    },
+    productQtyBox: {
+        paddingTop: 20,
+        width: 80,
+        height: 30
+    },
+    removeProductBox: {
+        marginTop: 55,
+        color: "blue"
+    },
+    removeProductButton: {
+        fontSize: 10,
+        minWidth: "0px"
+    }
+});
+
+function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected, classes }) {
     return (
         <Grid
             container
             display="flex"
             direction="row"
-            sx={{ paddingLeft: 6, paddingTop: 6 }}
+            className={classes.cartHeaderGrid}
         >
-            <Grid item lg={10} md={10} sm={10} xs={10}>
+            <Grid item
+                lg={10}
+                md={10}
+                sm={10}
+                xs={10}>
                 <Typography variant="h6">Your cart</Typography>
             </Grid>
-            <Grid item lg={2} md={2} sm={2} xs={2} sx={{ boxShadow: 1 }}>
+            <Grid item
+                lg={2}
+                md={2}
+                sm={2}
+                xs={2}
+                sx={{ boxShadow: 1 }}>
                 <Typography variant="p">Select all</Typography>
+                <Checkbox
+                    value="all"
+                    onChange={handleSelectedCheckbox}
+                    checked={isAllCheckboxSelected} />
             </Grid>
         </Grid>
     );
@@ -35,7 +97,140 @@ function CheckoutCard() {
     return <Grid container></Grid>;
 }
 
-function Book({ userEmail, cartItem, setCartItem }) {
+function Book({
+    classes,
+    cartItem,
+    handleSelectedCheckbox,
+    selectedCheckbox,
+    handleQtyChange,
+    qtyInputNumberOnly,
+    removeProduct }) {
+
+    return (
+        <>
+            {Object.keys(cartItem).map(function (key) {
+                var title = key;
+                var cover = cartItem[key]["cover"];
+                var qty = cartItem[key]["qty"];
+                var stock = cartItem[key]["stock"];
+
+                return (
+                    <Grid container
+                        direction="row"
+                        key={key}
+                        className={classes.bookContainerGrid}
+                    >
+                        <Grid item
+                            display="flex"
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                        >
+                            {/* CHECKBOX */}
+                            <Box key={key} className={classes.boxCheckbox}>
+                                <Checkbox
+                                    value={key}
+                                    onChange={handleSelectedCheckbox}
+                                    checked={selectedCheckbox.includes(key)}
+                                />
+                            </Box>
+
+                            {/* BOOK COVER */}
+                            <Card className={classes.bookCoverCard}>
+                                <CardMedia component="img" image={cover} />
+                            </Card>
+
+                            <Box>
+                                {/* BOOK TITLE */}
+                                <Typography className={classes.bookTitle}>
+                                    {title}
+                                </Typography>
+
+                                {/* AVAILABLE STOCK */}
+                                {stock >= 10 ? (
+                                    <Typography className={classes.availableStock}>
+                                        In stock
+                                    </Typography>
+                                ) : (
+                                    <Typography className={classes.limitedStock}>
+                                        {stock} items left!
+                                    </Typography>
+                                )}
+
+                                {/* PRODUCT QTY */}
+                                <Box className={classes.productQtyBox}>
+                                    <FormControl fullWidth>
+                                        <TextField
+                                            id="outlined-number"
+                                            label="Qty"
+                                            type="number"
+                                            onChange={(e) => handleQtyChange(title, stock, e)}
+                                            onKeyPress={(event) => qtyInputNumberOnly(event)}
+                                            value={qty}
+                                        />
+                                    </FormControl>
+                                </Box>
+
+                                {/* REMOVE PRODUCT */}
+                                <Box className={classes.removeProductBox}>
+                                    <Button
+                                        onClick={(e) => removeProduct(title, e)}
+                                        size="small"
+                                        className={classes.removeProductButton}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Grid>
+
+                        {/* PRODUCT PRICE */}
+                        <Grid item
+                            lg={2}
+                            md={2}
+                            sm={2}
+                            xs={2}
+                            sx={{ boxShadow: 1 }}
+                        >
+                            <Typography>$28.00</Typography>
+                        </Grid>
+                    </Grid>
+                );
+            })}
+        </>
+    );
+}
+
+export default function Cart() {
+    const { userEmail, cartItem, setCartItem } = useCart();
+    const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+    const history = useHistory();
+    const classes = useStyles();
+    const cartItemKeys = Object.keys(cartItem);
+    const isAllCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
+
+    useEffect(() => {
+        // IF user not logged in
+        if (userEmail === "") {
+            history.push("/signin");
+        }
+    }, [userEmail, history]);
+
+    const handleSelectedCheckbox = (event) => {
+        const value = event.target.value;
+        if (value === "all") {
+            setSelectedCheckbox(selectedCheckbox.length === cartItemKeys.length ? [] : cartItemKeys);
+            console.log(cartItemKeys)
+            return;
+        }
+        console.log(value);
+        const list = [...selectedCheckbox];
+        const index = list.indexOf(value);
+        index === -1 ? list.push(value) : list.splice(index, 1);
+        setSelectedCheckbox(list);
+    };
+
     const handleQtyChange = (title, stock, event) => {
         var newQty = event.target.value;
         if (newQty > stock) {
@@ -52,17 +247,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
         }
     };
 
-    const removeProduct = (title) => {
-        const userCart = localStorage.getItem(userEmail);
-        var oldItems = JSON.parse(userCart);
-        const filteredByKey = Object.fromEntries(
-            Object.entries(oldItems).filter(([key, value]) => key !== title)
-        );
-        localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
-        setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-    };
-
-    const InputNumberOnly = (event) => {
+    const qtyInputNumberOnly = (event) => {
         var theEvent = event || window.event;
         var key;
         // Handle paste
@@ -80,108 +265,15 @@ function Book({ userEmail, cartItem, setCartItem }) {
         }
     };
 
-    return (
-        <>
-            {Object.keys(cartItem).map(function (key) {
-                var title = key;
-                var cover = cartItem[key]["cover"];
-                var qty = cartItem[key]["qty"];
-                var stock = cartItem[key]["stock"];
-
-                return (
-                    <Grid
-                        container
-                        direction="row"
-                        key={key}
-                        sx={{ paddingLeft: 5, paddingBottom: 5 }}
-                    >
-                        <Grid item
-                            display="flex"
-                            lg={10} md={10} sm={10} xs={10}
-                        >
-                            {/* CHECKBOX */}
-                            <Box sx={{ marginTop: 9, marginRight: 1 }}>
-                                <Checkbox sx={{ marginRight: 3 }} label="checkbox" />
-                            </Box>
-
-                            {/* BOOK COVER */}
-                            <Card sx={{ width: 120, marginRight: 2, boxShadow: "none" }}>
-                                <CardMedia component="img" image={cover} />
-                            </Card>
-
-                            <Box>
-                                {/* BOOK TITLE */}
-                                <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
-                                    {title}
-                                </Typography>
-
-                                {/* AVAILABLE STOCK */}
-                                {stock >= 10 ? (
-                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: "green" }}>
-                                        In stock
-                                    </Typography>
-                                ) : (
-                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: "red" }}>
-                                        {stock} items left!
-                                    </Typography>
-                                )}
-
-                                {/* PRODUCT QTY */}
-                                <Box sx={{ paddingTop: 3, width: 80, }}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            id="outlined-number"
-                                            label="Qty"
-                                            type="number"
-                                            onChange={(e) => handleQtyChange(title, stock, e)}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            InputProps={{
-                                                inputProps: {
-                                                    max: stock,
-                                                    min: 1,
-                                                },
-                                            }}
-                                            onKeyPress={(event) => InputNumberOnly(event)}
-                                            value={qty}
-                                        />
-                                    </FormControl>
-                                </Box>
-
-                                {/* REMOVE PRODUCT */}
-                                <Box sx={{ marginTop: 4, color: "blue" }}>
-                                    <Button
-                                        onClick={(e) => removeProduct(title, e)}
-                                        size="small"
-                                        sx={{ fontSize: 10, minWidth: "0px" }}
-                                    >
-                                        Delete
-                                    </Button>
-                                </Box>
-                            </Box>
-                        </Grid>
-
-                        {/* PRODUCT PRICE */}
-                        <Grid item lg={2} md={2} sm={2} xs={2} sx={{ boxShadow: 1 }}>
-                            <Typography>$28.00</Typography>
-                        </Grid>
-                    </Grid>
-                );
-            })}
-        </>
-    );
-}
-
-export default function Cart() {
-    const { userEmail, cartItem, setCartItem } = useCart();
-    const history = useHistory();
-
-    useEffect(() => {
-        if (userEmail === "") {
-            history.push("/signin");
-        }
-    }, [userEmail, history]);
+    const removeProduct = (title) => {
+        const userCart = localStorage.getItem(userEmail);
+        var oldItems = JSON.parse(userCart);
+        const filteredByKey = Object.fromEntries(
+            Object.entries(oldItems).filter(([key, value]) => key !== title)
+        );
+        localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
+        setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+    };
 
     return (
         <>
@@ -189,15 +281,34 @@ export default function Cart() {
                 <p>cart empty</p>
             ) : (
                 <Grid container spacing={2}>
-                    <Grid item lg={8} md={8} sm={8} xs={8}>
-                        <CartHeader />
-                        <Divider sx={{ marginLeft: 6, paddingTop: 2, marginBottom: 5 }} />
+                    <Grid item
+                        lg={8}
+                        md={8}
+                        sm={8}
+                        xs={8}>
+                        <CartHeader
+                            classes={classes}
+                            handleSelectedCheckbox={handleSelectedCheckbox}
+                            isAllCheckboxSelected={isAllCheckboxSelected} />
+                        <Divider sx={{
+                            marginLeft: 6,
+                            paddingTop: 2,
+                            marginBottom: 5
+                        }} />
                         <Book
-                            userEmail={userEmail}
+                            classes={classes}
                             cartItem={cartItem}
-                            setCartItem={setCartItem} />
+                            handleSelectedCheckbox={handleSelectedCheckbox}
+                            selectedCheckbox={selectedCheckbox}
+                            handleQtyChange={handleQtyChange}
+                            qtyInputNumberOnly={qtyInputNumberOnly}
+                            removeProduct={removeProduct} />
                     </Grid>
-                    <Grid item lg={4} md={4} sm={4} xs={4}>
+                    <Grid item
+                        lg={4}
+                        md={4}
+                        sm={4}
+                        xs={4}>
                         <CheckoutCard />
                     </Grid>
                 </Grid>
