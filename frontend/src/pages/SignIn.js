@@ -39,7 +39,7 @@ const theme = createTheme();
 
 export default function SignIn() {
     const { userLoggedIn, setUserLoggedIn } = useUser();
-    const { setCartLength } = useCart();
+    const { setCartLength, setCartItem } = useCart();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -80,6 +80,7 @@ export default function SignIn() {
                     const itemInCart = JSON.parse(localStorage.getItem(email));
                     if (itemInCart !== null) {
                         setCartLength(Object.keys(itemInCart).length);
+                        setCartItem(JSON.parse(localStorage.getItem(email)));
                     }
                     history.push(`/`);
                 },
