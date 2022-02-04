@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BookIcon from '@mui/icons-material/Book';
+import Button from "@mui/material/Button";
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
@@ -197,14 +198,15 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar elevation={1} position="static" color="primary">
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Alexandria
-                    </Typography>
+                    <Link to="/">
+                        <Button
+                            variant="h6"
+                            component="div"
+                            sx={{ color:'white', display: { xs: 'none', sm: 'block' } }}
+                        >
+                            Alexandria
+                        </Button>
+                    </Link>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />

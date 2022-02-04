@@ -94,7 +94,13 @@ function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected, classes }) 
 }
 
 function CheckoutCard() {
-    return <Grid container></Grid>;
+    return (
+        <Grid container sx={{ boxShadow: 1, marginTop: 5 }}>
+            <Grid item>
+                <Typography variant="h6" sx={{ paddingTop: 6 }}>Checkout</Typography>
+            </Grid>
+        </Grid>
+    );
 }
 
 function Book({
