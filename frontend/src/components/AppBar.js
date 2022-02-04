@@ -15,6 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import BookIcon from '@mui/icons-material/Book';
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
@@ -149,11 +150,21 @@ export default function PrimarySearchAppBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={cartLength} color="error">
-                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
-                    </Badge>
-                </IconButton>
+                <Link to="/book">
+                    <IconButton size="large">
+                        <BookIcon sx={{ fontSize: 30 }} color="inherit" />
+                    </IconButton>
+                </Link>
+                <p>Book</p>
+            </MenuItem>
+            <MenuItem>
+                <Link to="/cart">
+                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        <Badge badgeContent={cartLength} color="error">
+                            <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
+                        </Badge>
+                    </IconButton>
+                </Link>
                 <p>Cart</p>
             </MenuItem>
             {userLoggedIn ? (
@@ -205,6 +216,13 @@ export default function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ marginTop: 0.7, marginRight: 2 }}>
+                            <Link to="/book">
+                                <IconButton size="large" sx={{ color: 'white' }}>
+                                    <BookIcon sx={{ fontSize: 30 }} color="inherit" />
+                                </IconButton>
+                            </Link>
+                        </Box>
                         <Box sx={{ marginTop: 0.80 }}>
                             <Link to="/cart">
                                 <IconButton size="large" sx={{ color: 'white' }}>
