@@ -15,6 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import BookIcon from '@mui/icons-material/Book';
 
 import AuthService from "../services/auth.service"
 import { useUser } from "../hooks/useUser";
@@ -205,6 +206,13 @@ export default function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ marginTop: 0.7, marginRight: 2}}>
+                            <Link to="/book">
+                                <IconButton size="large" sx={{ color: 'white' }}>
+                                    <BookIcon sx={{ fontSize: 30 }} color="inherit" />
+                                </IconButton>
+                            </Link>
+                        </Box>
                         <Box sx={{ marginTop: 0.80 }}>
                             <Link to="/cart">
                                 <IconButton size="large" sx={{ color: 'white' }}>
@@ -214,6 +222,7 @@ export default function PrimarySearchAppBar() {
                                 </IconButton>
                             </Link>
                         </Box>
+
                         {userLoggedIn ? (
                             <MenuItem onClick={handleProfileMenuOpen}>
                                 <IconButton
