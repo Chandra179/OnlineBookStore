@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import { Divider } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 
 function CartHeader() {
@@ -116,7 +117,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                         >
                             {/* CHECKBOX */}
                             <Box sx={{ boxShadow: 1, marginRight: 1 }}>
-                                <Checkbox sx={{ marginTop:9 }}label="checkbox" />
+                                <Checkbox sx={{ marginTop: 9 }} label="checkbox" />
                             </Box>
 
                             {/* BOOK COVER */}
@@ -128,17 +129,31 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             </Card>
 
                             <Box sx={{ boxShadow: 1 }}>
-                                <Typography sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}>
+
+                                {/* BOOK TITLE */}
+                                <Typography sx={{
+                                    fontWeight: 500,
+                                    letterSpacing: 1.3,
+                                    fontSize: 17
+                                }}>
                                     {title}
                                 </Typography>
 
                                 {/* AVAILABLE STOCK */}
                                 {stock >= 10 ?
-                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'green' }}>
+                                    <Typography sx={{
+                                        letterSpacing: 1.3,
+                                        fontSize: 12,
+                                        color: 'green'
+                                    }}>
                                         In stock
                                     </Typography>
                                     :
-                                    <Typography sx={{ letterSpacing: 1.3, fontSize: 12, color: 'red' }}>
+                                    <Typography sx={{
+                                        letterSpacing: 1.3,
+                                        fontSize: 12,
+                                        color: 'red'
+                                    }}>
                                         {stock} items left!
                                     </Typography>
                                 }
@@ -182,7 +197,7 @@ function Book({ userEmail, cartItem, setCartItem }) {
                             md={2}
                             sm={2}
                             xs={2}
-                            sx={{ boxShadow: 1}}
+                            sx={{ boxShadow: 1 }}
                         >
                             <Typography>
                                 $28.00
@@ -198,10 +213,11 @@ function Book({ userEmail, cartItem, setCartItem }) {
 
 export default function Cart() {
     const { userEmail, cartItem, setCartItem } = useCart();
+    const history = useHistory();
 
     useEffect(() => {
         if (userEmail === "") {
-            window.location.href = "/signin";
+            history.push("/signin");
         }
     }, [userEmail]);
 

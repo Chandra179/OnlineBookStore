@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import BookService from "../services/book.service";
 
 import List from '@mui/material/List';
@@ -14,12 +13,12 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from '@mui/styles';
+import Box from '@mui/material/Box';
 
 
 const useStyles = makeStyles({
     coverSize: {
-        maxWidth: 250,
-        maxHeight: 250
+        width: 130
     },
     nameProperties: {
         margin: 0,
@@ -93,24 +92,18 @@ function Book({ bookList, classes }) {
                             <Grid
                                 container
                                 direction="row"
-                                justifyContent="center"
                                 alignItems="flex-start"
                             >
-                                <Grid item
-                                    lg={2}
-                                    md={2}
-                                    sm={2}
-                                    xs={3}
-                                    sx={{ marginRight: 2 }}>
+                                <Box sx={{ marginRight: 2, boxShadow:1 }}>
                                     <BookCover
                                         cover={item.cover}
                                         classes={classes} />
-                                </Grid>
+                                </Box>
                                 <Grid item
-                                    lg={9}
-                                    md={9}
-                                    sm={9}
-                                    xs={8}>
+                                    lg={8}
+                                    md={8}
+                                    sm={6}
+                                    xs={6}>
                                     <BookDescription
                                         name={item.name}
                                         author={item.author}
@@ -179,7 +172,6 @@ function BookList() {
                 md={2}
                 sm={3}
                 xs={3}>
-                <p>Filter</p>
             </Grid>
             <Grid
                 item

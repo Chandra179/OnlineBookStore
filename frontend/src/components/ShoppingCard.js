@@ -41,8 +41,32 @@ const useStyles = makeStyles({
 function QtyInput({ qty, stock, setQty, classes }) {
 
     const handleQtyChange = (event) => {
-        setQty(event.target.value);
+        var qty = event.target.value
+        if (qty > stock) {
+            qty = stock;
+        }
+        if (qty.toString()[0] !== '0') {
+            setQty(qty);
+        }
     };
+
+    const InputNumberOnly = (event) => {
+        var theEvent = event || window.event;
+        var key;
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
 
     return (
         <Box className={classes.qtyBox}>
@@ -55,6 +79,13 @@ function QtyInput({ qty, stock, setQty, classes }) {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    InputProps={{
+                        inputProps: {
+                            max: stock,
+                            min: 1
+                        }
+                    }}
+                    onKeyPress={(event) => InputNumberOnly(event)}
                     value={qty}
                 />
             </FormControl>
@@ -77,7 +108,7 @@ function AddToCartButton({ handleAddToCart, classes }) {
 function ShoppingCard({ bookDetail }) {
     const history = useHistory();
     const classes = useStyles();
-    const { setCartLength } = useCart();
+    const { setCartLength, setCartItem  } = useCart();
     const [qty, setQty] = useState(1);
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
@@ -105,6 +136,7 @@ function ShoppingCard({ bookDetail }) {
                 const item = JSON.parse(localStorage.getItem(userEmail));
                 if (item !== null) {
                     setCartLength(Object.keys(item).length);
+                    setCartItem(item);
                 }
                 setItemAddedAlert(true);
                 setItemExistAlert(false);
@@ -124,6 +156,7 @@ function ShoppingCard({ bookDetail }) {
                     const item = JSON.parse(localStorage.getItem(userEmail));
                     if (item !== null) {
                         setCartLength(Object.keys(item).length);
+                        setCartItem(item);
                     }
                     setItemAddedAlert(true);
                 }
