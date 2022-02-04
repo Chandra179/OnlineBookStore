@@ -94,7 +94,7 @@ function Book({ bookList, classes }) {
                                 direction="row"
                                 alignItems="flex-start"
                             >
-                                <Box sx={{ marginRight: 2, boxShadow:1 }}>
+                                <Box sx={{ marginRight: 2, boxShadow: 1 }}>
                                     <BookCover
                                         cover={item.cover}
                                         classes={classes} />
@@ -179,7 +179,9 @@ function BookList() {
                 md={10}
                 sm={12}
                 xs={12}>
-                <Book bookList={bookList} classes={classes} />
+                <Book
+                    bookList={bookList}
+                    classes={classes} />
                 <MyPagination
                     currentPage={currentPage}
                     handlePageClick={handlePageClick}
