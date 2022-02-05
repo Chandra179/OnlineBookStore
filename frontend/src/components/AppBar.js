@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { styled, alpha } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BookIcon from '@mui/icons-material/Book';
@@ -23,46 +21,6 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
 
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-}));
-
 export default function PrimarySearchAppBar() {
     const { userLoggedIn, setUserLoggedIn } = useUser();
     const { cartLength, setCartLength } = useCart();
@@ -72,6 +30,23 @@ export default function PrimarySearchAppBar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    useEffect(() => {
+        const userEmail = AuthService.getCurrentUser();
+        if (userEmail !== '') {
+            setUserLoggedIn(userEmail);
+            const itemInCart = JSON.parse(localStorage.getItem(userEmail))
+            
+            if (itemInCart !== null) {
+                const cartKeys = Object.keys(itemInCart).length;
+                var itemQty = 0;
+                for (var i = 0; i < cartKeys; i++) {
+                    itemQty += Number(Object.values(itemInCart)[i]['qty']);
+                }
+                setCartLength(itemQty);
+            }
+        }
+    }, [setUserLoggedIn, setCartLength]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -95,20 +70,6 @@ export default function PrimarySearchAppBar() {
         setCartLength(0);
         AuthService.logout();
     };
-
-    useEffect(() => {
-        function isUserCartExist() {
-            const userEmail = AuthService.getCurrentUser();
-            if (userEmail) {
-                setUserLoggedIn(userEmail);
-                const itemInCart = JSON.parse(localStorage.getItem(userEmail))
-                if (itemInCart !== null) {
-                    setCartLength(Object.keys(itemInCart).length);
-                }
-            }
-        }
-        isUserCartExist()
-    }, [setUserLoggedIn, setCartLength]);
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -196,38 +157,35 @@ export default function PrimarySearchAppBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar elevation={1} position="static" color="primary">
+            <AppBar elevation={0} position="static" color="inherit">
                 <Toolbar>
                     <Link to="/">
                         <Button
                             variant="h6"
                             component="div"
-                            sx={{ color:'white', display: { xs: 'none', sm: 'block' } }}
+                            sx={{
+                                color: 'blue',
+                                display: { xs: 'none', sm: 'block' },
+                                fontWeight: 600,
+                                letterSpacing: 2
+                            }}
                         >
                             Alexandria
                         </Button>
                     </Link>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
+
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Box sx={{ marginTop: 0.7, marginRight: 2 }}>
                             <Link to="/book">
-                                <IconButton size="large" sx={{ color: 'white' }}>
+                                <IconButton size="large">
                                     <BookIcon sx={{ fontSize: 30 }} color="inherit" />
                                 </IconButton>
                             </Link>
                         </Box>
                         <Box sx={{ marginTop: 0.80 }}>
                             <Link to="/cart">
-                                <IconButton size="large" sx={{ color: 'white' }}>
+                                <IconButton size="large">
                                     <Badge badgeContent={cartLength} color="error">
                                         <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
                                     </Badge>
@@ -244,12 +202,14 @@ export default function PrimarySearchAppBar() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <AccountCircle sx={{ fontSize: 30 }} color="inherit" />
+                                    <AccountCircle sx={{ fontSize: 30 }} />
                                 </IconButton>
                             </MenuItem>
                         ) : (
                             <MenuItem>
-                                <Typography variant="p" sx={{ color: 'white' }}>SIGN IN</Typography>
+                                <Link to="/signin">
+                                    <Typography variant="p" sx={{ color: 'black' }}>SIGN IN</Typography>
+                                </Link>
                             </MenuItem>
                         )}
                     </Box>

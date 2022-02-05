@@ -153,17 +153,6 @@ function Book({
                                     {title}
                                 </Typography>
 
-                                {/* AVAILABLE STOCK */}
-                                {stock >= 10 ? (
-                                    <Typography className={classes.availableStock}>
-                                        In stock
-                                    </Typography>
-                                ) : (
-                                    <Typography className={classes.limitedStock}>
-                                        {stock} items left!
-                                    </Typography>
-                                )}
-
                                 {/* PRODUCT QTY */}
                                 <Box className={classes.productQtyBox}>
                                     <FormControl fullWidth>
@@ -209,12 +198,21 @@ function Book({
 }
 
 export default function Cart() {
-    const { userEmail, cartItem, setCartItem } = useCart();
+    const { userEmail, cartItem, setCartItem, setCartLength } = useCart();
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
     const history = useHistory();
     const classes = useStyles();
     const cartItemKeys = Object.keys(cartItem);
     const isAllCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
+
+    // for x in selectedCheckbox:
+    // cartItem[x].map(
+    //     x.title, x.qty, x.price
+    // )
+    // button (checkout)
+    // context? checkoutItem state <- selectedCheckbox(steve jobs, alchemist, code breaker)
+    // address -> confirmation order page
+    // stripe payment
 
     useEffect(() => {
         // IF user not logged in
@@ -230,7 +228,6 @@ export default function Cart() {
             console.log(cartItemKeys)
             return;
         }
-        console.log(value);
         const list = [...selectedCheckbox];
         const index = list.indexOf(value);
         index === -1 ? list.push(value) : list.splice(index, 1);
@@ -279,6 +276,14 @@ export default function Cart() {
         );
         localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
         setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+
+        const itemInCart = JSON.parse(localStorage.getItem(userEmail))
+        const cartKeys = Object.keys(itemInCart).length;
+        var itemQty = 0;
+        for (var i = 0; i < cartKeys; i++) {
+            itemQty += Number(Object.values(itemInCart)[i]['qty']);
+        }
+        setCartLength(itemQty);
     };
 
     return (

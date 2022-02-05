@@ -38,6 +38,7 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+// Get current user Token
 const getCurrentUser = () => {
    var userToken = localStorage.getItem("user");
    if (userToken === null) {
