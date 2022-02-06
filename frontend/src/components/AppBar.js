@@ -9,12 +9,18 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import LoginIcon from '@mui/icons-material/Login';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BookIcon from '@mui/icons-material/Book';
 import Button from "@mui/material/Button";
+
+import LocalMallSharpIcon from '@mui/icons-material/LocalMallSharp';
+import PersonSharpIcon from '@mui/icons-material/PersonSharp';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 
 import AuthService from "../services/auth.service"
 import CartHelper from "../helper/cart.helper";
@@ -106,16 +112,16 @@ export default function PrimarySearchAppBar() {
             <MenuItem>
                 <Link to="/book">
                     <IconButton size="large">
-                        <BookIcon sx={{ fontSize: 30 }} color="inherit" />
+                        <BookIcon sx={{ fontSize: 27, color:'black' }}/>
                     </IconButton>
                 </Link>
                 <p>Book</p>
             </MenuItem>
             <MenuItem>
                 <Link to="/cart">
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                    <IconButton size="large" aria-label="show 4 new mails">
                         <Badge badgeContent={cartLength} color="error">
-                            <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
+                            <LocalMallSharpIcon sx={{ fontSize: 27, color:'black' }} />
                         </Badge>
                     </IconButton>
                 </Link>
@@ -130,7 +136,7 @@ export default function PrimarySearchAppBar() {
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        <AccountCircle />
+                        <AccountCircleSharpIcon sx={{ fontSize: 27, color:'black' }} />
                     </IconButton>
                     <p>Account</p>
                 </MenuItem>
@@ -153,12 +159,12 @@ export default function PrimarySearchAppBar() {
                 <Toolbar>
                     <Link to="/">
                         <Button
-                            variant="h6"
                             component="div"
                             sx={{
                                 color: 'blue',
                                 display: { xs: 'none', sm: 'block' },
                                 fontWeight: 600,
+                                fontSize: 15,
                                 letterSpacing: 2
                             }}
                         >
@@ -171,32 +177,26 @@ export default function PrimarySearchAppBar() {
                         <Box sx={{ marginTop: 0.7, marginRight: 2 }}>
                             <Link to="/book">
                                 <IconButton size="large">
-                                    <BookIcon sx={{ fontSize: 30 }} color="inherit" />
+                                    <BookIcon sx={{ fontSize: 27, color: 'black' }} />
                                 </IconButton>
                             </Link>
                         </Box>
-                        <Box sx={{ marginTop: 0.80 }}>
+                        <Box sx={{ marginTop: 0.52, marginRight: 2 }}>
                             <Link to="/cart">
                                 <IconButton size="large">
                                     <Badge badgeContent={cartLength} color="error">
-                                        <ShoppingCartIcon sx={{ fontSize: 30 }} color="inherit" />
+                                        <LocalMallSharpIcon sx={{ fontSize: 27, color: 'black' }} />
                                     </Badge>
                                 </IconButton>
                             </Link>
                         </Box>
 
                         {userLoggedIn ? (
-                            <MenuItem onClick={handleProfileMenuOpen}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="primary-search-account-menu"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                >
-                                    <AccountCircle sx={{ fontSize: 30 }} />
+                            <Box sx={{ marginTop: 0.7 }}> 
+                                <IconButton size="large" onClick={handleProfileMenuOpen}>
+                                    <AccountCircleSharpIcon sx={{ color: 'black', fontSize: 27 }} />
                                 </IconButton>
-                            </MenuItem>
+                            </Box>
                         ) : (
                             <MenuItem>
                                 <Link to="/signin">
