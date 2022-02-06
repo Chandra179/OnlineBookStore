@@ -12,6 +12,8 @@ import { Divider } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import Card from "@mui/material/Card";
 import { makeStyles } from '@mui/styles';
+import AuthService from "../services/auth.service";
+import CartHelper from "../helper/cart.helper";
 
 
 const useStyles = makeStyles({
@@ -198,12 +200,14 @@ function Book({
 }
 
 export default function Cart() {
-    const { userEmail, cartItem, setCartItem, setCartLength } = useCart();
+    const userEmail = AuthService.getCurrentUser();
+    const { setCartLength } = useCart();
+    const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem(userEmail)));
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
-    //const [allCheckboxSelected, setAllCheckboxSelected] = useState(false);
+
     const cartItemKeys = Object.keys(cartItem);
     const allCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
-    
+
     const history = useHistory();
     const classes = useStyles();
 
@@ -221,10 +225,6 @@ export default function Cart() {
         if (userEmail === "") {
             history.push("/signin");
         }
-        // setAllCheckboxSelected(
-        //     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
-        // );
-
     }, [userEmail, history]);
 
     const handleSelectedCheckbox = (event) => {
@@ -252,6 +252,7 @@ export default function Cart() {
                 oldItems[title]["qty"] = newQty;
                 localStorage.setItem(userEmail, JSON.stringify(oldItems));
                 setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+                setCartLength(CartHelper.cartLength(userEmail));
             }
         }
     };
@@ -275,21 +276,15 @@ export default function Cart() {
     };
 
     const removeProduct = (title) => {
-        const userCart = localStorage.getItem(userEmail);
-        var oldItems = JSON.parse(userCart);
+        var oldItems = JSON.parse(localStorage.getItem(userEmail));
+
         const filteredByKey = Object.fromEntries(
             Object.entries(oldItems).filter(([key, value]) => key !== title)
         );
+
         localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
         setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-
-        const itemInCart = JSON.parse(localStorage.getItem(userEmail))
-        const cartKeys = Object.keys(itemInCart).length;
-        var itemQty = 0;
-        for (var i = 0; i < cartKeys; i++) {
-            itemQty += Number(Object.values(itemInCart)[i]['qty']);
-        }
-        setCartLength(itemQty);
+        setCartLength(CartHelper.cartLength(userEmail));
     };
 
     return (
