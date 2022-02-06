@@ -22,23 +22,11 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link to="#" color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const theme = createTheme();
-
 export default function SignUp() {
+    let history = useHistory();
     const { setUserLoggedIn } = useUser();
+    const { setCartLength } = useCart();
+
     const [email, setEmail] = useState("");
     const [signupAlert, setSignupAlert] = useState("");
     const [password, setPassword] = useState("");
@@ -46,9 +34,6 @@ export default function SignUp() {
     const [passwordHelper, setPasswordHelper] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const { setCartLength } = useCart();
-
-    let history = useHistory();
 
     const onChangeEmail = (e) => {
         const email = e.target.value;
@@ -73,7 +58,7 @@ export default function SignUp() {
         }
 
         if (email !== "" && password !== "") {
-            //HANDLE LOGIN HERE!!
+            //HANDLE SIGNUP HERE!!
             AuthService.signup(email, password).then(
                 (data) => {
                     const userEmail = AuthService.getCurrentUser();
@@ -99,82 +84,88 @@ export default function SignUp() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 10,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    {signupAlert ? <Alert signupAlert={signupAlert} /> : <div />}
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={onChangeEmail}
-                                    value={email}
-                                    error={emailError ? true : false}
-                                    helperText={emailHelper !== "" ? emailHelper : false}
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    onChange={onChangePassword}
-                                    value={password}
-                                    error={passwordError ? true : false}
-                                    helperText={passwordHelper !== "" ? passwordHelper : false}
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid>
+        <Container
+            component="main"
+            maxWidth="xs"
+            sx={{
+                marginTop: 8,
+                backgroundColor: 'white',
+                borderRadius: 4,
+                boxShadow: 1
+            }}
+        >
+            <Box
+                sx={{
+                    paddingTop: 2,
+                    paddingBottom: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                {signupAlert ? <Alert signupAlert={signupAlert} /> : <div />}
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                onChange={onChangeEmail}
+                                value={email}
+                                error={emailError ? true : false}
+                                helperText={emailHelper !== "" ? emailHelper : false}
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                            />
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link to="/signin" variant="body2">
-                                    {"Already have an account? Sign in"}
-                                </Link>
-                            </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                onChange={onChangePassword}
+                                value={password}
+                                error={passwordError ? true : false}
+                                helperText={passwordHelper !== "" ? passwordHelper : false}
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                            />
                         </Grid>
-                    </Box>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                label="I want to receive inspiration, marketing promotions and updates via email."
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <Link to="/signin" variant="body2">
+                                {"Already have an account? Sign in"}
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
-            </Container>
-        </ThemeProvider>
+            </Box>
+        </Container>
     );
 }

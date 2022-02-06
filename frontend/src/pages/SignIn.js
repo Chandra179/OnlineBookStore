@@ -90,7 +90,9 @@ export default function SignIn() {
                 component="main"
                 maxWidth="xs"
                 sx={{
-                    marginTop: 8, backgroundColor: 'white', borderRadius: 4,
+                    marginTop: 8, 
+                    backgroundColor: 'white', 
+                    borderRadius: 4,
                     boxShadow: 1
                 }}
             >
