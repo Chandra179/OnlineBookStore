@@ -19,6 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
+import CartHelper from "../helper/cart.helper";
 
 
 const useStyles = makeStyles({
@@ -135,8 +136,7 @@ function ShoppingCard({ bookDetail }) {
                 localStorage.setItem(userEmail, JSON.stringify(newItems));
                 const item = JSON.parse(localStorage.getItem(userEmail));
                 if (item !== null) {
-                    setCartLength(Object.keys(item).length);
-                    setCartItem(item);
+                    setCartLength(CartHelper.cartLength(userEmail));
                 }
                 setItemAddedAlert(true);
                 setItemExistAlert(false);
@@ -155,8 +155,7 @@ function ShoppingCard({ bookDetail }) {
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
                     const item = JSON.parse(localStorage.getItem(userEmail));
                     if (item !== null) {
-                        setCartLength(Object.keys(item).length);
-                        setCartItem(item);
+                        setCartLength(CartHelper.cartLength(userEmail));
                     }
                     setItemAddedAlert(true);
                 }
