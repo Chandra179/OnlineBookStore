@@ -17,6 +17,7 @@ import BookIcon from '@mui/icons-material/Book';
 import Button from "@mui/material/Button";
 
 import AuthService from "../services/auth.service"
+import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
@@ -34,19 +35,10 @@ export default function PrimarySearchAppBar() {
     useEffect(() => {
         const userEmail = AuthService.getCurrentUser();
         if (userEmail !== '') {
-            setUserLoggedIn(userEmail);
-            const itemInCart = JSON.parse(localStorage.getItem(userEmail))
-            
-            if (itemInCart !== null) {
-                const cartKeys = Object.keys(itemInCart).length;
-                var itemQty = 0;
-                for (var i = 0; i < cartKeys; i++) {
-                    itemQty += Number(Object.values(itemInCart)[i]['qty']);
-                }
-                setCartLength(itemQty);
-            }
+            setUserLoggedIn(true)
+            setCartLength(CartHelper.cartLength(userEmail));
         }
-    }, [setUserLoggedIn, setCartLength]);
+    }, [setCartLength]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);

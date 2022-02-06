@@ -200,11 +200,11 @@ function Book({
 export default function Cart() {
     const { userEmail, cartItem, setCartItem, setCartLength } = useCart();
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+    const [allCheckboxSelected, setAllCheckboxSelected] = useState(false);
+    const cartItemKeys = Object.keys(cartItem);
+
     const history = useHistory();
     const classes = useStyles();
-    const cartItemKeys = Object.keys(cartItem);
-    const isAllCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
-
     // for x in selectedCheckbox:
     // cartItem[x].map(
     //     x.title, x.qty, x.price
@@ -219,6 +219,8 @@ export default function Cart() {
         if (userEmail === "") {
             history.push("/signin");
         }
+        setAllCheckboxSelected(cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length);
+
     }, [userEmail, history]);
 
     const handleSelectedCheckbox = (event) => {
@@ -300,7 +302,7 @@ export default function Cart() {
                         <CartHeader
                             classes={classes}
                             handleSelectedCheckbox={handleSelectedCheckbox}
-                            isAllCheckboxSelected={isAllCheckboxSelected} />
+                            allCheckboxSelected={allCheckboxSelected} />
                         <Divider sx={{
                             marginLeft: 6,
                             paddingTop: 2,

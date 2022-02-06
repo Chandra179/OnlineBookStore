@@ -13,17 +13,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import AuthService from "../services/auth.service";
 import Alert from "../components/Alert";
 import Home from "../pages/Home";
+
+import AuthService from "../services/auth.service";
+import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
 
 export default function SignIn() {
     let history = useHistory();
-    const { userLoggedIn, setUserLoggedIn } = useUser();
-    const { cartItem, setCartLength, setCartItem } = useCart();
+    const { userLoggedIn, setUserLoggedIn} = useUser();
+    const { setCartLength } = useCart();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -56,22 +58,11 @@ export default function SignIn() {
             setPasswordError(true)
         }
         if (email !== "" && password !== "") {
-            AuthService.signin(email, password).then(
+             AuthService.signin(email, password).then(
                 (data) => {
-                    // set user to logged in
-                    setUserLoggedIn(data);
-                    const itemInCart = JSON.parse(localStorage.getItem(email));
-                    const cartKeys = Object.keys(itemInCart).length;
-                    var itemQty = 0;
-                    
-                    if (itemInCart !== null) {
-                        for (var i=0;  i < cartKeys; i++) {
-                            itemQty += Number(Object.values(itemInCart)[i]['qty']);
-                        }
-                        console.log(itemQty);
-                        setCartLength(itemQty);
-                        setCartItem(JSON.parse(localStorage.getItem(email)));
-                    }
+                    setUserLoggedIn(true)
+                    const userEmail = AuthService.getCurrentUser();
+                    setCartLength(CartHelper.cartLength(userEmail));
                     history.push('/');
                 },
                 (error) => {
@@ -98,9 +89,10 @@ export default function SignIn() {
             <Container
                 component="main"
                 maxWidth="xs"
-                sx={{ 
-                    marginTop: 8, backgroundColor: 'white', borderRadius: 4, 
-                boxShadow: 1 }}
+                sx={{
+                    marginTop: 8, backgroundColor: 'white', borderRadius: 4,
+                    boxShadow: 1
+                }}
             >
                 <Box
                     sx={{
