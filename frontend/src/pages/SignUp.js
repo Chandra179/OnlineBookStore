@@ -17,7 +17,9 @@ import Alert from "../components/Alert";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
+import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
+import { useCart } from "../hooks/useCart";
 
 
 function Copyright(props) {
@@ -35,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp(props) {
+export default function SignUp() {
     const { setUserLoggedIn } = useUser();
     const [email, setEmail] = useState("");
     const [signupAlert, setSignupAlert] = useState("");
@@ -44,6 +46,7 @@ export default function SignUp(props) {
     const [passwordHelper, setPasswordHelper] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const { setCartLength } = useCart();
 
     let history = useHistory();
 
@@ -73,7 +76,9 @@ export default function SignUp(props) {
             //HANDLE LOGIN HERE!!
             AuthService.signup(email, password).then(
                 (data) => {
-                    setUserLoggedIn(data)
+                    const userEmail = AuthService.getCurrentUser();
+                    setCartLength(CartHelper.cartLength(userEmail));
+                    setUserLoggedIn(true)
                     history.push("/");
                 },
                 (error) => {

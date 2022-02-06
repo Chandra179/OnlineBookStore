@@ -25,7 +25,7 @@ import { useCart } from "../hooks/useCart";
 export default function SignIn() {
     let history = useHistory();
     const { userLoggedIn, setUserLoggedIn} = useUser();
-    const { setCartLength, setCartItem } = useCart();
+    const { setCartLength } = useCart();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -61,8 +61,8 @@ export default function SignIn() {
              AuthService.signin(email, password).then(
                 (data) => {
                     const userEmail = AuthService.getCurrentUser();
-                    setUserLoggedIn(true)
                     setCartLength(CartHelper.cartLength(userEmail));
+                    setUserLoggedIn(true)
                     history.push('/');
                 },
                 (error) => {

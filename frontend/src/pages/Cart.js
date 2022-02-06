@@ -202,10 +202,13 @@ function Book({
 export default function Cart() {
     const userEmail = AuthService.getCurrentUser();
     const { setCartLength } = useCart();
-    const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem(userEmail)));
+
+    const [cartItem, setCartItem] = useState(
+        localStorage.getItem(userEmail) !== null ? JSON.parse(localStorage.getItem(userEmail)) : null
+    );
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
-    const cartItemKeys = Object.keys(cartItem);
+    const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0
     const allCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
 
     const history = useHistory();
