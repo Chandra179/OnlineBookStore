@@ -12,14 +12,10 @@ import Menu from '@mui/material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import BookIcon from '@mui/icons-material/Book';
 import Button from "@mui/material/Button";
+import Divider from '@mui/material/Divider';
 
 import LocalMallSharpIcon from '@mui/icons-material/LocalMallSharp';
-import PersonSharpIcon from '@mui/icons-material/PersonSharp';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 
 import AuthService from "../services/auth.service"
@@ -112,7 +108,7 @@ export default function PrimarySearchAppBar() {
             <MenuItem>
                 <Link to="/book">
                     <IconButton size="large">
-                        <BookIcon sx={{ fontSize: 27, color:'black' }}/>
+                        <BookIcon sx={{ fontSize: 25, color: 'black' }} />
                     </IconButton>
                 </Link>
                 <p>Book</p>
@@ -121,12 +117,13 @@ export default function PrimarySearchAppBar() {
                 <Link to="/cart">
                     <IconButton size="large" aria-label="show 4 new mails">
                         <Badge badgeContent={cartLength} color="error">
-                            <LocalMallSharpIcon sx={{ fontSize: 27, color:'black' }} />
+                            <LocalMallSharpIcon sx={{ fontSize: 25, color: 'black' }} />
                         </Badge>
                     </IconButton>
                 </Link>
                 <p>Cart</p>
             </MenuItem>
+
             {userLoggedIn ? (
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
@@ -136,7 +133,7 @@ export default function PrimarySearchAppBar() {
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        <AccountCircleSharpIcon sx={{ fontSize: 27, color:'black' }} />
+                        <AccountCircleSharpIcon sx={{ fontSize: 25, color: 'black' }} />
                     </IconButton>
                     <p>Account</p>
                 </MenuItem>
@@ -163,21 +160,25 @@ export default function PrimarySearchAppBar() {
                             sx={{
                                 color: 'blue',
                                 display: { xs: 'none', sm: 'block' },
-                                fontWeight: 600,
-                                fontSize: 15,
-                                letterSpacing: 2
+                                fontWeight: 650,
+                                fontSize: 18,
+                                letterSpacing: 1,
+                                marginRight: 1.5,
+                                "&:hover": {
+                                    //you want this to be the same as the backgroundColor above
+                                    backgroundColor: "inherit"
+                                }
                             }}
                         >
                             Alexandria
                         </Button>
                     </Link>
-
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Box sx={{ marginTop: 0.7, marginRight: 2 }}>
+                        <Box sx={{ marginTop: 0.6, marginRight: 2 }}>
                             <Link to="/book">
                                 <IconButton size="large">
-                                    <BookIcon sx={{ fontSize: 27, color: 'black' }} />
+                                    <BookIcon sx={{ fontSize: 25, color: 'black' }} />
                                 </IconButton>
                             </Link>
                         </Box>
@@ -185,16 +186,16 @@ export default function PrimarySearchAppBar() {
                             <Link to="/cart">
                                 <IconButton size="large">
                                     <Badge badgeContent={cartLength} color="error">
-                                        <LocalMallSharpIcon sx={{ fontSize: 27, color: 'black' }} />
+                                        <LocalMallSharpIcon sx={{ fontSize: 25, color: 'black' }} />
                                     </Badge>
                                 </IconButton>
                             </Link>
                         </Box>
 
                         {userLoggedIn ? (
-                            <Box sx={{ marginTop: 0.7 }}> 
+                            <Box sx={{ marginTop: 0.7 }}>
                                 <IconButton size="large" onClick={handleProfileMenuOpen}>
-                                    <AccountCircleSharpIcon sx={{ color: 'black', fontSize: 27 }} />
+                                    <AccountCircleSharpIcon sx={{ color: 'black', fontSize: 25 }} />
                                 </IconButton>
                             </Box>
                         ) : (
@@ -221,6 +222,7 @@ export default function PrimarySearchAppBar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            <Divider sx={{ borderBottomWidth: 2 }}/>
         </Box>
     );
 }

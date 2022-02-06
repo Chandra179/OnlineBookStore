@@ -5,6 +5,16 @@ from rest_framework import status
 from .models import Book, Genre
 from inventory.models import Inventory
 import collections
+from django.core import serializers
+import json
+from django.http import HttpResponse, JsonResponse
+
+
+@api_view(['GET'])
+def GenreList(request):
+    if request.method == 'GET':
+        genre = Genre.objects.all().values("name")
+        return JsonResponse({"genre":list(genre)}, content_type='application/json', status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
