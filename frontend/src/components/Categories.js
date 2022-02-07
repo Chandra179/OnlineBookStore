@@ -30,7 +30,7 @@ export default function NestedList() {
                     paddingTop: 0
                 }}
             >
-                <Link href="#">
+                <Link to={`/${item.name.toLowerCase()}/1`}>
                     <Typography
                         sx={{
                             fontSize: 13,

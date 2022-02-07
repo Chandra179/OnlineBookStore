@@ -18,7 +18,7 @@ def GenreList(request):
 
 
 @api_view(['GET'])
-def BooksPerGenre(request):
+def BooksByGenre(request):
     """
     return 10 books for each category
     """
@@ -50,14 +50,18 @@ def BookList(request):
     Paginate list of book for each genre
     """
     if request.method == 'GET':
-        total_book = Book.objects.all().count()
-        books = Book.objects.prefetch_related('book_author')
+        genre = request.query_params.get('genre')
+        total_book = Book.objects.filter(genre__name__iexact=genre).count()
+        books = Book.objects.filter(genre__name__iexact=genre).prefetch_related('book_author')
+
+        print(total_book, books)
         book_list = []
         for x in books:
             book_author = [book.name for book in x.book_author.all()]
             book_list.append({
                 'name': x.name,
                 'author': book_author,
+                'genre': x.genre.name,
                 'cover': x.cover,
             })
         headers = {

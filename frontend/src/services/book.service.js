@@ -21,9 +21,9 @@ async function booksPerGenre() {
 }
 
 
-async function bookList(numPage) {
+async function bookList(genre, page) {
   const response = await axios
-    .get("http://127.0.0.1:8000/book", { params: { page: numPage} })
+    .get("http://127.0.0.1:8000/book", { params: { genre: genre, page: page} })
     .then((response) => {
       const resp = {
         'total_book': response.headers.total_book,

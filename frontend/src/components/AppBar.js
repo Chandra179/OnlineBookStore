@@ -106,14 +106,6 @@ export default function PrimarySearchAppBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <Link to="/book">
-                    <IconButton size="large">
-                        <BookIcon sx={{ fontSize: 25, color: 'black' }} />
-                    </IconButton>
-                </Link>
-                <p>Book</p>
-            </MenuItem>
-            <MenuItem>
                 <Link to="/cart">
                     <IconButton size="large" aria-label="show 4 new mails">
                         <Badge badgeContent={cartLength} color="error">
@@ -175,13 +167,6 @@ export default function PrimarySearchAppBar() {
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Box sx={{ marginTop: 0.6, marginRight: 2 }}>
-                            <Link to="/book">
-                                <IconButton size="large">
-                                    <BookIcon sx={{ fontSize: 25, color: 'black' }} />
-                                </IconButton>
-                            </Link>
-                        </Box>
                         <Box sx={{ marginTop: 0.52, marginRight: 2 }}>
                             <Link to="/cart">
                                 <IconButton size="large">
