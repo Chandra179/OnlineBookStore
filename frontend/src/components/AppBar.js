@@ -167,7 +167,7 @@ export default function PrimarySearchAppBar() {
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Box sx={{ marginTop: 0.52, marginRight: 2 }}>
+                        <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
                             <Link to="/cart">
                                 <IconButton size="large">
                                     <Badge badgeContent={cartLength} color="error">
@@ -178,17 +178,27 @@ export default function PrimarySearchAppBar() {
                         </Box>
 
                         {userLoggedIn ? (
-                            <Box sx={{ marginTop: 0.7 }}>
+                            <Box sx={{ marginTop: 0.72 }}>
                                 <IconButton size="large" onClick={handleProfileMenuOpen}>
                                     <AccountCircleSharpIcon sx={{ color: 'black', fontSize: 25 }} />
                                 </IconButton>
                             </Box>
                         ) : (
-                            <MenuItem>
-                                <Link to="/signin">
-                                    <Typography variant="p" sx={{ color: 'black' }}>SIGN IN</Typography>
-                                </Link>
-                            </MenuItem>
+                            <Box sx={{ paddingTop: 2}}>
+                            <Link to={`/signin`}>
+                                <Typography
+                                    sx={{
+                                        fontSize: 18,
+                                        color: 'black',
+                                        '&:hover': {
+                                            color: "blue",
+                                        },
+                                    }}
+                                >
+                                    Signin
+                                </Typography>
+                            </Link>
+                            </Box>
                         )}
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -207,7 +217,7 @@ export default function PrimarySearchAppBar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-            <Divider sx={{ borderBottomWidth: 2 }}/>
+            <Divider sx={{ borderBottomWidth: 2 }} />
         </Box>
     );
 }

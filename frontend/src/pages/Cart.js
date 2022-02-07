@@ -204,10 +204,12 @@ export default function Cart() {
     const { setCartLength } = useCart();
 
     const [cartItem, setCartItem] = useState(
+        // IF user cart is not empty then:
         localStorage.getItem(userEmail) !== null ? JSON.parse(localStorage.getItem(userEmail)) : null
     );
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
+    // IF 
     const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0
     const allCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
 

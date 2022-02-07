@@ -21,10 +21,10 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/:genre/:page" component={BooksByGenre} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/:genre/:page/:title" component={BookDetail} />
-        <ProtectedRoute path="/cart" component={Cart} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/:genre/:page/:title" component={BookDetail} />
+        <ProtectedRoute exact path="/cart" component={Cart} />
       </Switch>
     </Router>
   );

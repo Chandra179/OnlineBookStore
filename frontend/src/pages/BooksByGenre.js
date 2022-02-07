@@ -127,7 +127,7 @@ function BookList() {
     const totalPageNumber = Math.ceil(totalBook / bookPerPage);
 
     useEffect(() => {
-        // set param page dafault to page pathname
+        // set dafault parameter page to 1
         BookService.bookList(genre, page).then(
             (data) => {
                 setBookList(data.book);
