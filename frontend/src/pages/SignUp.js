@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,7 +13,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from "../components/Alert";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AuthService from "../services/auth.service";
 import CartHelper from "../helper/cart.helper";
@@ -24,13 +22,13 @@ import { useCart } from "../hooks/useCart";
 
 export default function SignUp() {
     let history = useHistory();
-    const { setUserLoggedIn } = useUser();
-    const { setCartLength } = useCart();
+    const { setIsUserLoggedIn } = useUser();
+    const { setCartBadge } = useCart();
 
-    const [email, setEmail] = useState("");
     const [signupAlert, setSignupAlert] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [emailHelper, setEmailHelper] = useState("");
+    const [password, setPassword] = useState("");
     const [passwordHelper, setPasswordHelper] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -45,7 +43,7 @@ export default function SignUp() {
         setPassword(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleSignUpSubmit = (e) => {
         e.preventDefault();
 
         if (email === "") {
@@ -62,8 +60,8 @@ export default function SignUp() {
             AuthService.signup(email, password).then(
                 (data) => {
                     const userEmail = AuthService.getCurrentUser();
-                    setCartLength(CartHelper.cartLength(userEmail));
-                    setUserLoggedIn(true)
+                    setCartBadge(CartHelper.cartBadge(userEmail));
+                    setIsUserLoggedIn(true)
                     history.push("/");
                 },
                 (error) => {
@@ -104,13 +102,14 @@ export default function SignUp() {
                 }}
             >
                 {signupAlert ? <Alert signupAlert={signupAlert} /> : <div />}
+
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" noValidate onSubmit={handleSignUpSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField

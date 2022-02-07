@@ -10,7 +10,6 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
-import BookIcon from '@mui/icons-material/Book';
 import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
 
@@ -25,8 +24,8 @@ import { useCart } from "../hooks/useCart";
 
 
 export default function PrimarySearchAppBar() {
-    const { userLoggedIn, setUserLoggedIn } = useUser();
-    const { cartLength, setCartLength } = useCart();
+    const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
+    const { cartBadge, setCartBadge } = useCart();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -37,10 +36,10 @@ export default function PrimarySearchAppBar() {
     useEffect(() => {
         const userEmail = AuthService.getCurrentUser();
         if (userEmail !== '') {
-            setUserLoggedIn(true)
-            setCartLength(CartHelper.cartLength(userEmail));
+            setIsUserLoggedIn(true)
+            setCartBadge(CartHelper.cartBadge(userEmail));
         }
-    }, [setCartLength]);
+    }, [setIsUserLoggedIn, setCartBadge]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -60,8 +59,8 @@ export default function PrimarySearchAppBar() {
     };
 
     const logOut = () => {
-        setUserLoggedIn(undefined);
-        setCartLength(0);
+        setIsUserLoggedIn(undefined);
+        setCartBadge(0);
         AuthService.logout();
     };
 
@@ -108,7 +107,7 @@ export default function PrimarySearchAppBar() {
             <MenuItem>
                 <Link to="/cart">
                     <IconButton size="large" aria-label="show 4 new mails">
-                        <Badge badgeContent={cartLength} color="error">
+                        <Badge badgeContent={cartBadge} color="error">
                             <LocalMallSharpIcon sx={{ fontSize: 25, color: 'black' }} />
                         </Badge>
                     </IconButton>
@@ -116,7 +115,7 @@ export default function PrimarySearchAppBar() {
                 <p>Cart</p>
             </MenuItem>
 
-            {userLoggedIn ? (
+            {isUserLoggedIn ? (
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
                         size="large"
@@ -170,14 +169,14 @@ export default function PrimarySearchAppBar() {
                         <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
                             <Link to="/cart">
                                 <IconButton size="large">
-                                    <Badge badgeContent={cartLength} color="error">
+                                    <Badge badgeContent={cartBadge} color="error">
                                         <LocalMallSharpIcon sx={{ fontSize: 25, color: 'black' }} />
                                     </Badge>
                                 </IconButton>
                             </Link>
                         </Box>
 
-                        {userLoggedIn ? (
+                        {isUserLoggedIn ? (
                             <Box sx={{ marginTop: 0.72 }}>
                                 <IconButton size="large" onClick={handleProfileMenuOpen}>
                                     <AccountCircleSharpIcon sx={{ color: 'black', fontSize: 25 }} />

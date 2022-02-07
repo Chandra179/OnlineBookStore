@@ -109,7 +109,7 @@ function AddToCartButton({ handleAddToCart, classes }) {
 function ShoppingCard({ bookDetail }) {
     const history = useHistory();
     const classes = useStyles();
-    const { setCartLength, setCartItem  } = useCart();
+    const { setCartBadge } = useCart();
     const [qty, setQty] = useState(1);
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
@@ -136,7 +136,7 @@ function ShoppingCard({ bookDetail }) {
                 localStorage.setItem(userEmail, JSON.stringify(newItems));
                 const item = JSON.parse(localStorage.getItem(userEmail));
                 if (item !== null) {
-                    setCartLength(CartHelper.cartLength(userEmail));
+                    setCartBadge(CartHelper.cartBadge(userEmail));
                 }
                 setItemAddedAlert(true);
                 setItemExistAlert(false);
@@ -155,7 +155,7 @@ function ShoppingCard({ bookDetail }) {
                     localStorage.setItem(userEmail, JSON.stringify(oldItems));
                     const item = JSON.parse(localStorage.getItem(userEmail));
                     if (item !== null) {
-                        setCartLength(CartHelper.cartLength(userEmail));
+                        setCartBadge(CartHelper.cartBadge(userEmail));
                     }
                     setItemAddedAlert(true);
                 }

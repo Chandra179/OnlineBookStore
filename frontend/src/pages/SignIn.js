@@ -24,12 +24,12 @@ import { useCart } from "../hooks/useCart";
 
 export default function SignIn() {
     let history = useHistory();
-    const { userLoggedIn, setUserLoggedIn} = useUser();
-    const { setCartLength } = useCart();
+    const { isUserLoggedIn, setIsUserLoggedIn} = useUser();
+    const { setCartBadge } = useCart();
 
+    const [signInAlert, setSignInAlert] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginAlert, setLoginAlert] = useState("");
     const [emailHelper, setEmailHelper] = useState("");
     const [passwordHelper, setPasswordHelper] = useState("");
     const [emailError, setEmailError] = useState(false);
@@ -46,7 +46,7 @@ export default function SignIn() {
         setPassword(password);
     };
 
-    const handleLoginSubmit = (e) => {
+    const handleSignInSubmit = (e) => {
         e.preventDefault();
 
         if (email === "") {
@@ -61,18 +61,18 @@ export default function SignIn() {
              AuthService.signin(email, password).then(
                 (data) => {
                     const userEmail = AuthService.getCurrentUser();
-                    setCartLength(CartHelper.cartLength(userEmail));
-                    setUserLoggedIn(true)
+                    setCartBadge(CartHelper.cartBadge(userEmail));
+                    setIsUserLoggedIn(true)
                     history.push('/');
                 },
                 (error) => {
                     if (error.response.data === "User not found") {
                         console.log(error.response.data)
-                        setLoginAlert(error.response.data)
+                        setSignInAlert(error.response.data)
                     } else {
                         // Password incorrect
                         console.log(error.response.data)
-                        setLoginAlert(error.response.data)
+                        setSignInAlert(error.response.data)
                     }
                     console.log(error.response)
                 }
@@ -80,7 +80,7 @@ export default function SignIn() {
         }
     };
 
-    if (userLoggedIn) {
+    if (isUserLoggedIn) {
         return (
             <Home />
         );
@@ -105,7 +105,7 @@ export default function SignIn() {
                     }}
                 >
                     <Box sx={{ pb: 2, width: '100%' }}>
-                        {loginAlert ? <Alert loginALert={loginAlert} /> : <div />}
+                        {signInAlert ? <Alert signInAlert={signInAlert} /> : <div />}
                     </Box>
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
@@ -113,7 +113,7 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSignInSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             onChange={onChangeEmail}
                             value={email}

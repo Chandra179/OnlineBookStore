@@ -138,7 +138,7 @@ function BookList() {
                 console.log(error)
             }
         )
-    }, []);
+    }, [genre, page]);
 
     const handlePageClick = async (event, value) => {
         // set param page to clicked page number

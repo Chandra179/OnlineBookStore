@@ -201,29 +201,20 @@ function Book({
 
 export default function Cart() {
     const userEmail = AuthService.getCurrentUser();
-    const { setCartLength } = useCart();
+    const { setCartBadge } = useCart();
 
     const [cartItem, setCartItem] = useState(
-        // IF user cart is not empty then:
+        // IF cart is not empty then:
         localStorage.getItem(userEmail) !== null ? JSON.parse(localStorage.getItem(userEmail)) : null
     );
     const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
-    // IF 
+    // IF cart is not empty then:
     const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0
     const allCheckboxSelected = cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
 
     const history = useHistory();
     const classes = useStyles();
-
-    // for x in selectedCheckbox:
-    // cartItem[x].map(
-    //     x.title, x.qty, x.price
-    // )
-    // button (checkout)
-    // context? checkoutItem state <- selectedCheckbox(steve jobs, alchemist, code breaker)
-    // address -> confirmation order page
-    // stripe payment
 
     useEffect(() => {
         // IF user not logged in
@@ -251,13 +242,13 @@ export default function Cart() {
             newQty = stock;
         }
         if (newQty.toString()[0] !== "0") {
-            const userCart = localStorage.getItem(userEmail);
-            if (userCart !== null) {
-                var oldItems = JSON.parse(userCart);
-                oldItems[title]["qty"] = newQty;
-                localStorage.setItem(userEmail, JSON.stringify(oldItems));
+            const item = localStorage.getItem(userEmail);
+            if (item !== null) {
+                var oldItem = JSON.parse(item);
+                oldItem[title]["qty"] = newQty;
+                localStorage.setItem(userEmail, JSON.stringify(oldItem));
                 setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-                setCartLength(CartHelper.cartLength(userEmail));
+                setCartBadge(CartHelper.cartBadge(userEmail));
             }
         }
     };
@@ -281,15 +272,15 @@ export default function Cart() {
     };
 
     const removeProduct = (title) => {
-        var oldItems = JSON.parse(localStorage.getItem(userEmail));
+        var oldItem = JSON.parse(localStorage.getItem(userEmail));
 
         const filteredByKey = Object.fromEntries(
-            Object.entries(oldItems).filter(([key, value]) => key !== title)
+            Object.entries(oldItem).filter(([key, value]) => key !== title)
         );
 
         localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
         setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-        setCartLength(CartHelper.cartLength(userEmail));
+        setCartBadge(CartHelper.cartBadge(userEmail));
     };
 
     return (
