@@ -118,6 +118,8 @@ function Book({
         <>
             {Object.keys(cartItem).map(function (key) {
                 var title = key;
+                var normalPrice = cartItem[key]["normalPrice"]; 
+                var totalPrice = cartItem[key]["totalPrice"];
                 var cover = cartItem[key]["cover"];
                 var qty = cartItem[key]["qty"];
                 var stock = cartItem[key]["stock"];
@@ -162,7 +164,7 @@ function Book({
                                             id="outlined-number"
                                             label="Qty"
                                             type="number"
-                                            onChange={(e) => handleQtyChange(title, stock, e)}
+                                            onChange={(e) => handleQtyChange(title, normalPrice, stock, e)}
                                             onKeyPress={(event) => qtyInputNumberOnly(event)}
                                             value={qty}
                                         />
@@ -190,7 +192,7 @@ function Book({
                             xs={2}
                             sx={{ boxShadow: 1 }}
                         >
-                            <Typography>$28.00</Typography>
+                            <Typography>$ {totalPrice.toFixed(2)}</Typography>
                         </Grid>
                     </Grid>
                 );
@@ -216,12 +218,14 @@ export default function Cart() {
     const history = useHistory();
     const classes = useStyles();
 
+
     useEffect(() => {
         // IF user not logged in
         if (userEmail === "") {
             history.push("/signin");
         }
     }, [userEmail, history]);
+
 
     const handleSelectedCheckbox = (event) => {
         const value = event.target.value;
@@ -236,7 +240,8 @@ export default function Cart() {
         setSelectedCheckbox(list);
     };
 
-    const handleQtyChange = (title, stock, event) => {
+
+    const handleQtyChange = (title, normalPrice, stock, event) => {
         var newQty = event.target.value;
         if (newQty > stock) {
             newQty = stock;
@@ -244,15 +249,21 @@ export default function Cart() {
         if (newQty.toString()[0] !== "0") {
             const item = localStorage.getItem(userEmail);
             if (item !== null) {
-                var oldItem = JSON.parse(item);
-                oldItem[title]["qty"] = newQty;
-                localStorage.setItem(userEmail, JSON.stringify(oldItem));
+                var newItem = JSON.parse(item);
+                var newPrice = newQty * normalPrice;
+
+                newItem[title]["qty"] = newQty;
+                newItem[title]["totalPrice"] = newPrice;
+
+                localStorage.setItem(userEmail, JSON.stringify(newItem));
+                
                 setCartItem(JSON.parse(localStorage.getItem(userEmail)));
                 setCartBadge(CartHelper.cartBadge(userEmail));
             }
         }
     };
 
+    
     const qtyInputNumberOnly = (event) => {
         var theEvent = event || window.event;
         var key;

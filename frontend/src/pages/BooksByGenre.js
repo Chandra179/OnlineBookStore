@@ -81,13 +81,27 @@ function Book({ bookList, currentPage, classes }) {
                                         <Typography sx={{
                                             color: "rgb(0, 113, 133)",
                                             fontSize: {
+                                                lg: 14,
+                                                md: 14,
+                                                sm: 12,
+                                                xs: 12
+                                            }
+                                        }}>
+                                            by {item.author}
+                                        </Typography>
+                                    </ListItemText>
+                                    <ListItemText sx={{ paddingTop: 1 }}>
+                                        <Typography sx={{
+                                            color: "black",
+                                            fontWeight: 500,
+                                            fontSize: {
                                                 lg: 16,
                                                 md: 16,
                                                 sm: 14,
                                                 xs: 14
                                             }
                                         }}>
-                                            by {item.author}
+                                            $ {item.price.toFixed(2)}
                                         </Typography>
                                     </ListItemText>
                                 </Grid>

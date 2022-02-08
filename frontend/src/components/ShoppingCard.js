@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Alert from "./Alert";
 import AuthService from '../services/auth.service';
@@ -23,9 +23,6 @@ import CartHelper from "../helper/cart.helper";
 
 
 const useStyles = makeStyles({
-    cardSize: {
-        maxWidth: '300'
-    },
     addToCart: {
         margin: '10px 10px 0px 10px',
     },
@@ -35,11 +32,11 @@ const useStyles = makeStyles({
     qtyBox: {
         maxWidth: '80px',
         minWidth: '80px',
-        margin: '10px 10px 0px 10px',
+        margin: '10px 10px 10px 10px',
     },
 });
 
-function QtyInput({ qty, stock, setQty, classes }) {
+function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
 
     const handleQtyChange = (event) => {
         var qty = event.target.value
@@ -49,6 +46,7 @@ function QtyInput({ qty, stock, setQty, classes }) {
         if (qty.toString()[0] !== '0') {
             setQty(qty);
         }
+        setTotalPrice(qty * normalPrice)
     };
 
     const InputNumberOnly = (event) => {
@@ -110,9 +108,14 @@ function ShoppingCard({ bookDetail }) {
     const history = useHistory();
     const classes = useStyles();
     const { setCartBadge } = useCart();
+
+    const normalPrice = Number(bookDetail.price);
+
     const [qty, setQty] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(1);
     const [itemExistAlert, setItemExistAlert] = useState(false);
     const [itemAddedAlert, setItemAddedAlert] = useState(false);
+
 
     const handleAddToCart = () => {
         const userEmail = AuthService.getCurrentUser();
@@ -128,6 +131,8 @@ function ShoppingCard({ bookDetail }) {
             newItems[bookDetail.name] = {
                 'cover': bookDetail.cover,
                 'qty': qty,
+                'normalPrice': normalPrice,
+                'totalPrice': totalPrice,
                 'stock': bookDetail.stock,
             }
 
@@ -149,6 +154,8 @@ function ShoppingCard({ bookDetail }) {
                 } else {
                     oldItems[bookDetail.name] = {
                         'cover': bookDetail.cover,
+                        'normalPrice': normalPrice,
+                        'totalPrice': totalPrice,
                         'qty': qty,
                         'stock': bookDetail.stock,
                     }
@@ -168,16 +175,27 @@ function ShoppingCard({ bookDetail }) {
             {itemExistAlert ? <Alert cartItemExist={"Item is in cart"} /> : <div />}
             {itemAddedAlert ? <Alert cartItemAdded={"Item is added to cart"} /> : <div />}
 
-            <Card className={classes.cardSize}>
-                <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        This impressive paella is a perfect party dish and a fun meal to cook
-                        together with your guests. Add 1 cup of frozen peas along with the mussels,
-                        if you like.
-                    </Typography>
-                </CardContent>
+            <Card>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        paddingTop: 1,
+                        paddingLeft: 1.5,
+                        paddingBottom: 1,
+                        alignItems: 'center'
+                    }}
+                >
+                    <Typography sx={{ letterSpacing: 1 }}>Subtotal</Typography>
+                    <Box sx={{ marginLeft: 'auto', paddingRight:2 }}>
+                        <Typography variant="h5">
+                            $ {totalPrice === 1 ? normalPrice.toFixed(2) : totalPrice.toFixed(2)}
+                        </Typography>
+                    </Box>
+                </Box>
                 <QtyInput
                     qty={qty}
+                    normalPrice={normalPrice}
+                    setTotalPrice={setTotalPrice}
                     stock={bookDetail.stock}
                     setQty={setQty}
                     classes={classes} />
@@ -190,15 +208,7 @@ function ShoppingCard({ bookDetail }) {
                         Buy now
                     </Button>
                 </Stack>
-                <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                        <ShareIcon />
-                    </IconButton>
-                </CardActions>
-            </Card>
+            </Card >
         </>
     );
 }
