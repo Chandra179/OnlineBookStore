@@ -17,17 +17,19 @@ import CartHelper from "../helper/cart.helper";
 
 
 const useStyles = makeStyles({
-    cartHeaderGrid: {
-        paddingLeft: 60,
-        paddingTop: 60
+    cartHeader: {
+        marginLeft: 60,
+        marginTop: 56,
+        display: 'flex',
     },
-    bookContainerGrid: {
+    bookContainer: {
         paddingLeft: 45,
         paddingBottom: 45,
+        display: 'flex',
     },
     boxCheckbox: {
         marginTop: 65,
-        marginRight: 20
+        marginRight: 10
     },
     bookCoverCard: {
         width: 120,
@@ -66,42 +68,40 @@ const useStyles = makeStyles({
 
 function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected, classes }) {
     return (
-        <Grid
-            container
-            display="flex"
-            direction="row"
-            className={classes.cartHeaderGrid}
-        >
-            <Grid item
-                lg={10}
-                md={10}
-                sm={10}
-                xs={10}>
+        <Box sx={{ boxShadow: 1 }} className={classes.cartHeader}>
+            <Box>
                 <Typography variant="h6">Your cart</Typography>
-            </Grid>
-            <Grid item
-                lg={2}
-                md={2}
-                sm={2}
-                xs={2}
-                sx={{ boxShadow: 1 }}>
-                <Typography variant="p">Select all</Typography>
-                <Checkbox
-                    value="all"
-                    onChange={handleSelectedCheckbox}
-                    checked={isAllCheckboxSelected} />
-            </Grid>
-        </Grid>
+            </Box>
+            <Box
+                sx={{
+                    marginLeft: 'auto',
+                    width: 90,
+                    display: "flex",
+                    alignItems: 'center'
+                }}
+            >
+                <Box>
+                    <Typography variant="p">Select all</Typography>
+                </Box>
+                <Box sx={{ marginLeft: 'auto' }}>
+                    <Checkbox
+                        sx={{ width: 0, height: 0 }}
+                        value="all"
+                        onChange={handleSelectedCheckbox}
+                        checked={isAllCheckboxSelected} />
+                </Box>
+            </Box>
+        </Box>
     );
 }
 
 function CheckoutCard() {
     return (
-        <Grid container sx={{ boxShadow: 1, marginTop: 5 }}>
-            <Grid item>
-                <Typography variant="h6" sx={{ paddingTop: 6 }}>Checkout</Typography>
-            </Grid>
-        </Grid>
+        <Box sx={{ boxShadow: 1, marginTop: 7 }}>
+            <Box sx={{ paddingLeft: 3 }}>
+                <Typography variant="h6">Order summary</Typography>
+            </Box>
+        </Box>
     );
 }
 
@@ -118,25 +118,16 @@ function Book({
         <>
             {Object.keys(cartItem).map(function (key) {
                 var title = key;
-                var normalPrice = cartItem[key]["normalPrice"]; 
+                var normalPrice = cartItem[key]["normalPrice"];
                 var totalPrice = cartItem[key]["totalPrice"];
                 var cover = cartItem[key]["cover"];
                 var qty = cartItem[key]["qty"];
                 var stock = cartItem[key]["stock"];
 
                 return (
-                    <Grid container
-                        direction="row"
-                        key={key}
-                        className={classes.bookContainerGrid}
-                    >
-                        <Grid item
-                            display="flex"
-                            lg={10}
-                            md={10}
-                            sm={10}
-                            xs={10}
-                        >
+                    <Box key={key} className={classes.bookContainer}>
+                        <Box sx={{ display: "flex" }}>
+
                             {/* CHECKBOX */}
                             <Box key={key} className={classes.boxCheckbox}>
                                 <Checkbox
@@ -182,19 +173,13 @@ function Book({
                                     </Button>
                                 </Box>
                             </Box>
-                        </Grid>
+                        </Box>
 
                         {/* PRODUCT PRICE */}
-                        <Grid item
-                            lg={2}
-                            md={2}
-                            sm={2}
-                            xs={2}
-                            sx={{ boxShadow: 1 }}
-                        >
+                        <Box sx={{ boxShadow: 1, marginLeft: 'auto' }}>
                             <Typography>$ {totalPrice.toFixed(2)}</Typography>
-                        </Grid>
-                    </Grid>
+                        </Box>
+                    </Box>
                 );
             })}
         </>
@@ -256,14 +241,14 @@ export default function Cart() {
                 newItem[title]["totalPrice"] = newPrice;
 
                 localStorage.setItem(userEmail, JSON.stringify(newItem));
-                
+
                 setCartItem(JSON.parse(localStorage.getItem(userEmail)));
                 setCartBadge(CartHelper.cartBadge(userEmail));
             }
         }
     };
 
-    
+
     const qtyInputNumberOnly = (event) => {
         var theEvent = event || window.event;
         var key;
@@ -312,7 +297,8 @@ export default function Cart() {
                         <Divider sx={{
                             marginLeft: 6,
                             paddingTop: 2,
-                            marginBottom: 5
+                            marginBottom: 4,
+                            borderBottomWidth: 3
                         }} />
                         <Book
                             classes={classes}
