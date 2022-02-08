@@ -1,46 +1,48 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=400, blank=True, null=True)
+    name = models.CharField(max_length=30, unique=True, default='')
 
     def __str__(self):
         return self.name
 
 
 class Language(models.Model):
-    code = models.CharField(max_length=8, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=True, null=True)
+    code = models.CharField(max_length=8, unique=True, default='')
+    name = models.CharField(max_length=20, unique=True, default='')
 
     def __str__(self):
         return self.name
 
 
 class Publisher(models.Model):
-    name = models.CharField(max_length=400, blank=True, null=True)
+    name = models.CharField(max_length=50, unique=True, default='')
 
     def __str__(self):
         return self.name
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=400, blank=True, null=True)
+    name = models.CharField(max_length=20, unique=True, default='')
 
     def __str__(self):
         return self.name
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=400, blank=True, null=True)
-    cover = models.CharField(max_length=400, blank=True, null=True)
-    isbn13 = models.CharField(max_length=13, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    num_pages = models.IntegerField(blank=True, null=True)
-    publication_date = models.DateField(blank=True, null=True)
-    language = models.ForeignKey('Language', blank=True, null=True, on_delete=models.CASCADE)
-    publisher = models.ForeignKey('Publisher', blank=True, null=True, on_delete=models.CASCADE)
-    genre = models.ForeignKey('Genre',  blank=True, null=True, on_delete=models.CASCADE)
-    book_author = models.ManyToManyField('Author', through='BookAuthor')
+    name = models.CharField(max_length=50, default='', unique=True)
+    cover = models.CharField(max_length=400, default='')
+    price = models.FloatField(default=0)
+    isbn13 = models.CharField(max_length=13, default='')
+    description = models.TextField(default='')
+    num_pages = models.IntegerField(default=0)
+    publication_date = models.DateField()
+    language = models.ForeignKey('Language', default='', on_delete=models.CASCADE)
+    publisher = models.ForeignKey('Publisher', default='', on_delete=models.CASCADE)
+    genre = models.ForeignKey('Genre', default='', on_delete=models.CASCADE)
+    book_author = models.ManyToManyField('Author', default='', through='BookAuthor')
 
     def __str__(self):
         return self.name
@@ -71,6 +73,7 @@ class BookAuthor(models.Model):
 #     class Meta:
 #         managed = False
 #         db_table = 'customer'
+
 
 # class Address(models.Model):
 #     address_id = models.IntegerField(primary_key=True)

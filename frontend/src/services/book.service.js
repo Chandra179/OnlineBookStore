@@ -13,7 +13,7 @@ async function genreList() {
 
 async function booksPerGenre() {
   const response = await axios
-    .get("http://127.0.0.1:8000/book/books-per-genre")
+    .get("http://127.0.0.1:8000/book/top-ten-books")
     .then((response) => {
       return response.data;
     });

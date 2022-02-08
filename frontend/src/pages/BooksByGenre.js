@@ -156,19 +156,19 @@ function BookList() {
     };
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ marginTop: 1 }}>
             <Grid item
                 lg={2}
                 md={2}
-                sm={3}
-                xs={3}>
+                sm={2}
+                xs={2}>
             </Grid>
             <Grid
                 item
                 lg={10}
                 md={10}
-                sm={12}
-                xs={12}>
+                sm={10}
+                xs={10}>
                 <Book
                     currentPage={currentPage}
                     bookList={bookList}

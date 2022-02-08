@@ -18,7 +18,7 @@ def GenreList(request):
 
 
 @api_view(['GET'])
-def BooksByGenre(request):
+def TopTenBooks(request):
     """
     return 10 books for each category
     """
@@ -45,7 +45,7 @@ def BooksByGenre(request):
 
 
 @api_view(['GET'])
-def BookList(request):
+def BooksByGenre(request):
     """
     Paginate list of book for each genre
     """
