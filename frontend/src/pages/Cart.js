@@ -17,16 +17,6 @@ import CartHelper from "../helper/cart.helper";
 
 
 const useStyles = makeStyles({
-    cartHeader: {
-        marginLeft: 60,
-        marginTop: 56,
-        display: 'flex',
-    },
-    bookContainer: {
-        paddingLeft: 45,
-        paddingBottom: 45,
-        display: 'flex',
-    },
     boxCheckbox: {
         marginTop: 65,
         marginRight: 10
@@ -66,9 +56,18 @@ const useStyles = makeStyles({
     }
 });
 
-function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected, classes }) {
+
+function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected }) {
     return (
-        <Box sx={{ boxShadow: 1 }} className={classes.cartHeader}>
+        <Box
+            sx={{
+                boxShadow: 1,
+                display: 'flex',
+                marginLeft: 6,
+                minWidth: 500,
+                marginTop: 6,
+            }}
+        >
             <Box>
                 <Typography variant="h6">Your cart</Typography>
             </Box>
@@ -97,8 +96,21 @@ function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected, classes }) 
 
 function CheckoutCard() {
     return (
-        <Box sx={{ boxShadow: 1, marginTop: 7 }}>
-            <Box sx={{ paddingLeft: 3 }}>
+        <Box
+            sx={{
+                boxShadow: 1,
+                marginTop: 6,
+                minWidth: 300,
+                marginRight: 5,
+                marginLeft: {
+                    lg: 2,
+                    md: 2,
+                    sm: 6,
+                    xs: 6
+                }
+            }}
+        >
+            <Box>
                 <Typography variant="h6">Order summary</Typography>
             </Box>
         </Box>
@@ -125,7 +137,13 @@ function Book({
                 var stock = cartItem[key]["stock"];
 
                 return (
-                    <Box key={key} className={classes.bookContainer}>
+                    <Box
+                        key={key}
+                        sx={{
+                            paddingBottom: 5,
+                            display: 'flex'
+                        }}
+                    >
                         <Box sx={{ display: "flex" }}>
 
                             {/* CHECKBOX */}
@@ -176,7 +194,12 @@ function Book({
                         </Box>
 
                         {/* PRODUCT PRICE */}
-                        <Box sx={{ boxShadow: 1, marginLeft: 'auto' }}>
+                        <Box
+                            sx={{
+                                boxShadow: 1,
+                                marginLeft: 'auto'
+                            }}
+                        >
                             <Typography>$ {totalPrice.toFixed(2)}</Typography>
                         </Box>
                     </Box>
@@ -267,6 +290,7 @@ export default function Cart() {
         }
     };
 
+
     const removeProduct = (title) => {
         var oldItem = JSON.parse(localStorage.getItem(userEmail));
 
@@ -279,6 +303,7 @@ export default function Cart() {
         setCartBadge(CartHelper.cartBadge(userEmail));
     };
 
+
     return (
         <>
             {cartItem === null ? (
@@ -286,34 +311,48 @@ export default function Cart() {
             ) : (
                 <Grid container spacing={2}>
                     <Grid item
-                        lg={8}
-                        md={8}
-                        sm={8}
-                        xs={8}>
-                        <CartHeader
-                            classes={classes}
-                            handleSelectedCheckbox={handleSelectedCheckbox}
-                            allCheckboxSelected={allCheckboxSelected} />
-                        <Divider sx={{
-                            marginLeft: 6,
-                            paddingTop: 2,
-                            marginBottom: 4,
-                            borderBottomWidth: 3
-                        }} />
-                        <Book
-                            classes={classes}
-                            cartItem={cartItem}
-                            handleSelectedCheckbox={handleSelectedCheckbox}
-                            selectedCheckbox={selectedCheckbox}
-                            handleQtyChange={handleQtyChange}
-                            qtyInputNumberOnly={qtyInputNumberOnly}
-                            removeProduct={removeProduct} />
+                        lg={7}
+                        md={7}
+                        sm={12}
+                        xs={12}>
+                        <Box>
+                            <CartHeader
+                                classes={classes}
+                                handleSelectedCheckbox={handleSelectedCheckbox}
+                                allCheckboxSelected={allCheckboxSelected}
+                            />
+                            <Divider
+                                sx={{
+                                    minWidth: 500,
+                                    marginLeft: 6,
+                                    paddingTop: 2,
+                                    marginBottom: 4,
+                                    borderBottomWidth: 3
+                                }}
+                            />
+                            <Box
+                                sx={{
+                                    boxShadow: 1,
+                                    marginLeft: 6,
+                                    minWidth: 500
+                                }}
+                            >
+                                <Book
+                                    classes={classes}
+                                    cartItem={cartItem}
+                                    handleSelectedCheckbox={handleSelectedCheckbox}
+                                    selectedCheckbox={selectedCheckbox}
+                                    handleQtyChange={handleQtyChange}
+                                    qtyInputNumberOnly={qtyInputNumberOnly}
+                                    removeProduct={removeProduct} />
+                            </Box>
+                        </Box>
                     </Grid>
                     <Grid item
-                        lg={4}
-                        md={4}
-                        sm={4}
-                        xs={4}>
+                        lg={5}
+                        md={5}
+                        sm={12}
+                        xs={12}>
                         <CheckoutCard />
                     </Grid>
                 </Grid>
