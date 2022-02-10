@@ -16,6 +16,7 @@ function BookCover({ bookDetail }) {
     <Card
       sx={{
         minWidth: 180,
+        maxWidth: 180,
         marginRight: 3,
       }}
     >

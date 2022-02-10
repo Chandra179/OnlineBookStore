@@ -6,7 +6,6 @@ import { useCart } from "../hooks/useCart";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import { Divider } from "@mui/material";
@@ -19,10 +18,8 @@ function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected }) {
   return (
     <Box
       sx={{
-        boxShadow: 1,
         display: "flex",
         marginLeft: 6,
-        minWidth: 500,
         marginTop: 6,
       }}
     >
@@ -57,7 +54,6 @@ function CheckoutCard() {
   return (
     <Box
       sx={{
-        boxShadow: 1,
         marginTop: 6,
         minWidth: 300,
         marginRight: 5,
@@ -69,7 +65,7 @@ function CheckoutCard() {
         },
       }}
     >
-      <Box>
+      <Box sx={{ boxShadow: 1 }}>
         <Typography variant="h6">Order summary</Typography>
       </Box>
     </Box>
@@ -77,6 +73,7 @@ function CheckoutCard() {
 }
 
 function Book({
+  cartItemKeys,
   cartItem,
   handleSelectedCheckbox,
   selectedCheckbox,
@@ -103,30 +100,50 @@ function Book({
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Box key={key}>
-                <Checkbox
+              <Box sx={{ display: "flex", alignItems:"center" }}>
+                <Box key={key}>
+                  <Checkbox
+                    sx={{ marginRight: 1 }}
+                    value={key}
+                    onChange={handleSelectedCheckbox}
+                    checked={selectedCheckbox.includes(key)}
+                  />
+                </Box>
+
+                <Card
                   sx={{
-                    marginTop: 8,
-                    marginRight: 1,
+                    minWidth: 90,
+                    maxWidth: {
+                      lg: 120,
+                      md: 120,
+                      sm: 120,
+                      xs: 90,
+                    },
+                    marginRight: 2,
                   }}
-                  value={key}
-                  onChange={handleSelectedCheckbox}
-                  checked={selectedCheckbox.includes(key)}
-                />
+                >
+                  <CardMedia component="img" image={cover} />
+                </Card>
               </Box>
 
-              <Card sx={{ width: 120, marginRight: 2, boxShadow: "none" }}>
-                <CardMedia component="img" image={cover} />
-              </Card>
-
-              <Box>
+              {/* CART BODY */}
+              <Box sx={{ marginRight: 4 }}>
                 <Typography
-                  sx={{ fontWeight: 500, letterSpacing: 1.3, fontSize: 17 }}
+                  sx={{
+                    fontWeight: 500,
+                    letterSpacing: 1.3,
+                    fontSize: {
+                      lg: 17,
+                      md: 17,
+                      sm: 16,
+                      xs: 13,
+                    },
+                  }}
                 >
                   {title}
                 </Typography>
 
-                <Box sx={{ paddingTop: 2, width: 80, height: 50 }}>
+                <Box sx={{ paddingTop: 2, width: 80, height: { lg: 50, md:50, sm:50, xs:40} }}>
                   <FormControl fullWidth>
                     <TextField
                       id="outlined-number"
@@ -142,11 +159,11 @@ function Book({
                 </Box>
 
                 <Box sx={{ marginTop: 3, color: "blue" }}>
-                  <Link onClick={(e) => removeProduct(title, e)}>
+                  <Link to="" onClick={(e) => removeProduct(title, e)}>
                     <Typography
                       sx={{
                         fontSize: 14,
-                        paddingLeft:0.2,
+                        paddingLeft: 0.2,
                         color: "black",
                         "&:hover": {
                           color: "red",
@@ -163,7 +180,6 @@ function Book({
             {/* PRODUCT PRICE */}
             <Box
               sx={{
-                boxShadow: 1,
                 marginLeft: "auto",
               }}
             >
@@ -186,10 +202,13 @@ export default function Cart() {
       ? JSON.parse(localStorage.getItem(userEmail))
       : null
   );
-  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
 
-  // IF cart is not empty then:
   const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0;
+  
+  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+  console.log(cartItemKeys);
+  console.log('tes1', selectedCheckbox);
+
   const allCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
@@ -208,7 +227,6 @@ export default function Cart() {
       setSelectedCheckbox(
         selectedCheckbox.length === cartItemKeys.length ? [] : cartItemKeys
       );
-      console.log(cartItemKeys);
       return;
     }
     const list = [...selectedCheckbox];
@@ -276,21 +294,23 @@ export default function Cart() {
       ) : (
         <Grid container spacing={2}>
           <Grid item lg={7} md={7} sm={12} xs={12}>
-            <Box sx={{
+            <Box
+              sx={{
                 marginRight: {
-                    lg: 2,
-                    md: 2,
-                    sm: 6,
-                    xs: 6
-                }
-            }}>
+                  xl: 2,
+                  lg: 2,
+                  md: 2,
+                  sm: 6,
+                  xs: 6,
+                },
+              }}
+            >
               <CartHeader
                 handleSelectedCheckbox={handleSelectedCheckbox}
                 allCheckboxSelected={allCheckboxSelected}
               />
               <Divider
                 sx={{
-                  minWidth: 500,
                   marginLeft: 6,
                   paddingTop: 2,
                   marginBottom: 4,
@@ -299,12 +319,11 @@ export default function Cart() {
               />
               <Box
                 sx={{
-                  boxShadow: 1,
                   marginLeft: 6,
-                  minWidth: 500,
                 }}
               >
                 <Book
+                  cartItemKeys={cartItemKeys}
                   cartItem={cartItem}
                   handleSelectedCheckbox={handleSelectedCheckbox}
                   selectedCheckbox={selectedCheckbox}
