@@ -47,6 +47,7 @@ function BookDescription({ bookDetail, expand, expandText }) {
       >
         by {bookDetail.author}
       </Typography>
+      <Box>
         <ShowMoreText
           lines={5}
           more={"Show More"}
@@ -57,7 +58,7 @@ function BookDescription({ bookDetail, expand, expandText }) {
         >
           {bookDetail.desc}
         </ShowMoreText>
-      
+      </Box>
     </Box>
   );
 }
