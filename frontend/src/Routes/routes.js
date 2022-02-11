@@ -12,7 +12,7 @@ import SignUp from "../pages/SignUp";
 import BooksByGenre from '../pages/BooksByGenre';
 import BookDetail from "../pages/BookDetail";
 import Home from "../pages/Home";
-import Cart from "../pages/Cart";
+import Cart from "../pages/Cart/Index";
 
 const Routes = () => {
   return (
