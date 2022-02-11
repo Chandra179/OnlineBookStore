@@ -209,10 +209,6 @@ export default function Cart() {
       : null
   );
 
-  console.log(
-    'CHECKOUT ITEM TRUE',Object.keys(cartItem).filter((key) => cartItem[key]["checkout"] === true)
-  );
-
   // get all item with checkout: true
   const [selectedCheckbox, setSelectedCheckbox] = useState(
     Object.keys(cartItem).filter((key) => cartItem[key]["checkout"] === true)
@@ -228,22 +224,27 @@ export default function Cart() {
 
 
 
-
-
   const handleSelectedCheckbox = (event) => {
     const value = event.target.value;
 
     if (value === "all") {
-      console.log('tes', JSON.parse(localStorage.getItem(userEmail))) 
-
+      var item = JSON.parse(localStorage.getItem(userEmail))
+      
       const isItemEqual = selectedCheckbox.length === cartItemKeys.length;
       if (isItemEqual) {
+        Object.keys(item).forEach(key => {
+          item[key]['checkout'] = false;
+        });
         setAllCheckboxSelected(false);
         setSelectedCheckbox([]);
-        //localStorage.setItem(userEmail, JSON.stringify([]));
+        localStorage.setItem(userEmail, JSON.stringify(item));
       } else {
+        Object.keys(item).forEach(key => {
+          item[key]['checkout'] = true;
+        });
+        localStorage.setItem(userEmail, JSON.stringify(item));
         setAllCheckboxSelected(true);
-        //localStorage.setItem();
+        setSelectedCheckbox(cartItemKeys);
       }
       return;
     }
