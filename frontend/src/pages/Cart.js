@@ -209,65 +209,42 @@ export default function Cart() {
       : null
   );
 
+  console.log(
+    'CHECKOUT ITEM TRUE',Object.keys(cartItem).filter((key) => cartItem[key]["checkout"] === true)
+  );
+
+  // get all item with checkout: true
+  const [selectedCheckbox, setSelectedCheckbox] = useState(
+    Object.keys(cartItem).filter((key) => cartItem[key]["checkout"] === true)
+  );
+
+  // get all cart item
   const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0;
 
-  // get all checkout item
-  const [selectedCheckbox, setSelectedCheckbox] = useState(
-    localStorage.getItem(userEmail + "Checkout") !== null
-      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-      : ""
-  );
+  // check if cart length === allCheckBox length
   const [allCheckboxSelected, setAllCheckboxSelected] = useState(
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
   );
 
-  const history = useHistory();
 
-  useEffect(() => {
-    // IF user not logged in
-    if (userEmail === "") {
-      history.push("/signin");
-    }
-  }, [userEmail, history]);
+
+
 
   const handleSelectedCheckbox = (event) => {
     const value = event.target.value;
-    const item =
-      localStorage.getItem(userEmail + "Checkout") !== null
-        ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-        : "";
 
     if (value === "all") {
-      if (item !== "") {
-        const array2Sorted = item.slice().sort();
-        const isItemEqual =
-          cartItemKeys.length === item.length &&
-          cartItemKeys
-            .slice()
-            .sort()
-            .every(function (value, index) {
-              return value === array2Sorted[index];
-            });
-        if (isItemEqual) {
-          setAllCheckboxSelected(false);
-          setSelectedCheckbox([]);
-          localStorage.setItem(userEmail + "Checkout", JSON.stringify([]));
-          
-        } else {
-          setAllCheckboxSelected(true);
-          setSelectedCheckbox(cartItemKeys);
-          localStorage.setItem(
-            userEmail + "Checkout",
-            JSON.stringify(cartItemKeys)
-          );
-        }
-      } else {
-        localStorage.setItem(
-          userEmail + "Checkout",
-          JSON.stringify(cartItemKeys)
-        );
-      }
+      console.log('tes', JSON.parse(localStorage.getItem(userEmail))) 
 
+      const isItemEqual = selectedCheckbox.length === cartItemKeys.length;
+      if (isItemEqual) {
+        setAllCheckboxSelected(false);
+        setSelectedCheckbox([]);
+        //localStorage.setItem(userEmail, JSON.stringify([]));
+      } else {
+        setAllCheckboxSelected(true);
+        //localStorage.setItem();
+      }
       return;
     }
     const list = [...selectedCheckbox];

@@ -106,7 +106,6 @@ function ShoppingCard({ bookDetail }) {
       // get user items using user email as key
       const userCart = localStorage.getItem(userEmail);
 
-      // items that user added to cart
       var newItems = {};
       newItems[bookDetail.name] = {
         cover: bookDetail.cover,
@@ -114,10 +113,11 @@ function ShoppingCard({ bookDetail }) {
         normalPrice: normalPrice,
         totalPrice: totalPrice,
         stock: bookDetail.stock,
+        checkout: false
       };
 
       // add first new item to cart
-      if (userCart === "undefined" || userCart === null) {
+      if (userCart === undefined || userCart === null) {
         localStorage.setItem(userEmail, JSON.stringify(newItems));
         const item = JSON.parse(localStorage.getItem(userEmail));
         if (item !== null) {
@@ -139,6 +139,7 @@ function ShoppingCard({ bookDetail }) {
             totalPrice: totalPrice,
             qty: qty,
             stock: bookDetail.stock,
+            checkout: false
           };
           localStorage.setItem(userEmail, JSON.stringify(oldItems));
           const item = JSON.parse(localStorage.getItem(userEmail));
