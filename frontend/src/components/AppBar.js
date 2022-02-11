@@ -34,9 +34,11 @@ export default function PrimarySearchAppBar() {
 
   useEffect(() => {
     const userEmail = AuthService.getCurrentUser();
-    if (userEmail !== "") {
+    if (userEmail) {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
+    } else {
+      console.log('APPBAR')
     }
   }, [setIsUserLoggedIn, setCartBadge]);
 
@@ -58,7 +60,7 @@ export default function PrimarySearchAppBar() {
   };
 
   const logOut = () => {
-    setIsUserLoggedIn(undefined);
+    setIsUserLoggedIn(false);
     setCartBadge(0);
     AuthService.logout();
   };
@@ -125,7 +127,12 @@ export default function PrimarySearchAppBar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircleSharpIcon sx={{ fontSize: 25, color: "black" }} />
+            <AccountCircleSharpIcon
+              sx={{
+                fontSize: 25,
+                color: "black",
+              }}
+            />
           </IconButton>
           <p>Account</p>
         </MenuItem>
@@ -156,17 +163,20 @@ export default function PrimarySearchAppBar() {
                 fontSize: 18,
                 letterSpacing: 1,
                 marginRight: 1.5,
-                "&:hover": {
-                  //you want this to be the same as the backgroundColor above
-                  backgroundColor: "inherit",
-                },
               }}
             >
               Alexandria
             </Button>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
               <Link to="/cart">
                 <IconButton size="large">

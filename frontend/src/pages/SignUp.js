@@ -59,9 +59,13 @@ export default function SignUp() {
       AuthService.signup(email, password).then(
         (data) => {
           const userEmail = AuthService.getCurrentUser();
-          setCartBadge(CartHelper.cartBadge(userEmail));
-          setIsUserLoggedIn(true);
-          history.push("/");
+          if (userEmail) {
+            setCartBadge(CartHelper.cartBadge(userEmail));
+            setIsUserLoggedIn(true);
+            history.push("/");
+          } else {
+            console.log('SIGNUP ERROR')
+          }
         },
         (error) => {
           if (error.response.data === "User sudah terdaftar!") {

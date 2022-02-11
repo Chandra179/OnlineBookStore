@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Alert from "./Alert";
 import AuthService from "../services/auth.service";
@@ -91,22 +91,18 @@ function AddToCartButton({ handleAddToCart, classes }) {
 }
 
 function ShoppingCard({ bookDetail }) {
-  const history = useHistory();
-  const { setCartBadge } = useCart();
-
-  const normalPrice = Number(bookDetail.price);
-
-  const [qty, setQty] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(1);
   const [itemExistAlert, setItemExistAlert] = useState(false);
   const [itemAddedAlert, setItemAddedAlert] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(1);
+  const [qty, setQty] = useState(1);
+
+  const { setCartBadge } = useCart();
+  const history = useHistory();
+  const normalPrice = Number(bookDetail.price);
 
   const handleAddToCart = () => {
     const userEmail = AuthService.getCurrentUser();
-    if (userEmail === "") {
-      console.log(userEmail);
-      history.push("/signin");
-    } else {
+    if (userEmail) {
       // get user items using user email as key
       const userCart = localStorage.getItem(userEmail);
 
@@ -152,6 +148,8 @@ function ShoppingCard({ bookDetail }) {
           setItemAddedAlert(true);
         }
       }
+    } else {
+      history.push("/signin");
     }
   };
 
@@ -161,10 +159,10 @@ function ShoppingCard({ bookDetail }) {
         marginTop: 4,
         marginRight: 4,
         marginLeft: {
-            lg: 0,
-            md: 4,
-            sm: 4,
-            xs: 4
+          lg: 0,
+          md: 4,
+          sm: 4,
+          xs: 4,
         },
       }}
     >

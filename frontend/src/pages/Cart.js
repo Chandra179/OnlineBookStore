@@ -14,7 +14,7 @@ import Card from "@mui/material/Card";
 import AuthService from "../services/auth.service";
 import CartHelper from "../helper/cart.helper";
 
-function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected }) {
+function CartHeader({ handleSelectedCheckbox, allCheckboxSelected }) {
   return (
     <Box
       sx={{
@@ -42,7 +42,7 @@ function CartHeader({ handleSelectedCheckbox, isAllCheckboxSelected }) {
             sx={{ width: 0, height: 0 }}
             value="all"
             onChange={handleSelectedCheckbox}
-            checked={isAllCheckboxSelected}
+            checked={allCheckboxSelected}
           />
         </Box>
       </Box>
@@ -100,7 +100,7 @@ function Book({
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Box sx={{ display: "flex", alignItems:"center" }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box key={key}>
                   <Checkbox
                     sx={{ marginRight: 1 }}
@@ -143,7 +143,13 @@ function Book({
                   {title}
                 </Typography>
 
-                <Box sx={{ paddingTop: 2, width: 80, height: { lg: 50, md:50, sm:50, xs:40} }}>
+                <Box
+                  sx={{
+                    paddingTop: 2,
+                    width: 80,
+                    height: { lg: 50, md: 50, sm: 50, xs: 40 },
+                  }}
+                >
                   <FormControl fullWidth>
                     <TextField
                       id="outlined-number"
@@ -204,13 +210,16 @@ export default function Cart() {
   );
 
   const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0;
-  
-  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
-  console.log(cartItemKeys);
-  console.log('tes1', selectedCheckbox);
 
-  const allCheckboxSelected =
-    cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
+  // get all checkout item
+  const [selectedCheckbox, setSelectedCheckbox] = useState(
+    localStorage.getItem(userEmail + "Checkout") !== null
+      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
+      : ""
+  );
+  const [allCheckboxSelected, setAllCheckboxSelected] = useState(
+    cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length
+  );
 
   const history = useHistory();
 
@@ -223,10 +232,42 @@ export default function Cart() {
 
   const handleSelectedCheckbox = (event) => {
     const value = event.target.value;
+    const item =
+      localStorage.getItem(userEmail + "Checkout") !== null
+        ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
+        : "";
+
     if (value === "all") {
-      setSelectedCheckbox(
-        selectedCheckbox.length === cartItemKeys.length ? [] : cartItemKeys
-      );
+      if (item !== "") {
+        const array2Sorted = item.slice().sort();
+        const isItemEqual =
+          cartItemKeys.length === item.length &&
+          cartItemKeys
+            .slice()
+            .sort()
+            .every(function (value, index) {
+              return value === array2Sorted[index];
+            });
+        if (isItemEqual) {
+          setAllCheckboxSelected(false);
+          setSelectedCheckbox([]);
+          localStorage.setItem(userEmail + "Checkout", JSON.stringify([]));
+          
+        } else {
+          setAllCheckboxSelected(true);
+          setSelectedCheckbox(cartItemKeys);
+          localStorage.setItem(
+            userEmail + "Checkout",
+            JSON.stringify(cartItemKeys)
+          );
+        }
+      } else {
+        localStorage.setItem(
+          userEmail + "Checkout",
+          JSON.stringify(cartItemKeys)
+        );
+      }
+
       return;
     }
     const list = [...selectedCheckbox];

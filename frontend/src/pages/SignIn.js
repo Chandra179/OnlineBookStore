@@ -59,9 +59,13 @@ export default function SignIn() {
       AuthService.signin(email, password).then(
         (data) => {
           const userEmail = AuthService.getCurrentUser();
-          setCartBadge(CartHelper.cartBadge(userEmail));
-          setIsUserLoggedIn(true);
-          history.push("/");
+          if (userEmail) {
+            setCartBadge(CartHelper.cartBadge(userEmail));
+            setIsUserLoggedIn(true);
+            history.push("/");
+          } else {
+            console.log('ERROR: signin success but token is not set in local storage');
+          }
         },
         (error) => {
           if (error.response.data === "User not found") {

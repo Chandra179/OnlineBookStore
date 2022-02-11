@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BookService from "../services/book.service";
 
 import ShowMoreText from "react-show-more-text";
-import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";

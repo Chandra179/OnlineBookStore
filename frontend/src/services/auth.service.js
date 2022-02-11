@@ -41,10 +41,10 @@ const logout = () => {
 // Get current user Email
 const getCurrentUser = () => {
    var userToken = localStorage.getItem("user");
-   if (userToken === null) {
-     return ""
+   if (userToken) {
+    return JSON.parse(userToken)['email'];
    } else {
-     return JSON.parse(userToken)['email'];
+     return null
    }
 };
 
