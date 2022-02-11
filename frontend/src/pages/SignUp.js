@@ -63,8 +63,6 @@ export default function SignUp() {
             setCartBadge(CartHelper.cartBadge(userEmail));
             setIsUserLoggedIn(true);
             history.push("/");
-          } else {
-            console.log('SIGNUP ERROR')
           }
         },
         (error) => {

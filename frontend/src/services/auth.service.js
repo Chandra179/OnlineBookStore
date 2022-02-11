@@ -44,7 +44,7 @@ const getCurrentUser = () => {
    if (userToken) {
     return JSON.parse(userToken)['email'];
    } else {
-     return null
+     console.log('TOKEN is not set')
    }
 };
 

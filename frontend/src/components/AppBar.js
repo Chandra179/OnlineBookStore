@@ -37,8 +37,6 @@ export default function PrimarySearchAppBar() {
     if (userEmail) {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
-    } else {
-      console.log('APPBAR')
     }
   }, [setIsUserLoggedIn, setCartBadge]);
 
