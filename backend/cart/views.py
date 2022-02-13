@@ -8,6 +8,8 @@ from .models import Cart
 from book.models import Book
 from account.models import User
 from .serializers import CartSerializer
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse
 
 
 class CartView(APIView):
@@ -20,14 +22,8 @@ class CartView(APIView):
 
     def get(self, request, format=None):
         cart = Cart.objects.filter(user=request.user)
-        for x in cart:
-            print(x.book.name)
-
-        content = {
-            'user': str(request.user),
-            'auth': str(request.auth),
-        }
-        return Response(content)
+        print(cart)
+        return HttpResponse(serializers.serialize('json', cart), content_type="application/json")
 
     """
         add product to cart
@@ -48,4 +44,4 @@ class CartView(APIView):
         serializer = CartSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response("Item successfuly added", status=status.HTTP_200_OK)
+        return Response("Item successfuly added", status=status.HTTP_200_OK, content_type="application/json")

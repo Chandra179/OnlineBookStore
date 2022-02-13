@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from .models import Book, Genre
+from .serializers import BookSerializer
 from inventory.models import Inventory
 import collections
 import json
 from django.http import HttpResponse, JsonResponse
 
+from django.core import serializers
 
 @api_view(['GET'])
 def BooksByGenre(request):
@@ -16,9 +18,9 @@ def BooksByGenre(request):
     """
     if request.method == 'GET':
         genre = request.query_params.get('genre')
-        total_book = Book.objects.filter(genre__name__iexact=genre).count()
         books = Book.objects.filter(genre__name__iexact=genre).prefetch_related('book_author')
-        print(books.count())
+        serializer = BookSerializer(books, many=True)
+        data = serializer.data
 
         book_list = []
         for x in books:
@@ -31,11 +33,11 @@ def BooksByGenre(request):
                 'cover': x.cover,
             })
         headers = {
-            'total_book': total_book
+            'total_book': books.count()
         }
         paginator = PageNumberPagination()
-        result_page = paginator.paginate_queryset(book_list, request)
-        return Response(result_page, status=status.HTTP_200_OK, headers=headers)
+        result_page = paginator.paginate_queryset(data, request)
+        return JsonResponse(result_page, status=status.HTTP_200_OK, content_type="application/json", headers=headers, safe=False)
 
 
 @api_view(['GET'])
@@ -61,7 +63,7 @@ def BookDetail(request):
             'stock': inventory.stock,
             'publisher': book.publisher.name
         }
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(response, status=status.HTTP_200_OK, content_type="application/json")
 
 
 @api_view(['GET'])
