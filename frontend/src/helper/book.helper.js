@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
     map book author
 */
 const bookAuthor = (book_author) => {
+    if (book_author === undefined) return;
     var bookAuthorLength = book_author.length - 1;
     var authorList = [];
 
