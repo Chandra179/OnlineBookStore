@@ -15,6 +15,52 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
 function Book({ bookList, currentPage }) {
+  // book author
+  function bookAuthor(book_author) {
+    var bookAuthorLength = book_author.length - 1;
+    var authorList = [];
+
+    authorList.push(
+      <Typography
+        key={"by"}
+        sx={{
+          fontSize: {
+            lg: 17,
+            md: 17,
+            sm: 17,
+            xs: 17,
+          },
+          paddingRight: 1,
+        }}
+      >
+        by
+      </Typography>
+    );
+
+    book_author.map((e, i) => {
+      var authors =
+        i === bookAuthorLength ? e.author_name : e.author_name + ",";
+      authorList.push(
+        <Typography
+          key={i}
+          sx={{
+            color: "rgb(0, 113, 133)",
+            fontSize: {
+              lg: 14,
+              md: 14,
+              sm: 14,
+              xs: 14,
+            },
+            paddingRight: 1,
+          }}
+        >
+          {authors}
+        </Typography>
+      );
+    });
+    return authorList;
+  }
+
   return (
     <List>
       {bookList.map(function (item, i) {
@@ -51,21 +97,14 @@ function Book({ bookList, currentPage }) {
                       </Typography>
                     </Link>
                   </ListItemText>
-                  <ListItemText sx={{ margin: 0, padding: 0 }}>
-                    <Typography
-                      sx={{
-                        color: "rgb(0, 113, 133)",
-                        fontSize: {
-                          lg: 14,
-                          md: 14,
-                          sm: 12,
-                          xs: 12,
-                        },
-                      }}
-                    >
-                      by {item.author}
-                    </Typography>
-                  </ListItemText>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {bookAuthor(item.book_author)}
+                  </Box>
                   <ListItemText sx={{ paddingTop: 1 }}>
                     <Typography
                       sx={{
@@ -122,7 +161,7 @@ function BookList() {
 
   useEffect(() => {
     // set dafault parameter page to 1
-    BookService.bookList(genre, page).then(
+    BookService.booksByGenre(genre, page).then(
       (data) => {
         setBookList(data.book);
         setTotalBook(data.total_book);
@@ -136,7 +175,7 @@ function BookList() {
 
   const handlePageClick = async (event, value) => {
     // set param page to clicked page number
-    await BookService.bookList(genre, value).then(
+    await BookService.booksByGenre(genre, value).then(
       (data) => {
         setBookList(data.book);
         setTotalBook(data.total_book);
