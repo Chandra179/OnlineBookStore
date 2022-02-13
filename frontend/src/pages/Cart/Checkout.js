@@ -2,9 +2,8 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function Checkout({ cartItem, selectedCheckbox }) {
-  console.log(cartItem);
-  console.log(selectedCheckbox);
+export default function Checkout({ checkoutItem }) {
+  console.log(checkoutItem)
 
   return (
     <Box
