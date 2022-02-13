@@ -8,7 +8,6 @@ from inventory.models import Inventory
 import collections
 import json
 from django.http import HttpResponse, JsonResponse
-
 from django.core import serializers
 
 
@@ -32,7 +31,7 @@ def BooksByGenre(request):
         }
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(data, request)
-        return JsonResponse(result_page, status=status.HTTP_200_OK, content_type="application/json", headers=headers, safe=False)
+        return Response(result_page, status=status.HTTP_200_OK, content_type="application/json", headers=headers)
 
 
 @api_view(['GET'])

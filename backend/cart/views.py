@@ -21,9 +21,11 @@ class CartView(APIView):
     """
 
     def get(self, request, format=None):
-        cart = Cart.objects.filter(user=request.user)
-        print(cart)
-        return HttpResponse(serializers.serialize('json', cart), content_type="application/json")
+        cart = Cart.objects.filter(user=request.user).select_related('book', 'user')
+        serializer = CartSerializer(cart, many=True)
+        data = serializer.data
+        
+        return Response(data, status=status.HTTP_200_OK, content_type="application/json")
 
     """
         add product to cart
@@ -35,6 +37,7 @@ class CartView(APIView):
 
         book = Book.objects.get(name__iexact=name).id
         user = User.objects.get(email__iexact=str(request.user)).id
+        print(request.data)
       
         data = {
             'book':book,

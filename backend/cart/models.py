@@ -7,7 +7,6 @@ class Cart(models.Model):
     book = models.ForeignKey(Book, default='', on_delete=models.CASCADE)
     user = models.ForeignKey(User, default='', on_delete=models.CASCADE)
     qty = models.IntegerField(default=0)
-    checkout = models.BooleanField(default=False)
     
     class Meta:
         unique_together = ["book", "user"]
