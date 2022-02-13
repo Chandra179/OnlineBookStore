@@ -26,7 +26,6 @@ function BookCover({ bookDetail }) {
 }
 
 function BookDescription({ bookDetail, expand, expandText }) {
-  console.log(bookDetail);
 
   return (
     <Box sx={{ margin: 0, paddingRight: 5 }}>
