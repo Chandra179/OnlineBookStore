@@ -27,8 +27,8 @@ function Book({ bookList, currentPage }) {
           fontSize: {
             lg: 17,
             md: 17,
-            sm: 17,
-            xs: 17,
+            sm: 13,
+            xs: 13,
           },
           paddingRight: 1,
         }}
@@ -48,8 +48,8 @@ function Book({ bookList, currentPage }) {
             fontSize: {
               lg: 14,
               md: 14,
-              sm: 14,
-              xs: 14,
+              sm: 13,
+              xs: 13,
             },
             paddingRight: 1,
           }}
@@ -68,12 +68,12 @@ function Book({ bookList, currentPage }) {
           <div key={i}>
             <ListItem>
               <Grid container direction="row" alignItems="flex-start">
-                <Box sx={{ marginRight: 2, boxShadow: 1 }}>
+                <Box sx={{ marginRight: 2 }}>
                   <Card sx={{ width: 130 }}>
                     <CardMedia component="img" image={item.cover} />
                   </Card>
                 </Box>
-                <Grid item lg={8} md={8} sm={6} xs={6}>
+                <Grid item lg={8} md={8} sm={7} xs={7}>
                   <ListItemText sx={{ margin: 0, padding: 0 }}>
                     <Link
                       to={{
@@ -190,8 +190,8 @@ function BookList() {
 
   return (
     <Grid container spacing={2} sx={{ marginTop: 1 }}>
-      <Grid item lg={2} md={2} sm={2} xs={2}></Grid>
-      <Grid item lg={10} md={10} sm={10} xs={10}>
+      <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
+      <Grid item lg={10} md={10} sm={12} xs={12}>
         <Book currentPage={currentPage} bookList={bookList} />
         <MyPagination
           currentPage={currentPage}
