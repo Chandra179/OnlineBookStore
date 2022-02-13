@@ -13,54 +13,9 @@ import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import BookHelper from "../helper/book.helper";
 
 function Book({ bookList, currentPage }) {
-  // book author
-  function bookAuthor(book_author) {
-    var bookAuthorLength = book_author.length - 1;
-    var authorList = [];
-
-    authorList.push(
-      <Typography
-        key={"by"}
-        sx={{
-          fontSize: {
-            lg: 17,
-            md: 17,
-            sm: 13,
-            xs: 13,
-          },
-          paddingRight: 1,
-        }}
-      >
-        by
-      </Typography>
-    );
-
-    book_author.map((e, i) => {
-      var authors =
-        i === bookAuthorLength ? e.author_name : e.author_name + ",";
-      authorList.push(
-        <Typography
-          key={i}
-          sx={{
-            color: "rgb(0, 113, 133)",
-            fontSize: {
-              lg: 14,
-              md: 14,
-              sm: 13,
-              xs: 13,
-            },
-            paddingRight: 1,
-          }}
-        >
-          {authors}
-        </Typography>
-      );
-    });
-    return authorList;
-  }
-
   return (
     <List>
       {bookList.map(function (item, i) {
@@ -103,7 +58,7 @@ function Book({ bookList, currentPage }) {
                       alignItems: "center",
                     }}
                   >
-                    {bookAuthor(item.book_author)}
+                    {BookHelper.bookAuthor(item.book_author)}
                   </Box>
                   <ListItemText sx={{ paddingTop: 1 }}>
                     <Typography

@@ -31,6 +31,7 @@ def BooksByGenre(request):
         }
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(data, request)
+        
         return Response(result_page, status=status.HTTP_200_OK, content_type="application/json", headers=headers)
 
 
@@ -42,22 +43,10 @@ def BookDetail(request):
     if request.method == 'GET':
         name = request.query_params.get('name')
         book = Book.objects.get(name__iexact=name)
-        inventory = Inventory.objects.get(book__name__iexact=name)
-        book_author = book.book_author.values_list('name', flat=True)[0]
-        response = {
-            'id': book.id,
-            'name': book.name,
-            'price': book.price,
-            'author': book_author,
-            'cover': book.cover,
-            'desc': book.description,
-            'language': book.language.name,
-            'num_pages': book.num_pages,
-            'publication_date': book.publication_date,
-            'stock': inventory.stock,
-            'publisher': book.publisher.name
-        }
-        return Response(response, status=status.HTTP_200_OK, content_type="application/json")
+        serializer = BookSerializer(book)
+        data = serializer.data
+        
+        return Response(data, status=status.HTTP_200_OK, content_type="application/json")
 
 
 @api_view(['GET'])

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import BookService from "../services/book.service";
 
 import ShowMoreText from "react-show-more-text";
 import Box from "@mui/material/Box";
@@ -8,7 +7,9 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
+import BookService from "../services/book.service";
 import ShoppingCard from "../components/ShoppingCard";
+import BookHelper from "../helper/book.helper";
 
 function BookCover({ bookDetail }) {
   return (
@@ -25,6 +26,8 @@ function BookCover({ bookDetail }) {
 }
 
 function BookDescription({ bookDetail, expand, expandText }) {
+  console.log(bookDetail);
+
   return (
     <Box sx={{ margin: 0, paddingRight: 5 }}>
       <Typography
@@ -40,13 +43,15 @@ function BookDescription({ bookDetail, expand, expandText }) {
       >
         {bookDetail.name}
       </Typography>
-      <Typography
+      <Box
         sx={{
-          color: "rgb(0, 113, 133)",
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        by {bookDetail.author}
-      </Typography>
+        {BookHelper.bookAuthor(bookDetail.book_author)}
+      </Box>
+
       <Box>
         <ShowMoreText
           lines={5}
@@ -56,7 +61,7 @@ function BookDescription({ bookDetail, expand, expandText }) {
           expanded={expand}
           width={650}
         >
-          {bookDetail.desc}
+          {bookDetail.description}
         </ShowMoreText>
       </Box>
     </Box>
