@@ -10,7 +10,7 @@ from account.models import User
 from .serializers import CartSerializer
 
 
-class Cart(APIView):
+class CartView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -19,6 +19,8 @@ class Cart(APIView):
     """
 
     def get(self, request, format=None):
+        cart = Cart.objects.get(user=request.user)
+        print(cart.id, cart.book.price, cart.user.email)
         content = {
             'user': str(request.user),
             'auth': str(request.auth),
