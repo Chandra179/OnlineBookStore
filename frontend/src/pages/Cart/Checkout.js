@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 
 export default function Checkout({ cartItem, checkoutItem }) {
   console.log(checkoutItem);
+  console.log(checkoutItem.length)
 
   return (
     <Box
@@ -21,6 +22,7 @@ export default function Checkout({ cartItem, checkoutItem }) {
     >
       <Box sx={{ boxShadow: 1 }}>
         <Typography variant="h6">Order summary</Typography>
+        {checkoutItem.length === 0 ? <p>0</p> : <p>1</p>}
       </Box>
     </Box>
   );

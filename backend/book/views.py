@@ -5,7 +5,6 @@ from rest_framework import status
 from .models import Book, Genre
 from inventory.models import Inventory
 import collections
-from django.core import serializers
 import json
 from django.http import HttpResponse, JsonResponse
 
@@ -50,6 +49,7 @@ def BookDetail(request):
         inventory = Inventory.objects.get(book__name__iexact=name)
         book_author = book.book_author.values_list('name', flat=True)[0]
         response = {
+            'id': book.id,
             'name': book.name,
             'price': book.price,
             'author': book_author,

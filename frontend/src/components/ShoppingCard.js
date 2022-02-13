@@ -105,6 +105,7 @@ function ShoppingCard({ bookDetail }) {
     if (userEmail) {
       // get user items using user email as key
       const userCart = localStorage.getItem(userEmail);
+      // NEW -> service.addtocart
 
       var newItems = {};
       newItems[bookDetail.name] = {
