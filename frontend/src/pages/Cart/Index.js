@@ -10,8 +10,13 @@ import Checkout from "./Checkout";
 
 export default function Cart() {
   const userEmail = AuthService.getCurrentUser();
-  const [checkoutItem, setCheckoutItem] = useState([]);
-  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+  const [checkoutItem, setCheckoutItem] = useState();
+
+  const [selectedCheckbox, setSelectedCheckbox] = useState(
+    localStorage.getItem(userEmail + 'Cart') !== null
+      ? JSON.parse(localStorage.getItem(userEmail + 'Cart'))
+      : []
+  );
 
   const [cartItem, setCartItem] = useState(
     // IF cart is not empty then:
@@ -27,17 +32,28 @@ export default function Cart() {
   const handleSelectedCheckbox = (event) => {
     const value = event.target.value;
     if (value === "all") {
-      setSelectedCheckbox(
-        selectedCheckbox.length === cartItemKeys.length ? [] : cartItemKeys
-      );
-      setCheckoutItem(cartItemKeys);
+      if (selectedCheckbox.length === cartItemKeys.length) {
+        localStorage.removeItem(userEmail + 'Cart')
+        setSelectedCheckbox([])
+        return;
+      }
+      if (selectedCheckbox.length !== cartItemKeys.length) {
+        localStorage.setItem(userEmail + 'Cart', JSON.stringify(cartItemKeys))
+        setSelectedCheckbox(cartItemKeys)
+        return;
+      }
       return;
     }
     const list = [...selectedCheckbox];
     const index = list.indexOf(value);
     index === -1 ? list.push(value) : list.splice(index, 1);
-    setSelectedCheckbox(list);
-    setCheckoutItem(list);
+    localStorage.setItem(userEmail + 'Cart', JSON.stringify(list))
+    setSelectedCheckbox(list)
+    
+    if(list.length === 0) {
+      localStorage.removeItem(userEmail + 'Cart')
+      return;
+    }
   };
 
   return (
@@ -85,9 +101,9 @@ export default function Cart() {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
+          {/* <Grid item lg={5} md={5} sm={12} xs={12}>
             <Checkout cartItem={cartItem} checkoutItem={checkoutItem} />
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
     </>
