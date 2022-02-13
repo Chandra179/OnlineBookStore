@@ -19,8 +19,10 @@ class CartView(APIView):
     """
 
     def get(self, request, format=None):
-        cart = Cart.objects.get(user=request.user)
-        print(cart.id, cart.book.price, cart.user.email)
+        cart = Cart.objects.filter(user=request.user)
+        for x in cart:
+            print(x.book.name)
+
         content = {
             'user': str(request.user),
             'auth': str(request.auth),
