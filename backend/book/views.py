@@ -22,16 +22,6 @@ def BooksByGenre(request):
         serializer = BookSerializer(books, many=True)
         data = serializer.data
 
-        book_list = []
-        for x in books:
-            book_author = [book.name for book in x.book_author.all()]
-            book_list.append({
-                'name': x.name,
-                'price': x.price,
-                'author': book_author,
-                'genre': x.genre.name,
-                'cover': x.cover,
-            })
         headers = {
             'total_book': books.count()
         }
