@@ -14,11 +14,9 @@ class BookSerializer(serializers.ModelSerializer):
     language = serializers.CharField(source='language.name')
     publisher = serializers.CharField(source='publisher.name')
     genre = serializers.CharField(source='genre.name')
-    book_author = BookAuthorSerializer(source='book_author.author', many=True, read_only=True)
+    book_author = BookAuthorSerializer(source='bookauthor_set', many=True)
 
     class Meta:
         model = Book
         fields = "__all__"
-        depth = 1
-
 
