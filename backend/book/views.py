@@ -11,6 +11,7 @@ from django.http import HttpResponse, JsonResponse
 
 from django.core import serializers
 
+
 @api_view(['GET'])
 def BooksByGenre(request):
     """
@@ -18,7 +19,11 @@ def BooksByGenre(request):
     """
     if request.method == 'GET':
         genre = request.query_params.get('genre')
-        books = Book.objects.filter(genre__name__iexact=genre).prefetch_related('book_author')
+        books = Book.objects \
+            .filter(genre__name__iexact=genre) \
+            .select_related('language', 'genre', 'publisher') \
+            .prefetch_related('book_author')
+            
         serializer = BookSerializer(books, many=True)
         data = serializer.data
 
@@ -63,7 +68,7 @@ def GenreList(request):
     """
     if request.method == 'GET':
         genre = Genre.objects.all().values("name")
-        return JsonResponse({"genre":list(genre)}, content_type='application/json', status=status.HTTP_200_OK)
+        return JsonResponse({"genre": list(genre)}, content_type='application/json', status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -77,10 +82,10 @@ def TopTenBooks(request):
 
         # retrieve latest 10 books for each genre ID
         for genre in Genre.objects.all().distinct():
-            books.extend(Book.objects 
-                    .filter(genre=genre.id) 
-                    .prefetch_related('book_author')[:10]
-            )
+            books.extend(Book.objects
+                         .filter(genre=genre.id)
+                         .prefetch_related('book_author')[:10]
+                         )
 
         for book in books:
             book_author = [x.name for x in book.book_author.all()]
@@ -91,5 +96,3 @@ def TopTenBooks(request):
             }
             response[book.genre.name].append(result)
         return Response(response, content_type='application/json', status=status.HTTP_200_OK)
-
-
