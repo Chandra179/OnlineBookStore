@@ -112,8 +112,7 @@ function ShoppingCard({ bookDetail }) {
         cover: bookDetail.cover,
         qty: qty,
         normalPrice: normalPrice,
-        totalPrice: totalPrice,
-        stock: bookDetail.stock
+        totalPrice: qty * normalPrice,
       };
 
       // add first new item to cart
@@ -135,10 +134,9 @@ function ShoppingCard({ bookDetail }) {
         } else {
           oldItems[bookDetail.name] = {
             cover: bookDetail.cover,
-            normalPrice: normalPrice,
-            totalPrice: totalPrice,
             qty: qty,
-            stock: bookDetail.stock
+            normalPrice: normalPrice,
+            totalPrice: qty * normalPrice
           };
           localStorage.setItem(userEmail, JSON.stringify(oldItems));
           const item = JSON.parse(localStorage.getItem(userEmail));

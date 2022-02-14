@@ -34,10 +34,10 @@ export default function Item({
         newItem[title]["qty"] = newQty;
         newItem[title]["totalPrice"] = newPrice;
 
-        // localStorage.setItem(userEmail, JSON.stringify(newItem));
+        localStorage.setItem(userEmail, JSON.stringify(newItem));
 
-        // setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-        // setCartBadge(CartHelper.cartBadge(userEmail));
+        setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+        setCartBadge(CartHelper.cartBadge(userEmail));
       }
     }
   };
