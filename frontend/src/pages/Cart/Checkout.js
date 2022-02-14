@@ -3,11 +3,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export default function Checkout({ cartItem, selectedCheckbox }) {
-  // Object.keys(cartItem).map((key, i) => {
-  //   if (selectedCheckbox.includes(key)) {
-  //     console.log(key, cartItem[key]);
-  //   }
-  // });
 
   return (
     <Box
@@ -28,7 +23,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
         {Object.keys(cartItem).map((key, i) => {
           if (selectedCheckbox.includes(key)) {
             return (
-              <Box sx={{ display: "flex" }}>
+              <Box key={i} sx={{ display: "flex" }}>
                 <Typography>{key}</Typography>
                 <Typography key={i}>{cartItem[key]["qty"]}</Typography>
               </Box>

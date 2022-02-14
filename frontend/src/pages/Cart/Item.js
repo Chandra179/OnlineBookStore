@@ -10,9 +10,13 @@ import Card from "@mui/material/Card";
 import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
 
-
-export default function Item({ userEmail, cartItem, setCartItem, handleSelectedCheckbox, selectedCheckbox }) {
-  
+export default function Item({
+  userEmail,
+  cartItem,
+  setCartItem,
+  handleSelectedCheckbox,
+  selectedCheckbox,
+}) {
   const { setCartBadge } = useCart();
 
   const handleQtyChange = (title, normalPrice, stock, event) => {
@@ -22,6 +26,7 @@ export default function Item({ userEmail, cartItem, setCartItem, handleSelectedC
     }
     if (newQty.toString()[0] !== "0") {
       const item = localStorage.getItem(userEmail);
+      console.log(item)
       if (item !== null) {
         var newItem = JSON.parse(item);
         var newPrice = newQty * normalPrice;
@@ -29,22 +34,35 @@ export default function Item({ userEmail, cartItem, setCartItem, handleSelectedC
         newItem[title]["qty"] = newQty;
         newItem[title]["totalPrice"] = newPrice;
 
-        localStorage.setItem(userEmail, JSON.stringify(newItem));
+        // localStorage.setItem(userEmail, JSON.stringify(newItem));
 
-        setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-        setCartBadge(CartHelper.cartBadge(userEmail));
+        // setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+        // setCartBadge(CartHelper.cartBadge(userEmail));
       }
     }
   };
 
-  const removeProduct = (title) => {
-    var oldItem = JSON.parse(localStorage.getItem(userEmail));
+  console.log(selectedCheckbox)
+  console.log(cartItem)
 
-    const filteredByKey = Object.fromEntries(
-      Object.entries(oldItem).filter(([key, value]) => key !== title)
+  const removeProduct = (title) => {
+    var cartItem =
+      localStorage.getItem(userEmail) !== null
+        ? JSON.parse(localStorage.getItem(userEmail))
+        : null;
+
+
+    var cartFiltered = Object.fromEntries(
+      Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    localStorage.setItem(userEmail, JSON.stringify(filteredByKey));
+    // var checkoutFiltered = checkoutItem.filter((e) => e !== title);
+    // if (checkoutFiltered.length === 0) {
+    //   localStorage.removeItem(userEmail + "Cart");
+    // }
+
+    //localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
+    localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setCartBadge(CartHelper.cartBadge(userEmail));
   };
