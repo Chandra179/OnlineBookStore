@@ -113,6 +113,7 @@ function ShoppingCard({ bookDetail }) {
         qty: qty,
         normalPrice: normalPrice,
         totalPrice: qty * normalPrice,
+        stock: bookDetail.stock
       };
 
       // add first new item to cart
@@ -136,7 +137,8 @@ function ShoppingCard({ bookDetail }) {
             cover: bookDetail.cover,
             qty: qty,
             normalPrice: normalPrice,
-            totalPrice: qty * normalPrice
+            totalPrice: qty * normalPrice,
+            stock: bookDetail.stock
           };
           localStorage.setItem(userEmail, JSON.stringify(oldItems));
           const item = JSON.parse(localStorage.getItem(userEmail));
