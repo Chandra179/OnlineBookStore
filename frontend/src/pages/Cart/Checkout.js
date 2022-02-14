@@ -2,8 +2,12 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function Checkout({ checkoutItem }) {
-  console.log(checkoutItem)
+export default function Checkout({ cartItem, selectedCheckbox }) {
+  // Object.keys(cartItem).map((key, i) => {
+  //   if (selectedCheckbox.includes(key)) {
+  //     console.log(key, cartItem[key]);
+  //   }
+  // });
 
   return (
     <Box
@@ -21,6 +25,16 @@ export default function Checkout({ checkoutItem }) {
     >
       <Box sx={{ boxShadow: 1 }}>
         <Typography variant="h6">Order summary</Typography>
+        {Object.keys(cartItem).map((key, i) => {
+          if (selectedCheckbox.includes(key)) {
+            return (
+              <Box sx={{ display: "flex" }}>
+                <Typography>{key}</Typography>
+                <Typography key={i}>{cartItem[key]["qty"]}</Typography>
+              </Box>
+            );
+          }
+        })}
       </Box>
     </Box>
   );

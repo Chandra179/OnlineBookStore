@@ -10,14 +10,11 @@ import Checkout from "./Checkout";
 
 export default function Cart() {
   const userEmail = AuthService.getCurrentUser();
-
-  const [checkoutItem, setCheckoutItem] = useState([]);
   const [selectedCheckbox, setSelectedCheckbox] = useState(
     localStorage.getItem(userEmail + "Cart") !== null
       ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
       : []
   );
-
   const [cartItem, setCartItem] = useState(
     // IF cart is not empty then:
     localStorage.getItem(userEmail) !== null
@@ -40,8 +37,6 @@ export default function Cart() {
       if (selectedCheckbox.length !== cartItemKeys.length) {
         localStorage.setItem(userEmail + "Cart", JSON.stringify(cartItemKeys));
         setSelectedCheckbox(cartItemKeys);
-        setCheckoutItem(cartItem)
-
         return;
       }
       return;
@@ -104,7 +99,7 @@ export default function Cart() {
             </Box>
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12}>
-            <Checkout checkoutItem={checkoutItem} />
+            <Checkout cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
           </Grid>
         </Grid>
       )}
