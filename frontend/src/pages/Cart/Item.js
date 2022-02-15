@@ -16,6 +16,7 @@ export default function Item({
   setCartItem,
   handleSelectedCheckbox,
   selectedCheckbox,
+  setSelectedCheckbox
 }) {
   const { setCartBadge } = useCart();
 
@@ -26,7 +27,7 @@ export default function Item({
     }
     if (newQty.toString()[0] !== "0") {
       const item = localStorage.getItem(userEmail);
-      console.log(item)
+      console.log(item);
       if (item !== null) {
         var newItem = JSON.parse(item);
         var newPrice = newQty * normalPrice;
@@ -42,28 +43,36 @@ export default function Item({
     }
   };
 
-  console.log(selectedCheckbox)
-  console.log(cartItem)
-
   const removeProduct = (title) => {
     var cartItem =
       localStorage.getItem(userEmail) !== null
         ? JSON.parse(localStorage.getItem(userEmail))
         : null;
 
+    var checkoutItem =
+      localStorage.getItem(userEmail + "Cart") !== null
+        ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
+        : null;
 
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    // var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-    // if (checkoutFiltered.length === 0) {
-    //   localStorage.removeItem(userEmail + "Cart");
-    // }
+    if (checkoutItem === null) {
+      localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
+      setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
+      setCartBadge(CartHelper.cartBadge(userEmail));
+      return;
+    }
 
-    //localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
+    var checkoutFiltered = checkoutItem.filter((e) => e !== title);
+    console.log(checkoutFiltered)
+
+    localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+    setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
     setCartBadge(CartHelper.cartBadge(userEmail));
   };
 
