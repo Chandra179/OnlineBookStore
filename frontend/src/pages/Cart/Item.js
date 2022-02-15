@@ -197,14 +197,23 @@ export default function Item({
               </Grid>
               <Box
                 sx={{
-                  marginLeft: "auto",
-                  display: "flex",
-                  alignItems: "center",
-                  height: 25,
+                  marginLeft: "auto"
                 }}
               >
                 <Box>
-                  <Typography>$ {totalPrice.toFixed(2)}</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: {
+                        lg: 16,
+                        md: 16,
+                        sm: 15,
+                        xs: 13,
+                      },
+                      fontWeight: 600
+                    }}
+                  >
+                    $ {totalPrice.toFixed(2)}
+                  </Typography>
                 </Box>
               </Box>
             </Box>

@@ -17,7 +17,12 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
   return (
     <Box
       sx={{
-        marginTop: 6,
+        marginTop: {
+          lg: 6,
+          md: 6,
+          sm: 3,
+          xs: 3,
+        },
         minWidth: 200,
         marginRight: 5,
         marginLeft: {
@@ -28,18 +33,18 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
         },
       }}
     >
-      <Box sx={{ boxShadow: 1, padding: '10px 20px 20px 20px', borderRadius: 3 }}>
-          <Box sx={{ marginRight: "auto", display: "flex" }}>
-            <Typography>
-              Subtotal ({totalQty}) item: 
-            </Typography>
-            <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
-          </Box>
+      <Box
+        sx={{ boxShadow: 1, padding: "10px 20px 20px 20px", borderRadius: 3 }}
+      >
+        <Box sx={{ marginRight: "auto", display: "flex" }}>
+          <Typography>Subtotal ({totalQty}) item:</Typography>
+          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
+        </Box>
         <Box sx={{ textAlign: "center", paddingTop: 1 }}>
           <Button
             variant="contained"
             sx={{ height: 22, fontSize: 14, textTransform: "none" }}
-            disabled={totalQty === 0 ? true : false }
+            disabled={totalQty === 0 ? true : false}
           >
             Proceed to checkout
           </Button>
