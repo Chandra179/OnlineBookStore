@@ -10,7 +10,7 @@ import AppBar from "../components/AppBar";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import BooksByGenre from '../pages/BooksByGenre';
-import BookDetail from "../pages/BookDetail";
+import ProductDetail from "../pages/ProductDetail/Index";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart/Index";
 
@@ -23,7 +23,7 @@ const Routes = () => {
         <Route exact path="/:genre/:page" component={BooksByGenre} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/:genre/:page/:title" component={BookDetail} />
+        <Route exact path="/:genre/:page/:title" component={ProductDetail} />
         <ProtectedRoute exact path="/cart" component={Cart} />
       </Switch>
     </Router>

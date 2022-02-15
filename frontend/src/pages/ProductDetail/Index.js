@@ -7,9 +7,9 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import BookService from "../services/book.service";
-import ShoppingCard from "../components/ShoppingCard";
-import BookHelper from "../helper/book.helper";
+import BookService from "../../services/book.service";
+import ShoppingCard from "./ShoppingCard";
+import BookHelper from "../../helper/book.helper";
 
 function BookCover({ bookDetail }) {
   return (

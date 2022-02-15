@@ -103,7 +103,7 @@ export default function SignIn() {
           }}
         >
           <Box sx={{ pb: 2, width: "100%" }}>
-            {signInAlert ? <Alert signInAlert={signInAlert} /> : <div />}
+            {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
           </Box>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />

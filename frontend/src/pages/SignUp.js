@@ -101,7 +101,7 @@ export default function SignUp() {
           alignItems: "center",
         }}
       >
-        {signupAlert ? <Alert signupAlert={signupAlert} /> : <div />}
+        {signupAlert ? <Alert name={signupAlert} severity="error" /> : <div />}
 
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />

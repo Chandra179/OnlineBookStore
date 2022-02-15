@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-
-import Alert from "./Alert";
-import AuthService from "../services/auth.service";
 import { useHistory } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -12,7 +8,12 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import CartHelper from "../helper/cart.helper";
+
+import Alert from "../../components/Alert";
+import AuthService from "../../services/auth.service";
+import { useCart } from "../../hooks/useCart";
+import CartHelper from "../../helper/cart.helper";
+
 
 function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
   const handleQtyChange = (event) => {
@@ -166,12 +167,8 @@ function ShoppingCard({ bookDetail }) {
         },
       }}
     >
-      {itemExistAlert ? <Alert cartItemExist={"Item is in cart"} /> : <div />}
-      {itemAddedAlert ? (
-        <Alert cartItemAdded={"Item is added to cart"} />
-      ) : (
-        <div />
-      )}
+      {itemExistAlert ? <Alert name={"Item is in cart"} severity="error" /> : <div />}
+      {itemAddedAlert ? <Alert name={"Item is added to cart"} severity="success" /> : <div />}
 
       <Box
         sx={{
