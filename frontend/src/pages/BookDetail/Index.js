@@ -26,7 +26,6 @@ function BookCover({ bookDetail }) {
 }
 
 function BookDescription({ bookDetail, expand, expandText }) {
-
   return (
     <Box sx={{ margin: 0, paddingRight: 5 }}>
       <Typography
@@ -42,14 +41,8 @@ function BookDescription({ bookDetail, expand, expandText }) {
       >
         {bookDetail.name}
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {BookHelper.bookAuthor(bookDetail.book_author)}
-      </Box>
+
+      {BookHelper.bookAuthor(bookDetail.book_author)}
 
       <Box>
         <ShowMoreText
