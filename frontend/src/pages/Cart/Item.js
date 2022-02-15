@@ -115,89 +115,89 @@ export default function Item({
             }}
           >
             <Box sx={{ display: "flex", marginBottom: 3 }}>
-              <Grid>
-                <Box sx={{ display: "flex" }}>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Box key={key}>
-                      <Checkbox
-                        sx={{ marginRight: 1 }}
-                        value={key}
-                        onChange={handleSelectedCheckbox}
-                        checked={selectedCheckbox.includes(key)}
-                      />
-                    </Box>
+              <Box
+                sx={{ display: "flex", alignItems: "center", marginRight: 2 }}
+              >
+                <Box key={key}>
+                  <Checkbox
+                    sx={{ marginRight: 1 }}
+                    value={key}
+                    onChange={handleSelectedCheckbox}
+                    checked={selectedCheckbox.includes(key)}
+                  />
+                </Box>
 
-                    <Card
+                <Card
+                  sx={{
+                    minWidth: 80,
+                    maxWidth: {
+                      lg: 120,
+                      md: 120,
+                      sm: 120,
+                      xs: 80,
+                    },
+                  }}
+                >
+                  <CardMedia component="img" image={cover} />
+                </Card>
+              </Box>
+
+              <Box sx={{ display: "flex" }}>
+                {/* CART BODY */}
+                <Box sx={{ marginRight: 3 }}>
+                  <Box>
+                    <Typography
                       sx={{
-                        minWidth: 90,
-                        maxWidth: {
-                          lg: 120,
-                          md: 120,
-                          sm: 120,
-                          xs: 90,
+                        fontWeight: 500,
+                        letterSpacing: 1.3,
+                        fontSize: {
+                          lg: 17,
+                          md: 17,
+                          sm: 16,
+                          xs: 13,
                         },
-                        marginRight: 2,
                       }}
                     >
-                      <CardMedia component="img" image={cover} />
-                    </Card>
+                      {title}
+                    </Typography>
                   </Box>
 
-                  {/* CART BODY */}
-                  <Box sx={{ marginRight: 4 }}>
-                    <Box>
-                      <Typography
-                        sx={{
-                          fontWeight: 500,
-                          letterSpacing: 1.3,
-                          fontSize: {
-                            lg: 17,
-                            md: 17,
-                            sm: 16,
-                            xs: 13,
-                          },
-                        }}
-                      >
-                        {title}
-                      </Typography>
-                    </Box>
+                  <Box
+                    sx={{
+                      paddingTop: 2,
+                      width: 80,
+                      height: { lg: 50, md: 50, sm: 50, xs: 40 },
+                    }}
+                  >
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-number"
+                        label="Qty"
+                        type="number"
+                        onChange={(e) =>
+                          handleQtyChange(title, normalPrice, stock, e)
+                        }
+                        onKeyPress={(event) => qtyInputNumberOnly(event)}
+                        value={qty}
+                        maxWidth={50}
+                      />
+                    </FormControl>
+                  </Box>
 
-                    <Box
-                      sx={{
-                        paddingTop: 2,
-                        width: 80,
-                        height: { lg: 50, md: 50, sm: 50, xs: 40 },
-                      }}
+                  <Box sx={{ marginTop: 3 }}>
+                    <Button
+                      variant="contained"
+                      sx={{ textTransform: "none", height: 30 }}
+                      onClick={(e) => removeProduct(title, e)}
                     >
-                      <FormControl fullWidth>
-                        <TextField
-                          id="outlined-number"
-                          label="Qty"
-                          type="number"
-                          onChange={(e) =>
-                            handleQtyChange(title, normalPrice, stock, e)
-                          }
-                          onKeyPress={(event) => qtyInputNumberOnly(event)}
-                          value={qty}
-                        />
-                      </FormControl>
-                    </Box>
-
-                    <Box sx={{ marginTop: 3 }}>
-                      <Button
-                        variant="contained"
-                        sx={{ textTransform: "none", height: 30 }}
-                        onClick={(e) => removeProduct(title, e)}
-                      >
-                        Delete
-                      </Button>
-                    </Box>
+                      Delete
+                    </Button>
                   </Box>
                 </Box>
-              </Grid>
+              </Box>
               <Box
                 sx={{
-                  marginLeft: "auto"
+                  marginLeft: "auto",
                 }}
               >
                 <Box>
@@ -209,7 +209,7 @@ export default function Item({
                         sm: 15,
                         xs: 13,
                       },
-                      fontWeight: 600
+                      fontWeight: 600,
                     }}
                   >
                     $ {totalPrice.toFixed(2)}

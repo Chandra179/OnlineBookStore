@@ -11,7 +11,12 @@ export default function Header({
     <Box
       sx={{
         display: "flex",
-        marginLeft: 6,
+        marginLeft: {
+          lg: 5,
+          md: 5,
+          sm: 5,
+          xs: 2
+        },
         marginTop: 6,
       }}
     >

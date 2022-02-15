@@ -58,16 +58,16 @@ export default function Cart() {
       {cartItem === null || Object.keys(cartItem).length === 0 ? (
         <p>cart empty</p>
       ) : (
-        <Grid container spacing={2}>
-          <Grid item lg={8} md={8} sm={12} xs={12}>
+        <Grid container>
+          <Grid item lg={8} md={8} sm={12} xs={12} sx={{boxShadow: 1}}>
             <Box
               sx={{
                 marginRight: {
-                  xl: 2,
-                  lg: 2,
-                  md: 2,
+                  xl: 4,
+                  lg: 4,
+                  md: 4,
                   sm: 6,
-                  xs: 6,
+                  xs: 2,
                 },
               }}
             >
@@ -77,7 +77,12 @@ export default function Cart() {
               />
               <Divider
                 sx={{
-                  marginLeft: 6,
+                  marginLeft: {
+                    lg: 5,
+                    md: 5,
+                    sm: 5,
+                    xs: 2
+                  },
                   paddingTop: 2,
                   marginBottom: 4,
                   borderBottomWidth: 2,
@@ -85,7 +90,12 @@ export default function Cart() {
               />
               <Box
                 sx={{
-                  marginLeft: 6,
+                  marginLeft: {
+                    lg: 5,
+                    md: 5,
+                    sm: 5,
+                    xs: 2
+                  }
                 }}
               >
                 <Item
