@@ -44,40 +44,33 @@ export default function Item({
   };
 
   const removeProduct = (title) => {
-    var cartItem =
-      localStorage.getItem(userEmail) !== null
-        ? JSON.parse(localStorage.getItem(userEmail))
-        : null;
 
     var checkoutItem =
       localStorage.getItem(userEmail + "Cart") !== null
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
         : null;
-    
-    // After removing all items cart must be empty. So we
-    // check if cart empty, then remove the local storage
-    if (cartItem.length === undefined || checkoutItem.length === 0) {
-      localStorage.removeItem(userEmail);
-      localStorage.removeItem(userEmail + 'Cart');
-      setCartItem(null);
-      return;
-    }
 
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-    
-    // Make it possible to remove item while not checked
     if (checkoutItem !== null) {
+      var checkoutFiltered = checkoutItem.filter((e) => e !== title);
       localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
+
+      if (checkoutItem.length - 1 === 0) {
+        localStorage.removeItem(userEmail + 'Cart')
+      }
     }
 
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
     setCartBadge(CartHelper.cartBadge(userEmail));
+    
+    if (Object.keys(cartItem).length - 1 === 0) {
+      localStorage.removeItem(userEmail)
+    }
   };
 
   const qtyInputNumberOnly = (event) => {
