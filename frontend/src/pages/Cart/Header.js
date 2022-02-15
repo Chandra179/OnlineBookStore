@@ -16,7 +16,7 @@ export default function Header({
       }}
     >
       <Box>
-        <Typography variant="h6">Your cart</Typography>
+        <Typography variant="h6">Shopping cart</Typography>
       </Box>
       <Box
         sx={{

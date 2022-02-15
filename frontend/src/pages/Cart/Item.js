@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
+import CloseIcon from "@mui/icons-material/Close";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CartHelper from "../../helper/cart.helper";
@@ -16,7 +19,7 @@ export default function Item({
   setCartItem,
   handleSelectedCheckbox,
   selectedCheckbox,
-  setSelectedCheckbox
+  setSelectedCheckbox,
 }) {
   const { setCartBadge } = useCart();
 
@@ -27,7 +30,6 @@ export default function Item({
     }
     if (newQty.toString()[0] !== "0") {
       const item = localStorage.getItem(userEmail);
-      console.log(item);
       if (item !== null) {
         var newItem = JSON.parse(item);
         var newPrice = newQty * normalPrice;
@@ -44,7 +46,6 @@ export default function Item({
   };
 
   const removeProduct = (title) => {
-
     var checkoutItem =
       localStorage.getItem(userEmail + "Cart") !== null
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
@@ -56,20 +57,23 @@ export default function Item({
 
     if (checkoutItem !== null) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-      localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
-      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
+      localStorage.setItem(
+        userEmail + "Cart",
+        JSON.stringify(checkoutFiltered)
+      );
+      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")));
 
       if (checkoutItem.length - 1 === 0) {
-        localStorage.removeItem(userEmail + 'Cart')
+        localStorage.removeItem(userEmail + "Cart");
       }
     }
 
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setCartBadge(CartHelper.cartBadge(userEmail));
-    
+
     if (Object.keys(cartItem).length - 1 === 0) {
-      localStorage.removeItem(userEmail)
+      localStorage.removeItem(userEmail);
     }
   };
 
@@ -105,8 +109,9 @@ export default function Item({
           <Box
             key={key}
             sx={{
-              paddingBottom: 5,
+              marginBottom: 5,
               display: "flex",
+              boxShadow: 1,
             }}
           >
             <Box sx={{ display: "flex" }}>
@@ -138,20 +143,22 @@ export default function Item({
 
               {/* CART BODY */}
               <Box sx={{ marginRight: 4 }}>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    letterSpacing: 1.3,
-                    fontSize: {
-                      lg: 17,
-                      md: 17,
-                      sm: 16,
-                      xs: 13,
-                    },
-                  }}
-                >
-                  {title}
-                </Typography>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      letterSpacing: 1.3,
+                      fontSize: {
+                        lg: 17,
+                        md: 17,
+                        sm: 16,
+                        xs: 13,
+                      },
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                </Box>
 
                 <Box
                   sx={{
@@ -173,29 +180,27 @@ export default function Item({
                     />
                   </FormControl>
                 </Box>
-
-                <Box sx={{ marginTop: 3.5 }}>
-                  <Button
-                    variant="contained"
-                    onClick={(e) => removeProduct(title, e)}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: 12,
-                        paddingLeft: 0.2,
-                        letterSpacing: 1,
-                      }}
-                    >
-                      Delete
-                    </Typography>
-                  </Button>
-                </Box>
               </Box>
             </Box>
-
-            {/* PRODUCT PRICE */}
-            <Box sx={{ marginLeft: "auto" }}>
-              <Typography>$ {totalPrice.toFixed(2)}</Typography>
+            <Box
+              sx={{
+                marginLeft: "auto",
+                display: "flex",
+                alignItems: "center",
+                height: 25,
+              }}
+            >
+              <Box>
+                <Typography>$ {totalPrice.toFixed(2)}</Typography>
+              </Box>
+              <Box sx={{ marginLeft: 2 }}>
+                <IconButton size="small">
+                  <CloseIcon
+                    onClick={(e) => removeProduct(title, e)}
+                    sx={{ fontSize: 20, color: "black" }}
+                  />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
         );

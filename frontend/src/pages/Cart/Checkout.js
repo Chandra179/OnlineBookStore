@@ -1,14 +1,24 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
 export default function Checkout({ cartItem, selectedCheckbox }) {
+  var totalPrice = 0;
+  var totalQty = 0;
+
+  for (var key in cartItem) {
+    if (selectedCheckbox.includes(key)) {
+      totalQty += Number(cartItem[key]["qty"]);
+      totalPrice += cartItem[key]["totalPrice"];
+    }
+  }
 
   return (
     <Box
       sx={{
         marginTop: 6,
-        minWidth: 300,
+        minWidth: 200,
         marginRight: 5,
         marginLeft: {
           lg: 2,
@@ -18,18 +28,22 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
         },
       }}
     >
-      <Box sx={{ boxShadow: 1 }}>
-        <Typography variant="h6">Order summary</Typography>
-        {Object.keys(cartItem).map((key, i) => {
-          if (selectedCheckbox.includes(key)) {
-            return (
-              <Box key={i} sx={{ display: "flex" }}>
-                <Typography>{key}</Typography>
-                <Typography key={i}>{cartItem[key]["qty"]}</Typography>
-              </Box>
-            );
-          }
-        })}
+      <Box sx={{ boxShadow: 1, padding: '10px 20px 20px 20px', borderRadius: 3 }}>
+          <Box sx={{ marginRight: "auto", display: "flex" }}>
+            <Typography>
+              Subtotal ({totalQty}) item: 
+            </Typography>
+            <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
+          </Box>
+        <Box sx={{ textAlign: "center", paddingTop: 1 }}>
+          <Button
+            variant="contained"
+            sx={{ height: 20, fontSize: 14, textTransform: "none" }}
+            disabled={totalQty === 0 ? true : false }
+          >
+            Proceed to checkout
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

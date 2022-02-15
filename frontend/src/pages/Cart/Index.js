@@ -60,7 +60,7 @@ export default function Cart() {
         <p>cart empty</p>
       ) : (
         <Grid container spacing={2}>
-          <Grid item lg={7} md={7} sm={12} xs={12}>
+          <Grid item lg={8} md={8} sm={12} xs={12}>
             <Box
               sx={{
                 marginRight: {
@@ -100,7 +100,7 @@ export default function Cart() {
               </Box>
             </Box>
           </Grid>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <Checkout cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
           </Grid>
         </Grid>

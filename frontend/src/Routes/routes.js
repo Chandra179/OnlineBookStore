@@ -9,8 +9,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import AppBar from "../components/AppBar";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
-import BooksByGenre from '../pages/BooksByGenre';
-import ProductDetail from "../pages/ProductDetail/Index";
+import BooksByGenre from '../pages/BooksByGenre/Index';
+import ProductDetail from "../pages/BookDetail/Index";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart/Index";
 

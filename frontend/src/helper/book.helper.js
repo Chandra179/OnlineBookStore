@@ -14,10 +14,10 @@ const bookAuthor = (book_author) => {
         fontSize: {
           lg: 17,
           md: 17,
-          sm: 13,
-          xs: 13,
+          sm: 14,
+          xs: 14,
         },
-        paddingRight: 1,
+        paddingRight: 0.7,
       }}
     >
       by
@@ -34,8 +34,8 @@ const bookAuthor = (book_author) => {
           fontSize: {
             lg: 14,
             md: 14,
-            sm: 13,
-            xs: 13,
+            sm: 14,
+            xs: 14,
           },
           paddingRight: 1,
         }}
