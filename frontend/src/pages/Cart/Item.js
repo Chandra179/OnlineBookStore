@@ -57,6 +57,7 @@ export default function Item({
     if (checkoutItem !== null) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
       localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
+      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
 
       if (checkoutItem.length - 1 === 0) {
         localStorage.removeItem(userEmail + 'Cart')
@@ -65,7 +66,6 @@ export default function Item({
 
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-    setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
     setCartBadge(CartHelper.cartBadge(userEmail));
     
     if (Object.keys(cartItem).length - 1 === 0) {
