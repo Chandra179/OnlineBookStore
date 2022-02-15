@@ -53,23 +53,24 @@ export default function Item({
       localStorage.getItem(userEmail + "Cart") !== null
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
         : null;
+    
+    if (cartItem.length === undefined || checkoutItem.length === 0) {
+      localStorage.removeItem(userEmail);
+      localStorage.removeItem(userEmail + 'Cart');
+      setCartItem(null);
+      return;
+    }
 
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    if (checkoutItem === null) {
-      localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
-      setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))
-      setCartBadge(CartHelper.cartBadge(userEmail));
-      return;
+    var checkoutFiltered = checkoutItem.filter((e) => e !== title);
+    
+    if (checkoutItem !== null) {
+      localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
     }
 
-    var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-    console.log(checkoutFiltered)
-
-    localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")))

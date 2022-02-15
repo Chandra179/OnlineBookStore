@@ -23,9 +23,6 @@ export default function Cart() {
   );
   // IF cart is not empty then:
   const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0;
-  
-  console.log(selectedCheckbox)
-  console.log(selectedCheckbox.length, cartItemKeys.length)
   const allCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
