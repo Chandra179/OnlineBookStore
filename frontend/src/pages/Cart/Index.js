@@ -53,9 +53,10 @@ export default function Cart() {
     }
   };
 
+  console.log(cartItem)
   return (
     <>
-      {cartItem === null ? (
+      {cartItem === null || Object.keys(cartItem).length === 0 ? (
         <p>cart empty</p>
       ) : (
         <Grid container spacing={2}>
