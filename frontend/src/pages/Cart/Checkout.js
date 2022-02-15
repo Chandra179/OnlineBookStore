@@ -34,16 +34,36 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
       }}
     >
       <Box
-        sx={{ boxShadow: 1, padding: "10px 20px 20px 20px", borderRadius: 3 }}
+        sx={{
+          boxShadow: 1,
+          padding: "10px 20px 20px 20px",
+          borderRadius: 3,
+        }}
       >
-        <Box sx={{ marginRight: "auto", display: "flex" }}>
+        <Box
+          sx={{
+            marginRight: "auto",
+            display: "flex",
+          }}
+        >
           <Typography>Subtotal ({totalQty}) item:</Typography>
-          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
+          <Typography sx={{ fontWeight: 600 }}>
+            &nbsp; ${totalPrice}
+          </Typography>
         </Box>
-        <Box sx={{ textAlign: "center", paddingTop: 1 }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            paddingTop: 1,
+          }}
+        >
           <Button
             variant="contained"
-            sx={{ height: 22, fontSize: 14, textTransform: "none" }}
+            sx={{
+              height: 22,
+              fontSize: 14,
+              textTransform: "none",
+            }}
             disabled={totalQty === 0 ? true : false}
           >
             Proceed to checkout

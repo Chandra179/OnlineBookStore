@@ -15,13 +15,24 @@ export default function Header({
           lg: 5,
           md: 5,
           sm: 5,
-          xs: 2
+          xs: 2,
         },
         marginTop: 6,
       }}
     >
       <Box>
-        <Typography variant="h6">Shopping cart</Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              lg: 20,
+              md: 20,
+              sm: 18,
+              xs: 16,
+            },
+          }}
+        >
+          Shopping cart
+        </Typography>
       </Box>
       <Box
         sx={{

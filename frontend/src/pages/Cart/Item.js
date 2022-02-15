@@ -118,9 +118,9 @@ export default function Item({
               <Box
                 sx={{ display: "flex", alignItems: "center", marginRight: 2 }}
               >
-                <Box key={key}>
+                <Box key={key} sx={{ marginRight: 1 }}>
                   <Checkbox
-                    sx={{ marginRight: 1 }}
+                    sx={{ marginRight: 1, width:0, height:0 }}
                     value={key}
                     onChange={handleSelectedCheckbox}
                     checked={selectedCheckbox.includes(key)}
@@ -166,7 +166,7 @@ export default function Item({
                     sx={{
                       paddingTop: 2,
                       width: 80,
-                      height: { lg: 50, md: 50, sm: 50, xs: 40 },
+                      height: { lg: 40, md: 40, sm: 40, xs: 30 },
                     }}
                   >
                     <FormControl fullWidth>
@@ -179,7 +179,7 @@ export default function Item({
                         }
                         onKeyPress={(event) => qtyInputNumberOnly(event)}
                         value={qty}
-                        maxWidth={50}
+                        size='small'
                       />
                     </FormControl>
                   </Box>
