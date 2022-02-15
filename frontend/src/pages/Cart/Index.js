@@ -53,7 +53,6 @@ export default function Cart() {
     }
   };
 
-  console.log(cartItem)
   return (
     <>
       {cartItem === null || Object.keys(cartItem).length === 0 ? (
