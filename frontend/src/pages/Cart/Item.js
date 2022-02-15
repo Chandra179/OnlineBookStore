@@ -54,6 +54,8 @@ export default function Item({
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
         : null;
     
+    // After removing all items cart must be empty. So we
+    // check if cart empty, then remove the local storage
     if (cartItem.length === undefined || checkoutItem.length === 0) {
       localStorage.removeItem(userEmail);
       localStorage.removeItem(userEmail + 'Cart');
@@ -67,6 +69,7 @@ export default function Item({
 
     var checkoutFiltered = checkoutItem.filter((e) => e !== title);
     
+    // Make it possible to remove item while not checked
     if (checkoutItem !== null) {
       localStorage.setItem(userEmail + "Cart", JSON.stringify(checkoutFiltered));
     }
