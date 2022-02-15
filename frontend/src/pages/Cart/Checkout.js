@@ -38,7 +38,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
         <Box sx={{ textAlign: "center", paddingTop: 1 }}>
           <Button
             variant="contained"
-            sx={{ height: 20, fontSize: 14, textTransform: "none" }}
+            sx={{ height: 22, fontSize: 14, textTransform: "none" }}
             disabled={totalQty === 0 ? true : false }
           >
             Proceed to checkout

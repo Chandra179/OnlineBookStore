@@ -80,7 +80,7 @@ export default function Cart() {
                   marginLeft: 6,
                   paddingTop: 2,
                   marginBottom: 4,
-                  borderBottomWidth: 3,
+                  borderBottomWidth: 2,
                 }}
               />
               <Box

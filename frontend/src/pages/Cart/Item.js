@@ -1,13 +1,16 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
-import CardMedia from "@mui/material/CardMedia";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import { Grid } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Card,
+  Button,
+  Checkbox,
+  TextField,
+  FormControl,
+  Box,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 
 import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
@@ -95,7 +98,7 @@ export default function Item({
   };
 
   return (
-    <>
+    <Box>
       {Object.keys(cartItem).map(function (key) {
         var title = key;
         var normalPrice = cartItem[key]["normalPrice"];
@@ -108,102 +111,107 @@ export default function Item({
           <Box
             key={key}
             sx={{
-              marginBottom: 5,
-              display: "flex",
-              boxShadow: 1,
+              marginBottom: 3,
             }}
           >
-            <Grid>
-              <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Box key={key}>
-                    <Checkbox
-                      sx={{ marginRight: 1 }}
-                      value={key}
-                      onChange={handleSelectedCheckbox}
-                      checked={selectedCheckbox.includes(key)}
-                    />
-                  </Box>
+            <Box sx={{ display: "flex", marginBottom: 3 }}>
+              <Grid>
+                <Box sx={{ display: "flex" }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box key={key}>
+                      <Checkbox
+                        sx={{ marginRight: 1 }}
+                        value={key}
+                        onChange={handleSelectedCheckbox}
+                        checked={selectedCheckbox.includes(key)}
+                      />
+                    </Box>
 
-                  <Card
-                    sx={{
-                      minWidth: 90,
-                      maxWidth: {
-                        lg: 120,
-                        md: 120,
-                        sm: 120,
-                        xs: 90,
-                      },
-                      marginRight: 2,
-                    }}
-                  >
-                    <CardMedia component="img" image={cover} />
-                  </Card>
-                </Box>
-
-                {/* CART BODY */}
-                <Box sx={{ marginRight: 4 }}>
-                  <Box>
-                    <Typography
+                    <Card
                       sx={{
-                        fontWeight: 500,
-                        letterSpacing: 1.3,
-                        fontSize: {
-                          lg: 17,
-                          md: 17,
-                          sm: 16,
-                          xs: 13,
+                        minWidth: 90,
+                        maxWidth: {
+                          lg: 120,
+                          md: 120,
+                          sm: 120,
+                          xs: 90,
                         },
+                        marginRight: 2,
                       }}
                     >
-                      {title}
-                    </Typography>
+                      <CardMedia component="img" image={cover} />
+                    </Card>
                   </Box>
 
-                  <Box
-                    sx={{
-                      paddingTop: 2,
-                      width: 80,
-                      height: { lg: 50, md: 50, sm: 50, xs: 40 },
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <TextField
-                        id="outlined-number"
-                        label="Qty"
-                        type="number"
-                        onChange={(e) =>
-                          handleQtyChange(title, normalPrice, stock, e)
-                        }
-                        onKeyPress={(event) => qtyInputNumberOnly(event)}
-                        value={qty}
-                      />
-                    </FormControl>
-                  </Box>
+                  {/* CART BODY */}
+                  <Box sx={{ marginRight: 4 }}>
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontWeight: 500,
+                          letterSpacing: 1.3,
+                          fontSize: {
+                            lg: 17,
+                            md: 17,
+                            sm: 16,
+                            xs: 13,
+                          },
+                        }}
+                      >
+                        {title}
+                      </Typography>
+                    </Box>
 
-                  <Box sx={{ marginTop: 3 }}>
-                    <Button variant="contained" sx={{ textTransform: 'none', height: 30 }}onClick={(e) => removeProduct(title, e)}>
-                      Delete
-                    </Button>
+                    <Box
+                      sx={{
+                        paddingTop: 2,
+                        width: 80,
+                        height: { lg: 50, md: 50, sm: 50, xs: 40 },
+                      }}
+                    >
+                      <FormControl fullWidth>
+                        <TextField
+                          id="outlined-number"
+                          label="Qty"
+                          type="number"
+                          onChange={(e) =>
+                            handleQtyChange(title, normalPrice, stock, e)
+                          }
+                          onKeyPress={(event) => qtyInputNumberOnly(event)}
+                          value={qty}
+                        />
+                      </FormControl>
+                    </Box>
+
+                    <Box sx={{ marginTop: 3 }}>
+                      <Button
+                        variant="contained"
+                        sx={{ textTransform: "none", height: 30 }}
+                        onClick={(e) => removeProduct(title, e)}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Grid>
-            <Box
-              sx={{
-                marginLeft: "auto",
-                display: "flex",
-                alignItems: "center",
-                height: 25,
-              }}
-            >
-              <Grid>
-                <Typography>$ {totalPrice.toFixed(2)}</Typography>
               </Grid>
+              <Box
+                sx={{
+                  marginLeft: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  height: 25,
+                }}
+              >
+                <Box>
+                  <Typography>$ {totalPrice.toFixed(2)}</Typography>
+                </Box>
+              </Box>
             </Box>
+            <Divider sx={{ bottomWidth: 1 }} />
           </Box>
         );
       })}
-    </>
+    </Box>
   );
 }
