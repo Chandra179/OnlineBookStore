@@ -82,7 +82,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>
         <Link to="/signin" onClick={logOut}>
-          <p>Logout</p>
+          <Typography>Logout</Typography>
         </Link>
       </MenuItem>
     </Menu>
@@ -115,7 +115,7 @@ export default function PrimarySearchAppBar() {
               <Link to="/cart">
                 <IconButton size="large">
                   <Badge badgeContent={cartBadge} color="error">
-                    <LocalMallSharpIcon sx={{ fontSize: 25, color: "black" }} />
+                    <LocalMallSharpIcon sx={{ fontSize: {lg: 25, md:24, sm:23, xs: 22}, color: "black" }} />
                   </Badge>
                 </IconButton>
               </Link>
@@ -125,7 +125,7 @@ export default function PrimarySearchAppBar() {
               <Box sx={{ marginTop: 0.72 }}>
                 <IconButton size="large" onClick={handleProfileMenuOpen}>
                   <AccountCircleSharpIcon
-                    sx={{ color: "black", fontSize: 25 }}
+                    sx={{ color: "black", fontSize: {lg: 25, md:24, sm:23, xs: 22} }}
                   />
                 </IconButton>
               </Box>
