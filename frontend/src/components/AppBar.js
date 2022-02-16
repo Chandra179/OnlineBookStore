@@ -152,19 +152,21 @@ export default function PrimarySearchAppBar() {
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
           <Link to="/">
-            <Button
-              component="div"
+            <Typography 
               sx={{
                 color: "blue",
                 display: { xs: "none", sm: "block" },
                 fontWeight: 650,
-                fontSize: 18,
+                fontSize: {
+                  lg: 18,
+                  md: 18,
+                  sm: 17,
+                  xs: 12
+                },
                 letterSpacing: 1,
-                marginRight: 1.5,
-              }}
-            >
-              Alexandria
-            </Button>
+              }}>Alexandria
+            </Typography>
+              
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box

@@ -47,11 +47,11 @@ export default function Book({ bookList, currentPage }) {
                       sx={{
                         color: "black",
                         fontSize: {
-                          lg: 20,
-                          md: 20,
+                          lg: 18,
+                          md: 18,
                           sm: 16,
                           xs: 16,
-                        },
+                        }, height: 23
                       }}
                     >
                       {item.name}
@@ -59,11 +59,11 @@ export default function Book({ bookList, currentPage }) {
                   </Link>
                 </ListItemText>
                 {BookHelper.bookAuthor(item.book_author)}
-                <ListItemText sx={{ paddingTop: 1 }}>
+                <ListItemText sx={{ paddingTop: 0 }}>
                   <Typography
                     sx={{
                       color: "black",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       fontSize: {
                         lg: 16,
                         md: 16,

@@ -16,17 +16,22 @@ const bookAuthor = (book_author) => {
 
   return (
     <Box
+      display="flex"
       sx={{
-        display: "flex",
         alignItems: "baseline",
-        minWidth: 200,
+        width: {
+          lg: 600,
+          md: 600,
+          sm: 600,
+          xs: 180,
+        },
       }}
     >
       <Typography
         sx={{
           fontSize: {
-            lg: 16,
-            md: 16,
+            lg: 14,
+            md: 14,
             sm: 12,
             xs: 12,
           },
@@ -35,8 +40,9 @@ const bookAuthor = (book_author) => {
       >
         by
       </Typography>
-        <Typography sx={{ color: "rgb(0, 113, 133)", fontSize: 12 }}>{authorList}</Typography>
-      
+      <Typography noWrap sx={{ color: "rgb(0, 113, 133)", fontSize: 12 }}>
+        {authorList}
+      </Typography>
     </Box>
   );
 };
