@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Routes from './Routes/routes'
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import Routes from "./Routes/routes";
+import "./index.css";
 
-import CartContextProvider from './context/cartContext';
-import UserContextProvider from './context/userContext';
+import CartContextProvider from "./context/cartContext";
+import UserContextProvider from "./context/userContext";
+import CheckoutContextProvider from "./context/checkoutContext";
 
 ReactDOM.render(
   <UserContextProvider>
-      <CartContextProvider>
+    <CartContextProvider>
+      <CheckoutContextProvider>
         <Routes />
-      </CartContextProvider>
+      </CheckoutContextProvider>
+    </CartContextProvider>
   </UserContextProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

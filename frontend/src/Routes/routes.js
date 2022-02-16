@@ -26,7 +26,7 @@ const Routes = () => {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/genres/:genre/:page/:title" component={ProductDetail} />
         <ProtectedRoute exact path="/cart" component={Cart} />
-        <ProtectedRoute exact path="/cart/:checkout" component={Checkout} />
+        <ProtectedRoute exact path="/cart/checkout" component={Checkout} />
       </Switch>
     </Router>
   );
