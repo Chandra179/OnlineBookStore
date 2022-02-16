@@ -155,18 +155,13 @@ function ShoppingCard({ bookDetail }) {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 4,
-        marginRight: 4,
-        marginLeft: {
-          lg: 0,
-          md: 4,
-          sm: 4,
-          xs: 4,
-        },
-      }}
-    >
+    <Box sx={{
+      marginTop: {
+        lg: 0,
+        md: 0,
+        sm: 4,
+        xs: 4
+      }}}>
       {itemExistAlert ? <Alert name={"Item is in cart"} severity="error" /> : <div />}
       {itemAddedAlert ? <Alert name={"Item is added to cart"} severity="success" /> : <div />}
 

@@ -15,8 +15,13 @@ function BookCover({ bookDetail }) {
   return (
     <Card
       sx={{
-        minWidth: 180,
-        maxWidth: 180,
+        minWidth: 120,
+        maxWidth: {
+          lg: 170,
+          md: 160,
+          sm: 150,
+          xs: 120,
+        },
         marginRight: 3,
       }}
     >
@@ -27,15 +32,21 @@ function BookCover({ bookDetail }) {
 
 function BookDescription({ bookDetail, expand, expandText }) {
   return (
-    <Box sx={{ margin: 0, paddingRight: 5 }}>
+    <Box sx={{ margin: 0, paddingRight: { lg: 4, md: 4, sm: 0, xs: 0 } }}>
       <Typography
         sx={{
           color: "black",
           fontSize: {
-            lg: 28,
-            md: 28,
-            sm: 24,
-            xs: 20,
+            lg: 24,
+            md: 22,
+            sm: 20,
+            xs: 18,
+          },
+          height: {
+            lg: 27,
+            md: 27,
+            sm: 26,
+            xs: 22,
           },
         }}
       >
@@ -44,16 +55,27 @@ function BookDescription({ bookDetail, expand, expandText }) {
 
       {BookHelper.bookAuthor(bookDetail.book_author)}
 
-      <Box>
+      <Box sx={{ marginTop: 1 }}>
         <ShowMoreText
           lines={5}
           more={"Show More"}
           less={"Show Less"}
           onClick={expandText}
           expanded={expand}
-          width={650}
+          className="wrapper"
         >
-          {bookDetail.description}
+          <Typography
+            sx={{
+              fontSize: {
+                lg: 15,
+                md: 14,
+                sm: 13,
+                xs: 12,
+              },
+            }}
+          >
+            {bookDetail.description}
+          </Typography>
         </ShowMoreText>
       </Box>
     </Box>
@@ -83,22 +105,40 @@ export default function HomeDetail() {
     <Grid
       container
       direction="row"
-      justifyContent="center"
+      display="flex"
       alignItems="flex-start"
+      sx={{ padding: 4 }}
     >
-      <Grid item lg={9} md={12} sm={12} xs={12}>
-        <Box
-          sx={{
-            display: "flex",
-            marginTop: 4,
-            marginLeft: 4,
-          }}
-        >
-          <BookCover bookDetail={bookDetail} />
-          <BookDescription bookDetail={bookDetail} expandText={expandText} />
-        </Box>
+      <Grid
+        item
+        lg={2}
+        md={2}
+        sm={3}
+        xs={12}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          backgroundColor: {
+            lg: "white",
+            md: "white",
+            sm: "white",
+            xs: "rgb(250, 250, 250)",
+          },
+        }}
+      >
+        <BookCover bookDetail={bookDetail} />
       </Grid>
-      <Grid item lg={3} md={12} sm={12} xs={12}>
+      <Grid
+        item
+        lg={7}
+        md={7}
+        sm={9}
+        xs={12}
+        sx={{ marginTop: { lg: 0, md: 0, sm: 0, xs: 1 } }}
+      >
+        <BookDescription bookDetail={bookDetail} expandText={expandText} />
+      </Grid>
+      <Grid item lg={3} md={3} sm={12} xs={12}>
         <ShoppingCard bookDetail={bookDetail} />
       </Grid>
     </Grid>

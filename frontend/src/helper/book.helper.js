@@ -23,7 +23,7 @@ const bookAuthor = (book_author) => {
           lg: 600,
           md: 600,
           sm: 600,
-          xs: 180,
+          xs: 200,
         },
       }}
     >
