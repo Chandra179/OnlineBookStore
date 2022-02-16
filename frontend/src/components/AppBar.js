@@ -152,7 +152,7 @@ export default function PrimarySearchAppBar() {
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
           <Link to="/">
-            <Typography 
+            <Typography
               sx={{
                 color: "blue",
                 display: { xs: "none", sm: "block" },
@@ -161,12 +161,13 @@ export default function PrimarySearchAppBar() {
                   lg: 18,
                   md: 18,
                   sm: 17,
-                  xs: 12
+                  xs: 12,
                 },
                 letterSpacing: 1,
-              }}>Alexandria
+              }}
+            >
+              Alexandria
             </Typography>
-              
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box
