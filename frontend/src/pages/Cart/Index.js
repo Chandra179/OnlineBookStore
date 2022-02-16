@@ -59,7 +59,7 @@ export default function Cart() {
         <p>cart empty</p>
       ) : (
         <Grid container>
-          <Grid item lg={8} md={8} sm={12} xs={12} sx={{boxShadow: 1}}>
+          <Grid item lg={8} md={8} sm={12} xs={12}>
             <Box
               sx={{
                 marginRight: {

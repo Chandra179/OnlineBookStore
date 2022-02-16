@@ -10,24 +10,8 @@ const bookAuthor = (book_author) => {
   var authorList = [];
 
   book_author.map((e, i) => {
-    var authors = i === bookAuthorLength ? e.author_name : e.author_name + ",";
-    return authorList.push(
-      <Typography
-        key={i}
-        sx={{
-          color: "rgb(0, 113, 133)",
-          fontSize: {
-            lg: 14,
-            md: 14,
-            sm: 14,
-            xs: 14,
-          },
-          paddingRight: 1,
-        }}
-      >
-        {authors}
-      </Typography>
-    );
+    var authors = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
+    return authorList.push(authors);
   });
 
   return (
@@ -35,6 +19,7 @@ const bookAuthor = (book_author) => {
       sx={{
         display: "flex",
         alignItems: "baseline",
+        minWidth: 200,
       }}
     >
       <Typography
@@ -42,15 +27,16 @@ const bookAuthor = (book_author) => {
           fontSize: {
             lg: 16,
             md: 16,
-            sm: 14,
-            xs: 14,
+            sm: 12,
+            xs: 12,
           },
           marginRight: 1,
         }}
       >
         by
       </Typography>
-      <Box sx={{ display: "flex" }}>{authorList}</Box>
+        <Typography sx={{ color: "rgb(0, 113, 133)", fontSize: 12 }}>{authorList}</Typography>
+      
     </Box>
   );
 };

@@ -120,7 +120,7 @@ export default function Item({
               >
                 <Box key={key} sx={{ marginRight: 1 }}>
                   <Checkbox
-                    sx={{ marginRight: 1, width:0, height:0 }}
+                    sx={{ marginRight: 1, width: 0, height: 0 }}
                     value={key}
                     onChange={handleSelectedCheckbox}
                     checked={selectedCheckbox.includes(key)}
@@ -154,7 +154,7 @@ export default function Item({
                           lg: 17,
                           md: 17,
                           sm: 16,
-                          xs: 13,
+                          xs: 12,
                         },
                       }}
                     >
@@ -179,7 +179,7 @@ export default function Item({
                         }
                         onKeyPress={(event) => qtyInputNumberOnly(event)}
                         value={qty}
-                        size='small'
+                        size="small"
                       />
                     </FormControl>
                   </Box>
@@ -187,10 +187,22 @@ export default function Item({
                   <Box sx={{ marginTop: 3 }}>
                     <Button
                       variant="contained"
-                      sx={{ textTransform: "none", height: 30 }}
+                      sx={{
+                        textTransform: "none",
+                        height: {
+                          lg: 30,
+                          md: 30,
+                          sm: 28,
+                          xs: 26,
+                        },
+                      }}
                       onClick={(e) => removeProduct(title, e)}
                     >
-                      Delete
+                      <Typography
+                        sx={{ fontSize: { lg: 16, md: 16, sm: 14, xs: 12 } }}
+                      >
+                        Delete
+                      </Typography>
                     </Button>
                   </Box>
                 </Box>
@@ -207,7 +219,7 @@ export default function Item({
                         lg: 16,
                         md: 16,
                         sm: 15,
-                        xs: 13,
+                        xs: 12,
                       },
                       fontWeight: 600,
                     }}

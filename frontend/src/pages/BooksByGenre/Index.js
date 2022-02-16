@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import { Box } from "@mui/system";
 import Books from "./Books";
 import CustomPagination from "./CustomPagination";
 import BookService from "../../services/book.service";
-
 
 function BookList() {
   const history = useHistory();
@@ -49,17 +49,14 @@ function BookList() {
   };
 
   return (
-    <Grid container spacing={2} sx={{ marginTop: 1 }}>
-      <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
-      <Grid item lg={10} md={10} sm={12} xs={12}>
-        <Books currentPage={currentPage} bookList={bookList} />
-        <CustomPagination
-          currentPage={currentPage}
-          handlePageClick={handlePageClick}
-          totalPageNumber={totalPageNumber}
-        />
-      </Grid>
-    </Grid>
+    <Box sx={{ padding: 4 }}>
+      <Books currentPage={currentPage} bookList={bookList} />
+      <CustomPagination
+        currentPage={currentPage}
+        handlePageClick={handlePageClick}
+        totalPageNumber={totalPageNumber}
+      />
+    </Box>
   );
 }
 
