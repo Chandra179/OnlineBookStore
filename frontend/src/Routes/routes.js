@@ -13,6 +13,7 @@ import BooksByGenre from '../pages/BooksByGenre/Index';
 import ProductDetail from "../pages/BookDetail/Index";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart/Index";
+import Checkout from "../pages/Checkout/Index";
 
 const Routes = () => {
   return (
@@ -20,11 +21,12 @@ const Routes = () => {
       <AppBar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/:genre/:page" component={BooksByGenre} />
+        <Route exact path="/genres/:genre/:page" component={BooksByGenre} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/:genre/:page/:title" component={ProductDetail} />
+        <Route exact path="/genres/:genre/:page/:title" component={ProductDetail} />
         <ProtectedRoute exact path="/cart" component={Cart} />
+        <ProtectedRoute exact path="/cart/:checkout" component={Checkout} />
       </Switch>
     </Router>
   );

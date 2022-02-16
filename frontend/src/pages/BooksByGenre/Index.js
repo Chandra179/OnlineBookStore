@@ -13,8 +13,8 @@ function BookList() {
   const [bookList, setBookList] = useState([]);
   const [totalBook, setTotalBook] = useState(0);
 
-  const genre = window.location.pathname.split("/")[1];
-  const page = Number(window.location.pathname.split("/")[2]);
+  const genre = window.location.pathname.split("/")[2];
+  const page = Number(window.location.pathname.split("/")[3]);
 
   const [currentPage, setCurrentPage] = useState(0);
   const totalPageNumber = Math.ceil(totalBook / bookPerPage);
@@ -45,7 +45,7 @@ function BookList() {
         console.log(error);
       }
     );
-    history.push(`/${genre}/${value}`);
+    history.push(`/genres/${genre}/${value}`);
   };
 
   return (

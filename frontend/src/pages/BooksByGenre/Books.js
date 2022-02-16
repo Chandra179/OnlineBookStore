@@ -38,7 +38,7 @@ export default function Book({ bookList, currentPage }) {
                 <ListItemText sx={{ margin: 0, padding: 0 }}>
                   <Link
                     to={{
-                      pathname: `/${item.genre.toLowerCase()}/${currentPage}/${item.name
+                      pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
                         .replace(/\s+/g, "-")
                         .toLowerCase()}`,
                     }}
