@@ -21,7 +21,6 @@ import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
-
 export default function SignIn() {
   let history = useHistory();
   const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
@@ -90,34 +89,37 @@ export default function SignIn() {
         maxWidth="xs"
         sx={{
           marginTop: 8,
-          backgroundColor: "white",
-          borderRadius: 4,
-          boxShadow: 1,
+          width: {
+            lg: 550,
+            md: 540,
+            sm: 520,
+            xs: 300,
+          },
         }}
       >
         <Box
           sx={{
-            paddingBottom: 3,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Box sx={{ pb: 2, width: "100%" }}>
-            {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
+          <Box sx={{ width: "100%" }}>
+            {signInAlert ? (
+              <Alert name={signInAlert} severity="error" />
+            ) : (
+              <div />
+            )}
           </Box>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
           <Box
             component="form"
             onSubmit={handleSignInSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ padding: 2, boxShadow: 1, borderRadius: 2 }}
           >
+            <Typography sx={{ fontSize: 26, marginBottom: 2 }}>
+              Sign in
+            </Typography>
             <TextField
               onChange={onChangeEmail}
               value={email}
@@ -146,10 +148,6 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -159,11 +157,6 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link to="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
               </Grid>

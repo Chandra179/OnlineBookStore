@@ -87,15 +87,16 @@ export default function SignUp() {
       maxWidth="xs"
       sx={{
         marginTop: 8,
-        backgroundColor: "white",
-        borderRadius: 4,
-        boxShadow: 1,
+        width: {
+          lg: 550,
+          md: 540,
+          sm: 520,
+          xs: 300,
+        },
       }}
     >
       <Box
         sx={{
-          paddingTop: 2,
-          paddingBottom: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -103,56 +104,43 @@ export default function SignUp() {
       >
         {signupAlert ? <Alert name={signupAlert} severity="error" /> : <div />}
 
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
         <Box
           component="form"
           noValidate
           onSubmit={handleSignUpSubmit}
-          sx={{ mt: 3 }}
+          sx={{ padding: 2, boxShadow: 1, borderRadius: 2 }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                onChange={onChangeEmail}
-                value={email}
-                error={emailError ? true : false}
-                helperText={emailHelper !== "" ? emailHelper : false}
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                onChange={onChangePassword}
-                value={password}
-                error={passwordError ? true : false}
-                helperText={passwordHelper !== "" ? passwordHelper : false}
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-          </Grid>
+          <Typography sx={{ fontSize: 26, marginBottom: 2 }}>
+            Sign up
+          </Typography>
+          <TextField
+            onChange={onChangeEmail}
+            value={email}
+            error={emailError ? true : false}
+            helperText={emailHelper !== "" ? emailHelper : false}
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            margin="normal"
+          />
+          <TextField
+            onChange={onChangePassword}
+            value={password}
+            error={passwordError ? true : false}
+            helperText={passwordHelper !== "" ? passwordHelper : false}
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            margin="normal"
+          />
           <Button
             type="submit"
             fullWidth

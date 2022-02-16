@@ -87,66 +87,7 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <Link to="/cart">
-          <IconButton size="large" aria-label="show 4 new mails">
-            <Badge badgeContent={cartBadge} color="error">
-              <LocalMallSharpIcon sx={{ fontSize: 25, color: "black" }} />
-            </Badge>
-          </IconButton>
-        </Link>
-        <p>Cart</p>
-      </MenuItem>
-
-      {isUserLoggedIn ? (
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircleSharpIcon
-              sx={{
-                fontSize: 25,
-                color: "black",
-              }}
-            />
-          </IconButton>
-          <p>Account</p>
-        </MenuItem>
-      ) : (
-        <MenuItem>
-          <Link to="/signin" onClick={logOut}>
-            <IconButton size="large" color="inherit">
-              <LoginIcon />
-            </IconButton>
-            <Typography variant="p">Sign in</Typography>
-          </Link>
-        </MenuItem>
-      )}
-    </Menu>
-  );
-
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar elevation={0} position="static" color="inherit">
@@ -155,13 +96,12 @@ export default function PrimarySearchAppBar() {
             <Typography
               sx={{
                 color: "blue",
-                display: { xs: "none", sm: "block" },
                 fontWeight: 650,
                 fontSize: {
-                  lg: 18,
-                  md: 18,
-                  sm: 17,
-                  xs: 12,
+                  lg: 17,
+                  md: 17,
+                  sm: 14,
+                  xs: 14,
                 },
                 letterSpacing: 1,
               }}
@@ -170,14 +110,7 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                md: "flex",
-              },
-            }}
-          >
+          <Box sx={{ display: 'flex' }}>
             <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
               <Link to="/cart">
                 <IconButton size="large">
@@ -214,23 +147,10 @@ export default function PrimarySearchAppBar() {
               </Box>
             )}
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
       <Divider sx={{ borderBottomWidth: 2 }} />
+      {renderMenu}
     </Box>
   );
 }
