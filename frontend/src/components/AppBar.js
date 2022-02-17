@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -33,8 +33,14 @@ export default function PrimarySearchAppBar() {
     if (userEmail) {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
+
+      var path = window.location.pathname
+      if (path === '/cart/checkout') {
+        setIsAppbarDisabled(true);
+        return;
+      }
     }
-  }, [setIsUserLoggedIn, setCartBadge]);
+  }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -75,16 +81,11 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
-  function tesis(e) {
-    e.preventDefault();
-    window.location.href = "/";
-  }
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
-          <Link to="/">
+          <Link to="/" onClick={ isAppbarDisabled === false ? null : () => {window.location.href="/"}}>
             <Typography
               sx={{
                 color: "blue",
@@ -102,51 +103,55 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
-              <Link to="/cart">
-                <IconButton size="large">
-                  <Badge badgeContent={cartBadge} color="error">
-                    <LocalMallSharpIcon
-                      sx={{
-                        fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
-                        color: "black",
-                      }}
-                    />
-                  </Badge>
-                </IconButton>
-              </Link>
-            </Box>
-
-            {isUserLoggedIn ? (
-              <Box sx={{ marginTop: 0.72 }}>
-                <IconButton size="large" onClick={handleProfileMenuOpen}>
-                  <AccountCircleSharpIcon
-                    sx={{
-                      color: "black",
-                      fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
-                    }}
-                  />
-                </IconButton>
-              </Box>
-            ) : (
-              <Box sx={{ paddingTop: 2 }}>
-                <Link to={`/signin`}>
-                  <Typography
-                    sx={{
-                      fontSize: 18,
-                      color: "black",
-                      "&:hover": {
-                        color: "blue",
-                      },
-                    }}
-                  >
-                    Signin
-                  </Typography>
+          {isAppbarDisabled === false ? (
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
+                <Link to="/cart">
+                  <IconButton size="large">
+                    <Badge badgeContent={cartBadge} color="error">
+                      <LocalMallSharpIcon
+                        sx={{
+                          fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
+                          color: "black",
+                        }}
+                      />
+                    </Badge>
+                  </IconButton>
                 </Link>
               </Box>
-            )}
-          </Box>
+
+              {isUserLoggedIn ? (
+                <Box sx={{ marginTop: 0.72 }}>
+                  <IconButton size="large" onClick={handleProfileMenuOpen}>
+                    <AccountCircleSharpIcon
+                      sx={{
+                        color: "black",
+                        fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
+                      }}
+                    />
+                  </IconButton>
+                </Box>
+              ) : (
+                <Box sx={{ paddingTop: 2 }}>
+                  <Link to={`/signin`}>
+                    <Typography
+                      sx={{
+                        fontSize: 18,
+                        color: "black",
+                        "&:hover": {
+                          color: "blue",
+                        },
+                      }}
+                    >
+                      Signin
+                    </Typography>
+                  </Link>
+                </Box>
+              )}
+            </Box>
+          ) : (
+            <></>
+          )}
         </Toolbar>
       </AppBar>
       <Divider sx={{ borderBottomWidth: 2 }} />

@@ -52,14 +52,15 @@ function BookList() {
     <Grid container sx={{ marginTop: 2 }}>
       <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
       <Grid item lg={10} md={10} sm={12} xs={12}>
-    <Box sx={{ margin: 2 }}>
-      <Books currentPage={currentPage} bookList={bookList} />
-      <CustomPagination
-        currentPage={currentPage}
-        handlePageClick={handlePageClick}
-        totalPageNumber={totalPageNumber}
-      />
-    </Box></Grid>
+        <Box sx={{ margin: 2 }}>
+          <Books currentPage={currentPage} bookList={bookList} />
+          <CustomPagination
+            currentPage={currentPage}
+            handlePageClick={handlePageClick}
+            totalPageNumber={totalPageNumber}
+          />
+        </Box>
+      </Grid>
     </Grid>
   );
 }

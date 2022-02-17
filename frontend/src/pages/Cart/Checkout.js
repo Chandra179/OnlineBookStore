@@ -19,8 +19,8 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
   }
 
   function handleCheckout() {
-    setIsAppbarDisabled(true);
     history.push("/cart/checkout");
+    setIsAppbarDisabled(true);
   }
 
   return (

@@ -14,7 +14,6 @@ import AuthService from "../../services/auth.service";
 import { useCart } from "../../hooks/useCart";
 import CartHelper from "../../helper/cart.helper";
 
-
 function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
   const handleQtyChange = (event) => {
     var qty = event.target.value;
@@ -103,67 +102,64 @@ function ShoppingCard({ bookDetail }) {
 
   const handleAddToCart = () => {
     const userEmail = AuthService.getCurrentUser();
-    if (userEmail) {
-      // get user items using user email as key
-      const userCart = localStorage.getItem(userEmail);
-      // NEW -> service.addtocart
-
-      var newItems = {};
-      newItems[bookDetail.name] = {
-        cover: bookDetail.cover,
-        qty: qty,
-        normalPrice: normalPrice,
-        totalPrice: qty * normalPrice,
-        stock: bookDetail.stock
-      };
-
-      // add first new item to cart
-      if (userCart === undefined || userCart === null) {
-        localStorage.setItem(userEmail, JSON.stringify(newItems));
-        const item = JSON.parse(localStorage.getItem(userEmail));
-        if (item !== null) {
-          setCartBadge(CartHelper.cartBadge(userEmail));
-        }
-        setItemAddedAlert(true);
-        setItemExistAlert(false);
-      } else {
-        // update cart items
-        var oldItems = JSON.parse(localStorage.getItem(userEmail));
-        var duplicateItems = bookDetail.name in oldItems;
-        if (duplicateItems) {
-          setItemExistAlert(true);
-          setItemAddedAlert(false);
-        } else {
-          oldItems[bookDetail.name] = {
-            cover: bookDetail.cover,
-            qty: qty,
-            normalPrice: normalPrice,
-            totalPrice: qty * normalPrice,
-            stock: bookDetail.stock
-          };
-          localStorage.setItem(userEmail, JSON.stringify(oldItems));
-          const item = JSON.parse(localStorage.getItem(userEmail));
-          if (item !== null) {
-            setCartBadge(CartHelper.cartBadge(userEmail));
-          }
-          setItemAddedAlert(true);
-        }
-      }
-    } else {
+    if (!userEmail) {
       history.push("/signin");
+      return;
+    }
+    const userCart = localStorage.getItem(userEmail);
+    const cartItem = userCart ? JSON.parse(localStorage.getItem(userEmail)) : {}
+    const duplicateItems = bookDetail.name in cartItem;
+
+    cartItem[bookDetail.name] = {
+      cover: bookDetail.cover,
+      qty: qty,
+      normalPrice: normalPrice,
+      totalPrice: qty * normalPrice,
+      stock: bookDetail.stock,
+    };
+    // add new item
+    if (Object.keys(cartItem).length === 0) {
+      localStorage.setItem(userEmail, JSON.stringify(cartItem));
+      setItemAddedAlert(true);
+      setCartBadge(CartHelper.cartBadge(userEmail));
+      return;
+    }
+    // update item if duplicate
+    if (duplicateItems) {
+      setItemExistAlert(true);
+      setItemAddedAlert(false);
+      return;
+    }
+    // if not duplicate and not the first item
+    if (!duplicateItems) {
+      localStorage.setItem(userEmail, JSON.stringify(cartItem));
+      setItemAddedAlert(true);
+      setCartBadge(CartHelper.cartBadge(userEmail));
+      return;
     }
   };
 
   return (
-    <Box sx={{
-      marginTop: {
-        lg: 0,
-        md: 0,
-        sm: 4,
-        xs: 4
-      }}}>
-      {itemExistAlert ? <Alert name={"Item is in cart"} severity="error" /> : <div />}
-      {itemAddedAlert ? <Alert name={"Item is added to cart"} severity="success" /> : <div />}
+    <Box
+      sx={{
+        marginTop: {
+          lg: 0,
+          md: 0,
+          sm: 4,
+          xs: 4,
+        },
+      }}
+    >
+      {itemExistAlert ? (
+        <Alert name={"Item is in cart"} severity="error" />
+      ) : (
+        <div />
+      )}
+      {itemAddedAlert ? (
+        <Alert name={"Item is added to cart"} severity="success" />
+      ) : (
+        <div />
+      )}
 
       <Box
         sx={{

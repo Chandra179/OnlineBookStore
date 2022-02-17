@@ -1,15 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
 import BookHelper from "../../helper/book.helper";
 
 export default function Book({ bookList, currentPage }) {
@@ -17,9 +13,8 @@ export default function Book({ bookList, currentPage }) {
     <Box>
       {bookList.map(function (item, i) {
         return (
-          <Box>
+          <Box key={i}>
             <Box
-              key={i}
               sx={{
                 display: "flex",
                 marginBottom: 3,
@@ -51,7 +46,8 @@ export default function Book({ bookList, currentPage }) {
                           md: 18,
                           sm: 16,
                           xs: 16,
-                        }, height: 23
+                        },
+                        height: 23,
                       }}
                     >
                       {item.name}
