@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useCheckout } from "../../hooks/useCheckout";
 
+
 export default function Checkout({ cartItem, selectedCheckbox }) {
   var totalPrice = 0;
   var totalQty = 0;
@@ -56,9 +57,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
           }}
         >
           <Typography>Subtotal ({totalQty}) item:</Typography>
-          <Typography sx={{ fontWeight: 600 }}>
-            &nbsp; ${totalPrice}
-          </Typography>
+          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
         </Box>
         <Box
           sx={{

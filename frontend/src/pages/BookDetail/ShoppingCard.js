@@ -13,6 +13,8 @@ import Alert from "../../components/Alert";
 import AuthService from "../../services/auth.service";
 import { useCart } from "../../hooks/useCart";
 import CartHelper from "../../helper/cart.helper";
+import InputNumberOnly from "../../helper/numberOnly.helper";
+
 
 function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
   const handleQtyChange = (event) => {
@@ -24,24 +26,6 @@ function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
       setQty(qty);
     }
     setTotalPrice(qty * normalPrice);
-  };
-
-  const InputNumberOnly = (event) => {
-    var theEvent = event || window.event;
-    var key;
-    // Handle paste
-    if (theEvent.type === "paste") {
-      key = event.clipboardData.getData("text/plain");
-    } else {
-      // Handle key press
-      key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode(key);
-    }
-    var regex = /[0-9]|\./;
-    if (!regex.test(key)) {
-      theEvent.returnValue = false;
-      if (theEvent.preventDefault) theEvent.preventDefault();
-    }
   };
 
   return (
@@ -101,6 +85,12 @@ function ShoppingCard({ bookDetail }) {
   const normalPrice = Number(bookDetail.price);
 
   const handleAddToCart = () => {
+    const qtys = (qty === '' ? 1 : qty)
+    if (qtys === 1) {
+      setQty(1)
+      setTotalPrice(qtys * normalPrice)
+    }
+
     const userEmail = AuthService.getCurrentUser();
     if (!userEmail) {
       history.push("/signin");
@@ -113,9 +103,9 @@ function ShoppingCard({ bookDetail }) {
 
     cartItem[bookDetail.name] = {
       cover: bookDetail.cover,
-      qty: qty,
+      qty: qtys,
       normalPrice: normalPrice,
-      totalPrice: qty * normalPrice,
+      totalPrice: qtys * normalPrice,
       stock: bookDetail.stock,
     };
     // add new item

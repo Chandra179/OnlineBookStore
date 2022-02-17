@@ -14,6 +14,8 @@ import {
 
 import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
+import InputNumberOnly from "../../helper/numberOnly.helper";
+
 
 export default function Item({
   userEmail,
@@ -81,24 +83,6 @@ export default function Item({
 
     if (Object.keys(cartItem).length - 1 === 0) {
       localStorage.removeItem(userEmail);
-    }
-  };
-
-  const qtyInputNumberOnly = (event) => {
-    var theEvent = event || window.event;
-    var key;
-    // Handle paste
-    if (theEvent.type === "paste") {
-      key = event.clipboardData.getData("text/plain");
-    } else {
-      // Handle key press
-      key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode(key);
-    }
-    var regex = /[0-9]|\./;
-    if (!regex.test(key)) {
-      theEvent.returnValue = false;
-      if (theEvent.preventDefault) theEvent.preventDefault();
     }
   };
 
@@ -182,7 +166,7 @@ export default function Item({
                         onChange={(e) =>
                           handleQtyChange(title, normalPrice, stock, e)
                         }
-                        onKeyPress={(event) => qtyInputNumberOnly(event)}
+                        onKeyPress={(event) => InputNumberOnly(event)}
                         value={qty}
                         size="small"
                       />
