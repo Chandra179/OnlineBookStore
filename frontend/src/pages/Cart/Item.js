@@ -48,14 +48,15 @@ export default function Item({
   };
 
   const removeProduct = (title) => {
+    if (cartItem === null) {
+      setCartItem(null);
+      return;
+    }
+
     var checkoutItem =
       localStorage.getItem(userEmail + "Cart") !== null
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
         : null;
-
-    var cartFiltered = Object.fromEntries(
-      Object.entries(cartItem).filter(([key, value]) => key !== title)
-    );
 
     if (checkoutItem !== null) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
@@ -69,6 +70,10 @@ export default function Item({
         localStorage.removeItem(userEmail + "Cart");
       }
     }
+
+    var cartFiltered = Object.fromEntries(
+      Object.entries(cartItem).filter(([key, value]) => key !== title)
+    );
 
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));

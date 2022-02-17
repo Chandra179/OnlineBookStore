@@ -106,6 +106,7 @@ function ShoppingCard({ bookDetail }) {
       history.push("/signin");
       return;
     }
+    
     const userCart = localStorage.getItem(userEmail);
     const cartItem = userCart ? JSON.parse(localStorage.getItem(userEmail)) : {}
     const duplicateItems = bookDetail.name in cartItem;
