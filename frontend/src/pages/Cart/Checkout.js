@@ -5,8 +5,7 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useCheckout } from "../../hooks/useCheckout";
 
-
-export default function Checkout({ cartItem, selectedCheckbox }) {
+export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
   var totalPrice = 0;
   var totalQty = 0;
   let history = useHistory();
@@ -20,6 +19,14 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
   }
 
   function handleCheckout() {
+    Object.keys(cartItem).forEach(function (key) {
+      if (cartItem[key]["qty"] === "") {
+        cartItem[key]['qty'] = 1
+        cartItem[key]['totalPrice'] = cartItem[key]['normalPrice']
+        localStorage.setItem(userEmail, JSON.stringify(cartItem));
+        return;
+      }
+    });
     history.push("/cart/checkout");
     setIsAppbarDisabled(true);
   }

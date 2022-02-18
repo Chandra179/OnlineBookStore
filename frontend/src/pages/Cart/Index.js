@@ -84,7 +84,7 @@ export default function Cart() {
                     xs: 2
                   },
                   paddingTop: 2,
-                  marginBottom: 4,
+                  marginBottom: 3,
                   borderBottomWidth: 2,
                 }}
               />
@@ -110,7 +110,7 @@ export default function Cart() {
             </Box>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Checkout cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
+            <Checkout userEmail={userEmail} cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
           </Grid>
         </Grid>
       )}

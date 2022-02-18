@@ -34,8 +34,8 @@ export default function PrimarySearchAppBar() {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
 
-      var path = window.location.pathname
-      if (path === '/cart/checkout') {
+      var path = window.location.pathname;
+      if (path === "/cart/checkout") {
         setIsAppbarDisabled(true);
         return;
       }
@@ -85,7 +85,16 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
-          <Link to="/" onClick={ isAppbarDisabled === false ? null : () => {window.location.href="/"}}>
+          <Link
+            to="/"
+            onClick={
+              isAppbarDisabled === false
+                ? null
+                : () => {
+                    window.location.href = "/";
+                  }
+            }
+          >
             <Typography
               sx={{
                 color: "blue",

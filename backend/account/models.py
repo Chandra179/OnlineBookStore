@@ -1,7 +1,10 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.core.validators import RegexValidator
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -52,14 +55,14 @@ class User(AbstractBaseUser):
         unique=True,
     )
     is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False) # a admin user; non super-user
-    admin = models.BooleanField(default=False) # a superuser
+    staff = models.BooleanField(default=False)  # a admin user; non super-user
+    admin = models.BooleanField(default=False)  # a superuser
 
     objects = UserManager()
     # notice the absence of a "Password field", that is built in.
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [] # Email & Password are required by default.
+    REQUIRED_FIELDS = []  # Email & Password are required by default.
 
     def get_full_name(self):
         # The user is identified by their email address
@@ -93,9 +96,22 @@ class User(AbstractBaseUser):
         return self.admin
 
 
-class Address(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    address_id = models.IntegerField(primary_key=True)
-    address_name = models.TextField(blank=True, null=True)
-    postal_code = models.IntegerField(blank=True, null=True)
-    phone_number = models.IntegerField(blank=True, null=True)
+class UserAddress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$', 
+        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(
+        validators=[phone_regex], max_length=17, blank=True)
+    address_name = models.CharField(max_length=50, default='')
+    city = models.CharField(max_length=17, default='')
+    province = models.CharField(max_length=17, default='')
+    state = models.CharField(max_length=17, default='')
+    zip_regex = RegexValidator(
+        regex=r'^[0-9]+$', 
+        message="Zip Code must be entered in the format: '1234567'. Up to 7 digits allowed.")
+    zip = models.CharField(
+        validators=[zip_regex], max_length=7, default=0)
+
+    def __str__(self):
+        return self.user.email

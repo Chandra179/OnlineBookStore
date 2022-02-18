@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from . models import Address
+from . models import UserAddress
 
 User = get_user_model()
 
@@ -31,10 +31,8 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ['email']
     ordering = ['email']
     filter_horizontal = ()
-
-
-class AddressAdmin(admin.ModelAdmin):
-    list_display = ('address_name', 'postal_code', 'phone_number')
-
-admin.site.register(Address, AddressAdmin)
 admin.site.register(User, UserAdmin)
+
+class UserAddressAdmin(admin.ModelAdmin):
+    list_display = ('user', 'address_name', 'zip', 'phone_number')
+admin.site.register(UserAddress, UserAddressAdmin)

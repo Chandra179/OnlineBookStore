@@ -22,7 +22,12 @@ function BookCover({ bookDetail }) {
           sm: 150,
           xs: 120,
         },
-        marginRight: 3,
+        marginRight: {
+          lg: 3,
+          md: 3,
+          sm: 3,
+          xs: 0
+        },
       }}
     >
       <CardMedia component="img" image={bookDetail.cover} />

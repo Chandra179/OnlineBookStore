@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Divider,
-  Grid,
   Card,
   Button,
   Checkbox,
@@ -16,7 +15,6 @@ import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
 import InputNumberOnly from "../../helper/numberOnly.helper";
 
-
 export default function Item({
   userEmail,
   cartItem,
@@ -27,6 +25,9 @@ export default function Item({
 }) {
   const { setCartBadge } = useCart();
 
+  /*
+    Handle product quantity input change
+  */
   const handleQtyChange = (title, normalPrice, stock, event) => {
     var newQty = event.target.value;
     if (newQty > stock) {
@@ -42,19 +43,20 @@ export default function Item({
         newItem[title]["totalPrice"] = newPrice;
 
         localStorage.setItem(userEmail, JSON.stringify(newItem));
-
         setCartItem(JSON.parse(localStorage.getItem(userEmail)));
         setCartBadge(CartHelper.cartBadge(userEmail));
       }
     }
   };
 
+  /*
+    Handle remove product
+  */
   const removeProduct = (title) => {
     if (cartItem === null) {
       setCartItem(null);
       return;
     }
-
     var checkoutItem =
       localStorage.getItem(userEmail + "Cart") !== null
         ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
@@ -72,11 +74,9 @@ export default function Item({
         localStorage.removeItem(userEmail + "Cart");
       }
     }
-
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
-
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setCartBadge(CartHelper.cartBadge(userEmail));
@@ -91,9 +91,9 @@ export default function Item({
       {Object.keys(cartItem).map(function (key) {
         var title = key;
         var normalPrice = cartItem[key]["normalPrice"];
-        var totalPrice = cartItem[key]["totalPrice"];
-        var cover = cartItem[key]["cover"];
         var qty = cartItem[key]["qty"];
+        var totalPrice = qty === "" ? normalPrice : cartItem[key]["totalPrice"];
+        var cover = cartItem[key]["cover"];
         var stock = cartItem[key]["stock"];
 
         return (
@@ -132,7 +132,6 @@ export default function Item({
               </Box>
 
               <Box sx={{ display: "flex" }}>
-                {/* CART BODY */}
                 <Box sx={{ marginRight: 3 }}>
                   <Box>
                     <Typography
@@ -160,7 +159,7 @@ export default function Item({
                   >
                     <FormControl fullWidth>
                       <TextField
-                        id="outlined-number"
+                        id="outlined-number-qty"
                         label="Qty"
                         type="number"
                         onChange={(e) =>
