@@ -30,7 +30,7 @@ export default function Book({ bookList, currentPage }) {
                 </Card>
               </Box>
               <Box>
-                <ListItemText sx={{ margin: 0, padding: 0 }}>
+                <Box>
                   <Link
                     to={{
                       pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
@@ -47,13 +47,12 @@ export default function Book({ bookList, currentPage }) {
                           sm: 16,
                           xs: 16,
                         },
-                        height: 23,
                       }}
                     >
                       {item.name}
                     </Typography>
                   </Link>
-                </ListItemText>
+                </Box>
                 {BookHelper.bookAuthor(item.book_author)}
                 <ListItemText sx={{ paddingTop: 0 }}>
                   <Typography

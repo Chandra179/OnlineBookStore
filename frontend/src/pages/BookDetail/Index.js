@@ -46,13 +46,7 @@ function BookDescription({ bookDetail, expand, expandText }) {
             md: 22,
             sm: 20,
             xs: 18,
-          },
-          height: {
-            lg: 27,
-            md: 27,
-            sm: 26,
-            xs: 22,
-          },
+          }
         }}
       >
         {bookDetail.name}
