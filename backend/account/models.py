@@ -100,9 +100,9 @@ class UserAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     phone_regex = RegexValidator(
         regex=r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 
-        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+        message="Phone number must be entered in the format: '999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(
-        validators=[phone_regex], max_length=17, blank=True)
+        validators=[phone_regex], max_length=17, default=0)
     address_name = models.CharField(max_length=50, default='')
     city = models.CharField(max_length=17, default='')
     province = models.CharField(max_length=17, default='')

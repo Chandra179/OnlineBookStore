@@ -1,4 +1,5 @@
 from logging import raiseExceptions
+from wsgiref.util import request_uri
 from .serializers import AccountSerializer, AddressSerializer
 from rest_framework.response import Response
 from rest_framework import status
@@ -66,11 +67,17 @@ class AddressView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
-        address = UserAddress.objects.all()
-        return JsonResponse({"address": list(address)}, content_type='application/json', status=status.HTTP_200_OK)
+        try:
+            address = UserAddress.objects.filter(user__id=request.user.id)
+            serializer = AddressSerializer(address, many=True)
+            return Response(serializer.data, content_type='application/json', status=status.HTTP_200_OK)
+        except UserAddress.DoesNotExist:
+            return HttpResponse('empty', content_type='application/json', status=status.HTTP_400_BAD_REQUEST)
+
+
 
     def post(self, request, format=None):
-        user_id = User.objects.get(email = self.request.data['user'])
+        user_id = User.objects.get(id=request.user.id)
         request.data._mutable = True
         request.data['user'] = user_id.id
         request.data._mutable = False

@@ -44,9 +44,8 @@ def BookDetail(request):
         name = request.query_params.get('name')
         book = Book.objects.get(name__iexact=name)
         serializer = BookSerializer(book)
-        data = serializer.data
         
-        return Response(data, status=status.HTTP_200_OK, content_type="application/json")
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 
 
 @api_view(['GET'])
