@@ -161,7 +161,7 @@ export default function Item({
                       <TextField
                         id="outlined-number-qty"
                         label="Qty"
-                        type="number"
+                        type="tel"
                         onChange={(e) =>
                           handleQtyChange(title, normalPrice, stock, e)
                         }

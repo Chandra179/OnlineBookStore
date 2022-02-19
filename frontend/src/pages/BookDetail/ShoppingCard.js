@@ -147,7 +147,7 @@ function ShoppingCard({ bookDetail }) {
               disabled={isBuyDisabled}
               id="outlined-number"
               label="Number"
-              type="number"
+              type="tel"
               onChange={handleQtyChange}
               InputLabelProps={{
                 shrink: true,
