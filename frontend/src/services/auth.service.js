@@ -40,12 +40,18 @@ const logout = () => {
 
 // Get current user Email
 const getCurrentUser = () => {
-   var userToken = localStorage.getItem("user");
-   if (userToken) {
-    return JSON.parse(userToken)['email'];
-   } else {
-     console.log('TOKEN is not set')
+   var user = localStorage.getItem("user");
+   if (user) {
+    return JSON.parse(user)['email'];
    }
+};
+
+// Get current user Email
+const getToken = () => {
+  var token = localStorage.getItem("user");
+  if (token) {
+   return JSON.parse(token)['token'];
+  }
 };
 
 const AuthService = {
@@ -53,6 +59,7 @@ const AuthService = {
   signup,
   logout,
   getCurrentUser,
+  getToken
 };
 
 export default AuthService;
