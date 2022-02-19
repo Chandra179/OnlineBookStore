@@ -1,13 +1,12 @@
 import axios from "axios";
-import AuthService from './auth.service'
+import AuthService from "./auth.service";
 
-async function getAddress() {
-    const token =  AuthService.getToken()
-    const headers = {
-    'Authorization': `Token ${token}`
-    }
+async function getAddress(token) {
+  const headers = {
+    Authorization: `Token ${token}`,
+  };
   const response = await axios
-    .get("http://127.0.0.1:8000/account/address", {headers: headers})
+    .get("http://127.0.0.1:8000/account/address", { headers: headers })
     .then((response) => {
       return response.data;
     });

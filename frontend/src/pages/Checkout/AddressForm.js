@@ -1,18 +1,20 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Box } from "@mui/system";
+import AuthService from "../../services/auth.service";
 import AddresService from "../../services/address.service";
 
+
 export default function AddressForm() {
-  const [addressList, setAddressList] = useState();
+  const [addressList, setAddressList] = useState([]);
 
   useEffect(() => {
-    // set dafault parameter page to 1
-    AddresService.getAddress().then(
+    const token = AuthService.getToken();
+    AddresService.getAddress(token).then(
       (data) => {
         setAddressList(data);
       },
@@ -22,11 +24,13 @@ export default function AddressForm() {
     );
   }, []);
 
-  console.log(addressList)
+  console.log(addressList);
   return (
     <Box>
       <Box>
-        <Box></Box>
+        {addressList.map(function (item, i) {
+          return <Box key={i}>{item.address_name}</Box>;
+        })}
       </Box>
       <Box>
         <Typography variant="h6" gutterBottom>
