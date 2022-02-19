@@ -15,65 +15,6 @@ import { useCart } from "../../hooks/useCart";
 import CartHelper from "../../helper/cart.helper";
 import InputNumberOnly from "../../helper/numberOnly.helper";
 
-
-function QtyInput({ qty, stock, setQty, normalPrice, setTotalPrice, classes }) {
-  const handleQtyChange = (event) => {
-    var qty = event.target.value;
-    if (qty > stock) {
-      qty = stock;
-    }
-    if (qty.toString()[0] !== "0") {
-      setQty(qty);
-    }
-    setTotalPrice(qty * normalPrice);
-  };
-
-  return (
-    <Box
-      sx={{
-        maxWidth: "80px",
-        minWidth: "80px",
-        margin: "10px 10px 10px 10px",
-      }}
-    >
-      <FormControl fullWidth>
-        <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          onChange={handleQtyChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            inputProps: {
-              max: stock,
-              min: 1,
-            },
-          }}
-          onKeyPress={(event) => InputNumberOnly(event)}
-          value={qty}
-        />
-      </FormControl>
-    </Box>
-  );
-}
-
-function AddToCartButton({ handleAddToCart, classes }) {
-  return (
-    <Button
-      onClick={handleAddToCart}
-      variant="contained"
-      sx={{
-        margin: "10px 10px 0px 10px",
-      }}
-      startIcon={<AddIcon />}
-    >
-      Add to cart
-    </Button>
-  );
-}
-
 function ShoppingCard({ bookDetail }) {
   const [itemExistAlert, setItemExistAlert] = useState(false);
   const [itemAddedAlert, setItemAddedAlert] = useState(false);
@@ -83,24 +24,41 @@ function ShoppingCard({ bookDetail }) {
   const { setCartBadge } = useCart();
   const history = useHistory();
   const normalPrice = Number(bookDetail.price);
+  const isBuyDisabled = bookDetail.stock === 0 || bookDetail.stock === null ? true : false
 
-  const handleAddToCart = () => {
-    const qtys = (qty === '' ? 1 : qty)
-    if (qtys === 1) {
-      setQty(1)
-      setTotalPrice(qtys * normalPrice)
+  /*
+    handle qty change
+  */
+  const handleQtyChange = (event) => {
+    var qty = event.target.value;
+    if (qty > bookDetail.stock) {
+      qty = bookDetail.stock;
     }
+    if (qty.toString()[0] !== "0") {
+      setQty(qty);
+    }
+    setTotalPrice(qty * normalPrice);
+  };
 
+  /*
+    handle adding item to cart
+  */
+  const handleAddToCart = () => {
+    const qtys = qty === "" ? 1 : qty;
+    if (qtys === 1) {
+      setQty(1);
+      setTotalPrice(qtys * normalPrice);
+    }
     const userEmail = AuthService.getCurrentUser();
     if (!userEmail) {
       history.push("/signin");
       return;
     }
-    
     const userCart = localStorage.getItem(userEmail);
-    const cartItem = userCart ? JSON.parse(localStorage.getItem(userEmail)) : {}
+    const cartItem = userCart
+      ? JSON.parse(localStorage.getItem(userEmail))
+      : {};
     const duplicateItems = bookDetail.name in cartItem;
-
     cartItem[bookDetail.name] = {
       cover: bookDetail.cover,
       qty: qtys,
@@ -151,6 +109,7 @@ function ShoppingCard({ bookDetail }) {
       ) : (
         <div />
       )}
+      {isBuyDisabled ? <Alert name={"Out of stock"} severity="warning" /> : <div />}
 
       <Box
         sx={{
@@ -176,16 +135,47 @@ function ShoppingCard({ bookDetail }) {
             </Typography>
           </Box>
         </Box>
-        <QtyInput
-          qty={qty}
-          normalPrice={normalPrice}
-          setTotalPrice={setTotalPrice}
-          stock={bookDetail.stock}
-          setQty={setQty}
-        />
+        <Box
+          sx={{
+            maxWidth: "80px",
+            minWidth: "80px",
+            margin: "10px 10px 10px 10px",
+          }}
+        >
+          <FormControl fullWidth>
+            <TextField
+              disabled={isBuyDisabled}
+              id="outlined-number"
+              label="Number"
+              type="number"
+              onChange={handleQtyChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                inputProps: {
+                  max: bookDetail.stock,
+                  min: 1,
+                },
+              }}
+              onKeyPress={(event) => InputNumberOnly(event)}
+              value={qty}
+            />
+          </FormControl>
+        </Box>
         <Stack>
-          <AddToCartButton handleAddToCart={handleAddToCart} />
-          <Button variant="outlined" sx={{ margin: "10px 10px 10px 10px" }}>
+          <Button
+            disabled={isBuyDisabled}
+            onClick={handleAddToCart}
+            variant="contained"
+            sx={{
+              margin: "10px 10px 0px 10px",
+            }}
+            startIcon={<AddIcon />}
+          >
+            Add to cart
+          </Button>
+          <Button disabled={isBuyDisabled} variant="outlined" sx={{ margin: "10px 10px 10px 10px" }}>
             Buy now
           </Button>
         </Stack>
