@@ -97,7 +97,7 @@ class User(AbstractBaseUser):
 
 
 class UserAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, to_field="email", on_delete=models.CASCADE)
     phone_regex = RegexValidator(
         regex=r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 
         message="Phone number must be entered in the format: '999999'. Up to 15 digits allowed.")

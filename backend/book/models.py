@@ -32,7 +32,7 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=50, default='', unique=True)
+    name = models.CharField(max_length=100, default='', unique=True)
     cover = models.CharField(max_length=400, default='')
     price = models.FloatField(default=0)
     isbn13 = models.CharField(max_length=13, default='')
