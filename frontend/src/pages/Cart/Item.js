@@ -10,7 +10,6 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-
 import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
 import InputNumberOnly from "../../helper/numberOnly.helper";
@@ -200,7 +199,7 @@ export default function Item({
                   marginLeft: "auto",
                 }}
               >
-                <Box>
+                <Box sx={{ display: 'flex'}}>
                   <Typography
                     sx={{
                       fontSize: {

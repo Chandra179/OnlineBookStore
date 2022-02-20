@@ -37,7 +37,7 @@ function BookCover({ bookDetail }) {
 
 function BookDescription({ bookDetail, expand, expandText }) {
   return (
-    <Box sx={{ margin: 0, paddingRight: { lg: 4, md: 4, sm: 0, xs: 0 } }}>
+    <Box sx={{ margin: 0, paddingRight: { lg: 4, md: 4, sm: 0, xs: 0 }, paddingTop: 1 }}>
       <Typography
         sx={{
           color: "black",
@@ -45,8 +45,9 @@ function BookDescription({ bookDetail, expand, expandText }) {
             lg: 24,
             md: 22,
             sm: 20,
-            xs: 18,
-          }
+            xs: 16,
+          },
+          fontWeight: 600
         }}
       >
         {bookDetail.name}

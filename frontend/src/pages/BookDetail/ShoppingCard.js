@@ -24,7 +24,6 @@ function ShoppingCard({ bookDetail }) {
   const { setCartBadge } = useCart();
   const history = useHistory();
   const normalPrice = Number(bookDetail.price);
-  const isBuyDisabled = bookDetail.stock === 0 || bookDetail.stock === null ? true : false
 
   /*
     handle qty change
@@ -109,7 +108,6 @@ function ShoppingCard({ bookDetail }) {
       ) : (
         <div />
       )}
-      {isBuyDisabled ? <Alert name={"Out of stock"} severity="warning" /> : <div />}
 
       <Box
         sx={{
@@ -144,7 +142,6 @@ function ShoppingCard({ bookDetail }) {
         >
           <FormControl fullWidth>
             <TextField
-              disabled={isBuyDisabled}
               id="outlined-number"
               label="Number"
               type="tel"
@@ -165,7 +162,6 @@ function ShoppingCard({ bookDetail }) {
         </Box>
         <Stack>
           <Button
-            disabled={isBuyDisabled}
             onClick={handleAddToCart}
             variant="contained"
             sx={{
@@ -175,7 +171,7 @@ function ShoppingCard({ bookDetail }) {
           >
             Add to cart
           </Button>
-          <Button disabled={isBuyDisabled} variant="outlined" sx={{ margin: "10px 10px 10px 10px" }}>
+          <Button variant="outlined" sx={{ margin: "10px 10px 10px 10px" }}>
             Buy now
           </Button>
         </Stack>

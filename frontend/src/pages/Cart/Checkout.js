@@ -64,7 +64,7 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
           }}
         >
           <Typography>Subtotal ({totalQty}) item:</Typography>
-          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice}</Typography>
+          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice.toFixed(2)}</Typography>
         </Box>
         <Box
           sx={{

@@ -20,6 +20,7 @@ def BooksByGenre(request):
         genre = request.query_params.get('genre')
         books = Book.objects \
             .filter(genre__name__iexact=genre) \
+            .exclude(inventory__stock=0) \
             .select_related('language', 'genre', 'publisher') \
             .prefetch_related('book_author')
             

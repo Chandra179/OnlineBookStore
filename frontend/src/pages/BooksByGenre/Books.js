@@ -45,7 +45,7 @@ export default function Book({ bookList, currentPage }) {
                           lg: 18,
                           md: 18,
                           sm: 16,
-                          xs: 16,
+                          xs: 12,
                         },
                       }}
                     >
