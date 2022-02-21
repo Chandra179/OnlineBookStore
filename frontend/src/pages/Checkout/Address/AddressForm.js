@@ -5,7 +5,6 @@ import AuthService from "../../../services/auth.service";
 import AddresService from "../../../services/address.service";
 import InputNewAddress from "./InputNewAddress";
 
-
 export default function AddressForm() {
   const [addressList, setAddressList] = useState([]);
 
@@ -26,13 +25,51 @@ export default function AddressForm() {
       <Box>
         {addressList.map(function (item, i) {
           return (
-            <Box key={i} sx={{ marginBottom: 1.5, boxShadow: 1, padding: 2 }}>
-              <Typography sx={{ fontSize: {lg: 18, md: 18, sm: 16, xs: 16} }}>{item.contact_name}</Typography>
-              <Typography sx={{ fontSize: {lg: 16, md: 16, sm: 14, xs: 12}}}>{item.phone_number}</Typography>
+            <Box
+              key={i}
+              sx={{
+                marginBottom: 1.5,
+                boxShadow: 1,
+                padding: 2,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: {
+                    lg: 18,
+                    md: 18,
+                    sm: 16,
+                    xs: 16,
+                  },
+                }}
+              >
+                {item.contact_name}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: {
+                    lg: 16,
+                    md: 16,
+                    sm: 14,
+                    xs: 12,
+                  },
+                }}
+              >
+                {item.phone_number}
+              </Typography>
               <Box sx={{ display: "flex" }}>
-                <Typography sx={{ fontSize: {lg: 16, md: 16, sm: 14, xs: 12} }}>
-                  {item.address_name}, {item.state}, {item.province},{" "}
-                  {item.city}, {item.zip}
+                <Typography
+                  sx={{
+                    fontSize: {
+                      lg: 16,
+                      md: 16,
+                      sm: 14,
+                      xs: 12,
+                    },
+                  }}
+                >
+                  {item.address_name},{item.state},{item.province},{item.city},
+                  {item.zip}
                 </Typography>
               </Box>
             </Box>

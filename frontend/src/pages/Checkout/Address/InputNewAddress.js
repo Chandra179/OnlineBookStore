@@ -14,6 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import AddressService from "../../../services/address.service";
 import InputValidatorHelper from "../../../helper/inputValidator.helper";
 import AuthService from "../../../services/auth.service";
+import BasicAlerts from "../../../components/Alert";
 
 export default function InputNewAddress() {
   const [fullName, setFullName] = useState("");
@@ -23,10 +24,15 @@ export default function InputNewAddress() {
   const [province, setProvince] = useState("");
   const [country, setCountry] = useState("");
   const [zip, setZip] = useState(0);
+  const [addressAlert, setAddressAlert] = useState("");
+  const [inputSuccess, setInputSuccess] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setAddressAlert("");
+    setOpen(false);
+  };
   const userEmail = AuthService.getCurrentUser();
   const userToken = AuthService.getToken();
 
@@ -44,10 +50,22 @@ export default function InputNewAddress() {
 
     AddressService.postAddress(userToken, addressInput).then(
       (data) => {
-          console.log(data)
+        setInputSuccess("Address has been saved.");
+        setAddressAlert('');
       },
       (error) => {
-          console.log(error)
+        if (error.response.status === 400) {
+          setAddressAlert("Invalid format");
+          setInputSuccess('');
+          return;
+        }
+        if (error.response.status === 500) {
+          setAddressAlert(
+            "Your can only have 5 address! try to edit or remove one of your address"
+          );
+          setInputSuccess('');
+          return;
+        }
       }
     );
   }
@@ -69,7 +87,21 @@ export default function InputNewAddress() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Container component="main" maxWidth="sm" sx={{ mt: 4 }}>
+        <Container component="main" maxWidth="sm" sx={{ mt: 5 }}>
+          {inputSuccess ? (
+            <Box sx={{ mb: 1 }}>
+              <BasicAlerts name={inputSuccess} severity="success" />
+            </Box>
+          ) : (
+            <div />
+          )}
+          {addressAlert ? (
+            <Box sx={{ mb: 1 }}>
+              <BasicAlerts name={addressAlert} severity="error" />
+            </Box>
+          ) : (
+            <div />
+          )}
           <Box sx={{ padding: 2, borderRadius: 2, backgroundColor: "white" }}>
             <Typography variant="h6" gutterBottom>
               Shipping address
@@ -110,7 +142,7 @@ export default function InputNewAddress() {
                   required
                   value={addressName}
                   onInput={(e) => setAddressName(e.target.value)}
-                  inputProps={{ maxLength: 20 }}
+                  inputProps={{ maxLength: 40 }}
                   id="address"
                   name="address"
                   label="Address"
