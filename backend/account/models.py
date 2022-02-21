@@ -97,21 +97,21 @@ class User(AbstractBaseUser):
 
 
 class UserAddress(models.Model):
-    user = models.ForeignKey(User, to_field="email", on_delete=models.CASCADE)
     phone_regex = RegexValidator(
         regex=r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$', 
         message="Phone number must be entered in the format: '999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(
-        validators=[phone_regex], max_length=17, default=0)
-    address_name = models.CharField(max_length=50, default='')
-    city = models.CharField(max_length=17, default='')
-    province = models.CharField(max_length=17, default='')
-    state = models.CharField(max_length=17, default='')
     zip_regex = RegexValidator(
         regex=r'^[0-9]+$', 
         message="Zip Code must be entered in the format: '1234567'. Up to 7 digits allowed.")
-    zip = models.CharField(
-        validators=[zip_regex], max_length=7, default=0)
+
+    user = models.ForeignKey(User, to_field="email", on_delete=models.CASCADE)
+    contact_name = models.CharField(max_length=20, default='')
+    phone_number = models.CharField(validators=[phone_regex], max_length=12, default=0)
+    address_name = models.CharField(max_length=40, default='')
+    city = models.CharField(max_length=20, default='')
+    province = models.CharField(max_length=20, default='')
+    state = models.CharField(max_length=20, default='')
+    zip = models.CharField(validators=[zip_regex], max_length=7, default=0)
 
     def __str__(self):
         return self.user.email

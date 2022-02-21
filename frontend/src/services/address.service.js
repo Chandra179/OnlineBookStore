@@ -22,9 +22,9 @@ async function postAddress() {
   return response;
 }
 
-const AddresService = {
+const AddressService = {
   getAddress,
   postAddress,
 };
 
-export default AddresService;
+export default AddressService;

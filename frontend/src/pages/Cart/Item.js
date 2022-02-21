@@ -117,7 +117,7 @@ export default function Item({
 
                 <Card
                   sx={{
-                    minWidth: 80,
+                    width: 120,
                     maxWidth: {
                       lg: 120,
                       md: 120,
