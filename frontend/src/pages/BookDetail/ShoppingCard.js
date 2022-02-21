@@ -13,7 +13,8 @@ import Alert from "../../components/Alert";
 import AuthService from "../../services/auth.service";
 import { useCart } from "../../hooks/useCart";
 import CartHelper from "../../helper/cart.helper";
-import InputNumberOnly from "../../helper/numberOnly.helper";
+import InputValidatorHelper from "../../helper/inputValidator.helper";
+
 
 function ShoppingCard({ bookDetail }) {
   const [itemExistAlert, setItemExistAlert] = useState(false);
@@ -155,7 +156,7 @@ function ShoppingCard({ bookDetail }) {
                   min: 1,
                 },
               }}
-              onKeyPress={(event) => InputNumberOnly(event)}
+              onKeyPress={(event) => InputValidatorHelper.InputNumberOnly(event)}
               value={qty}
             />
           </FormControl>

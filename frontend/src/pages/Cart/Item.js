@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
-import InputNumberOnly from "../../helper/numberOnly.helper";
+import InputValidatorHelper from "../../helper/inputValidator.helper";
+
 
 export default function Item({
   userEmail,
@@ -164,7 +165,7 @@ export default function Item({
                         onChange={(e) =>
                           handleQtyChange(title, normalPrice, stock, e)
                         }
-                        onKeyPress={(event) => InputNumberOnly(event)}
+                        onKeyPress={(event) => InputValidatorHelper.InputNumberOnly(event)}
                         value={qty}
                         size="small"
                       />

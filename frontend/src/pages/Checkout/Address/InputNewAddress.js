@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import AddressService from "../../../services/address.service";
-import InputNumberOnly from "../../../helper/numberOnly.helper";
+import InputValidatorHelper from "../../../helper/inputValidator.helper";
 
 
 export default function InputNewAddress() {
@@ -64,6 +64,7 @@ export default function InputNewAddress() {
                   required
                   value={fullName}
                   onInput={(e) => setFullName(e.target.value)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
                   inputProps={{ maxLength: 20 }}
                   id="fullname"
                   name="fullname"
@@ -79,7 +80,7 @@ export default function InputNewAddress() {
                   type="tel"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  onKeyPress={(event) => InputNumberOnly(event)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'number')}
                   inputProps={{ maxLength: 12 }}
                   id="phone"
                   name="phone"
@@ -107,6 +108,7 @@ export default function InputNewAddress() {
                   required
                   value={city}
                   onInput={(e) => setCity(e.target.value)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
                   inputProps={{ maxLength: 20 }}
                   id="city"
                   name="city"
@@ -122,9 +124,10 @@ export default function InputNewAddress() {
                   value={province}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setProvince(e.target.value)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
                   id="Province"
                   name="Province"
-                  label="Province*"
+                  label="Province"
                   fullWidth
                   variant="standard"
                 />
@@ -135,6 +138,7 @@ export default function InputNewAddress() {
                   value={zip}
                   inputProps={{ maxLength: 7 }}
                   onInput={(e) => setZip(e.target.value)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'number')}
                   id="zip"
                   name="zip"
                   label="Zip / Postal code"
@@ -149,6 +153,7 @@ export default function InputNewAddress() {
                   value={country}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setCountry(e.target.value)}
+                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
                   id="country"
                   name="country"
                   label="Country"
