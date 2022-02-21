@@ -13,7 +13,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import AddressService from "../../../services/address.service";
 import InputValidatorHelper from "../../../helper/inputValidator.helper";
-
+import AuthService from "../../../services/auth.service";
 
 export default function InputNewAddress() {
   const [fullName, setFullName] = useState("");
@@ -27,13 +27,29 @@ export default function InputNewAddress() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const userEmail = AuthService.getCurrentUser();
+  const userToken = AuthService.getToken();
 
   function handleSave() {
     var addressInput = {
       contact_name: fullName,
+      phone_number: phoneNumber,
+      address_name: addressName,
+      city: city,
+      province: province,
+      state: country,
+      zip: zip,
+      user: userEmail,
     };
-    AddressService.postAddress();
-    return "";
+
+    AddressService.postAddress(userToken, addressInput).then(
+      (data) => {
+          console.log(data)
+      },
+      (error) => {
+          console.log(error)
+      }
+    );
   }
 
   return (
@@ -64,7 +80,7 @@ export default function InputNewAddress() {
                   required
                   value={fullName}
                   onInput={(e) => setFullName(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "text")}
                   inputProps={{ maxLength: 20 }}
                   id="fullname"
                   name="fullname"
@@ -75,12 +91,12 @@ export default function InputNewAddress() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <TextField
+                <TextField
                   required
                   type="tel"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'number')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "number")}
                   inputProps={{ maxLength: 12 }}
                   id="phone"
                   name="phone"
@@ -108,7 +124,7 @@ export default function InputNewAddress() {
                   required
                   value={city}
                   onInput={(e) => setCity(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "text")}
                   inputProps={{ maxLength: 20 }}
                   id="city"
                   name="city"
@@ -124,7 +140,7 @@ export default function InputNewAddress() {
                   value={province}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setProvince(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "text")}
                   id="Province"
                   name="Province"
                   label="Province"
@@ -138,7 +154,7 @@ export default function InputNewAddress() {
                   value={zip}
                   inputProps={{ maxLength: 7 }}
                   onInput={(e) => setZip(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'number')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "number")}
                   id="zip"
                   name="zip"
                   label="Zip / Postal code"
@@ -153,7 +169,7 @@ export default function InputNewAddress() {
                   value={country}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setCountry(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper(event, 'text')}
+                  onKeyPress={(event) => InputValidatorHelper(event, "text")}
                   id="country"
                   name="country"
                   label="Country"

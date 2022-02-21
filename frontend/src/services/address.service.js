@@ -13,9 +13,12 @@ async function getAddress(token) {
   return response;
 }
 
-async function postAddress() {
+async function postAddress(token, address) {
+  const headers = {
+    Authorization: `Token ${token}`,
+  };
   const response = await axios
-    .get("http://127.0.0.1:8000/account/address")
+    .post("http://127.0.0.1:8000/account/address", address, { headers: headers })
     .then((response) => {
       return response.data;
     });
