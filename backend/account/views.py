@@ -75,7 +75,7 @@ class AddressView(APIView):
             return HttpResponse('empty', content_type='application/json', status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
-        serializer=AddressSerializer(data = self.request.data)
+        serializer = AddressSerializer(data = self.request.data)
         serializer.is_valid(raise_exception = True)
         serializer.save()
-        return Response('tes', status = status.HTTP_200_OK)
+        return Response('address has been saved', status = status.HTTP_200_OK)
