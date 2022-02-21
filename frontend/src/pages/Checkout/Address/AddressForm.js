@@ -6,7 +6,13 @@ import AddresService from "../../../services/address.service";
 import InputNewAddress from "./InputNewAddress";
 
 export default function AddressForm() {
+  const userEmail = AuthService.getCurrentUser();
   const [addressList, setAddressList] = useState([]);
+  const [defaultAddress, setDefaultAddress] = useState(
+    localStorage.getItem(userEmail) !== null
+      ? JSON.parse(localStorage.getItem(userEmail))
+      : null
+  );
 
   useEffect(() => {
     const token = AuthService.getToken();
@@ -76,7 +82,7 @@ export default function AddressForm() {
           );
         })}
       </Box>
-      <InputNewAddress />
+      <InputNewAddress setDefaultAddress={setDefaultAddress} />
     </Box>
   );
 }
