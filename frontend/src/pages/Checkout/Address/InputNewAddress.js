@@ -16,7 +16,8 @@ import InputValidatorHelper from "../../../helper/inputValidator.helper";
 import AuthService from "../../../services/auth.service";
 import BasicAlerts from "../../../components/Alert";
 
-export default function InputNewAddress() {
+
+export default function InputNewAddress({ setDefaultAddress }) {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [addressName, setAddressName] = useState("");
@@ -26,6 +27,7 @@ export default function InputNewAddress() {
   const [zip, setZip] = useState(0);
   const [addressAlert, setAddressAlert] = useState("");
   const [inputSuccess, setInputSuccess] = useState("");
+  const [checkedBox, setCheckedBox] = useState(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -52,6 +54,14 @@ export default function InputNewAddress() {
       (data) => {
         setInputSuccess("Address has been saved.");
         setAddressAlert('');
+        if (checkedBox === true) {
+          var item = {
+            'default': addressName
+          }
+          localStorage.setItem(userEmail+'Address', JSON.stringify(item))
+          setDefaultAddress(addressName)
+        }
+        window.location.reload('/cart/checkout')
       },
       (error) => {
         if (error.response.status === 400) {
@@ -216,7 +226,8 @@ export default function InputNewAddress() {
                     <Checkbox
                       color="secondary"
                       name="saveAddress"
-                      value="yes"
+                      value={checkedBox}
+                      onChange={(e) => {setCheckedBox(true)}}
                     />
                   }
                   label="Use this address for payment details"
