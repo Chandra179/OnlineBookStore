@@ -19,45 +19,62 @@ import InputValidatorHelper from "../../helper/inputValidator.helper";
 function ShoppingCard({ bookDetail }) {
   const [itemExistAlert, setItemExistAlert] = useState(false);
   const [itemAddedAlert, setItemAddedAlert] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(1);
-  const [qty, setQty] = useState(1);
 
-  const { setCartBadge } = useCart();
-  const history = useHistory();
+  // price per book, eg: 1 book -> $22
   const normalPrice = Number(bookDetail.price);
 
-  /*
-    handle qty change
-  */
+  // Total book price, eg: 10 * $22 = $220
+  const [totalPrice, setTotalPrice] = useState(1);
+
+  const [qty, setQty] = useState(1);
+  const userEmail = AuthService.getCurrentUser();
+  const { setCartBadge } = useCart();
+  const history = useHistory();
+
+
+  // handle item qty change
   const handleQtyChange = (event) => {
     var qty = event.target.value;
+    
+    // if input exceed book stock then
+    // set qty to stock
     if (qty > bookDetail.stock) {
       qty = bookDetail.stock;
     }
+    // handle first input cannot be 0
     if (qty.toString()[0] !== "0") {
       setQty(qty);
     }
     setTotalPrice(qty * normalPrice);
   };
 
-  /*
-    handle adding item to cart
-  */
+  
+  // handle adding item to cart
   const handleAddToCart = () => {
-    const qtys = qty === "" ? 1 : qty;
+    // if input is empty, then set to 1
+    const qtys = (qty === "" ? 1 : qty);
     if (qtys === 1) {
       setQty(1);
       setTotalPrice(qtys * normalPrice);
     }
-    const userEmail = AuthService.getCurrentUser();
+    // redirect to signin if not logged in
     if (!userEmail) {
       history.push("/signin");
       return;
     }
+
+    /**
+    *  Handle add item to cart
+    */
+
+    // get user cart
     const userCart = localStorage.getItem(userEmail);
+    // if user cart not exist, then create empty object
     const cartItem = userCart
       ? JSON.parse(localStorage.getItem(userEmail))
       : {};
+
+    // check if book already in cart
     const duplicateItems = bookDetail.name in cartItem;
     cartItem[bookDetail.name] = {
       cover: bookDetail.cover,
@@ -66,8 +83,9 @@ function ShoppingCard({ bookDetail }) {
       totalPrice: qtys * normalPrice,
       stock: bookDetail.stock,
     };
-    // add new item
-    if (Object.keys(cartItem).length === 0) {
+
+    // if cart not initialized, then create new cart and save the item
+    if (!Object.keys(cartItem)) {
       localStorage.setItem(userEmail, JSON.stringify(cartItem));
       setItemAddedAlert(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
@@ -79,7 +97,7 @@ function ShoppingCard({ bookDetail }) {
       setItemAddedAlert(false);
       return;
     }
-    // if not duplicate and not the first item
+    // if item not duplicate
     if (!duplicateItems) {
       localStorage.setItem(userEmail, JSON.stringify(cartItem));
       setItemAddedAlert(true);
@@ -156,7 +174,7 @@ function ShoppingCard({ bookDetail }) {
                   min: 1,
                 },
               }}
-              onKeyPress={(event) => InputValidatorHelper.InputNumberOnly(event)}
+              onKeyPress={(event) => InputValidatorHelper(event)}
               value={qty}
             />
           </FormControl>

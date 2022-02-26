@@ -10,9 +10,13 @@ import Box from "@mui/material/Box";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-/*
-  
-*/
+
+/**
+ *
+ * @param {list} props.bookList
+ * @param {int} props.currentPage
+ */
+
 export default function Book({ bookList, currentPage }) {
   return (
     <Box>
@@ -28,7 +32,12 @@ export default function Book({ bookList, currentPage }) {
               <Box sx={{ marginRight: 2 }}>
                 <Card
                   sx={{
-                    width: { lg: 130, md: 130, sm: 110, xs: 100 },
+                    width: {
+                      lg: 130,
+                      md: 130,
+                      sm: 110,
+                      xs: 100,
+                    },
                   }}
                 >
                   <CardMedia component="img" image={item.cover} />
@@ -38,7 +47,7 @@ export default function Book({ bookList, currentPage }) {
                 <Box>
                   <Link
                     to={{
-                      pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
+                      pathname:`/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
                         .replace(/\s+/g, "-")
                         .toLowerCase()}`,
                     }}

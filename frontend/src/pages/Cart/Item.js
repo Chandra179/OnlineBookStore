@@ -165,7 +165,7 @@ export default function Item({
                         onChange={(e) =>
                           handleQtyChange(title, normalPrice, stock, e)
                         }
-                        onKeyPress={(event) => InputValidatorHelper.InputNumberOnly(event)}
+                        onKeyPress={(event) => InputValidatorHelper(event)}
                         value={qty}
                         size="small"
                       />
