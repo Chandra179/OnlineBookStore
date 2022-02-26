@@ -14,11 +14,13 @@ function BooksByGenre() {
 
   const history = useHistory();
   const booksPerPage = 2;
+  // get book genre from url path
   const genre = window.location.pathname.split("/")[2];
   const pageNumber = Number(window.location.pathname.split("/")[3]);
   const totalPageNumber = Math.ceil(totalBook / booksPerPage);
 
   useEffect(() => {
+    // request books by genre and page number, 
     BookService.booksByGenre(genre, pageNumber).then(
       (data) => {
         setBookList(data.book);
@@ -31,8 +33,9 @@ function BooksByGenre() {
     );
   }, [genre, pageNumber]);
 
+  // handle next and previos page click
   const handlePageClick = async (event, value) => {
-    // set param page to clicked page number
+    // request books by genre and page number,
     await BookService.booksByGenre(genre, value).then(
       (data) => {
         setBookList(data.book);
@@ -43,6 +46,7 @@ function BooksByGenre() {
         console.log(error);
       }
     );
+    // update url path as page number change
     history.push(`/genres/${genre}/${value}`);
   };
 

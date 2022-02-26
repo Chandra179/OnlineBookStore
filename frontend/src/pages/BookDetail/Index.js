@@ -13,6 +13,7 @@ import ShoppingCard from "./ShoppingCard";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
+
 export default function BookDetail() {
   const [bookDetail, setBookDetail] = useState([]);
   const [expandText, setExpandText] = useState(false);

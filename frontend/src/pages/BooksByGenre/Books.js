@@ -15,6 +15,7 @@ import BookHelper from "../../helper/book.helper";
  *
  * @param {list} props.bookList
  * @param {int} props.currentPage
+ * mapping book data
  */
 
 export default function Books({ bookList, currentPage }) {
