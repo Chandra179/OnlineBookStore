@@ -4,20 +4,29 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from .models import Book, Genre
 from .serializers import BookSerializer
-from inventory.models import Inventory
 import collections
-import json
-from django.http import HttpResponse, JsonResponse
-from django.core import serializers
+from django.http import JsonResponse
 
+"""
+    API list
+    --------
+    BooksByGenre: return all books, specified by genre
+    BookDetail: return book detail, specified by book name
+    GenreList: return all genre
+    TopTenBooks: return 10 books, specified by category
+"""
 
 @api_view(['GET'])
 def BooksByGenre(request):
     """
-        Returns book by genre by pagination
+        :parameter: ?genre=<str>&page=<int>
+        :rtype: json
     """
     if request.method == 'GET':
         genre = request.query_params.get('genre')
+        """
+            Get all books filtered by genre, exclude books with empty stock
+        """
         books = Book.objects \
             .filter(genre__name__iexact=genre) \
             .exclude(inventory__stock=0) \
@@ -30,6 +39,10 @@ def BooksByGenre(request):
         headers = {
             'total_book': books.count()
         }
+        """
+            paginate response data, data limit per page is set in
+            settings REST_FRAMEWORK => PAGE_SIZE
+        """
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(data, request)
         
@@ -39,7 +52,8 @@ def BooksByGenre(request):
 @api_view(['GET'])
 def BookDetail(request):
     """
-        Return book detail response
+        :parameter: ?name=<str>
+        :rtype: json
     """
     if request.method == 'GET':
         name = request.query_params.get('name')
@@ -52,7 +66,7 @@ def BookDetail(request):
 @api_view(['GET'])
 def GenreList(request):
     """
-        Returns all Genre
+        :rtype: json
     """
     if request.method == 'GET':
         genre = Genre.objects.all().values("name")
@@ -62,7 +76,12 @@ def GenreList(request):
 @api_view(['GET'])
 def TopTenBooks(request):
     """
-        Returns 10 books for selected category
+        return top 10 books with specified category, 
+        eg: top 10 best seller books, 
+            top 10 best seller books by genre, etc.
+        --------------------------------------------
+        :parameter: ?genre=<str>&page=<int>
+        :rtype: json
     """
     if request.method == 'GET':
         response = collections.defaultdict(list)

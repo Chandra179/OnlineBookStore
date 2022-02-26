@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
-
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
