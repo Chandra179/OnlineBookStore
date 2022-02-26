@@ -17,7 +17,7 @@ from django.http import JsonResponse
 """
 
 @api_view(['GET'])
-def BooksByGenre(request):
+def BooksByGenreView(request):
     """
         :parameter: ?genre=<str>&page=<int>
         :rtype: json
@@ -50,7 +50,7 @@ def BooksByGenre(request):
 
 
 @api_view(['GET'])
-def BookDetail(request):
+def BookDetailView(request):
     """
         :parameter: ?name=<str>
         :rtype: json
@@ -64,7 +64,7 @@ def BookDetail(request):
 
 
 @api_view(['GET'])
-def GenreList(request):
+def GenreListView(request):
     """
         :rtype: json
     """
@@ -74,7 +74,7 @@ def GenreList(request):
 
 
 @api_view(['GET'])
-def TopTenBooks(request):
+def TopTenBooksView(request):
     """
         return top 10 books with specified category, 
         eg: top 10 best seller books, 

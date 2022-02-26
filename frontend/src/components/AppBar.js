@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+// MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,15 +10,20 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Divider from "@mui/material/Divider";
-
 import LocalMallSharpIcon from "@mui/icons-material/LocalMallSharp";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
-
+// SERVICE
 import AuthService from "../services/auth.service";
+// HELPER
 import CartHelper from "../helper/cart.helper";
+// CONTEXT
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 import { useCheckout } from "../hooks/useCheckout";
+
+/*
+  [COMPONENTS: APPBAR]
+*/
 
 export default function PrimarySearchAppBar() {
   const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
@@ -34,8 +39,8 @@ export default function PrimarySearchAppBar() {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
 
-      var path = window.location.pathname;
-      if (path === "/cart/checkout") {
+      var urlPath = window.location.pathname;
+      if (urlPath === "/cart/checkout") {
         setIsAppbarDisabled(true);
         return;
       }
@@ -88,11 +93,7 @@ export default function PrimarySearchAppBar() {
           <Link
             to="/"
             onClick={
-              isAppbarDisabled === false
-                ? null
-                : () => {
-                    window.location.href = "/";
-                  }
+              isAppbarDisabled ? () => (window.location.href = "/") : null
             }
           >
             <Typography
@@ -112,7 +113,15 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {isAppbarDisabled === false ? (
+
+          {/* 
+            NESTED CONDITION RENDER
+            {isAppbarDisabled{isUserLoggedIn}}
+          */}
+
+          {isAppbarDisabled ? (
+            <></>
+          ) : (
             <Box sx={{ display: "flex" }}>
               <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
                 <Link to="/cart">
@@ -158,8 +167,6 @@ export default function PrimarySearchAppBar() {
                 </Box>
               )}
             </Box>
-          ) : (
-            <></>
           )}
         </Toolbar>
       </AppBar>

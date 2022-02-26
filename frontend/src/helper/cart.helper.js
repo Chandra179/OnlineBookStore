@@ -1,5 +1,6 @@
 /*
-    count total item in user cart
+  [HELPER: TOTAL CART ITEM]
+  :type: userEmail<str>
 */
 const cartBadge = (userEmail) => {
   const item = JSON.parse(localStorage.getItem(userEmail));

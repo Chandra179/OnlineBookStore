@@ -2,16 +2,18 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 /*
-    map book author
+    [HELPER: LIST OF AUTHOR]
+    :type: book_author<List>
+    :rtype: MUI<Box>
 */
 const bookAuthor = (book_author) => {
-  if (book_author === undefined) return;
+  if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
-  var authorList = [];
+  var bookAuthorList = [];
 
   book_author.map((e, i) => {
     var authors = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
-    return authorList.push(authors);
+    return bookAuthorList.push(authors);
   });
 
   return (
@@ -41,7 +43,7 @@ const bookAuthor = (book_author) => {
         by
       </Typography>
       <Typography noWrap sx={{ color: "rgb(0, 113, 133)", fontSize: 12 }}>
-        {authorList}
+        {bookAuthorList}
       </Typography>
     </Box>
   );

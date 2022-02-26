@@ -2,7 +2,11 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import Categories from "../components/Categories";
+import GenreList from "../components/GenreList";
+
+/*
+  Main Page
+*/
 
 function Home() {
   return (
@@ -23,7 +27,7 @@ function Home() {
         </Typography>
       </Grid>
       <Grid item lg={3} md={3} sm={3} xs={12}>
-        <Categories />
+        <GenreList />
       </Grid>
       <Divider
         sx={{ borderRightWidth: 2 }}

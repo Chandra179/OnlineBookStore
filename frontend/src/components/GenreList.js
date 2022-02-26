@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+// MUI
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
+// SERVICE
 import BookService from "../services/book.service";
+
+/* 
+  [COMPONENTS: GENRE LIST]
+  :rtype: MUI<List>
+*/
 
 export default function NestedList() {
   const [genreList, setGenreList] = useState([]);
 
   useEffect(() => {
+    // get books genre list
     BookService.genreList().then(
       (data) => {
         setGenreList(data);

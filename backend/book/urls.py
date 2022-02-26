@@ -1,9 +1,9 @@
 from django.urls import path, include
-from .views import BookDetail, BooksByGenre, GenreList, TopTenBooks
+from .views import BookDetailView, BooksByGenreView, GenreListView, TopTenBooksView
 
 urlpatterns = [
-    path('', BooksByGenre, name='books-per-category'),
-    path('genre-list', GenreList, name='genre-list'),
-    path('detail', BookDetail, name='book-detail'),
-    path('top-ten-books', TopTenBooks, name='top-ten-books'),
+    path('', BooksByGenreView, name='books-per-category'),
+    path('genre-list', GenreListView, name='genre-list'),
+    path('detail', BookDetailView, name='book-detail'),
+    path('top-ten-books', TopTenBooksView, name='top-ten-books'),
 ]

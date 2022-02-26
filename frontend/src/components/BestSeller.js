@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
+// MUI
 import BookService from "../services/book.service";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
+
+/*
+  TOP 10 BOOKS, ON PROGRESS
+*/
 
 function BooksPerGenre() {
   const [booksPerGenre, setBooksPerGenre] = useState([]);
