@@ -36,12 +36,11 @@ function ShoppingCard({ bookDetail }) {
   const handleQtyChange = (event) => {
     var qty = event.target.value;
     
-    // if input exceed book stock then
-    // set qty to stock
+    // if input exceed book stock then set qty to stock
     if (qty > bookDetail.stock) {
       qty = bookDetail.stock;
     }
-    // handle first input cannot be 0
+    // first input cannot be 0
     if (qty.toString()[0] !== "0") {
       setQty(qty);
     }
@@ -64,7 +63,9 @@ function ShoppingCard({ bookDetail }) {
     }
 
     /**
-    *  Handle add item to cart
+    * Handle add item to cart, 
+    * item will be saved in local storage as object.
+    * key  : user email
     */
 
     // get user cart

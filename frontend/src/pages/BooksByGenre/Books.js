@@ -17,7 +17,7 @@ import BookHelper from "../../helper/book.helper";
  * @param {int} props.currentPage
  */
 
-export default function Book({ bookList, currentPage }) {
+export default function Books({ bookList, currentPage }) {
   return (
     <Box>
       {bookList.map(function (item, i) {

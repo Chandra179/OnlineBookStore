@@ -13,7 +13,7 @@ import ShoppingCard from "./ShoppingCard";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-export default function HomeDetail() {
+export default function BookDetail() {
   const [bookDetail, setBookDetail] = useState([]);
   const [expandText, setExpandText] = useState(false);
   const handleExpandText = () => {
@@ -21,12 +21,14 @@ export default function HomeDetail() {
   };
 
   useEffect(() => {
+    // get bookName from url path, eg: http/..../steve jobs
     const bookName = window.location.pathname
       .split("/")
       .pop()
       .split("-")
       .join(" ");
-      
+
+    // request book detail data with given book name
     BookService.bookDetail(bookName).then(
       (data) => {
         setBookDetail(data);

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 
 /**
  * 
- * @param {bool} props.severity
+ * @param {str} props.severity
  * @param {str} props.name
  */
 

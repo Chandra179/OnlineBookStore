@@ -7,16 +7,16 @@ import CustomPagination from "./CustomPagination";
 import BookService from "../../services/book.service";
 
 
-function BookList() {
+function BooksByGenre() {
   const [bookList, setBookList] = useState([]);
   const [totalBook, setTotalBook] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
   const history = useHistory();
-  const bookPerPage = 2;
+  const booksPerPage = 2;
   const genre = window.location.pathname.split("/")[2];
   const pageNumber = Number(window.location.pathname.split("/")[3]);
-  const totalPageNumber = Math.ceil(totalBook / bookPerPage);
+  const totalPageNumber = Math.ceil(totalBook / booksPerPage);
 
   useEffect(() => {
     BookService.booksByGenre(genre, pageNumber).then(
@@ -63,4 +63,4 @@ function BookList() {
   );
 }
 
-export default BookList;
+export default BooksByGenre;
