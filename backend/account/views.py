@@ -11,6 +11,11 @@ from .models import UserAddress
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
+"""
+    SignInView: signin
+    SignUpView: signup
+"""
+
 User = get_user_model()
 
 @api_view(['POST'])
@@ -88,10 +93,14 @@ class AddressView(APIView):
         """
             :rtype: str
         """
-        address = get_object_or_404(UserAddress, user=request.user.email)
-        serializer = AddressSerializer(address, many=True)
-        return Response(serializer.data, content_type='application/json', status=status.HTTP_200_OK)
-        
+        address = UserAddress.objects.filter(user=request.user.email)
+        if len(address):
+            serializer = AddressSerializer(address, many=True)
+            return Response(serializer.data, content_type='application/json', status=status.HTTP_200_OK)
+        # if address empty
+        else:
+            return Response('empty', content_type='application/json', status=status.HTTP_404_NOT_FOUND)
+
     def post(self, request, format=None):
         """
             :rtype: str
@@ -99,4 +108,4 @@ class AddressView(APIView):
         serializer = AddressSerializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response('address has been saved', status = status.HTTP_200_OK)
+        return Response('address has been saved', status=status.HTTP_200_OK)
