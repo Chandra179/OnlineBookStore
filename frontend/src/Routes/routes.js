@@ -11,7 +11,7 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import BooksByGenre from '../pages/BooksByGenre/Index';
 import ProductDetail from "../pages/BookDetail/Index";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Index";
 import Cart from "../pages/Cart/Index";
 import Checkout from "../pages/Checkout/Index";
 

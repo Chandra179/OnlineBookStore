@@ -1,11 +1,11 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-/*
-    [HELPER: LIST OF AUTHOR]
-    :type: book_author<List>
-    :rtype: MUI<Box>
-*/
+/**
+ * 
+ * @param {list} props.book_author
+ */
+
 const bookAuthor = (book_author) => {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;

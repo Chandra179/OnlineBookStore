@@ -11,6 +11,12 @@ import BookService from "../../services/book.service";
 import ShoppingCard from "./ShoppingCard";
 import BookHelper from "../../helper/book.helper";
 
+/**
+ * 
+ * @param {*} props.bookDetail 
+ * @returns 
+ */
+
 function BookCover({ bookDetail }) {
   return (
     <Card

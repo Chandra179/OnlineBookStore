@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import Alert from "../components/Alert";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Index";
 
 import AuthService from "../services/auth.service";
 import CartHelper from "../helper/cart.helper";

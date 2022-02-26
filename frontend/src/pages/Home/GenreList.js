@@ -7,12 +7,8 @@ import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 // SERVICE
-import BookService from "../services/book.service";
+import BookService from "../../services/book.service";
 
-/* 
-  [COMPONENTS: GENRE LIST]
-  :rtype: MUI<List>
-*/
 
 export default function NestedList() {
   const [genreList, setGenreList] = useState([]);

@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import GenreList from "../components/GenreList";
+import GenreList from "./GenreList";
 
 /*
   Main Page

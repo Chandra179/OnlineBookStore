@@ -1,3 +1,9 @@
+/**
+ * Validate input
+ * @param {event.target.value} props.event
+ * @param {str} props.type
+ */
+
 const InputValidatorHelper = (event, type) => {
   var regex = type === 'text' ? /^[a-zA-Z ]*$/ : /[0-9]|\./;
   var theEvent = event || window.event;

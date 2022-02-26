@@ -1,17 +1,18 @@
-/*
-  [HELPER: TOTAL CART ITEM]
-  :type: userEmail<str>
-*/
+/**
+ * Count cart item
+ * @param {str} props.userEmail
+ */
+
 const cartBadge = (userEmail) => {
-  const item = JSON.parse(localStorage.getItem(userEmail));
-  if (item !== null) {
-    const cartKeys = Object.keys(item).length;
-    var itemQty = 0;
+  const cartItem = JSON.parse(localStorage.getItem(userEmail));
+  if (cartItem) {
+    const cartKeys = Object.keys(cartItem).length;
+    var qty = 0;
     for (var i = 0; i < cartKeys; i++) {
-      itemQty += Number(Object.values(item)[i]["qty"]);
+      qty += Number(Object.values(cartItem)[i]["qty"]);
     }
   }
-  return itemQty;
+  return qty;
 };
 
 const CartHelper = {

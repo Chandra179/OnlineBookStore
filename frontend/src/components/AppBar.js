@@ -21,9 +21,6 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 import { useCheckout } from "../hooks/useCheckout";
 
-/*
-  [COMPONENTS: APPBAR]
-*/
 
 export default function PrimarySearchAppBar() {
   const { isUserLoggedIn, setIsUserLoggedIn } = useUser();

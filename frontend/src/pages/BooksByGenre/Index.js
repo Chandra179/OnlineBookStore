@@ -14,22 +14,21 @@ function BookList() {
   const history = useHistory();
   const bookPerPage = 2;
   const genre = window.location.pathname.split("/")[2];
-  const page = Number(window.location.pathname.split("/")[3]);
+  const pageNumber = Number(window.location.pathname.split("/")[3]);
   const totalPageNumber = Math.ceil(totalBook / bookPerPage);
 
   useEffect(() => {
-    // set dafault parameter page to 1
-    BookService.booksByGenre(genre, page).then(
+    BookService.booksByGenre(genre, pageNumber).then(
       (data) => {
         setBookList(data.book);
         setTotalBook(data.total_book);
-        setCurrentPage(page);
+        setCurrentPage(pageNumber);
       },
       (error) => {
         console.log(error);
       }
     );
-  }, [genre, page]);
+  }, [genre, pageNumber]);
 
   const handlePageClick = async (event, value) => {
     // set param page to clicked page number
