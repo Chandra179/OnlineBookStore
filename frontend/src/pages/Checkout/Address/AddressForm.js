@@ -11,7 +11,7 @@ export default function AddressForm() {
   const userEmail = AuthService.getCurrentUser();
   const [addressList, setAddressList] = useState([]);
   const [defaultAddress, setDefaultAddress] = useState(
-    localStorage.getItem(userEmail+'Address') !== null
+    localStorage.getItem(userEmail+'Address')
       ? JSON.parse(localStorage.getItem(userEmail+'Address'))['default']
       : null
   );
