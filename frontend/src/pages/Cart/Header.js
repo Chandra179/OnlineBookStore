@@ -3,10 +3,13 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function Header({
-  handleSelectedCheckbox,
-  allCheckboxSelected,
-}) {
+/**
+ * 
+ * @param {list} handleSelectedCheckbox 
+ * @param {bool} allCheckboxSelected
+ */
+
+export default function Header({ handleSelectedCheckbox, allCheckboxSelected }) {
   return (
     <Box
       sx={{

@@ -10,45 +10,54 @@ import Checkout from "./Checkout";
 
 export default function Cart() {
   const userEmail = AuthService.getCurrentUser();
+
+  // get selected cart item from local storage
   const [selectedCheckbox, setSelectedCheckbox] = useState(
-    localStorage.getItem(userEmail + "Cart") !== null
-      ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
+    localStorage.getItem(userEmail + "Checkout")
+      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
       : []
   );
+
+  // get all cart item
   const [cartItem, setCartItem] = useState(
-    // IF cart is not empty then:
-    localStorage.getItem(userEmail) !== null
+    localStorage.getItem(userEmail)
       ? JSON.parse(localStorage.getItem(userEmail))
       : null
   );
-  // IF cart is not empty then:
-  const cartItemKeys = cartItem !== null ? Object.keys(cartItem) : 0;
+  const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
   const allCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
   const handleSelectedCheckbox = (event) => {
+    /**
+     * handle select and unselect cart item
+     */
     const value = event.target.value;
     if (value === "all") {
+      // unselect all checkbox
       if (selectedCheckbox.length === cartItemKeys.length) {
-        localStorage.removeItem(userEmail + "Cart");
+        localStorage.removeItem(userEmail + "Checkout");
         setSelectedCheckbox([]);
         return;
       }
+      // select all checkbox
       if (selectedCheckbox.length !== cartItemKeys.length) {
-        localStorage.setItem(userEmail + "Cart", JSON.stringify(cartItemKeys));
+        localStorage.setItem(userEmail + "Checkout", JSON.stringify(cartItemKeys));
         setSelectedCheckbox(cartItemKeys);
         return;
       }
       return;
     }
+    // select per item
     const list = [...selectedCheckbox];
     const index = list.indexOf(value);
     index === -1 ? list.push(value) : list.splice(index, 1);
-    localStorage.setItem(userEmail + "Cart", JSON.stringify(list));
+    localStorage.setItem(userEmail + "Checkout", JSON.stringify(list));
     setSelectedCheckbox(list);
 
+    // if all cart item in checkout removed, then remove storage
     if (list.length === 0) {
-      localStorage.removeItem(userEmail + "Cart");
+      localStorage.removeItem(userEmail + "Checkout");
       return;
     }
   };
@@ -81,7 +90,7 @@ export default function Cart() {
                     lg: 5,
                     md: 5,
                     sm: 5,
-                    xs: 2
+                    xs: 2,
                   },
                   paddingTop: 2,
                   marginBottom: 3,
@@ -94,8 +103,8 @@ export default function Cart() {
                     lg: 5,
                     md: 5,
                     sm: 5,
-                    xs: 2
-                  }
+                    xs: 2,
+                  },
                 }}
               >
                 <Item
@@ -110,7 +119,11 @@ export default function Cart() {
             </Box>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Checkout userEmail={userEmail} cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
+            <Checkout
+              userEmail={userEmail}
+              cartItem={cartItem}
+              selectedCheckbox={selectedCheckbox}
+            />
           </Grid>
         </Grid>
       )}

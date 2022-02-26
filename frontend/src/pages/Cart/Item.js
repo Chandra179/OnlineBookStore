@@ -14,6 +14,15 @@ import CartHelper from "../../helper/cart.helper";
 import { useCart } from "../../hooks/useCart";
 import InputValidatorHelper from "../../helper/inputValidator.helper";
 
+/**
+ * 
+ * @param {str} userEmail 
+ * @param {object} cartItem
+ * @param {state} setCartItem
+ * @param {function} handleSelectedCheckbox
+ * @param {list} selectedCheckbox
+ * @param {state} setSelectedCheckbox
+ */
 
 export default function Item({
   userEmail,
@@ -34,8 +43,9 @@ export default function Item({
       newQty = stock;
     }
     if (newQty.toString()[0] !== "0") {
+      // get cart item
       const item = localStorage.getItem(userEmail);
-      if (item !== null) {
+      if (item) {
         var newItem = JSON.parse(item);
         var newPrice = newQty * normalPrice;
 
@@ -53,30 +63,35 @@ export default function Item({
     Handle remove product
   */
   const removeProduct = (title) => {
-    if (cartItem === null) {
+    // if cart not exist
+    if (!cartItem) {
       setCartItem(null);
       return;
     }
     var checkoutItem =
-      localStorage.getItem(userEmail + "Cart") !== null
-        ? JSON.parse(localStorage.getItem(userEmail + "Cart"))
+      localStorage.getItem(userEmail + "Checkout")
+        ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
         : null;
-
-    if (checkoutItem !== null) {
+        
+    // given title, if there is item in localstorage then remove item
+    if (checkoutItem) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
       localStorage.setItem(
-        userEmail + "Cart",
+        userEmail + "Checkout",
         JSON.stringify(checkoutFiltered)
       );
-      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Cart")));
+      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Checkout")));
 
+      // if storage empty
       if (checkoutItem.length - 1 === 0) {
-        localStorage.removeItem(userEmail + "Cart");
+        localStorage.removeItem(userEmail + "Checkout");
       }
     }
+
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
+
     localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
     setCartItem(JSON.parse(localStorage.getItem(userEmail)));
     setCartBadge(CartHelper.cartBadge(userEmail));
