@@ -1,6 +1,6 @@
 /**
- * Count cart item
  * @param {str} props.userEmail
+ * count cart item
  */
 
 const cartBadge = (userEmail) => {

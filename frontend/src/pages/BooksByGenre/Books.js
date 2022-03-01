@@ -15,7 +15,6 @@ import BookHelper from "../../helper/book.helper";
  *
  * @param {list} props.bookList
  * @param {int} props.currentPage
- * mapping book data
  */
 
 export default function Books({ bookList, currentPage }) {
@@ -46,6 +45,7 @@ export default function Books({ bookList, currentPage }) {
               </Box>
               <Box>
                 <Box>
+                  {/* LINK TO NEXT PAGE */}
                   <Link
                     to={{
                       pathname:`/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name

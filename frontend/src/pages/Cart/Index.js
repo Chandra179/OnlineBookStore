@@ -10,15 +10,12 @@ import Checkout from "./Checkout";
 
 export default function Cart() {
   const userEmail = AuthService.getCurrentUser();
-
-  // get selected cart item from local storage
   const [selectedCheckbox, setSelectedCheckbox] = useState(
+    // get selected cart item
     localStorage.getItem(userEmail + "Checkout")
       ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
       : []
   );
-
-  // get all cart item
   const [cartItem, setCartItem] = useState(
     localStorage.getItem(userEmail)
       ? JSON.parse(localStorage.getItem(userEmail))

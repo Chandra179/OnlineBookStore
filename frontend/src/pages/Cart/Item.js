@@ -63,7 +63,6 @@ export default function Item({
     Handle remove product
   */
   const removeProduct = (title) => {
-    // if cart not exist
     if (!cartItem) {
       setCartItem(null);
       return;
@@ -73,7 +72,7 @@ export default function Item({
         ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
         : null;
         
-    // given title, if there is item in localstorage then remove item
+    // filter cart item with given title
     if (checkoutItem) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
       localStorage.setItem(
@@ -82,7 +81,7 @@ export default function Item({
       );
       setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Checkout")));
 
-      // if storage empty
+      // if checkout item empty
       if (checkoutItem.length - 1 === 0) {
         localStorage.removeItem(userEmail + "Checkout");
       }
@@ -101,6 +100,7 @@ export default function Item({
     }
   };
 
+  
   return (
     <Box>
       {Object.keys(cartItem).map(function (key) {

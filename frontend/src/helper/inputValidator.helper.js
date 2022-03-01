@@ -1,7 +1,7 @@
 /**
- * Validate input
  * @param {event.target.value} props.event
  * @param {str} props.type
+ * Validate input
  */
 
 const InputValidatorHelper = (event, type) => {

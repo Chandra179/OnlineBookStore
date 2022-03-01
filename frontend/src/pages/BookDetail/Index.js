@@ -16,6 +16,7 @@ import BookHelper from "../../helper/book.helper";
 
 export default function BookDetail() {
   const [bookDetail, setBookDetail] = useState([]);
+  // show more text... show less text....
   const [expandText, setExpandText] = useState(false);
   const handleExpandText = () => {
     setExpandText(!expandText);
@@ -29,7 +30,6 @@ export default function BookDetail() {
       .split("-")
       .join(" ");
 
-    // request book detail data with given book name
     BookService.bookDetail(bookName).then(
       (data) => {
         setBookDetail(data);

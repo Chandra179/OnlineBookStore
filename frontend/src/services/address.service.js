@@ -1,6 +1,10 @@
 import axios from "axios";
 
-
+/**
+ * 
+ * @param {Token} token 
+ * @returns {obj} list of user address
+ */
 async function getAddress(token) {
   const headers = {
     Authorization: `Token ${token}`,
@@ -13,6 +17,13 @@ async function getAddress(token) {
   return response;
 }
 
+
+/**
+ * 
+ * @param {Token} token 
+ * @param {obj} address 
+ * @returns {str} add new address
+ */
 async function postAddress(token, address) {
   const headers = {
     Authorization: `Token ${token}`,

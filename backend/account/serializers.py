@@ -18,6 +18,9 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
+        """
+            limit address saved to 5 for each user
+        """
         if UserAddress.objects.filter(user=validated_data['user']).count() < 5:
             return UserAddress.objects.create(**validated_data)
         raise ValidationError("Too many records")

@@ -21,7 +21,7 @@ User = get_user_model()
 @api_view(['POST'])
 def SignInView(request):
     """
-        :body: email<str> password<str>
+        :request (body): email<str> password<str>
         :rtype: json
     """
     if request.method == 'POST':
@@ -50,7 +50,7 @@ def SignInView(request):
 @api_view(['POST'])
 def SignUpView(request):
     """
-        :body: email<str> password<str>
+        :request (body): email<str> password<str>
         :rtype: json
     """
     if request.method == 'POST':
@@ -84,7 +84,7 @@ def SignUpView(request):
 
 class AddressView(APIView):
     """
-        :header: authorization: Token
+        :request (header): authorization: Token
         if token is supplied, then we can get user information like token or email
     """
     permission_classes = [IsAuthenticated]

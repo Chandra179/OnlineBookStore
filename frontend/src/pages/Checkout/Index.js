@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './Address/AddressForm';
+import AddressList from './Address/AddressList';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
@@ -32,7 +32,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressList />;
     case 1:
       return <PaymentForm />;
     case 2:

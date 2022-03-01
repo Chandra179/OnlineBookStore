@@ -3,7 +3,6 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
 /**
- * 
  * @param {str} props.severity
  * @param {str} props.name
  */

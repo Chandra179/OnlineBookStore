@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+//MUI
+import { Pagination } from "@mui/material";
+import { Stack } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
+// COMPONENT
 import Books from "./Books";
-import CustomPagination from "./CustomPagination";
+// SERVICE
 import BookService from "../../services/book.service";
 
 
@@ -20,7 +24,6 @@ function BooksByGenre() {
   const totalPageNumber = Math.ceil(totalBook / booksPerPage);
 
   useEffect(() => {
-    // request books by genre and page number, 
     BookService.booksByGenre(genre, pageNumber).then(
       (data) => {
         setBookList(data.book);
@@ -35,7 +38,6 @@ function BooksByGenre() {
 
   // handle next and previos page click
   const handlePageClick = async (event, value) => {
-    // request books by genre and page number,
     await BookService.booksByGenre(genre, value).then(
       (data) => {
         setBookList(data.book);
@@ -56,11 +58,13 @@ function BooksByGenre() {
       <Grid item lg={10} md={10} sm={12} xs={12}>
         <Box sx={{ margin: 2 }}>
           <Books currentPage={currentPage} bookList={bookList} />
-          <CustomPagination
-            currentPage={currentPage}
-            handlePageClick={handlePageClick}
-            totalPageNumber={totalPageNumber}
-          />
+          <Stack spacing={2} sx={{ alignItems: "center" }}>
+            <Pagination
+              count={totalPageNumber}
+              page={currentPage}
+              onChange={handlePageClick}
+            />
+          </Stack>
         </Box>
       </Grid>
     </Grid>

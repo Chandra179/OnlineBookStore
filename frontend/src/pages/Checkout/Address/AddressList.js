@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+// MUI
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
+// COMPONENT
+import InputNewAddress from "./InputNewAddress";
+// SERVICE
 import AuthService from "../../../services/auth.service";
 import AddresService from "../../../services/address.service";
-import InputNewAddress from "./InputNewAddress";
-import { Link } from "react-router-dom";
 
 
-export default function AddressForm() {
+export default function AddressList() {
   const userEmail = AuthService.getCurrentUser();
   const [addressList, setAddressList] = useState([]);
   const [defaultAddress, setDefaultAddress] = useState(
@@ -28,6 +31,7 @@ export default function AddressForm() {
     );
   }, []);
 
+  // select default address to used for delivery
   function selectAddress(address_name) {
     var item = {
       'default': address_name
@@ -35,7 +39,6 @@ export default function AddressForm() {
     localStorage.setItem(userEmail+'Address', JSON.stringify(item))
     setDefaultAddress(address_name)
   }
-  console.log(defaultAddress);
 
   return (
     <Box>

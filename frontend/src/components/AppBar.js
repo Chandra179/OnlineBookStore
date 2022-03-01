@@ -34,11 +34,10 @@ export default function PrimarySearchAppBar() {
   useEffect(() => {
     if (userEmail) {
       setIsUserLoggedIn(true);
-      // cartBadge = total item in cart
       setCartBadge(CartHelper.cartBadge(userEmail));
 
-      // if user in checkout page, then disable appbar cart and account
       var urlPath = window.location.pathname;
+      // if user in checkout page, then hide appbar cart and account block
       if (urlPath === "/cart/checkout") {
         setIsAppbarDisabled(true);
         return;

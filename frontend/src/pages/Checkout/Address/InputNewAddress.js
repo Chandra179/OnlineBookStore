@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// MUI
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -11,11 +12,18 @@ import {
   Container,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import AddressService from "../../../services/address.service";
-import InputValidatorHelper from "../../../helper/inputValidator.helper";
-import AuthService from "../../../services/auth.service";
 import BasicAlerts from "../../../components/Alert";
+// SERVICE
+import AddressService from "../../../services/address.service";
+import AuthService from "../../../services/auth.service";
+// HELPER
+import InputValidatorHelper from "../../../helper/inputValidator.helper";
 
+
+/**
+ * 
+ * @param {obj} setDefaultAddress 
+ */
 
 export default function InputNewAddress({ setDefaultAddress }) {
   const [fullName, setFullName] = useState("");
@@ -54,7 +62,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
       (data) => {
         setInputSuccess("Address has been saved.");
         setAddressAlert('');
-        if (checkedBox === true) {
+        if (checkedBox) {
           var item = {
             'default': addressName
           }

@@ -32,7 +32,6 @@ function ShoppingCard({ bookDetail }) {
   const history = useHistory();
 
 
-  // handle item qty change
   const handleQtyChange = (event) => {
     var qty = event.target.value;
     
@@ -48,15 +47,12 @@ function ShoppingCard({ bookDetail }) {
   };
 
   
-  // handle adding item to cart
   const handleAddToCart = () => {
-    // if input is empty, then set to 1
     const qtys = (qty === "" ? 1 : qty);
     if (qtys === 1) {
       setQty(1);
       setTotalPrice(qtys * normalPrice);
     }
-    // redirect to signin if not logged in
     if (!userEmail) {
       history.push("/signin");
       return;
@@ -68,14 +64,10 @@ function ShoppingCard({ bookDetail }) {
     * key  : user email
     */
 
-    // get user cart
     const userCart = localStorage.getItem(userEmail);
-    // if user cart not exist, then create empty object
     const cartItem = userCart
       ? JSON.parse(localStorage.getItem(userEmail))
       : {};
-
-    // check if book already in cart
     const duplicateItems = bookDetail.name in cartItem;
     cartItem[bookDetail.name] = {
       cover: bookDetail.cover,
@@ -92,13 +84,11 @@ function ShoppingCard({ bookDetail }) {
       setCartBadge(CartHelper.cartBadge(userEmail));
       return;
     }
-    // update item if duplicate
     if (duplicateItems) {
       setItemExistAlert(true);
       setItemAddedAlert(false);
       return;
     }
-    // if item not duplicate
     if (!duplicateItems) {
       localStorage.setItem(userEmail, JSON.stringify(cartItem));
       setItemAddedAlert(true);

@@ -2,8 +2,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 /**
- * 
  * @param {list} props.book_author
+ * @return {list} list of author for given book
  */
 
 const bookAuthor = (book_author) => {
@@ -11,6 +11,8 @@ const bookAuthor = (book_author) => {
   var bookAuthorLength = book_author.length - 1;
   var bookAuthorList = [];
 
+  // put "," to author name until n-2
+  // beverly, chandra, viks
   book_author.map((e, i) => {
     var authors = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
     return bookAuthorList.push(authors);
