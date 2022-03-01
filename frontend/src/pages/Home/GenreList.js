@@ -10,11 +10,10 @@ import Box from "@mui/material/Box";
 import BookService from "../../services/book.service";
 
 
-export default function NestedList() {
+export default function GenreList() {
   const [genreList, setGenreList] = useState([]);
 
   useEffect(() => {
-    // get books genre list
     BookService.genreList().then(
       (data) => {
         setGenreList(data);

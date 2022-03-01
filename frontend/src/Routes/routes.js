@@ -15,6 +15,7 @@ import Home from "../pages/Home/Index";
 import Cart from "../pages/Cart/Index";
 import Checkout from "../pages/Checkout/Index";
 
+
 const Routes = () => {
   return (
     <Router>

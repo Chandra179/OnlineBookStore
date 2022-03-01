@@ -1,5 +1,12 @@
 import axios from "axios";
 
+
+/**
+ * 
+ * @param {str} email 
+ * @param {str} password 
+ * @returns {obj}
+ */
 const signin = (email, password) => {
   return axios
     .post("http://127.0.0.1:8000/account/signin", {
@@ -17,6 +24,13 @@ const signin = (email, password) => {
     });
 };
 
+
+/**
+ * 
+ * @param {str} email 
+ * @param {str} password 
+ * @returns {obj}
+ */
 const signup = (email, password) => {
   return axios
     .post("http://127.0.0.1:8000/account/signup", {
@@ -46,7 +60,7 @@ const getCurrentUser = () => {
    }
 };
 
-// Get current user Email
+// Get current user Token
 const getToken = () => {
   var token = localStorage.getItem("user");
   if (token) {
