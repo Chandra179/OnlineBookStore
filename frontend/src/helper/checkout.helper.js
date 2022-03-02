@@ -6,6 +6,8 @@ const setCheckoutItem = (userEmail, cartItemKeys) => {
   localStorage.setItem(userEmail + "Checkout", JSON.stringify(cartItemKeys));
 };
 
+
+
 /**
  * @param {str} props.userEmail
  */
@@ -15,12 +17,15 @@ const getCheckoutItem = (userEmail) => {
     : [];
 };
 
+
+
 /**
  * @param {str} props.userEmail
  */
 const deleteCheckoutItem = (userEmail) => {
   localStorage.removeItem(userEmail + "Checkout");
 };
+
 
 const CheckoutHelper = {
   setCheckoutItem,

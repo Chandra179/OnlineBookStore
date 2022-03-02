@@ -1,5 +1,15 @@
 /**
  * @param {str} props.userEmail
+ * @param {obj} props.cartItem
+ */
+ const setCartItem = (userEmail, cartItem) => {
+  localStorage.setItem(userEmail, JSON.stringify(cartItem));
+};
+
+
+
+/**
+ * @param {str} props.userEmail
  */
 const getCartItem = (userEmail) => {
   const cartItem = localStorage.getItem(userEmail)
@@ -12,10 +22,9 @@ const getCartItem = (userEmail) => {
 
 /**
  * @param {str} props.userEmail
- * @param {obj} props.cartItem
  */
-const setCartItem = (userEmail, cartItem) => {
-  localStorage.setItem(userEmail, JSON.stringify(cartItem));
+ const deleteCartItem = (userEmail) => {
+  localStorage.removeItem(userEmail);
 };
 
 
@@ -56,8 +65,9 @@ const qtyStockValidator = (qty, stock) => {
 
 const CartHelper = {
   cartBadge,
-  getCartItem,
   setCartItem,
+  getCartItem,
+  deleteCartItem,
   qtyStockValidator
 };
 

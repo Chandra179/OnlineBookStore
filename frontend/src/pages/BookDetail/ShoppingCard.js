@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -28,12 +28,16 @@ function ShoppingCard({ bookDetail }) {
   const userEmail = AuthService.getCurrentUser();
   const { setCartBadge } = useCart();
   const history = useHistory();
-
+  
   const handleQtyChange = (event) => {
-    var qty = CartHelper.qtyStockValidator(event.target.value, bookDetail.stock);
-    setQty(qty)
+    var qty = CartHelper.qtyStockValidator(
+      event.target.value,
+      bookDetail.stock
+    );
+    setQty(qty);
     setTotalPrice(qty * normalPrice);
   };
+
 
   const handleAddToCart = () => {
     if (!userEmail) {
@@ -122,9 +126,7 @@ function ShoppingCard({ bookDetail }) {
           <Box sx={{ marginLeft: "auto", paddingRight: 2 }}>
             <Typography variant="h5">
               ${" "}
-              {totalPrice === 1
-                ? normalPrice.toFixed(2)
-                : totalPrice.toFixed(2)}
+              {totalPrice <= 1 ? normalPrice.toFixed(2) : totalPrice.toFixed(2)}
             </Typography>
           </Box>
         </Box>

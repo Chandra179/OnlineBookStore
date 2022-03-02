@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import CartHelper from "../../helper/cart.helper";
+import CheckoutHelper from "../../helper/checkout.helper";
 import { useCart } from "../../hooks/useCart";
 import InputValidatorHelper from "../../helper/inputValidator.helper";
 
@@ -52,32 +53,23 @@ export default function Item({
     }
   };
 
-  /*
-    Handle remove product
-  */
+
   const removeProduct = (title) => {
     if (!cartItem) {
       setCartItem(null);
       return;
     }
-    var checkoutItem = localStorage.getItem(userEmail + "Checkout")
-      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-      : null;
+    var checkoutItem = CheckoutHelper.getCheckoutItem(userEmail);
 
     // filter cart item with given title
-    if (checkoutItem) {
+    if (checkoutItem.length !== 0) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-      localStorage.setItem(
-        userEmail + "Checkout",
-        JSON.stringify(checkoutFiltered)
-      );
-      setSelectedCheckbox(
-        JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-      );
+      CheckoutHelper.setCheckoutItem(userEmail, checkoutFiltered)
+      setSelectedCheckbox(CheckoutHelper.getCheckoutItem(userEmail))
 
       // if checkout item empty
       if (checkoutItem.length - 1 === 0) {
-        localStorage.removeItem(userEmail + "Checkout");
+        CheckoutHelper.deleteCheckoutItem(userEmail)
       }
     }
 
@@ -85,15 +77,17 @@ export default function Item({
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    localStorage.setItem(userEmail, JSON.stringify(cartFiltered));
-    setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+    CartHelper.setCartItem(userEmail, cartFiltered);
+    setCartItem(CartHelper.getCartItem(userEmail));
     setCartBadge(CartHelper.cartBadge(userEmail));
 
+    // delete localStorage if cart empty
     if (Object.keys(cartItem).length - 1 === 0) {
-      localStorage.removeItem(userEmail);
+      CartHelper.deleteCartItem(userEmail);
     }
   };
 
+  
   return (
     <Box>
       {Object.keys(cartItem).map(function (key) {
