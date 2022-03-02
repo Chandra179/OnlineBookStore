@@ -112,7 +112,6 @@ export default function Cart() {
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
-
     CartHelper.setCartItem(userEmail, cartFiltered);
     setCartItem(CartHelper.getCartItem(userEmail));
     setCartBadge(CartHelper.cartBadge(userEmail));
