@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// MUI
 import {
   Divider,
   Card,
@@ -11,14 +12,18 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-
-import { useCart } from "../../hooks/useCart";
-import Header from "./Header";
-import Checkout from "./Checkout";
-import AuthService from "../../services/auth.service";
+// HELPER
 import CheckoutHelper from "../../helper/checkout.helper";
 import CartHelper from "../../helper/cart.helper";
 import InputValidatorHelper from "../../helper/inputValidator.helper";
+// SERVICE
+import AuthService from "../../services/auth.service";
+// COMPONENT
+import Header from "./Header";
+import Checkout from "./Checkout";
+// CONTEXT
+import { useCart } from "../../hooks/useCart";
+
 
 export default function Cart() {
   const { setCartBadge } = useCart();
@@ -83,7 +88,7 @@ export default function Cart() {
   };
 
   /**
-   * Handle product quantity input change
+   * handle delete product
    */
   const removeProduct = (title) => {
     if (!cartItem) {
@@ -108,7 +113,6 @@ export default function Cart() {
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
 
-    // set new cart item
     CartHelper.setCartItem(userEmail, cartFiltered);
     setCartItem(CartHelper.getCartItem(userEmail));
     setCartBadge(CartHelper.cartBadge(userEmail));
