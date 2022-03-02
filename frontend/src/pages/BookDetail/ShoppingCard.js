@@ -15,7 +15,6 @@ import { useCart } from "../../hooks/useCart";
 import CartHelper from "../../helper/cart.helper";
 import InputValidatorHelper from "../../helper/inputValidator.helper";
 
-
 function ShoppingCard({ bookDetail }) {
   const [itemExistAlert, setItemExistAlert] = useState(false);
   const [itemAddedAlert, setItemAddedAlert] = useState(false);
@@ -25,16 +24,13 @@ function ShoppingCard({ bookDetail }) {
 
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(1);
-
   const [qty, setQty] = useState(1);
   const userEmail = AuthService.getCurrentUser();
   const { setCartBadge } = useCart();
   const history = useHistory();
 
-
   const handleQtyChange = (event) => {
     var qty = event.target.value;
-    
     // if input exceed book stock then set qty to stock
     if (qty > bookDetail.stock) {
       qty = bookDetail.stock;
@@ -46,28 +42,24 @@ function ShoppingCard({ bookDetail }) {
     setTotalPrice(qty * normalPrice);
   };
 
-  
   const handleAddToCart = () => {
-    const qtys = (qty === "" ? 1 : qty);
-    if (qtys === 1) {
-      setQty(1);
-      setTotalPrice(qtys * normalPrice);
-    }
     if (!userEmail) {
       history.push("/signin");
       return;
     }
+    const qtys = qty === "" ? 1 : qty;
+    if (qtys === 1) {
+      setQty(1);
+      setTotalPrice(qtys * normalPrice);
+    }
 
     /**
-    * Handle add item to cart, 
-    * item will be saved in local storage as object.
-    * key  : user email
-    */
+     * Handle add item to cart,
+     * item will be saved in local storage as object.
+     * key  : user email
+     */
 
-    const userCart = localStorage.getItem(userEmail);
-    const cartItem = userCart
-      ? JSON.parse(localStorage.getItem(userEmail))
-      : {};
+    const cartItem = CartHelper.getCartItem(userEmail);
     const duplicateItems = bookDetail.name in cartItem;
     cartItem[bookDetail.name] = {
       cover: bookDetail.cover,
@@ -79,7 +71,7 @@ function ShoppingCard({ bookDetail }) {
 
     // if cart not initialized, then create new cart and save the item
     if (!Object.keys(cartItem)) {
-      localStorage.setItem(userEmail, JSON.stringify(cartItem));
+      CartHelper.setCartItem(userEmail, cartItem);
       setItemAddedAlert(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
       return;
@@ -90,7 +82,7 @@ function ShoppingCard({ bookDetail }) {
       return;
     }
     if (!duplicateItems) {
-      localStorage.setItem(userEmail, JSON.stringify(cartItem));
+      CartHelper.setCartItem(userEmail, cartItem);
       setItemAddedAlert(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
       return;

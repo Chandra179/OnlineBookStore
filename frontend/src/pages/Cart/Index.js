@@ -7,41 +7,37 @@ import AuthService from "../../services/auth.service";
 import Item from "./Item";
 import Header from "./Header";
 import Checkout from "./Checkout";
+import CheckoutHelper from "../../helper/checkout.helper";
+import CartHelper from "../../helper/cart.helper";
 
 export default function Cart() {
   const userEmail = AuthService.getCurrentUser();
   const [selectedCheckbox, setSelectedCheckbox] = useState(
-    // get selected cart item
-    localStorage.getItem(userEmail + "Checkout")
-      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-      : []
+    // Populate checkbox value with checkout item
+    CheckoutHelper.getCheckoutItem(userEmail)
   );
   const [cartItem, setCartItem] = useState(
-    localStorage.getItem(userEmail)
-      ? JSON.parse(localStorage.getItem(userEmail))
-      : null
+    CartHelper.getCartItem(userEmail)
   );
   const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
   const allCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
+  /**
+   * handle select and unselect cart item
+   */
   const handleSelectedCheckbox = (event) => {
-    /**
-     * handle select and unselect cart item
-     */
     const value = event.target.value;
     if (value === "all") {
       // unselect all checkbox
       if (selectedCheckbox.length === cartItemKeys.length) {
-        localStorage.removeItem(userEmail + "Checkout");
+        CheckoutHelper.deleteCheckoutItem(userEmail)
         setSelectedCheckbox([]);
-        return;
       }
       // select all checkbox
       if (selectedCheckbox.length !== cartItemKeys.length) {
-        localStorage.setItem(userEmail + "Checkout", JSON.stringify(cartItemKeys));
+        CheckoutHelper.setCheckoutItem(userEmail, cartItemKeys)
         setSelectedCheckbox(cartItemKeys);
-        return;
       }
       return;
     }
@@ -49,12 +45,12 @@ export default function Cart() {
     const list = [...selectedCheckbox];
     const index = list.indexOf(value);
     index === -1 ? list.push(value) : list.splice(index, 1);
-    localStorage.setItem(userEmail + "Checkout", JSON.stringify(list));
+    CheckoutHelper.setCheckoutItem(userEmail, list)
     setSelectedCheckbox(list);
 
     // if all cart item in checkout removed, then remove storage
     if (list.length === 0) {
-      localStorage.removeItem(userEmail + "Checkout");
+      CheckoutHelper.deleteCheckoutItem(userEmail)
       return;
     }
   };
