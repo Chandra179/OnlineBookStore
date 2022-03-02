@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // MUI
-import ListSubheader from "@mui/material/ListSubheader";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { styled } from "@mui/styles";
 // SERVICE
 import BookService from "../../services/book.service";
 
+
+const GenreName = styled(Typography)({
+  fontSize: 13,
+  color: "black",
+  "&:hover": {
+    color: "blue",
+  },
+});
 
 export default function GenreList() {
   const [genreList, setGenreList] = useState([]);
@@ -24,43 +31,17 @@ export default function GenreList() {
     );
   }, []);
 
-  const ListOfGenre = genreList.map(function (item, i) {
-    return (
-      <ListItem
-        key={i}
-        sx={{
-          paddingBottom: 0,
-          paddingTop: 0,
-        }}
-      >
-        <Link to={`/genres/${item.name.toLowerCase()}/1`}>
-          <Typography
-            sx={{
-              fontSize: 13,
-              color: "black",
-              "&:hover": {
-                color: "blue",
-              },
-            }}
-          >
-            {item.name}
-          </Typography>
-        </Link>
-      </ListItem>
-    );
-  });
-
   return (
-    <List
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          <Typography sx={{ color: "black", fontWeight: 600, fontSize: 17 }}>
-            Genre
-          </Typography>
-        </ListSubheader>
-      }
-    >
-      <Box sx={{ paddingLeft: 1 }}>{ListOfGenre}</Box>
-    </List>
+    <ListItem>
+      {genreList.map(function (item, i) {
+        return (
+          <Box key={i} pr={2}>
+            <Link to={`/genres/${item.name.toLowerCase()}/1`}>
+              <GenreName>{item.name}</GenreName>
+            </Link>
+          </Box>
+        );
+      })}
+    </ListItem>
   );
 }

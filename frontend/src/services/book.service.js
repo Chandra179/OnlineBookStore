@@ -3,7 +3,7 @@ import axios from "axios";
 
 /**
  * 
- * @returns {list} return list of genre
+ * @returns {list} return list of genre, eg: [biography, fiction]
  */
 async function genreList() {
   const response = await axios

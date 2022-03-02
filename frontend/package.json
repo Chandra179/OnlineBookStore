@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.6",
+    "@mui/styles": "^5.4.4",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.24.0",
     "@testing-library/jest-dom": "^5.11.4",
