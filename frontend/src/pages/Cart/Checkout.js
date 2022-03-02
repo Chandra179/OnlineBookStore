@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useCheckout } from "../../hooks/useCheckout";
 import CartHelper from "../../helper/cart.helper";
+import PaymentService from "../../services/payment.service";
+import AuthService from "../../services/auth.service";
 
 /**
  *
@@ -39,6 +41,7 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
     setItems(totalItems);
   }, [cartItem, selectedCheckbox]);
 
+
   function handleCheckout() {
     // if checkout with empty item, the change empty value to 1
     Object.keys(cartItem).forEach(function (key) {
@@ -53,6 +56,15 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
     console.log(items);
 
     // HANDLE PAYMENT
+    const token = AuthService.getToken();
+    PaymentService.addPayment(token, items).then(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error.response);
+      }
+    );
   }
 
   return (
