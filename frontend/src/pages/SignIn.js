@@ -25,16 +25,16 @@ const RootBox = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  marginTop: 80
+  margin: 80,
 });
 
-const FormBox = styled(Grid)({
+const FormBox = styled(Box)({
   padding: 30, 
   boxShadow: 1, 
-  borderRadius: 2
+  borderRadius: 2,
 });
 
-const FormName = styled(Grid)({
+const FormName = styled(Typography)({
   fontSize: 26, 
   marginBottom: 20
 });
