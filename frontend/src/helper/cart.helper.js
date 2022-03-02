@@ -8,6 +8,8 @@ const getCartItem = (userEmail) => {
   return cartItem;
 };
 
+
+
 /**
  * @param {str} props.userEmail
  * @param {obj} props.cartItem
@@ -15,6 +17,8 @@ const getCartItem = (userEmail) => {
 const setCartItem = (userEmail, cartItem) => {
   localStorage.setItem(userEmail, JSON.stringify(cartItem));
 };
+
+
 
 /**
  * @param {str} props.userEmail
@@ -32,10 +36,29 @@ const cartBadge = (userEmail) => {
   return qty;
 };
 
+
+
+/**
+ * @param {str} props.qty
+ */
+const qtyStockValidator = (qty, stock) => {
+  var newQty = qty;
+  if (newQty > stock) {
+    newQty = stock;
+  }
+  if (newQty.toString()[0] !== "0") {
+    return newQty;
+  } else {
+    return '';
+  }
+};
+
+
 const CartHelper = {
   cartBadge,
   getCartItem,
   setCartItem,
+  qtyStockValidator
 };
 
 export default CartHelper;

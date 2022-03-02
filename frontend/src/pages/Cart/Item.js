@@ -15,8 +15,8 @@ import { useCart } from "../../hooks/useCart";
 import InputValidatorHelper from "../../helper/inputValidator.helper";
 
 /**
- * 
- * @param {str} userEmail 
+ *
+ * @param {str} userEmail
  * @param {object} cartItem
  * @param {state} setCartItem
  * @param {function} handleSelectedCheckbox
@@ -38,24 +38,17 @@ export default function Item({
     Handle product quantity input change
   */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    var newQty = event.target.value;
-    if (newQty > stock) {
-      newQty = stock;
-    }
-    if (newQty.toString()[0] !== "0") {
-      // get cart item
-      const item = localStorage.getItem(userEmail);
-      if (item) {
-        var newItem = JSON.parse(item);
-        var newPrice = newQty * normalPrice;
+    var qty = CartHelper.qtyStockValidator(event.target.value, stock);
+    const item = CartHelper.getCartItem(userEmail);
+    if (Object.keys(item).length !== 0) {
+      var newPrice = qty * normalPrice;
 
-        newItem[title]["qty"] = newQty;
-        newItem[title]["totalPrice"] = newPrice;
+      item[title]["qty"] = qty;
+      item[title]["totalPrice"] = newPrice;
 
-        localStorage.setItem(userEmail, JSON.stringify(newItem));
-        setCartItem(JSON.parse(localStorage.getItem(userEmail)));
-        setCartBadge(CartHelper.cartBadge(userEmail));
-      }
+      localStorage.setItem(userEmail, JSON.stringify(item));
+      setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+      setCartBadge(CartHelper.cartBadge(userEmail));
     }
   };
 
@@ -67,11 +60,10 @@ export default function Item({
       setCartItem(null);
       return;
     }
-    var checkoutItem =
-      localStorage.getItem(userEmail + "Checkout")
-        ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
-        : null;
-        
+    var checkoutItem = localStorage.getItem(userEmail + "Checkout")
+      ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
+      : null;
+
     // filter cart item with given title
     if (checkoutItem) {
       var checkoutFiltered = checkoutItem.filter((e) => e !== title);
@@ -79,7 +71,9 @@ export default function Item({
         userEmail + "Checkout",
         JSON.stringify(checkoutFiltered)
       );
-      setSelectedCheckbox(JSON.parse(localStorage.getItem(userEmail + "Checkout")));
+      setSelectedCheckbox(
+        JSON.parse(localStorage.getItem(userEmail + "Checkout"))
+      );
 
       // if checkout item empty
       if (checkoutItem.length - 1 === 0) {
@@ -100,7 +94,6 @@ export default function Item({
     }
   };
 
-  
   return (
     <Box>
       {Object.keys(cartItem).map(function (key) {
@@ -215,7 +208,7 @@ export default function Item({
                   marginLeft: "auto",
                 }}
               >
-                <Box sx={{ display: 'flex'}}>
+                <Box sx={{ display: "flex" }}>
                   <Typography
                     sx={{
                       fontSize: {

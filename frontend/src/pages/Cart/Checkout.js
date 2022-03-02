@@ -21,8 +21,8 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
   function handleCheckout() {
     Object.keys(cartItem).forEach(function (key) {
       if (cartItem[key]["qty"] === "") {
-        cartItem[key]['qty'] = 1
-        cartItem[key]['totalPrice'] = cartItem[key]['normalPrice']
+        cartItem[key]["qty"] = 1;
+        cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
         localStorage.setItem(userEmail, JSON.stringify(cartItem));
         return;
       }
@@ -64,7 +64,9 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
           }}
         >
           <Typography>Subtotal ({totalQty}) item:</Typography>
-          <Typography sx={{ fontWeight: 600 }}>&nbsp; ${totalPrice.toFixed(2)}</Typography>
+          <Typography sx={{ fontWeight: 600 }}>
+            &nbsp; ${totalPrice.toFixed(2)}
+          </Typography>
         </Box>
         <Box
           sx={{

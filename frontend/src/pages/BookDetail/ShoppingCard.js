@@ -30,15 +30,8 @@ function ShoppingCard({ bookDetail }) {
   const history = useHistory();
 
   const handleQtyChange = (event) => {
-    var qty = event.target.value;
-    // if input exceed book stock then set qty to stock
-    if (qty > bookDetail.stock) {
-      qty = bookDetail.stock;
-    }
-    // first input cannot be 0
-    if (qty.toString()[0] !== "0") {
-      setQty(qty);
-    }
+    var qty = CartHelper.qtyStockValidator(event.target.value, bookDetail.stock);
+    setQty(qty)
     setTotalPrice(qty * normalPrice);
   };
 
