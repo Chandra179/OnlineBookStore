@@ -7,6 +7,8 @@ import { useCheckout } from "../../hooks/useCheckout";
 import CartHelper from "../../helper/cart.helper";
 import PaymentService from "../../services/payment.service";
 import AuthService from "../../services/auth.service";
+import { useOrder } from "../../hooks/useOrder";
+
 
 /**
  *
@@ -15,6 +17,7 @@ import AuthService from "../../services/auth.service";
  * @param {list} selectedCheckbox
  */
 export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
+  const { setClientSecret } = useOrder()
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
   const [items, setItems] = useState({});
@@ -59,7 +62,7 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
     const token = AuthService.getToken();
     PaymentService.addPayment(token, items).then(
       (data) => {
-        console.log(data)
+        setClientSecret(data["clientSecret"])
       },
       (error) => {
         console.log(error.response);

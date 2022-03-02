@@ -6,12 +6,15 @@ import "./index.css";
 import CartContextProvider from "./context/cartContext";
 import UserContextProvider from "./context/userContext";
 import CheckoutContextProvider from "./context/checkoutContext";
+import OrderContextProvider from "./context/orderContext";
 
 ReactDOM.render(
   <UserContextProvider>
     <CartContextProvider>
       <CheckoutContextProvider>
-        <Routes />
+        <OrderContextProvider>
+          <Routes />
+        </OrderContextProvider>
       </CheckoutContextProvider>
     </CartContextProvider>
   </UserContextProvider>,
