@@ -4,13 +4,21 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useCheckout } from "../../hooks/useCheckout";
+import CartHelper from "../../helper/cart.helper";
 
+/**
+ * 
+ * @param {str} userEmail
+ * @param {obj} cartItem
+ * @param {list} selectedCheckbox
+ */
 export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
   var totalPrice = 0;
   var totalQty = 0;
   let history = useHistory();
   const { setIsAppbarDisabled } = useCheckout();
 
+  // calculate items qty and price
   for (var key in cartItem) {
     if (selectedCheckbox.includes(key)) {
       totalQty += Number(cartItem[key]["qty"]);
@@ -23,12 +31,12 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
       if (cartItem[key]["qty"] === "") {
         cartItem[key]["qty"] = 1;
         cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
-        localStorage.setItem(userEmail, JSON.stringify(cartItem));
-        return;
+        CartHelper.setCartItem(userEmail, cartItem)
       }
     });
     history.push("/cart/checkout");
     setIsAppbarDisabled(true);
+    console.log(cartItem)
   }
 
   return (
