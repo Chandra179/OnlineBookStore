@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -7,36 +7,52 @@ import { useCheckout } from "../../hooks/useCheckout";
 import CartHelper from "../../helper/cart.helper";
 
 /**
- * 
+ *
  * @param {str} userEmail
  * @param {obj} cartItem
  * @param {list} selectedCheckbox
  */
 export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
-  var totalPrice = 0;
-  var totalQty = 0;
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQty, setTotalQty] = useState(0);
+  const [items, setItems] = useState({});
   let history = useHistory();
   const { setIsAppbarDisabled } = useCheckout();
 
-  // calculate items qty and price
-  for (var key in cartItem) {
-    if (selectedCheckbox.includes(key)) {
-      totalQty += Number(cartItem[key]["qty"]);
-      totalPrice += cartItem[key]["totalPrice"];
+  useEffect(() => {
+    var totalItemPrice = 0
+    var totalItemQty = 0
+    var totalItems = {}
+    
+    for (var key in cartItem) {
+      if (selectedCheckbox.includes(key)) {
+        totalItems[key] = {
+          price: parseFloat(cartItem[key]["totalPrice"]).toFixed(2),
+          qty: parseFloat(cartItem[key]["qty"])
+        }
+        totalItemPrice += parseFloat(cartItem[key]["totalPrice"]);
+        totalItemQty += parseFloat(cartItem[key]["qty"]);
+      }
     }
-  }
+    setTotalPrice(totalItemPrice.toFixed(2));
+    setTotalQty(totalItemQty);
+    setItems(totalItems);
+  }, [cartItem, selectedCheckbox]);
 
   function handleCheckout() {
+    // if checkout with empty item, the change empty value to 1
     Object.keys(cartItem).forEach(function (key) {
       if (cartItem[key]["qty"] === "") {
         cartItem[key]["qty"] = 1;
         cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
-        CartHelper.setCartItem(userEmail, cartItem)
+        CartHelper.setCartItem(userEmail, cartItem);
       }
     });
     history.push("/cart/checkout");
     setIsAppbarDisabled(true);
-    console.log(cartItem)
+    console.log(items);
+
+    // HANDLE PAYMENT
   }
 
   return (
@@ -73,7 +89,7 @@ export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
         >
           <Typography>Subtotal ({totalQty}) item:</Typography>
           <Typography sx={{ fontWeight: 600 }}>
-            &nbsp; ${totalPrice.toFixed(2)}
+            &nbsp; ${parseFloat(totalPrice).toFixed(2)}
           </Typography>
         </Box>
         <Box
