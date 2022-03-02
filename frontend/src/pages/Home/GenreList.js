@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 // SERVICE
 import BookService from "../../services/book.service";
 

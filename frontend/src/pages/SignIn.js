@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { styled } from "@mui/material/styles";
 // COMPONENT
 import Alert from "../components/Alert";
 import Home from "../pages/Home/Index";
@@ -20,10 +21,29 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
 
+const RootBox = styled(Grid)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  marginTop: 80
+});
+
+const FormBox = styled(Grid)({
+  padding: 30, 
+  boxShadow: 1, 
+  borderRadius: 2
+});
+
+const FormName = styled(Grid)({
+  fontSize: 26, 
+  marginBottom: 20
+});
+
+
 export default function SignIn() {
   let history = useHistory();
-  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
   const { setCartBadge } = useCart();
+  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
 
   const [signInAlert, setSignInAlert] = useState("");
   const [email, setEmail] = useState("");
@@ -83,42 +103,21 @@ export default function SignIn() {
     return <Home />;
   } else {
     return (
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{
-          marginTop: 8,
-          width: {
-            lg: 550,
-            md: 540,
-            sm: 520,
-            xs: 300,
-          },
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box sx={{ width: "100%" }}>
+      <Container>
+        <RootBox>
+          <Box>
             {signInAlert ? (
               <Alert name={signInAlert} severity="error" />
             ) : (
               <div />
             )}
           </Box>
-          <Box
+          <FormBox
             component="form"
             onSubmit={handleSignInSubmit}
             noValidate
-            sx={{ padding: 2, boxShadow: 1, borderRadius: 2 }}
           >
-            <Typography sx={{ fontSize: 26, marginBottom: 2 }}>
-              Sign in
-            </Typography>
+            <FormName>Sign in</FormName>
             <TextField
               onChange={onChangeEmail}
               value={email}
@@ -160,8 +159,8 @@ export default function SignIn() {
                 <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
+          </FormBox>
+        </RootBox>
       </Container>
     );
   }
