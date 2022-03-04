@@ -24,7 +24,6 @@ import Checkout from "./Checkout";
 // CONTEXT
 import { useCart } from "../../hooks/useCart";
 
-
 export default function Cart() {
   const { setCartBadge } = useCart();
   const userEmail = AuthService.getCurrentUser();
@@ -131,13 +130,7 @@ export default function Cart() {
           <Grid item lg={8} md={8} sm={12} xs={12}>
             <Box
               sx={{
-                marginRight: {
-                  xl: 4,
-                  lg: 4,
-                  md: 4,
-                  sm: 6,
-                  xs: 2,
-                },
+                marginRight: { xl: 4, lg: 4, md: 4, sm: 6, xs: 2 },
               }}
             >
               <Header
@@ -146,12 +139,7 @@ export default function Cart() {
               />
               <Divider
                 sx={{
-                  marginLeft: {
-                    lg: 5,
-                    md: 5,
-                    sm: 5,
-                    xs: 2,
-                  },
+                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
                   paddingTop: 2,
                   marginBottom: 3,
                   borderBottomWidth: 2,
@@ -159,12 +147,7 @@ export default function Cart() {
               />
               <Box
                 sx={{
-                  marginLeft: {
-                    lg: 5,
-                    md: 5,
-                    sm: 5,
-                    xs: 2,
-                  },
+                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
                 }}
               >
                 <Box>
@@ -184,7 +167,7 @@ export default function Cart() {
                           marginBottom: 3,
                         }}
                       >
-                        <Box sx={{ display: "flex", marginBottom: 3 }}>
+                          {/* CHECKBOX AND COVER */}
                           <Box
                             sx={{
                               display: "flex",
@@ -204,18 +187,14 @@ export default function Cart() {
                             <Card
                               sx={{
                                 width: 120,
-                                maxWidth: {
-                                  lg: 120,
-                                  md: 120,
-                                  sm: 120,
-                                  xs: 80,
-                                },
+                                maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
                               }}
                             >
                               <CardMedia component="img" image={cover} />
                             </Card>
                           </Box>
 
+                          {/* TITLE */}
                           <Box sx={{ display: "flex" }}>
                             <Box sx={{ marginRight: 3 }}>
                               <Box>
@@ -234,64 +213,68 @@ export default function Cart() {
                                   {title}
                                 </Typography>
                               </Box>
+                            </Box>
+                          </Box>
 
-                              <Box
+                          {/* QTY, DELETE */}
+
+                          <Box sx={{ justifyContent: "flex-end" }}>
+                            <Box
+                              sx={{
+                                paddingTop: 2,
+                                width: 80,
+                                height: { lg: 40, md: 40, sm: 40, xs: 30 },
+                              }}
+                            >
+                              <FormControl fullWidth>
+                                <TextField
+                                  id="outlined-number-qty"
+                                  label="Qty"
+                                  type="tel"
+                                  onChange={(e) =>
+                                    handleQtyChange(
+                                      title,
+                                      normalPrice,
+                                      stock,
+                                      e
+                                    )
+                                  }
+                                  onKeyPress={(event) =>
+                                    InputValidatorHelper(event)
+                                  }
+                                  value={qty}
+                                  size="small"
+                                />
+                              </FormControl>
+                            </Box>
+
+                            <Box sx={{ marginTop: 3 }}>
+                              <Button
+                                variant="contained"
                                 sx={{
-                                  paddingTop: 2,
-                                  width: 80,
-                                  height: { lg: 40, md: 40, sm: 40, xs: 30 },
+                                  textTransform: "none",
+                                  height: {
+                                    lg: 30,
+                                    md: 30,
+                                    sm: 28,
+                                    xs: 26,
+                                  },
                                 }}
+                                onClick={(e) => removeProduct(title, e)}
                               >
-                                <FormControl fullWidth>
-                                  <TextField
-                                    id="outlined-number-qty"
-                                    label="Qty"
-                                    type="tel"
-                                    onChange={(e) =>
-                                      handleQtyChange(
-                                        title,
-                                        normalPrice,
-                                        stock,
-                                        e
-                                      )
-                                    }
-                                    onKeyPress={(event) =>
-                                      InputValidatorHelper(event)
-                                    }
-                                    value={qty}
-                                    size="small"
-                                  />
-                                </FormControl>
-                              </Box>
-
-                              <Box sx={{ marginTop: 3 }}>
-                                <Button
-                                  variant="contained"
+                                <Typography
                                   sx={{
-                                    textTransform: "none",
-                                    height: {
-                                      lg: 30,
-                                      md: 30,
-                                      sm: 28,
-                                      xs: 26,
+                                    fontSize: {
+                                      lg: 16,
+                                      md: 16,
+                                      sm: 14,
+                                      xs: 12,
                                     },
                                   }}
-                                  onClick={(e) => removeProduct(title, e)}
                                 >
-                                  <Typography
-                                    sx={{
-                                      fontSize: {
-                                        lg: 16,
-                                        md: 16,
-                                        sm: 14,
-                                        xs: 12,
-                                      },
-                                    }}
-                                  >
-                                    Delete
-                                  </Typography>
-                                </Button>
-                              </Box>
+                                  Delete
+                                </Typography>
+                              </Button>
                             </Box>
                           </Box>
                           <Box
@@ -302,12 +285,7 @@ export default function Cart() {
                             <Box sx={{ display: "flex" }}>
                               <Typography
                                 sx={{
-                                  fontSize: {
-                                    lg: 16,
-                                    md: 16,
-                                    sm: 15,
-                                    xs: 12,
-                                  },
+                                  fontSize: { lg: 16, md: 16, sm: 15, xs: 12 },
                                   fontWeight: 600,
                                 }}
                               >
@@ -315,7 +293,6 @@ export default function Cart() {
                               </Typography>
                             </Box>
                           </Box>
-                        </Box>
                         <Divider sx={{ bottomWidth: 1 }} />
                       </Box>
                     );
