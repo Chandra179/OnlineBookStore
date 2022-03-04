@@ -13,9 +13,9 @@ import ShoppingCard from "./ShoppingCard";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-
 export default function BookDetail() {
   const [bookDetail, setBookDetail] = useState([]);
+
   // show more text... show less text....
   const [expandText, setExpandText] = useState(false);
   const handleExpandText = () => {
@@ -46,14 +46,9 @@ export default function BookDetail() {
       direction="row"
       display="flex"
       alignItems="flex-start"
-      sx={{ padding: 4 }}
+      p={4}
     >
-      <Grid
-        item
-        lg={2}
-        md={2}
-        sm={3}
-        xs={12}
+      <Grid item lg={2} md={2} sm={3} xs={12}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -68,59 +63,24 @@ export default function BookDetail() {
         <Card
           sx={{
             minWidth: 120,
-            maxWidth: {
-              lg: 170,
-              md: 160,
-              sm: 150,
-              xs: 120,
-            },
-            marginRight: {
-              lg: 3,
-              md: 3,
-              sm: 3,
-              xs: 0,
-            },
+            maxWidth: {lg: 170, md: 160, sm: 150, xs: 120 },
+            marginRight: {lg: 3, md: 3, sm: 2, xs: 0 }
           }}
         >
           <CardMedia component="img" image={bookDetail.cover} />
         </Card>
       </Grid>
-      <Grid
-        item
-        lg={7}
-        md={7}
-        sm={9}
-        xs={12}
-        sx={{
-          marginTop: {
-            lg: 0,
-            md: 0,
-            sm: 0,
-            xs: 1,
-          },
-        }}
-      >
+      <Grid item lg={7} md={7} sm={9} xs={12}>
         <Box
           sx={{
-            margin: 0,
-            paddingRight: {
-              lg: 4,
-              md: 4,
-              sm: 0,
-              xs: 0,
-            },
-            paddingTop: 1,
+            marginTop: { lg: 0, md: 0, sm: 0, xs: 2 },
+            paddingRight: { lg: 4, md: 4, sm: 4, xs: 0 },
           }}
         >
           <Typography
             sx={{
               color: "black",
-              fontSize: {
-                lg: 24,
-                md: 22,
-                sm: 20,
-                xs: 16,
-              },
+              fontSize: { lg: 24, md: 22, sm: 20, xs: 16 },
               fontWeight: 600,
             }}
           >
@@ -140,12 +100,7 @@ export default function BookDetail() {
             >
               <Typography
                 sx={{
-                  fontSize: {
-                    lg: 15,
-                    md: 14,
-                    sm: 13,
-                    xs: 12,
-                  },
+                  fontSize: { lg: 15, md: 14, sm: 13, xs: 12 }
                 }}
               >
                 {bookDetail.description}

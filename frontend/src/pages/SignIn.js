@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { styled } from "@mui/material/styles";
 // COMPONENT
 import Alert from "../components/Alert";
 import Home from "../pages/Home/Index";
@@ -19,48 +18,6 @@ import CartHelper from "../helper/cart.helper";
 // CONTEXT
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
-
-
-const RootBox = styled(Grid)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  marginTop: 80
-});
-
-const FormBox = styled(Box)(({ theme }) => ({
-  padding: 30, 
-  boxShadow: 1, 
-  borderRadius: 2,
-  [theme.breakpoints.up("xs")]: {
-    width: 280,
-  },
-  [theme.breakpoints.up("sm")]: {
-    minWidth: 400,
-  },
-  [theme.breakpoints.up("md")]: {
-    minWidth: 400,
-  },
-  [theme.breakpoints.up("lg")]: {
-    minWidth: 420,
-  },
-}))
-
-const FormName = styled(Typography)(({ theme }) => ({
-  marginBottom: 12,
-  [theme.breakpoints.up("xs")]: {
-    fontSize: 22,
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: 24,
-  },
-  [theme.breakpoints.up("md")]: {
-    fontSize: 26,
-  },
-  [theme.breakpoints.up("lg")]: {
-    fontSize: 26,
-  },
-}));
 
 
 export default function SignIn() {
@@ -108,7 +65,7 @@ export default function SignIn() {
           }
         },
         (error) => {
-            setSignInAlert(error.response.data);
+          setSignInAlert(error.response.data);
         }
       );
     }
@@ -119,14 +76,39 @@ export default function SignIn() {
   } else {
     return (
       <Container>
-        <RootBox>
-          {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
-          <FormBox
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: 8,
+          }}
+        >
+          {signInAlert ? (
+            <Alert name={signInAlert} severity="error" />
+          ) : (
+            <div />
+          )}
+          <Box
             component="form"
             onSubmit={handleSignInSubmit}
             noValidate
+            sx={{
+              padding: 3,
+              boxShadow: 1,
+              borderRadius: 2,
+              width: 280,
+              minWidth: { lg: 420, md: 420, sm: 400, xs: 280 },
+            }}
           >
-            <FormName>Sign in</FormName>
+            <Typography
+              sx={{
+                marginBottom: 2,
+                fontSize: { lg: 26, md: 26, sm: 24, xs: 22 },
+              }}
+            >
+              Sign in
+            </Typography>
             <TextField
               onChange={onChangeEmail}
               value={email}
@@ -178,8 +160,8 @@ export default function SignIn() {
                 <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
               </Grid>
             </Grid>
-          </FormBox>
-        </RootBox>
+          </Box>
+        </Box>
       </Container>
     );
   }

@@ -18,47 +18,6 @@ import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 
-const RootBox = styled(Grid)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  margin: 80,
-});
-
-const FormBox = styled(Box)(({ theme }) => ({
-  padding: 30,
-  boxShadow: 1,
-  borderRadius: 2,
-  [theme.breakpoints.up("xs")]: {
-    width: 280,
-  },
-  [theme.breakpoints.up("sm")]: {
-    minWidth: 400,
-  },
-  [theme.breakpoints.up("md")]: {
-    minWidth: 400,
-  },
-  [theme.breakpoints.up("lg")]: {
-    minWidth: 420,
-  },
-}));
-
-const FormName = styled(Typography)(({ theme }) => ({
-  marginBottom: 12,
-  [theme.breakpoints.up("xs")]: {
-    fontSize: 22,
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: 24,
-  },
-  [theme.breakpoints.up("md")]: {
-    fontSize: 26,
-  },
-  [theme.breakpoints.up("lg")]: {
-    fontSize: 26,
-  },
-}));
-
 export default function SignUp() {
   let history = useHistory();
   const { setIsUserLoggedIn } = useUser();
@@ -114,14 +73,35 @@ export default function SignUp() {
 
   return (
     <Container>
-      <RootBox>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: 8,
+        }}
+      >
         {signupAlert ? <Alert name={signupAlert} severity="error" /> : <div />}
-        <FormBox 
-          component="form" 
-          noValidate 
+        <Box
+          component="form"
+          noValidate
           onSubmit={handleSignUpSubmit}
+          sx={{
+            padding: 3,
+            boxShadow: 1,
+            borderRadius: 2,
+            width: 280,
+            minWidth: { lg: 420, md: 420, sm: 400, xs: 280 },
+          }}
         >
-          <FormName>Sign up</FormName>
+          <Typography
+            sx={{
+              marginBottom: 2,
+              fontSize: { lg: 26, md: 26, sm: 24, xs: 22 },
+            }}
+          >
+            Sign up
+          </Typography>
           <TextField
             onChange={onChangeEmail}
             value={email}
@@ -175,8 +155,8 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-        </FormBox>
-      </RootBox>
+        </Box>
+      </Box>
     </Container>
   );
 }

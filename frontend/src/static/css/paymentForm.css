@@ -38,7 +38,7 @@
   }
   
   /* Buttons and links */
-  button {
+  /* button {
     background: #5469d4;
     font-family: Arial, sans-serif;
     color: #ffffff;
@@ -53,7 +53,7 @@
     box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
     width: 100%;
   }
-  
+   */
   button:hover {
     filter: contrast(115%);
   }

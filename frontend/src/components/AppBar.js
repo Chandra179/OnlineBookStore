@@ -28,10 +28,10 @@ export default function PrimarySearchAppBar() {
   const { isAppbarDisabled, setIsAppbarDisabled } = useCheckout();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const userEmail = AuthService.getCurrentUser();
   const isMenuOpen = Boolean(anchorEl);
 
   useEffect(() => {
+    const userEmail = AuthService.getCurrentUser();
     if (userEmail) {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
@@ -43,7 +43,7 @@ export default function PrimarySearchAppBar() {
         return;
       }
     }
-  }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled, userEmail]);
+  }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,40 +88,32 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
-          <Link
-            to="/"
-            onClick={
-              isAppbarDisabled ? () => (window.location.href = "/") : null
-            }
-          >
-            <Typography
-              sx={{
-                color: "blue",
-                fontWeight: 650,
-                fontSize: {
-                  lg: 17,
-                  md: 17,
-                  sm: 14,
-                  xs: 14,
-                },
-                letterSpacing: 1,
-              }}
+          <Box>
+            <Link
+              to="/"
+              onClick={
+                isAppbarDisabled ? () => (window.location.href = "/") : null
+              }
             >
-              Alexandria
-            </Typography>
-          </Link>
+              <Typography
+                sx={{
+                  color: "blue",
+                  fontWeight: 650,
+                  letterSpacing: 1,
+                  fontsize: { lg: 17, md: 17, sm: 14, xs: 14 },
+                }}
+              >
+                Alexandria
+              </Typography>
+            </Link>
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
-
-          {/* 
-            NESTED CONDITION RENDER
-            {isAppbarDisabled{isUserLoggedIn}}
-          */}
 
           {isAppbarDisabled ? (
             <></>
           ) : (
             <Box sx={{ display: "flex" }}>
-              <Box sx={{ marginTop: 0.52, marginRight: 1 }}>
+              <Box m={0.5}>
                 <Link to="/cart">
                   <IconButton size="large">
                     <Badge badgeContent={cartBadge} color="error">
@@ -137,26 +129,24 @@ export default function PrimarySearchAppBar() {
               </Box>
 
               {isUserLoggedIn ? (
-                <Box sx={{ marginTop: 0.72 }}>
+                <Box mt={0.8}>
                   <IconButton size="large" onClick={handleProfileMenuOpen}>
                     <AccountCircleSharpIcon
                       sx={{
-                        color: "black",
                         fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
+                        color: "black",
                       }}
                     />
                   </IconButton>
                 </Box>
               ) : (
-                <Box sx={{ paddingTop: 2 }}>
+                <Box mt={2}>
                   <Link to={`/signin`}>
                     <Typography
                       sx={{
                         fontSize: 18,
                         color: "black",
-                        "&:hover": {
-                          color: "blue",
-                        },
+                        "&:hover": { color: "blue" }
                       }}
                     >
                       Signin
