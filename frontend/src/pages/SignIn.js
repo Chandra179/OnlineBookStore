@@ -25,19 +25,42 @@ const RootBox = styled(Grid)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  margin: 80,
+  marginTop: 80
 });
 
-const FormBox = styled(Box)({
+const FormBox = styled(Box)(({ theme }) => ({
   padding: 30, 
   boxShadow: 1, 
   borderRadius: 2,
-});
+  [theme.breakpoints.up("xs")]: {
+    width: 280,
+  },
+  [theme.breakpoints.up("sm")]: {
+    minWidth: 400,
+  },
+  [theme.breakpoints.up("md")]: {
+    minWidth: 400,
+  },
+  [theme.breakpoints.up("lg")]: {
+    minWidth: 420,
+  },
+}))
 
-const FormName = styled(Typography)({
-  fontSize: 26, 
-  marginBottom: 20
-});
+const FormName = styled(Typography)(({ theme }) => ({
+  marginBottom: 12,
+  [theme.breakpoints.up("xs")]: {
+    fontSize: 22,
+  },
+  [theme.breakpoints.up("sm")]: {
+    fontSize: 24,
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: 26,
+  },
+  [theme.breakpoints.up("lg")]: {
+    fontSize: 26,
+  },
+}));
 
 
 export default function SignIn() {
@@ -66,15 +89,15 @@ export default function SignIn() {
   const handleSignInSubmit = (e) => {
     e.preventDefault();
 
-    if (email === "") {
+    if (!email) {
       setEmailHelper("Enter email");
       setEmailError(true);
     }
-    if (password === "") {
+    if (!password) {
       setPasswordHelper("Enter password");
       setPasswordError(true);
     }
-    if (email !== "" && password !== "") {
+    if (email && password) {
       AuthService.signin(email, password).then(
         (data) => {
           const userEmail = AuthService.getCurrentUser();
@@ -85,15 +108,7 @@ export default function SignIn() {
           }
         },
         (error) => {
-          if (error.response.data === "User not found") {
-            console.log(error.response.data);
             setSignInAlert(error.response.data);
-          } else {
-            // Password incorrect
-            console.log(error.response.data);
-            setSignInAlert(error.response.data);
-          }
-          console.log(error.response);
         }
       );
     }
@@ -105,13 +120,7 @@ export default function SignIn() {
     return (
       <Container>
         <RootBox>
-          <Box>
-            {signInAlert ? (
-              <Alert name={signInAlert} severity="error" />
-            ) : (
-              <div />
-            )}
-          </Box>
+          {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
           <FormBox
             component="form"
             onSubmit={handleSignInSubmit}
@@ -122,7 +131,7 @@ export default function SignIn() {
               onChange={onChangeEmail}
               value={email}
               error={emailError ? true : false}
-              helperText={emailHelper !== "" ? emailHelper : false}
+              helperText={emailHelper ? emailHelper : false}
               margin="normal"
               required
               fullWidth
@@ -130,13 +139,18 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              inputProps={{
+                style: {
+                  height: "20px",
+                },
+              }}
               autoFocus
             />
             <TextField
               onChange={onChangePassword}
               value={password}
               error={passwordError ? true : false}
-              helperText={passwordHelper !== "" ? passwordHelper : false}
+              helperText={passwordHelper ? passwordHelper : false}
               margin="normal"
               required
               fullWidth
@@ -145,6 +159,11 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              inputProps={{
+                style: {
+                  height: "20px",
+                },
+              }}
             />
             <Button
               type="submit"

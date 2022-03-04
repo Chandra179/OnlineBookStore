@@ -59,7 +59,7 @@ def SignUpView(request):
 
         # if user in model
         if user_email:
-            return Response('User sudah terdaftar!', status=status.HTTP_400_BAD_REQUEST)
+            return Response('User is already registered!', status=status.HTTP_400_BAD_REQUEST)
         # if user not in model, then create user
         else:
             # if email and password input in correct format
@@ -79,7 +79,7 @@ def SignUpView(request):
                 return Response(response, status=status.HTTP_200_OK)
             # if email and password not in correct format
             else:
-                return Response('validasi error', status=status.HTTP_400_BAD_REQUEST)
+                return Response('Validation error', status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddressView(APIView):

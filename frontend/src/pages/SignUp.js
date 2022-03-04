@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
+// MUI
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -9,11 +9,55 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "../components/Alert";
-
+import { styled } from "@mui/material/styles";
+// SERVICE
 import AuthService from "../services/auth.service";
+// HELPER
 import CartHelper from "../helper/cart.helper";
+// CONTEXT
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
+
+const RootBox = styled(Grid)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  margin: 80,
+});
+
+const FormBox = styled(Box)(({ theme }) => ({
+  padding: 30,
+  boxShadow: 1,
+  borderRadius: 2,
+  [theme.breakpoints.up("xs")]: {
+    width: 280,
+  },
+  [theme.breakpoints.up("sm")]: {
+    minWidth: 400,
+  },
+  [theme.breakpoints.up("md")]: {
+    minWidth: 400,
+  },
+  [theme.breakpoints.up("lg")]: {
+    minWidth: 420,
+  },
+}));
+
+const FormName = styled(Typography)(({ theme }) => ({
+  marginBottom: 12,
+  [theme.breakpoints.up("xs")]: {
+    fontSize: 22,
+  },
+  [theme.breakpoints.up("sm")]: {
+    fontSize: 24,
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: 26,
+  },
+  [theme.breakpoints.up("lg")]: {
+    fontSize: 26,
+  },
+}));
 
 export default function SignUp() {
   let history = useHistory();
@@ -41,16 +85,16 @@ export default function SignUp() {
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
 
-    if (email === "") {
+    if (!email) {
       setEmailHelper("Enter email");
       setEmailError(true);
     }
-    if (password === "") {
+    if (!password) {
       setPasswordHelper("Enter password");
       setPasswordError(true);
     }
 
-    if (email !== "" && password !== "") {
+    if (email && password) {
       //HANDLE SIGNUP HERE!!
       AuthService.signup(email, password).then(
         (data) => {
@@ -62,58 +106,27 @@ export default function SignUp() {
           }
         },
         (error) => {
-          if (error.response.data === "User sudah terdaftar!") {
-            console.log(error.response.data);
-            setSignupAlert(error.response.data);
-          } else if (error.response.data === "validasi error") {
-            console.log(error.response.data);
-            setSignupAlert(error.response.data);
-          } else {
-            console.log(error);
-          }
-          console.log(error);
+          setSignupAlert(error.response.data);
         }
       );
     }
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{
-        marginTop: 8,
-        width: {
-          lg: 550,
-          md: 540,
-          sm: 520,
-          xs: 300,
-        },
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <Container>
+      <RootBox>
         {signupAlert ? <Alert name={signupAlert} severity="error" /> : <div />}
-
-        <Box
-          component="form"
-          noValidate
+        <FormBox 
+          component="form" 
+          noValidate 
           onSubmit={handleSignUpSubmit}
-          sx={{ padding: 2, boxShadow: 1, borderRadius: 2 }}
         >
-          <Typography sx={{ fontSize: 26, marginBottom: 2 }}>
-            Sign up
-          </Typography>
+          <FormName>Sign up</FormName>
           <TextField
             onChange={onChangeEmail}
             value={email}
             error={emailError ? true : false}
-            helperText={emailHelper !== "" ? emailHelper : false}
+            helperText={emailHelper ? emailHelper : false}
             required
             fullWidth
             id="email"
@@ -122,12 +135,17 @@ export default function SignUp() {
             autoComplete="email"
             autoFocus
             margin="normal"
+            inputProps={{
+              style: {
+                height: "20px",
+              },
+            }}
           />
           <TextField
             onChange={onChangePassword}
             value={password}
             error={passwordError ? true : false}
-            helperText={passwordHelper !== "" ? passwordHelper : false}
+            helperText={passwordHelper ? passwordHelper : false}
             required
             fullWidth
             name="password"
@@ -136,6 +154,11 @@ export default function SignUp() {
             id="password"
             autoComplete="new-password"
             margin="normal"
+            inputProps={{
+              style: {
+                height: "20px",
+              },
+            }}
           />
           <Button
             type="submit"
@@ -152,8 +175,8 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-        </Box>
-      </Box>
+        </FormBox>
+      </RootBox>
     </Container>
   );
 }
