@@ -4,18 +4,8 @@ import { Link } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
 // SERVICE
 import BookService from "../../services/book.service";
-
-
-const GenreName = styled(Typography)({
-  fontSize: 13,
-  color: "black",
-  "&:hover": {
-    color: "blue",
-  },
-});
 
 export default function GenreList() {
   const [genreList, setGenreList] = useState([]);
@@ -37,7 +27,17 @@ export default function GenreList() {
         return (
           <Box key={i} pr={2}>
             <Link to={`/genres/${item.name.toLowerCase()}/1`}>
-              <GenreName>{item.name}</GenreName>
+              <Typography
+                sx={{
+                  fontSize: 13,
+                  color: "black",
+                  "&:hover": {
+                    color: "blue",
+                  }
+                }}
+              >
+                {item.name}
+              </Typography>
             </Link>
           </Box>
         );

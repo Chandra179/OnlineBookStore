@@ -84,11 +84,7 @@ export default function SignIn() {
             marginTop: 8,
           }}
         >
-          {signInAlert ? (
-            <Alert name={signInAlert} severity="error" />
-          ) : (
-            <div />
-          )}
+          {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
           <Box
             component="form"
             onSubmit={handleSignInSubmit}

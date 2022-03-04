@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "../components/Alert";
-import { styled } from "@mui/material/styles";
 // SERVICE
 import AuthService from "../services/auth.service";
 // HELPER
