@@ -11,7 +11,7 @@ function Home() {
     <Grid
       container
       sx={{
-        marginTop: 5,
+        marginTop: 1,
         textAlign: "center",
       }}
     >
