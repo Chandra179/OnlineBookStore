@@ -158,6 +158,7 @@ function ShoppingCart({ bookDetails }) {
                 onKeyPress={(event) => InputValidatorHelper(event)}
                 value={qty}
                 sx={{
+                  // override mui style
                   "& #outlined-number-label": {
                     fontSize: 14,
                   },

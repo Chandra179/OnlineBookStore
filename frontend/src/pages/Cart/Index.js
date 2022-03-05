@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // MUI
 import {
   Divider,
@@ -33,13 +33,10 @@ export default function Cart() {
   );
   const [cartItem, setCartItem] = useState(CartHelper.getCartItem(userEmail));
   const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
-  const allCheckboxSelected =
+  const isAllCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
-  /**
-   * handle select and unselect cart item
-   */
-  const handleSelectedCheckbox = (event) => {
+  const selectAllCheckbox = (event) => {
     const value = event.target.value;
     if (value === "all") {
       // unselect all checkbox
@@ -54,6 +51,10 @@ export default function Cart() {
       }
       return;
     }
+  };
+
+  const selectCheckbox = (event) => {
+    const value = event.target.value;
     // select per item
     const list = [...selectedCheckbox];
     const index = list.indexOf(value);
@@ -134,8 +135,8 @@ export default function Cart() {
               }}
             >
               <Header
-                handleSelectedCheckbox={handleSelectedCheckbox}
-                allCheckboxSelected={allCheckboxSelected}
+                selectAllCheckbox={selectAllCheckbox}
+                isAllCheckboxSelected={isAllCheckboxSelected}
               />
               <Divider
                 sx={{
@@ -161,138 +162,127 @@ export default function Cart() {
                     var stock = cartItem[key]["stock"];
 
                     return (
-                      <Box
-                        key={key}
-                        sx={{
-                          marginBottom: 3,
-                        }}
-                      >
-                          {/* CHECKBOX AND COVER */}
-                          <Box
+                      <Box key={key} mb={3}>
+                        {/* CHECKBOX AND COVER */}
+                        <Box
+                          mr={2}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box key={key} mr={1}>
+                            <Checkbox
+                              value={key}
+                              onChange={selectCheckbox}
+                              checked={selectedCheckbox.includes(key)}
+                            />
+                          </Box>
+
+                          <Card
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginRight: 2,
+                              width: 120,
+                              maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
                             }}
                           >
-                            <Box key={key} sx={{ marginRight: 1 }}>
-                              <Checkbox
-                                sx={{ marginRight: 1, width: 0, height: 0 }}
-                                value={key}
-                                onChange={handleSelectedCheckbox}
-                                checked={selectedCheckbox.includes(key)}
-                              />
-                            </Box>
+                            <CardMedia component="img" image={cover} />
+                          </Card>
+                        </Box>
 
-                            <Card
-                              sx={{
-                                width: 120,
-                                maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
-                              }}
-                            >
-                              <CardMedia component="img" image={cover} />
-                            </Card>
-                          </Box>
-
-                          {/* TITLE */}
-                          <Box sx={{ display: "flex" }}>
-                            <Box sx={{ marginRight: 3 }}>
-                              <Box>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 500,
-                                    letterSpacing: 1.3,
-                                    fontSize: {
-                                      lg: 17,
-                                      md: 17,
-                                      sm: 16,
-                                      xs: 12,
-                                    },
-                                  }}
-                                >
-                                  {title}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-
-                          {/* QTY, DELETE */}
-
-                          <Box sx={{ justifyContent: "flex-end" }}>
-                            <Box
-                              sx={{
-                                paddingTop: 2,
-                                width: 80,
-                                height: { lg: 40, md: 40, sm: 40, xs: 30 },
-                              }}
-                            >
-                              <FormControl fullWidth>
-                                <TextField
-                                  id="outlined-number-qty"
-                                  label="Qty"
-                                  type="tel"
-                                  onChange={(e) =>
-                                    handleQtyChange(
-                                      title,
-                                      normalPrice,
-                                      stock,
-                                      e
-                                    )
-                                  }
-                                  onKeyPress={(event) =>
-                                    InputValidatorHelper(event)
-                                  }
-                                  value={qty}
-                                  size="small"
-                                />
-                              </FormControl>
-                            </Box>
-
-                            <Box sx={{ marginTop: 3 }}>
-                              <Button
-                                variant="contained"
-                                sx={{
-                                  textTransform: "none",
-                                  height: {
-                                    lg: 30,
-                                    md: 30,
-                                    sm: 28,
-                                    xs: 26,
-                                  },
-                                }}
-                                onClick={(e) => removeProduct(title, e)}
-                              >
-                                <Typography
-                                  sx={{
-                                    fontSize: {
-                                      lg: 16,
-                                      md: 16,
-                                      sm: 14,
-                                      xs: 12,
-                                    },
-                                  }}
-                                >
-                                  Delete
-                                </Typography>
-                              </Button>
-                            </Box>
-                          </Box>
-                          <Box
-                            sx={{
-                              marginLeft: "auto",
-                            }}
-                          >
-                            <Box sx={{ display: "flex" }}>
+                        {/* TITLE */}
+                        <Box sx={{ display: "flex" }}>
+                          <Box sx={{ marginRight: 3 }}>
+                            <Box>
                               <Typography
                                 sx={{
-                                  fontSize: { lg: 16, md: 16, sm: 15, xs: 12 },
-                                  fontWeight: 600,
+                                  fontWeight: 500,
+                                  letterSpacing: 1.3,
+                                  fontSize: {
+                                    lg: 17,
+                                    md: 17,
+                                    sm: 16,
+                                    xs: 12,
+                                  },
                                 }}
                               >
-                                $ {totalPrice.toFixed(2)}
+                                {title}
                               </Typography>
                             </Box>
                           </Box>
+                        </Box>
+
+                        {/* QTY, DELETE */}
+
+                        <Box sx={{ justifyContent: "flex-end" }}>
+                          <Box
+                            sx={{
+                              paddingTop: 2,
+                              width: 80,
+                              height: { lg: 40, md: 40, sm: 40, xs: 30 },
+                            }}
+                          >
+                            <FormControl fullWidth>
+                              <TextField
+                                id="outlined-number-qty"
+                                label="Qty"
+                                type="tel"
+                                onChange={(e) =>
+                                  handleQtyChange(title, normalPrice, stock, e)
+                                }
+                                onKeyPress={(event) =>
+                                  InputValidatorHelper(event)
+                                }
+                                value={qty}
+                                size="small"
+                              />
+                            </FormControl>
+                          </Box>
+
+                          <Box sx={{ marginTop: 3 }}>
+                            <Button
+                              variant="contained"
+                              sx={{
+                                textTransform: "none",
+                                height: {
+                                  lg: 30,
+                                  md: 30,
+                                  sm: 28,
+                                  xs: 26,
+                                },
+                              }}
+                              onClick={(e) => removeProduct(title, e)}
+                            >
+                              <Typography
+                                sx={{
+                                  fontSize: {
+                                    lg: 16,
+                                    md: 16,
+                                    sm: 14,
+                                    xs: 12,
+                                  },
+                                }}
+                              >
+                                Delete
+                              </Typography>
+                            </Button>
+                          </Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            marginLeft: "auto",
+                          }}
+                        >
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                fontSize: { lg: 16, md: 16, sm: 15, xs: 12 },
+                                fontWeight: 600,
+                              }}
+                            >
+                              $ {totalPrice.toFixed(2)}
+                            </Typography>
+                          </Box>
+                        </Box>
                         <Divider sx={{ bottomWidth: 1 }} />
                       </Box>
                     );

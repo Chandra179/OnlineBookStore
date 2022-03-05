@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
  * @param {bool} allCheckboxSelected
  */
 
-export default function Header({ handleSelectedCheckbox, allCheckboxSelected }) {
+export default function Header({ selectAllCheckbox, isAllCheckboxSelected }) {
   return (
     <Box
       sx={{
@@ -52,8 +52,8 @@ export default function Header({ handleSelectedCheckbox, allCheckboxSelected }) 
           <Checkbox
             sx={{ width: 0, height: 0 }}
             value="all"
-            onChange={handleSelectedCheckbox}
-            checked={allCheckboxSelected}
+            onChange={selectAllCheckbox}
+            checked={isAllCheckboxSelected}
           />
         </Box>
       </Box>
