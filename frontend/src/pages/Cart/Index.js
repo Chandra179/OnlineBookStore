@@ -23,6 +23,7 @@ import Header from "./Header";
 import Checkout from "./Checkout";
 // CONTEXT
 import { useCart } from "../../hooks/useCart";
+import Styles from "./Styles";
 
 export default function Cart() {
   const { setCartBadge } = useCart();
@@ -36,6 +37,9 @@ export default function Cart() {
   const isAllCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
+  /**
+   * Handle select all checkbox
+   */
   const selectAllCheckbox = (event) => {
     const value = event.target.value;
     if (value === "all") {
@@ -53,6 +57,9 @@ export default function Cart() {
     }
   };
 
+  /**
+   * Handle select checkbox
+   */
   const selectCheckbox = (event) => {
     const value = event.target.value;
     // select per item
@@ -108,7 +115,6 @@ export default function Cart() {
         CheckoutHelper.deleteCheckoutItem(userEmail);
       }
     }
-
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
@@ -129,28 +135,13 @@ export default function Cart() {
       ) : (
         <Grid container>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <Box
-              sx={{
-                marginRight: { xl: 4, lg: 4, md: 4, sm: 6, xs: 2 },
-              }}
-            >
+            <Box sx={Styles.boxContainer}>
               <Header
                 selectAllCheckbox={selectAllCheckbox}
                 isAllCheckboxSelected={isAllCheckboxSelected}
               />
-              <Divider
-                sx={{
-                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
-                  paddingTop: 2,
-                  marginBottom: 3,
-                  borderBottomWidth: 2,
-                }}
-              />
-              <Box
-                sx={{
-                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
-                }}
-              >
+              <Divider sx={Styles.divider} />
+              <Box sx={Styles.boxContent}>
                 <Box>
                   {Object.keys(cartItem).map(function (key) {
                     var title = key;
@@ -162,58 +153,54 @@ export default function Cart() {
                     var stock = cartItem[key]["stock"];
 
                     return (
-                      <Box key={key} mb={3}>
-                        {/* CHECKBOX AND COVER */}
-                        <Box
-                          mr={2}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Box key={key} mr={1}>
-                            <Checkbox
-                              value={key}
-                              onChange={selectCheckbox}
-                              checked={selectedCheckbox.includes(key)}
-                            />
+                      <Box
+                        key={key}
+                        mb={3}
+                        sx={{ display: "flex", flexDirection: "column" }}
+                      >
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          {/* CHECKBOX AND COVER */}
+                          <Box mr={1} sx={Styles.coverBox}>
+                            <Box key={key}>
+                              <Checkbox
+                                value={key}
+                                onChange={selectCheckbox}
+                                checked={selectedCheckbox.includes(key)}
+                              />
+                            </Box>
+                            <Card sx={Styles.coverCard}>
+                              <CardMedia component="img" image={cover} />
+                            </Card>
                           </Box>
 
-                          <Card
-                            sx={{
-                              width: 120,
-                              maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
-                            }}
+                          {/* DESCRIPTION */}
+                          <Box
+                            sx={{ display: "flex", flexDirection: "column" }}
                           >
-                            <CardMedia component="img" image={cover} />
-                          </Card>
-                        </Box>
-
-                        {/* TITLE */}
-                        <Box sx={{ display: "flex" }}>
-                          <Box sx={{ marginRight: 3 }}>
+                            {/* TITLE */}
                             <Box>
-                              <Typography
-                                sx={{
-                                  fontWeight: 500,
-                                  letterSpacing: 1.3,
-                                  fontSize: {
-                                    lg: 17,
-                                    md: 17,
-                                    sm: 16,
-                                    xs: 12,
-                                  },
-                                }}
-                              >
+                              <Typography sx={Styles.descTitle}>
                                 {title}
                               </Typography>
                             </Box>
+                            {/* PRICE */}
+                            <Box>
+                              <Typography sx={Styles.descPrice}>
+                                $ {totalPrice.toFixed(2)}
+                              </Typography>
+                            </Box>
                           </Box>
+
+                          <Divider sx={{ bottomWidth: 1 }} />
                         </Box>
-
                         {/* QTY, DELETE */}
-
-                        <Box sx={{ justifyContent: "flex-end" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
                           <Box
                             sx={{
                               paddingTop: 2,
@@ -267,23 +254,6 @@ export default function Cart() {
                             </Button>
                           </Box>
                         </Box>
-                        <Box
-                          sx={{
-                            marginLeft: "auto",
-                          }}
-                        >
-                          <Box sx={{ display: "flex" }}>
-                            <Typography
-                              sx={{
-                                fontSize: { lg: 16, md: 16, sm: 15, xs: 12 },
-                                fontWeight: 600,
-                              }}
-                            >
-                              $ {totalPrice.toFixed(2)}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <Divider sx={{ bottomWidth: 1 }} />
                       </Box>
                     );
                   })}

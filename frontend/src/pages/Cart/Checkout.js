@@ -16,7 +16,8 @@ import { useOrder } from "../../hooks/useOrder";
  * @param {obj} cartItem
  * @param {list} selectedCheckbox
  */
-export default function Checkout({ userEmail, cartItem, selectedCheckbox }) {
+export default function Checkout({ cartItem, selectedCheckbox }) {
+  const userEmail = AuthService.getCurrentUser();
   const { setClientSecret } = useOrder()
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
