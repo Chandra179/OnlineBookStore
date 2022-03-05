@@ -190,7 +190,7 @@ export default function Cart() {
 
                     return (
                       <Box key={key} mb={3} sx={Styles.itemBox}>
-                        <Box pr={1} sx={Styles.checkBoxCoverContainer}>
+                        <Box pr={1} sx={Styles.checkBoxAndCoverBox}>
                           {/* CHECKBOX */}
                           <Box pr={1}>
                             <Checkbox
@@ -216,66 +216,17 @@ export default function Cart() {
                             justifyContent="space-between"
                           >
                             {/* TITLE */}
-                            <Grid
-                              item
-                              lg={9}
-                              md={9}
-                              sm={9}
-                              xs={12}
-                              mb={0.4}
-                              // sx={{
-                              //   boxShadow: 1,
-                              //   width: { lg: 470, md: 360, sm: 340 }
-                              // }}
-                            >
+                            <Grid item lg={9} md={9} sm={9} xs={12} mb={0.4}>
                               <Box>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 500,
-                                    letterSpacing: 1.3,
-                                    fontSize: {
-                                      lg: 15,
-                                      md: 15,
-                                      sm: 15,
-                                      xs: 12,
-                                    },
-                                  }}
-                                >
+                                <Typography sx={Styles.titleText}>
                                   {title}
                                 </Typography>
                               </Box>
                             </Grid>
                             {/* PRICE */}
-                            <Grid
-                              item
-                              lg={3}
-                              md={3}
-                              sm={3}
-                              xs={12}
-                              sx={{ boxShadow: 1 }}
-                            >
-                              <Box
-                                sx={{
-                                  justifyContent: {
-                                    lg: "flex-end",
-                                    md: "flex-end",
-                                    sm: "flex-end",
-                                    xs: "flex-start",
-                                  },
-                                  display: "flex",
-                                }}
-                              >
-                                <Typography
-                                  sx={{
-                                    fontSize: {
-                                      lg: 15,
-                                      md: 15,
-                                      sm: 15,
-                                      xs: 13,
-                                    },
-                                    fontWeight: 600,
-                                  }}
-                                >
+                            <Grid item lg={3} md={3} sm={3} xs={12}>
+                              <Box sx={Styles.priceBox}>
+                                <Typography sx={Styles.priceText}>
                                   $ {totalPrice.toFixed(2)}
                                 </Typography>
                               </Box>
@@ -284,15 +235,7 @@ export default function Cart() {
 
                           {/* QUANTITY INPUT */}
                           <Grid>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginTop: 2,
-                                height: { lg: 40, md: 40, sm: 40, xs: 30 },
-                              }}
-                            >
+                            <Box sx={Styles.quantityBox}>
                               <Box mb={1}>
                                 <IconButton
                                   size="small"
@@ -302,7 +245,7 @@ export default function Cart() {
                                   }
                                 >
                                   <RemoveCircleOutlineOutlinedIcon
-                                    sx={{ fontSize: 24, color: "#3664d9" }}
+                                    sx={Styles.iconStyles}
                                   />
                                 </IconButton>
                               </Box>
@@ -312,6 +255,11 @@ export default function Cart() {
                                     variant="standard"
                                     id="outlined-number-qty"
                                     type="tel"
+                                    size="small"
+                                    value={qty}
+                                    onKeyPress={(event) =>
+                                      InputValidatorHelper(event)
+                                    }
                                     onChange={(e) =>
                                       handleQtyChange(
                                         title,
@@ -320,17 +268,8 @@ export default function Cart() {
                                         e
                                       )
                                     }
-                                    onKeyPress={(event) =>
-                                      InputValidatorHelper(event)
-                                    }
-                                    value={qty}
-                                    size="small"
                                     inputProps={{
-                                      style: {
-                                        height: 12,
-                                        borderRadius: 0,
-                                        textAlign: "center",
-                                      },
+                                      style: Styles.quantityInputProps,
                                     }}
                                   />
                                 </FormControl>
@@ -343,7 +282,7 @@ export default function Cart() {
                                   }
                                 >
                                   <AddCircleOutlineOutlinedIcon
-                                    sx={{ fontSize: 24, color: "#3664d9" }}
+                                    sx={Styles.iconStyles}
                                   />
                                 </IconButton>
                               </Box>
@@ -352,9 +291,9 @@ export default function Cart() {
                         </Grid>
                         <Box ml={2}>
                           <IconButton
-                            sx={{ width: 0, height: 0, paddingTop: 0 }}
                             size="small"
                             onClick={(e) => removeProduct(title, e)}
+                            sx={Styles.closeIcon}
                           >
                             <CloseSharpIcon />
                           </IconButton>
