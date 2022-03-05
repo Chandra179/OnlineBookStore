@@ -52,8 +52,10 @@ const cartBadge = (userEmail) => {
  */
 const qtyStockValidator = (qty, stock) => {
   var newQty = qty;
-  if (newQty > stock) {
+  if (qty > stock) {
     newQty = stock;
+  } else if (qty < 1) {
+    newQty = 0;
   }
   if (newQty.toString()[0] !== "0") {
     return newQty;
@@ -63,12 +65,21 @@ const qtyStockValidator = (qty, stock) => {
 };
 
 
+const checkItemInCart = (userEmail) => {
+  const item = getCartItem(userEmail)
+  if (Object.keys(item).length !== 0) {
+    return item;
+  }
+}
+
+
 const CartHelper = {
   cartBadge,
   setCartItem,
   getCartItem,
   deleteCartItem,
-  qtyStockValidator
+  qtyStockValidator,
+  checkItemInCart
 };
 
 export default CartHelper;

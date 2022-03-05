@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 // MUI
 import {
   Divider,
@@ -84,19 +85,58 @@ export default function Cart() {
    * Handle product quantity input change
    */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    var qty = CartHelper.qtyStockValidator(event.target.value, stock);
-    const item = CartHelper.getCartItem(userEmail);
-    if (Object.keys(item).length !== 0) {
-      var newPrice = qty * normalPrice;
+    const item = CartHelper.checkItemInCart(userEmail)
+    if (!item) window.location.reload()
 
-      item[title]["qty"] = qty;
-      item[title]["totalPrice"] = newPrice;
+    var type = event.target.id
+    var newQty = 0
+    console.log(event.target, type)
 
-      CartHelper.setCartItem(userEmail, item);
-      setCartItem(CartHelper.getCartItem(userEmail));
-      setCartBadge(CartHelper.cartBadge(userEmail));
+    if (type === "plusminus") {
+      newQty = event.target.value;
+    } else if (type === "minus") {
+      newQty = Number(item[title]["qty"]) - 1;
+    } else if (type === "plus"){
+      newQty = Number(item[title]["qty"]) + 1;
     }
+    var validQty = CartHelper.qtyStockValidator(newQty, stock);
+    item[title]["qty"] = validQty;
+    item[title]["totalPrice"] = validQty * normalPrice;
+
+    CartHelper.setCartItem(userEmail, item);
+    setCartItem(CartHelper.getCartItem(userEmail));
+    setCartBadge(CartHelper.cartBadge(userEmail));
   };
+
+  // const minusProduct = (title, normalPrice, stock, event) => {
+  //   const item = CartHelper.checkItemInCart(userEmail)
+  //   if (!item) window.location.reload()
+
+  //   var newQty = Number(item[title]["qty"]) - 1;
+  //   var qty = CartHelper.qtyStockValidator(newQty, stock);
+
+  //   item[title]["qty"] = qty;
+  //   item[title]["totalPrice"] = qty * normalPrice;
+
+  //   CartHelper.setCartItem(userEmail, item);
+  //   setCartItem(CartHelper.getCartItem(userEmail));
+  //   setCartBadge(CartHelper.cartBadge(userEmail));
+    
+  // };
+
+  // const plusProduct = (title, normalPrice, stock, event) => {
+  //   const item = CartHelper.checkItemInCart(userEmail)
+  //   if (!item) window.location.reload()
+  //   var newQty = Number(item[title]["qty"]) + 1;
+  //   var qty = CartHelper.qtyStockValidator(newQty, stock);
+
+  //   item[title]["qty"] = qty;
+  //   item[title]["totalPrice"] = qty * normalPrice;
+
+  //   CartHelper.setCartItem(userEmail, item);
+  //   setCartItem(CartHelper.getCartItem(userEmail));
+  //   setCartBadge(CartHelper.cartBadge(userEmail));
+  // };
 
   /**
    * handle delete product
@@ -133,35 +173,7 @@ export default function Cart() {
     }
   };
 
-  const minusProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.getCartItem(userEmail);
-    if (Object.keys(item).length !== 0) {
-      var newQty = item[title]["qty"] - 1;
-      var qty = CartHelper.qtyStockValidator(newQty, stock);
-
-      item[title]["qty"] = qty;
-      item[title]["totalPrice"] = qty * normalPrice;
-
-      CartHelper.setCartItem(userEmail, item);
-      setCartItem(CartHelper.getCartItem(userEmail));
-      setCartBadge(CartHelper.cartBadge(userEmail));
-    }
-  };
-
-  const plusProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.getCartItem(userEmail);
-    if (Object.keys(item).length !== 0) {
-      var newQty = item[title]["qty"] + 1;
-      var qty = CartHelper.qtyStockValidator(newQty, stock);
-
-      item[title]["qty"] = qty;
-      item[title]["totalPrice"] = qty * normalPrice;
-
-      CartHelper.setCartItem(userEmail, item);
-      setCartItem(CartHelper.getCartItem(userEmail));
-      setCartBadge(CartHelper.cartBadge(userEmail));
-    }
-  };
+  
 
   return (
     <>
@@ -238,10 +250,12 @@ export default function Cart() {
                             <Box sx={Styles.quantityBox}>
                               <Box mb={1}>
                                 <IconButton
+                                  id="minus"
+                                  aria-label="minus"
                                   size="small"
                                   value={qty}
                                   onClick={(e) =>
-                                    minusProduct(title, normalPrice, stock, e)
+                                    handleQtyChange(title, normalPrice, stock, e)
                                   }
                                 >
                                   <RemoveCircleOutlineOutlinedIcon
@@ -253,7 +267,7 @@ export default function Cart() {
                                 <FormControl fullWidth>
                                   <TextField
                                     variant="standard"
-                                    id="outlined-number-qty"
+                                    id="plusminus"
                                     type="tel"
                                     size="small"
                                     value={qty}
@@ -276,9 +290,10 @@ export default function Cart() {
                               </Box>
                               <Box mb={1}>
                                 <IconButton
+                                  id="plus"
                                   size="small"
                                   onClick={(e) =>
-                                    plusProduct(title, normalPrice, stock, e)
+                                    handleQtyChange(title, normalPrice, stock, e)
                                   }
                                 >
                                   <AddCircleOutlineOutlinedIcon
