@@ -21,8 +21,31 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 import { useCheckout } from "../hooks/useCheckout";
 
+/**
+ * STYLING
+ */
+const appName = {
+  color: "blue",
+  fontWeight: 650,
+  letterSpacing: 1,
+  fontsize: { lg: 17, md: 17, sm: 14, xs: 14 },
+};
 
-export default function PrimarySearchAppBar() {
+const iconStyle = {
+  fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
+  color: "black",
+};
+
+const signInStyle = {
+  fontSize: 18,
+  color: "black",
+  "&:hover": { color: "blue" },
+};
+
+/**
+ * APPBAR
+ */
+function PrimarySearchAppBar() {
   const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
   const { cartBadge, setCartBadge } = useCart();
   const { isAppbarDisabled, setIsAppbarDisabled } = useCheckout();
@@ -31,17 +54,20 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
 
   useEffect(() => {
+    let abortController = new AbortController();
     const userEmail = AuthService.getCurrentUser();
     if (userEmail) {
       setIsUserLoggedIn(true);
       setCartBadge(CartHelper.cartBadge(userEmail));
 
       var urlPath = window.location.pathname;
-      // if user in checkout page, then hide appbar cart and account block
+      // if user in checkout page, then hide appbar cart and account logo
       if (urlPath === "/cart/checkout") {
         setIsAppbarDisabled(true);
-        return;
       }
+    }
+    return () => {
+      abortController.abort();  
     }
   }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled]);
 
@@ -59,6 +85,9 @@ export default function PrimarySearchAppBar() {
     AuthService.logout();
   };
 
+  /**
+   * Account menu
+   */
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -84,78 +113,64 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  /**
+   * Appbar name
+   */
+  const title = (
+    <Box>
+      <Link
+        to="/"
+        onClick={isAppbarDisabled ? () => (window.location.href = "/") : null}
+      >
+        <Typography sx={appName}>Alexandria</Typography>
+      </Link>
+    </Box>
+  );
+
+  /**
+   * Account logo
+   */
+  const account = isUserLoggedIn ? (
+    <Box mt={0.8}>
+      <IconButton size="large" onClick={handleProfileMenuOpen}>
+        <AccountCircleSharpIcon sx={iconStyle} />
+      </IconButton>
+    </Box>
+  ) : (
+    <Box mt={2}>
+      <Link to={`/signin`}>
+        <Typography sx={signInStyle}>Signin</Typography>
+      </Link>
+    </Box>
+  );
+
+  /**
+   * Shopping cart and Account (logo)
+   */
+  const content = isAppbarDisabled ? (
+    <div />
+  ) : (
+    <Box sx={{ display: "flex" }}>
+      <Box m={0.5}>
+        <Link to="/cart">
+          <IconButton size="large">
+            <Badge badgeContent={cartBadge} color="error">
+              <LocalMallSharpIcon sx={iconStyle} />
+            </Badge>
+          </IconButton>
+        </Link>
+      </Box>
+      {account}
+    </Box>
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar elevation={0} position="static" color="inherit">
         <Toolbar>
-          <Box>
-            <Link
-              to="/"
-              onClick={
-                isAppbarDisabled ? () => (window.location.href = "/") : null
-              }
-            >
-              <Typography
-                sx={{
-                  color: "blue",
-                  fontWeight: 650,
-                  letterSpacing: 1,
-                  fontsize: { lg: 17, md: 17, sm: 14, xs: 14 },
-                }}
-              >
-                Alexandria
-              </Typography>
-            </Link>
-          </Box>
+          {title}
           <Box sx={{ flexGrow: 1 }} />
-
-          {isAppbarDisabled ? (
-            <></>
-          ) : (
-            <Box sx={{ display: "flex" }}>
-              <Box m={0.5}>
-                <Link to="/cart">
-                  <IconButton size="large">
-                    <Badge badgeContent={cartBadge} color="error">
-                      <LocalMallSharpIcon
-                        sx={{
-                          fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
-                          color: "black",
-                        }}
-                      />
-                    </Badge>
-                  </IconButton>
-                </Link>
-              </Box>
-
-              {isUserLoggedIn ? (
-                <Box mt={0.8}>
-                  <IconButton size="large" onClick={handleProfileMenuOpen}>
-                    <AccountCircleSharpIcon
-                      sx={{
-                        fontSize: { lg: 25, md: 24, sm: 23, xs: 22 },
-                        color: "black",
-                      }}
-                    />
-                  </IconButton>
-                </Box>
-              ) : (
-                <Box mt={2}>
-                  <Link to={`/signin`}>
-                    <Typography
-                      sx={{
-                        fontSize: 18,
-                        color: "black",
-                        "&:hover": { color: "blue" }
-                      }}
-                    >
-                      Signin
-                    </Typography>
-                  </Link>
-                </Box>
-              )}
-            </Box>
-          )}
+          {content}
         </Toolbar>
       </AppBar>
       <Divider sx={{ borderBottomWidth: 2 }} />
@@ -163,3 +178,5 @@ export default function PrimarySearchAppBar() {
     </Box>
   );
 }
+
+export default PrimarySearchAppBar;

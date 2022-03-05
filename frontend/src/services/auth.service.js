@@ -57,6 +57,8 @@ const getCurrentUser = () => {
    var user = localStorage.getItem("user");
    if (user) {
     return JSON.parse(user)['email'];
+   } else {
+     return null
    }
 };
 

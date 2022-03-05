@@ -7,20 +7,7 @@ import Box from "@mui/material/Box";
 // SERVICE
 import BookService from "../../services/book.service";
 
-export default function GenreList() {
-  const [genreList, setGenreList] = useState([]);
-
-  useEffect(() => {
-    BookService.genreList().then(
-      (data) => {
-        setGenreList(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
-
+export default function GenreList({ genreList }) {
   return (
     <ListItem>
       {genreList.map(function (item, i) {
