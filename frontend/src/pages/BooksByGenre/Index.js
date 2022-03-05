@@ -10,7 +10,6 @@ import Books from "./Books";
 // SERVICE
 import BookService from "../../services/book.service";
 
-
 function BooksByGenre() {
   const [bookList, setBookList] = useState([]);
   const [totalBook, setTotalBook] = useState(0);
@@ -53,10 +52,10 @@ function BooksByGenre() {
   };
 
   return (
-    <Grid container sx={{ marginTop: 2 }}>
+    <Grid container>
       <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
       <Grid item lg={10} md={10} sm={12} xs={12}>
-        <Box sx={{ margin: 2 }}>
+        <Box m={2}>
           <Books currentPage={currentPage} bookList={bookList} />
           <Stack spacing={2} sx={{ alignItems: "center" }}>
             <Pagination

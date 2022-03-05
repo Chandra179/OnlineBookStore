@@ -10,9 +10,7 @@ import Box from "@mui/material/Box";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-
 /**
- *
  * @param {list} props.bookList
  * @param {int} props.currentPage
  */
@@ -23,13 +21,8 @@ export default function Books({ bookList, currentPage }) {
       {bookList.map(function (item, i) {
         return (
           <Box key={i}>
-            <Box
-              sx={{
-                display: "flex",
-                marginBottom: 3,
-              }}
-            >
-              <Box sx={{ marginRight: 2 }}>
+            <Box mb={2} sx={{ display: "flex" }}>
+              <Box mr={1}>
                 <Card
                   sx={{
                     width: {
@@ -48,7 +41,7 @@ export default function Books({ bookList, currentPage }) {
                   {/* LINK TO NEXT PAGE */}
                   <Link
                     to={{
-                      pathname:`/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
+                      pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
                         .replace(/\s+/g, "-")
                         .toLowerCase()}`,
                     }}
@@ -69,7 +62,7 @@ export default function Books({ bookList, currentPage }) {
                   </Link>
                 </Box>
                 {BookHelper.bookAuthor(item.book_author)}
-                <ListItemText sx={{ paddingTop: 0 }}>
+                <ListItemText>
                   <Typography
                     sx={{
                       color: "black",

@@ -18,8 +18,6 @@ import { useCart } from "../../../hooks/useCart";
 // HELPER
 import CartHelper from "../../../helper/cart.helper";
 import InputValidatorHelper from "../../../helper/inputValidator.helper";
-// STYLES
-import Styles from "../Styles";
 
 /**
  * @param {list} bookDetails
@@ -38,6 +36,9 @@ function ShoppingCart({ bookDetails }) {
   const { setCartBadge } = useCart();
   const history = useHistory();
 
+  /**
+   * Handle qty input
+   */
   const handleQtyChange = (event) => {
     var qty = CartHelper.qtyStockValidator(
       event.target.value,
@@ -47,23 +48,22 @@ function ShoppingCart({ bookDetails }) {
     setTotalPrice(qty * normalPrice);
   };
 
+  /**
+   * Handle add item to cart,
+   * item will be saved in local storage as object.
+   * obj key : user email
+   */
   const handleAddToCart = () => {
     if (!userEmail) {
       history.push("/signin");
       return;
     }
-    const qtys = qty === "" ? 1 : qty;
+    // if qty input is empty
+    const qtys = qty ? qty : 1;
     if (qtys === 1) {
       setQty(1);
       setTotalPrice(qtys * normalPrice);
     }
-
-    /**
-     * Handle add item to cart,
-     * item will be saved in local storage as object.
-     * key  : user email
-     */
-
     const cartItem = CartHelper.getCartItem(userEmail);
     const duplicateItems = bookDetails.name in cartItem;
     cartItem[bookDetails.name] = {
@@ -96,7 +96,11 @@ function ShoppingCart({ bookDetails }) {
 
   return (
     <Grid item lg={3} md={3} sm={12} xs={12}>
-      <Box sx={Styles.shoppingCartBoxRoot}>
+      <Box
+        sx={{
+          marginTop: { lg: 0, md: 0, sm: 4, xs: 4 },
+        }}
+      >
         {itemExistAlert ? (
           <Alert name={"Item is in cart"} severity="error" />
         ) : (
@@ -108,11 +112,7 @@ function ShoppingCart({ bookDetails }) {
           <div />
         )}
 
-        <Box
-          sx={{
-            boxShadow: 1,
-          }}
-        >
+        <Box sx={{ boxShadow: 1 }}>
           <Box
             sx={{
               display: "flex",
@@ -134,9 +134,9 @@ function ShoppingCart({ bookDetails }) {
           </Box>
           <Box
             sx={{
-              maxWidth: "80px",
-              minWidth: "80px",
-              margin: "10px 10px 10px 10px",
+              maxWidth: 80,
+              minWidth: 30,
+              margin: 1.3
             }}
           >
             <FormControl fullWidth>

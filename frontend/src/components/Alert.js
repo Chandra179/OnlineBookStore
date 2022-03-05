@@ -8,15 +8,10 @@ import { Box } from "@mui/material";
  * @param {str} props.name
  */
 
-const rootBox = {
-  width: 340,
-  minWidth: { lg: 480, md: 460, sm: 460 },
-};
-
 export default function BasicAlerts(props) {
   return (
-    <Box sx={rootBox}>
-      <Stack sx={{ width: "100%" }} mb={2} spacing={2}>
+    <Box>
+      <Stack sx={{ width: "100%" }}>
         <Alert severity={props.severity}>{props.name}</Alert>
       </Stack>
     </Box>
