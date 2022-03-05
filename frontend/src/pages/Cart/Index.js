@@ -180,11 +180,11 @@ export default function Cart() {
                           alignItems: "flex-start",
                         }}
                       >
-                        {/* CHECKBOX AND COVER */}
                         <Box
                           pr={1}
                           sx={{ display: "flex", alignItems: "center" }}
                         >
+                          {/* CHECKBOX */}
                           <Box pr={1}>
                             <Checkbox
                               sx={{ width: 20, height: 20 }}
@@ -193,6 +193,7 @@ export default function Cart() {
                               checked={selectedCheckbox.includes(key)}
                             />
                           </Box>
+                          {/* COVER */}
                           <Box>
                             <Card
                               sx={{
@@ -200,7 +201,7 @@ export default function Cart() {
                                 maxWidth: {
                                   lg: 120,
                                   md: 120,
-                                  sm: 120,
+                                  sm: 110,
                                   xs: 80,
                                 },
                               }}
@@ -217,9 +218,11 @@ export default function Cart() {
                             alignItems="flex-start"
                             justifyContent="space-between"
                           >
+                            {/* TITLE */}
                             <Grid direction="column">
                               <Box
-                                sx={{ width: { lg: 480, md: 340, sm: 340 } }}
+                                mb={0.4}
+                                sx={{ width: { lg: 470, md: 340, sm:340 }, maxWidth: {xs: 280} }}
                               >
                                 <Typography
                                   sx={{
@@ -227,9 +230,9 @@ export default function Cart() {
                                     letterSpacing: 1.3,
                                     fontSize: {
                                       lg: 16,
-                                      md: 16,
+                                      md: 15,
                                       sm: 15,
-                                      xs: 11,
+                                      xs: 12,
                                     },
                                   }}
                                 >
@@ -237,6 +240,7 @@ export default function Cart() {
                                 </Typography>
                               </Box>
                             </Grid>
+                            {/* PRICE */}
                             <Grid direction="column">
                               <Box>
                                 <Typography
@@ -245,7 +249,7 @@ export default function Cart() {
                                       lg: 16,
                                       md: 16,
                                       sm: 15,
-                                      xs: 12,
+                                      xs: 13,
                                     },
                                     fontWeight: 600,
                                   }}

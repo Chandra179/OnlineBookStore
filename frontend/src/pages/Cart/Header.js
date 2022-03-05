@@ -21,16 +21,17 @@ export default function Header({ selectAllCheckbox, isAllCheckboxSelected }) {
           xs: 2,
         },
         marginTop: 6,
+        justifyContent: 'space-between'
       }}
     >
       <Box>
         <Typography
           sx={{
             fontSize: {
-              lg: 20,
-              md: 20,
-              sm: 18,
-              xs: 16,
+              lg: 18,
+              md: 18,
+              sm: 16,
+              xs: 14,
             },
           }}
         >
@@ -39,14 +40,20 @@ export default function Header({ selectAllCheckbox, isAllCheckboxSelected }) {
       </Box>
       <Box
         sx={{
-          marginLeft: "auto",
           width: 90,
           display: "flex",
           alignItems: "center",
         }}
       >
         <Box>
-          <Typography variant="p">Select all</Typography>
+          <Typography sx={{
+            fontSize: {
+              lg: 16,
+              md: 16,
+              sm: 16,
+              xs: 14,
+            },
+          }}>Select all</Typography>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>
           <Checkbox
