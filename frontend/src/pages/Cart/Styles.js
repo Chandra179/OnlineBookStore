@@ -1,49 +1,38 @@
 const Styles = {
-  /**
-   * CONTENT
-   */
   divider: {
     marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
     paddingTop: 2,
     marginBottom: 3,
     borderBottomWidth: 2,
   },
-  boxContainer: {
+  containerBox: {
     marginRight: { xl: 4, lg: 4, md: 4, sm: 6, xs: 2 },
   },
-  boxContent: {
+  contentBox: {
     marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
   },
+  itemBox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
 
   /**
-   * CHECKBOX AND COVER
+   * CHECKBOX AND COVER CONTAINER
    */
-  coverBox: {
+  checkBoxCoverContainer: {
     display: "flex",
     alignItems: "center",
-    flexDirection: "row",
   },
+  // COVER
   coverCard: {
     width: 120,
-    maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
-  },
-
-  /**
-   * DESCRIPTION
-   */
-  descTitle: {
-    fontWeight: 500,
-    letterSpacing: 1.3,
-    fontSize: {
-      lg: 17,
-      md: 17,
-      sm: 16,
-      xs: 12,
+    maxWidth: {
+      lg: 120,
+      md: 120,
+      sm: 110,
+      xs: 80,
     },
-  },
-  descPrice: {
-    fontSize: { lg: 16, md: 16, sm: 15, xs: 12 },
-    fontWeight: 600,
   },
 };
 

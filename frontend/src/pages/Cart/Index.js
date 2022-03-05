@@ -27,6 +27,7 @@ import Header from "./Header";
 import Checkout from "./Checkout";
 // CONTEXT
 import { useCart } from "../../hooks/useCart";
+import Styles from "./Styles";
 
 export default function Cart() {
   const { setCartBadge } = useCart();
@@ -132,21 +133,20 @@ export default function Cart() {
     }
   };
 
-
   const minusProduct = (title, normalPrice, stock, event) => {
     const item = CartHelper.getCartItem(userEmail);
     if (Object.keys(item).length !== 0) {
       var newQty = item[title]["qty"] - 1;
       var qty = CartHelper.qtyStockValidator(newQty, stock);
 
-      item[title]["qty"] = qty
-      item[title]["totalPrice"] = qty * normalPrice;;
+      item[title]["qty"] = qty;
+      item[title]["totalPrice"] = qty * normalPrice;
 
       CartHelper.setCartItem(userEmail, item);
       setCartItem(CartHelper.getCartItem(userEmail));
       setCartBadge(CartHelper.cartBadge(userEmail));
     }
-  }
+  };
 
   const plusProduct = (title, normalPrice, stock, event) => {
     const item = CartHelper.getCartItem(userEmail);
@@ -154,15 +154,14 @@ export default function Cart() {
       var newQty = item[title]["qty"] + 1;
       var qty = CartHelper.qtyStockValidator(newQty, stock);
 
-      item[title]["qty"] = qty
-      item[title]["totalPrice"] = qty * normalPrice;;
+      item[title]["qty"] = qty;
+      item[title]["totalPrice"] = qty * normalPrice;
 
       CartHelper.setCartItem(userEmail, item);
       setCartItem(CartHelper.getCartItem(userEmail));
       setCartBadge(CartHelper.cartBadge(userEmail));
     }
-  }
-  
+  };
 
   return (
     <>
@@ -171,28 +170,13 @@ export default function Cart() {
       ) : (
         <Grid container>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <Box
-              sx={{
-                marginRight: { xl: 4, lg: 4, md: 4, sm: 6, xs: 2 },
-              }}
-            >
+            <Box sx={Styles.containerBox}>
               <Header
                 selectAllCheckbox={selectAllCheckbox}
                 isAllCheckboxSelected={isAllCheckboxSelected}
               />
-              <Divider
-                sx={{
-                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
-                  paddingTop: 2,
-                  marginBottom: 3,
-                  borderBottomWidth: 2,
-                }}
-              />
-              <Box
-                sx={{
-                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
-                }}
-              >
+              <Divider sx={Styles.divider} />
+              <Box sx={Styles.contentBox}>
                 <Box>
                   {Object.keys(cartItem).map(function (key) {
                     var title = key;
@@ -205,19 +189,8 @@ export default function Cart() {
                     var stock = cartItem[key]["stock"];
 
                     return (
-                      <Box
-                        key={key}
-                        mb={3}
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          alignItems: "flex-start",
-                        }}
-                      >
-                        <Box
-                          pr={1}
-                          sx={{ display: "flex", alignItems: "center" }}
-                        >
+                      <Box key={key} mb={3} sx={Styles.itemBox}>
+                        <Box pr={1} sx={Styles.checkBoxCoverContainer}>
                           {/* CHECKBOX */}
                           <Box pr={1}>
                             <Checkbox
@@ -229,17 +202,7 @@ export default function Cart() {
                           </Box>
                           {/* COVER */}
                           <Box>
-                            <Card
-                              sx={{
-                                width: 120,
-                                maxWidth: {
-                                  lg: 120,
-                                  md: 120,
-                                  sm: 110,
-                                  xs: 80,
-                                },
-                              }}
-                            >
+                            <Card sx={Styles.coverCard}>
                               <CardMedia component="img" image={cover} />
                             </Card>
                           </Box>
@@ -253,20 +216,25 @@ export default function Cart() {
                             justifyContent="space-between"
                           >
                             {/* TITLE */}
-                            <Grid direction="column">
-                              <Box
-                                mb={0.4}
-                                sx={{
-                                  width: { lg: 470, md: 340, sm: 340 },
-                                  maxWidth: { xs: 280 },
-                                }}
-                              >
+                            <Grid
+                              item
+                              lg={9}
+                              md={9}
+                              sm={9}
+                              xs={12}
+                              mb={0.4}
+                              // sx={{
+                              //   boxShadow: 1,
+                              //   width: { lg: 470, md: 360, sm: 340 }
+                              // }}
+                            >
+                              <Box>
                                 <Typography
                                   sx={{
                                     fontWeight: 500,
                                     letterSpacing: 1.3,
                                     fontSize: {
-                                      lg: 16,
+                                      lg: 15,
                                       md: 15,
                                       sm: 15,
                                       xs: 12,
@@ -278,13 +246,30 @@ export default function Cart() {
                               </Box>
                             </Grid>
                             {/* PRICE */}
-                            <Grid direction="column">
-                              <Box>
+                            <Grid
+                              item
+                              lg={3}
+                              md={3}
+                              sm={3}
+                              xs={12}
+                              sx={{ boxShadow: 1 }}
+                            >
+                              <Box
+                                sx={{
+                                  justifyContent: {
+                                    lg: "flex-end",
+                                    md: "flex-end",
+                                    sm: "flex-end",
+                                    xs: "flex-start",
+                                  },
+                                  display: "flex",
+                                }}
+                              >
                                 <Typography
                                   sx={{
                                     fontSize: {
-                                      lg: 16,
-                                      md: 16,
+                                      lg: 15,
+                                      md: 15,
                                       sm: 15,
                                       xs: 13,
                                     },
@@ -298,7 +283,7 @@ export default function Cart() {
                           </Grid>
 
                           {/* QUANTITY INPUT */}
-                          <Grid direction="row">
+                          <Grid>
                             <Box
                               sx={{
                                 display: "flex",
@@ -313,12 +298,7 @@ export default function Cart() {
                                   size="small"
                                   value={qty}
                                   onClick={(e) =>
-                                    minusProduct(
-                                      title,
-                                      normalPrice,
-                                      stock,
-                                      e
-                                    )
+                                    minusProduct(title, normalPrice, stock, e)
                                   }
                                 >
                                   <RemoveCircleOutlineOutlinedIcon
@@ -359,12 +339,7 @@ export default function Cart() {
                                 <IconButton
                                   size="small"
                                   onClick={(e) =>
-                                    plusProduct(
-                                      title,
-                                      normalPrice,
-                                      stock,
-                                      e
-                                    )
+                                    plusProduct(title, normalPrice, stock, e)
                                   }
                                 >
                                   <AddCircleOutlineOutlinedIcon
