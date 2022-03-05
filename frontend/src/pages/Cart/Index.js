@@ -23,7 +23,6 @@ import Header from "./Header";
 import Checkout from "./Checkout";
 // CONTEXT
 import { useCart } from "../../hooks/useCart";
-import Styles from "./Styles";
 
 export default function Cart() {
   const { setCartBadge } = useCart();
@@ -115,6 +114,7 @@ export default function Cart() {
         CheckoutHelper.deleteCheckoutItem(userEmail);
       }
     }
+
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
@@ -135,13 +135,28 @@ export default function Cart() {
       ) : (
         <Grid container>
           <Grid item lg={8} md={8} sm={12} xs={12}>
-            <Box sx={Styles.boxContainer}>
+            <Box
+              sx={{
+                marginRight: { xl: 4, lg: 4, md: 4, sm: 6, xs: 2 },
+              }}
+            >
               <Header
                 selectAllCheckbox={selectAllCheckbox}
                 isAllCheckboxSelected={isAllCheckboxSelected}
               />
-              <Divider sx={Styles.divider} />
-              <Box sx={Styles.boxContent}>
+              <Divider
+                sx={{
+                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
+                  paddingTop: 2,
+                  marginBottom: 3,
+                  borderBottomWidth: 2,
+                }}
+              />
+              <Box
+                sx={{
+                  marginLeft: { lg: 5, md: 5, sm: 5, xs: 2 },
+                }}
+              >
                 <Box>
                   {Object.keys(cartItem).map(function (key) {
                     var title = key;
@@ -153,54 +168,94 @@ export default function Cart() {
                     var stock = cartItem[key]["stock"];
 
                     return (
+                      <>
+                      
+                      <Grid container direction="row">
+                        <Grid direction="row">
+                          {/* CHECKBOX and COVER */}
+                        </Grid>
+                        <Grid container>
+                          <Grid direction="row">
+
+                          </Grid>
+                        </Grid>
+                      </Grid>
                       <Box
                         key={key}
                         mb={3}
-                        sx={{ display: "flex", flexDirection: "column" }}
+                        sx={{ display: "flex", flexDirection: "row" }}
                       >
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                          {/* CHECKBOX AND COVER */}
-                          <Box mr={1} sx={Styles.coverBox}>
-                            <Box key={key}>
-                              <Checkbox
-                                value={key}
-                                onChange={selectCheckbox}
-                                checked={selectedCheckbox.includes(key)}
-                              />
-                            </Box>
-                            <Card sx={Styles.coverCard}>
-                              <CardMedia component="img" image={cover} />
-                            </Card>
-                          </Box>
-
-                          {/* DESCRIPTION */}
-                          <Box
-                            sx={{ display: "flex", flexDirection: "column" }}
-                          >
-                            {/* TITLE */}
-                            <Box>
-                              <Typography sx={Styles.descTitle}>
-                                {title}
-                              </Typography>
-                            </Box>
-                            {/* PRICE */}
-                            <Box>
-                              <Typography sx={Styles.descPrice}>
-                                $ {totalPrice.toFixed(2)}
-                              </Typography>
-                            </Box>
-                          </Box>
-
-                          <Divider sx={{ bottomWidth: 1 }} />
-                        </Box>
-                        {/* QTY, DELETE */}
+                        {/* CHECKBOX AND COVER */}
                         <Box
+                          mr={1}
                           sx={{
                             display: "flex",
-                            flexDirection: "row",
                             alignItems: "center",
                           }}
                         >
+                          <Box key={key} mr={1}>
+                            <Checkbox
+                              sx={{ width: 20, height: 20 }}
+                              value={key}
+                              onChange={selectCheckbox}
+                              checked={selectedCheckbox.includes(key)}
+                            />
+                          </Box>
+
+                          <Card
+                            sx={{
+                              width: 120,
+                              maxWidth: { lg: 120, md: 120, sm: 120, xs: 80 },
+                            }}
+                          >
+                            <CardMedia component="img" image={cover} />
+                          </Card>
+                        </Box>
+
+                        <Grid container>
+                          {/* TITLE */}
+                          <Grid item xs={12}>
+                            <Box mr={2}>
+                              <Box>
+                                <Typography
+                                  sx={{
+                                    fontWeight: 500,
+                                    letterSpacing: 1.3,
+                                    fontSize: {
+                                      lg: 17,
+                                      md: 17,
+                                      sm: 16,
+                                      xs: 12,
+                                    },
+                                  }}
+                                >
+                                  {title}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          {/* PRICE */}
+                          <Grid>
+                            <Box>
+                              <Typography
+                                sx={{
+                                  fontSize: {
+                                    lg: 16,
+                                    md: 16,
+                                    sm: 15,
+                                    xs: 12,
+                                  },
+                                  fontWeight: 600,
+                                }}
+                              >
+                                $ {totalPrice.toFixed(2)}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        </Grid>
+
+                        {/* QTY, DELETE */}
+                        <Box sx={{ justifyContent: "flex-end" }}>
                           <Box
                             sx={{
                               paddingTop: 2,
@@ -254,7 +309,9 @@ export default function Cart() {
                             </Button>
                           </Box>
                         </Box>
+                        <Divider sx={{ bottomWidth: 1 }} />
                       </Box>
+                      </>
                     );
                   })}
                 </Box>
