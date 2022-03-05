@@ -18,6 +18,7 @@ import { useCart } from "../../../hooks/useCart";
 // HELPER
 import CartHelper from "../../../helper/cart.helper";
 import InputValidatorHelper from "../../../helper/inputValidator.helper";
+import { borderColor } from "@mui/system";
 
 /**
  * @param {list} bookDetails
@@ -123,8 +124,8 @@ function ShoppingCart({ bookDetails }) {
             }}
           >
             <Typography sx={{ letterSpacing: 1 }}>Subtotal</Typography>
-            <Box sx={{ marginLeft: "auto", paddingRight: 2 }}>
-              <Typography variant="h5">
+            <Box pr={2} sx={{ marginLeft: "auto" }}>
+              <Typography variant="h6">
                 ${" "}
                 {totalPrice <= 1
                   ? normalPrice.toFixed(2)
@@ -136,26 +137,31 @@ function ShoppingCart({ bookDetails }) {
             sx={{
               maxWidth: 80,
               minWidth: 30,
-              margin: 1.3
+              margin: 1.3,
             }}
           >
             <FormControl fullWidth>
               <TextField
                 id="outlined-number"
-                label="Number"
+                label="Qty"
                 type="tel"
                 onChange={handleQtyChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
                 InputProps={{
                   inputProps: {
                     max: bookDetails.stock,
                     min: 1,
                   },
+                  style: {
+                    height: 52,
+                  },
                 }}
                 onKeyPress={(event) => InputValidatorHelper(event)}
                 value={qty}
+                sx={{
+                  "& #outlined-number-label": {
+                    fontSize: 14,
+                  },
+                }}
               />
             </FormControl>
           </Box>
@@ -165,12 +171,16 @@ function ShoppingCart({ bookDetails }) {
               variant="contained"
               sx={{
                 margin: "10px 10px 0px 10px",
+                fontSize: 12,
               }}
               startIcon={<AddIcon />}
             >
               Add to cart
             </Button>
-            <Button variant="outlined" sx={{ margin: "10px 10px 10px 10px" }}>
+            <Button
+              variant="outlined"
+              sx={{ margin: "10px 10px 10px 10px", fontSize: 12 }}
+            >
               Buy now
             </Button>
           </Stack>
