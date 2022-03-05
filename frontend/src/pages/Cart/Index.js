@@ -91,8 +91,8 @@ export default function Cart() {
       item[title]["qty"] = qty;
       item[title]["totalPrice"] = newPrice;
 
-      localStorage.setItem(userEmail, JSON.stringify(item));
-      setCartItem(JSON.parse(localStorage.getItem(userEmail)));
+      CartHelper.setCartItem(userEmail, item);
+      setCartItem(CartHelper.getCartItem(userEmail));
       setCartBadge(CartHelper.cartBadge(userEmail));
     }
   };
@@ -131,6 +131,38 @@ export default function Cart() {
       CartHelper.deleteCartItem(userEmail);
     }
   };
+
+
+  const minusProduct = (title, normalPrice, stock, event) => {
+    const item = CartHelper.getCartItem(userEmail);
+    if (Object.keys(item).length !== 0) {
+      var newQty = item[title]["qty"] - 1;
+      var qty = CartHelper.qtyStockValidator(newQty, stock);
+
+      item[title]["qty"] = qty
+      item[title]["totalPrice"] = qty * normalPrice;;
+
+      CartHelper.setCartItem(userEmail, item);
+      setCartItem(CartHelper.getCartItem(userEmail));
+      setCartBadge(CartHelper.cartBadge(userEmail));
+    }
+  }
+
+  const plusProduct = (title, normalPrice, stock, event) => {
+    const item = CartHelper.getCartItem(userEmail);
+    if (Object.keys(item).length !== 0) {
+      var newQty = item[title]["qty"] + 1;
+      var qty = CartHelper.qtyStockValidator(newQty, stock);
+
+      item[title]["qty"] = qty
+      item[title]["totalPrice"] = qty * normalPrice;;
+
+      CartHelper.setCartItem(userEmail, item);
+      setCartItem(CartHelper.getCartItem(userEmail));
+      setCartBadge(CartHelper.cartBadge(userEmail));
+    }
+  }
+  
 
   return (
     <>
@@ -279,7 +311,15 @@ export default function Cart() {
                               <Box mb={1}>
                                 <IconButton
                                   size="small"
-                                  onClick={(e) => removeProduct(title, e)}
+                                  value={qty}
+                                  onClick={(e) =>
+                                    minusProduct(
+                                      title,
+                                      normalPrice,
+                                      stock,
+                                      e
+                                    )
+                                  }
                                 >
                                   <RemoveCircleOutlineOutlinedIcon
                                     sx={{ fontSize: 24, color: "#3664d9" }}
@@ -318,7 +358,14 @@ export default function Cart() {
                               <Box mb={1}>
                                 <IconButton
                                   size="small"
-                                  onClick={(e) => removeProduct(title, e)}
+                                  onClick={(e) =>
+                                    plusProduct(
+                                      title,
+                                      normalPrice,
+                                      stock,
+                                      e
+                                    )
+                                  }
                                 >
                                   <AddCircleOutlineOutlinedIcon
                                     sx={{ fontSize: 24, color: "#3664d9" }}
