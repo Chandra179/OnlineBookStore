@@ -14,6 +14,8 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 // HELPER
 import CheckoutHelper from "../../helper/checkout.helper";
 import CartHelper from "../../helper/cart.helper";
@@ -222,7 +224,10 @@ export default function Cart() {
                             <Grid direction="column">
                               <Box
                                 mb={0.4}
-                                sx={{ width: { lg: 470, md: 340, sm:340 }, maxWidth: {xs: 280} }}
+                                sx={{
+                                  width: { lg: 470, md: 340, sm: 340 },
+                                  maxWidth: { xs: 280 },
+                                }}
                               >
                                 <Typography
                                   sx={{
@@ -264,31 +269,62 @@ export default function Cart() {
                           <Grid direction="row">
                             <Box
                               sx={{
-                                paddingTop: 2,
-                                width: 80,
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginTop: 2,
                                 height: { lg: 40, md: 40, sm: 40, xs: 30 },
                               }}
                             >
-                              <FormControl fullWidth>
-                                <TextField
-                                  id="outlined-number-qty"
-                                  label="Qty"
-                                  type="tel"
-                                  onChange={(e) =>
-                                    handleQtyChange(
-                                      title,
-                                      normalPrice,
-                                      stock,
-                                      e
-                                    )
-                                  }
-                                  onKeyPress={(event) =>
-                                    InputValidatorHelper(event)
-                                  }
-                                  value={qty}
+                              <Box mb={1}>
+                                <IconButton
                                   size="small"
-                                />
-                              </FormControl>
+                                  onClick={(e) => removeProduct(title, e)}
+                                >
+                                  <RemoveCircleOutlineOutlinedIcon
+                                    sx={{ fontSize: 24, color: "#3664d9" }}
+                                  />
+                                </IconButton>
+                              </Box>
+                              <Box sx={{ width: 60 }}>
+                                <FormControl fullWidth>
+                                  <TextField
+                                    variant="standard"
+                                    id="outlined-number-qty"
+                                    type="tel"
+                                    onChange={(e) =>
+                                      handleQtyChange(
+                                        title,
+                                        normalPrice,
+                                        stock,
+                                        e
+                                      )
+                                    }
+                                    onKeyPress={(event) =>
+                                      InputValidatorHelper(event)
+                                    }
+                                    value={qty}
+                                    size="small"
+                                    inputProps={{
+                                      style: {
+                                        height: 12,
+                                        borderRadius: 0,
+                                        textAlign: "center",
+                                      },
+                                    }}
+                                  />
+                                </FormControl>
+                              </Box>
+                              <Box mb={1}>
+                                <IconButton
+                                  size="small"
+                                  onClick={(e) => removeProduct(title, e)}
+                                >
+                                  <AddCircleOutlineOutlinedIcon
+                                    sx={{ fontSize: 24, color: "#3664d9" }}
+                                  />
+                                </IconButton>
+                              </Box>
                             </Box>
                           </Grid>
                         </Grid>
