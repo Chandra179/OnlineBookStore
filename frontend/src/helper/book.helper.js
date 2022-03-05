@@ -1,11 +1,38 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+
+
+const boxRoot = {
+  alignItems: "baseline",
+  width: {
+    lg: 600,
+    md: 600,
+    sm: 600,
+    xs: 200,
+  },
+};
+
+const byStyle = {
+  fontSize: {
+    lg: 14,
+    md: 14,
+    sm: 12,
+    xs: 12,
+  },
+  marginRight: 1,
+};
+
+const authorStyle = {
+  color: "rgb(0, 113, 133)",
+  fontSize: 12,
+};
+
+
 /**
  * @param {list} props.book_author
  * @return {list} list of author for given book
  */
-
 const bookAuthor = (book_author) => {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
@@ -19,32 +46,9 @@ const bookAuthor = (book_author) => {
   });
 
   return (
-    <Box
-      display="flex"
-      sx={{
-        alignItems: "baseline",
-        width: {
-          lg: 600,
-          md: 600,
-          sm: 600,
-          xs: 200,
-        },
-      }}
-    >
-      <Typography
-        sx={{
-          fontSize: {
-            lg: 14,
-            md: 14,
-            sm: 12,
-            xs: 12,
-          },
-          marginRight: 1,
-        }}
-      >
-        by
-      </Typography>
-      <Typography noWrap sx={{ color: "rgb(0, 113, 133)", fontSize: 12 }}>
+    <Box display="flex" sx={boxRoot}>
+      <Typography sx={byStyle}>by</Typography>
+      <Typography noWrap sx={authorStyle}>
         {bookAuthorList}
       </Typography>
     </Box>

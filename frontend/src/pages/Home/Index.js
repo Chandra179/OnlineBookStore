@@ -23,14 +23,12 @@ function Home() {
     return () => { isMounted = false };
   }, []);
 
-  
+
   return (
     <Grid
       container
-      sx={{
-        marginTop: 1,
-        textAlign: "center",
-      }}
+      mt={1}
+      sx={{ textAlign: "center" }}
     >
       <GenreList genreList={genreList} />
     </Grid>

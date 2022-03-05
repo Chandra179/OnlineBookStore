@@ -40,7 +40,7 @@ async function booksByGenre(genre, page) {
  * @param {str} name 
  * @returns {obj} return details of book, eg: author, cover, title, etc.
  */
-async function bookDetail(name) {
+async function bookDetails(name) {
   const response = await axios
     .get("http://127.0.0.1:8000/book/detail", { params: { name: name} })
     .then((response) => {
@@ -52,7 +52,7 @@ async function bookDetail(name) {
 const BookService = {
     genreList,
     booksByGenre,
-    bookDetail
+    bookDetails
 };
 
 export default BookService;
