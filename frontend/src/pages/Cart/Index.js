@@ -176,6 +176,7 @@ export default function Cart() {
                             sx={{
                               display: "flex",
                               alignItems: "center",
+                              boxShadow: 1
                             }}
                           >
                             <Box key={key} mr={1}>
@@ -202,7 +203,7 @@ export default function Cart() {
                             </Card>
                           </Box>
                         </Grid>
-                        <Grid direction="row" lg={3} md={3} sm={3} xs={8}>
+                        <Grid direction="row" lg={9} md={9} sm={9} xs={8}>
                           <Grid direction="column" sx={12}>
                             <Box>
                               <Typography
