@@ -85,18 +85,18 @@ export default function Cart() {
    * Handle product quantity input change
    */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    const item = CartHelper.checkItemInCart(userEmail)
-    if (!item) window.location.reload()
+    const item = CartHelper.checkItemInCart(userEmail);
+    if (!item) window.location.reload();
 
-    var type = event.target.id
-    var newQty = 0
-    console.log(event.target, type)
+    var type = event.target.id;
+    var newQty = 0;
+    console.log(event.target, type);
 
     if (type === "plusminus") {
       newQty = event.target.value;
     } else if (type === "minus") {
       newQty = Number(item[title]["qty"]) - 1;
-    } else if (type === "plus"){
+    } else if (type === "plus") {
       newQty = Number(item[title]["qty"]) + 1;
     }
     var validQty = CartHelper.qtyStockValidator(newQty, stock);
@@ -121,7 +121,7 @@ export default function Cart() {
   //   CartHelper.setCartItem(userEmail, item);
   //   setCartItem(CartHelper.getCartItem(userEmail));
   //   setCartBadge(CartHelper.cartBadge(userEmail));
-    
+
   // };
 
   // const plusProduct = (title, normalPrice, stock, event) => {
@@ -172,8 +172,6 @@ export default function Cart() {
       CartHelper.deleteCartItem(userEmail);
     }
   };
-
-  
 
   return (
     <>
@@ -250,12 +248,15 @@ export default function Cart() {
                             <Box sx={Styles.quantityBox}>
                               <Box mb={1}>
                                 <IconButton
-                                  id="minus"
-                                  aria-label="minus"
                                   size="small"
                                   value={qty}
                                   onClick={(e) =>
-                                    handleQtyChange(title, normalPrice, stock, e)
+                                    handleQtyChange(
+                                      title,
+                                      normalPrice,
+                                      stock,
+                                      e
+                                    )
                                   }
                                 >
                                   <RemoveCircleOutlineOutlinedIcon
@@ -290,10 +291,14 @@ export default function Cart() {
                               </Box>
                               <Box mb={1}>
                                 <IconButton
-                                  id="plus"
                                   size="small"
                                   onClick={(e) =>
-                                    handleQtyChange(title, normalPrice, stock, e)
+                                    handleQtyChange(
+                                      title,
+                                      normalPrice,
+                                      stock,
+                                      e
+                                    )
                                   }
                                 >
                                   <AddCircleOutlineOutlinedIcon
