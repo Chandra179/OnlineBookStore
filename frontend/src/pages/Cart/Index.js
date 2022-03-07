@@ -88,8 +88,9 @@ export default function Cart() {
     const item = CartHelper.checkItemInCart(userEmail);
     if (!item) window.location.reload();
 
-    var validQty = CartHelper.qtyStockValidator(Number(event.target.value), stock);
-    console.log(validQty);
+    var qty = Number(event.target.value)
+    var validQty = CartHelper.qtyStockValidator(qty, stock);
+   
     item[title]["qty"] = validQty;
     item[title]["totalPrice"] = validQty * normalPrice;
 
@@ -102,32 +103,33 @@ export default function Cart() {
     const item = CartHelper.checkItemInCart(userEmail)
     if (!item) window.location.reload()
 
-    var newQty = Number(item[title]["qty"]);
-    console.log(newQty)
-    // var qty = CartHelper.qtyStockValidator(newQty, stock);
+    var qty = Number(item[title]["qty"]);
+    var validQty = CartHelper.qtyStockValidator(qty, stock);
 
-    // item[title]["qty"] = qty;
-    // item[title]["totalPrice"] = qty * normalPrice;
+    item[title]["qty"] = validQty + 1;
+    item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
 
-    // CartHelper.setCartItem(userEmail, item);
-    // setCartItem(CartHelper.getCartItem(userEmail));
-    // setCartBadge(CartHelper.cartBadge(userEmail));
+    CartHelper.setCartItem(userEmail, item);
+    setCartItem(CartHelper.getCartItem(userEmail));
+    setCartBadge(CartHelper.cartBadge(userEmail));
 
   };
 
-  // const plusProduct = (title, normalPrice, stock, event) => {
-  //   const item = CartHelper.checkItemInCart(userEmail)
-  //   if (!item) window.location.reload()
-  //   var newQty = Number(item[title]["qty"]) + 1;
-  //   var qty = CartHelper.qtyStockValidator(newQty, stock);
+  const decrementProduct = (title, normalPrice, stock, event) => {
+    const item = CartHelper.checkItemInCart(userEmail)
+    if (!item) window.location.reload()
 
-  //   item[title]["qty"] = qty;
-  //   item[title]["totalPrice"] = qty * normalPrice;
+    var qty = Number(item[title]["qty"]);
+    if (qty < 1) return;
+    
+    var validQty = CartHelper.qtyStockValidator(qty, stock);
+    item[title]["qty"] = validQty - 1;
+    item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
 
-  //   CartHelper.setCartItem(userEmail, item);
-  //   setCartItem(CartHelper.getCartItem(userEmail));
-  //   setCartBadge(CartHelper.cartBadge(userEmail));
-  // };
+    CartHelper.setCartItem(userEmail, item);
+    setCartItem(CartHelper.getCartItem(userEmail));
+    setCartBadge(CartHelper.cartBadge(userEmail));
+  };
 
   /**
    * handle delete product
@@ -150,7 +152,6 @@ export default function Cart() {
         CheckoutHelper.deleteCheckoutItem(userEmail);
       }
     }
-
     var cartFiltered = Object.fromEntries(
       Object.entries(cartItem).filter(([key, value]) => key !== title)
     );
@@ -160,7 +161,7 @@ export default function Cart() {
 
     // delete localStorage if cart empty
     if (Object.keys(cartItem).length - 1 === 0) {
-      CartHelper.deleteCartItem(userEmail);
+      CartHelper.removeCart(userEmail);
     }
   };
 
@@ -242,7 +243,7 @@ export default function Cart() {
                                   size="small"
                                   value={qty}
                                   onClick={(e) =>
-                                    handleQtyChange(
+                                    decrementProduct(
                                       title,
                                       normalPrice,
                                       stock,

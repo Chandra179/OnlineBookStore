@@ -23,7 +23,7 @@ const getCartItem = (userEmail) => {
 /**
  * @param {str} props.userEmail
  */
- const deleteCartItem = (userEmail) => {
+ const removeCart = (userEmail) => {
   localStorage.removeItem(userEmail);
 };
 
@@ -75,7 +75,7 @@ const CartHelper = {
   cartBadge,
   setCartItem,
   getCartItem,
-  deleteCartItem,
+  removeCart,
   qtyStockValidator,
   checkItemInCart
 };

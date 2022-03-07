@@ -49,7 +49,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
   function handleCheckout() {
     // if checkout with empty item, the change empty value to 1
     Object.keys(cartItem).forEach(function (key) {
-      if (cartItem[key]["qty"] === "") {
+      if (!cartItem[key]["qty"]) {
         cartItem[key]["qty"] = 1;
         cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
         CartHelper.setCartItem(userEmail, cartItem);
@@ -121,7 +121,6 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
               fontSize: 14,
               textTransform: "none",
             }}
-            disabled={totalQty === 0 ? true : false}
             onClick={handleCheckout}
           >
             Proceed to checkout
