@@ -88,7 +88,8 @@ export default function Cart() {
     const item = CartHelper.checkItemInCart(userEmail);
     if (!item) window.location.reload();
 
-    var validQty = CartHelper.qtyStockValidator(event.target.value, stock);
+    var validQty = CartHelper.qtyStockValidator(Number(event.target.value), stock);
+    console.log(validQty);
     item[title]["qty"] = validQty;
     item[title]["totalPrice"] = validQty * normalPrice;
 
@@ -97,21 +98,22 @@ export default function Cart() {
     setCartBadge(CartHelper.cartBadge(userEmail));
   };
 
-  // const minusProduct = (title, normalPrice, stock, event) => {
-  //   const item = CartHelper.checkItemInCart(userEmail)
-  //   if (!item) window.location.reload()
+  const incrementProduct = (title, normalPrice, stock, event) => {
+    const item = CartHelper.checkItemInCart(userEmail)
+    if (!item) window.location.reload()
 
-  //   var newQty = Number(item[title]["qty"]) - 1;
-  //   var qty = CartHelper.qtyStockValidator(newQty, stock);
+    var newQty = Number(item[title]["qty"]);
+    console.log(newQty)
+    // var qty = CartHelper.qtyStockValidator(newQty, stock);
 
-  //   item[title]["qty"] = qty;
-  //   item[title]["totalPrice"] = qty * normalPrice;
+    // item[title]["qty"] = qty;
+    // item[title]["totalPrice"] = qty * normalPrice;
 
-  //   CartHelper.setCartItem(userEmail, item);
-  //   setCartItem(CartHelper.getCartItem(userEmail));
-  //   setCartBadge(CartHelper.cartBadge(userEmail));
+    // CartHelper.setCartItem(userEmail, item);
+    // setCartItem(CartHelper.getCartItem(userEmail));
+    // setCartBadge(CartHelper.cartBadge(userEmail));
 
-  // };
+  };
 
   // const plusProduct = (title, normalPrice, stock, event) => {
   //   const item = CartHelper.checkItemInCart(userEmail)
@@ -260,9 +262,6 @@ export default function Cart() {
                                     type="tel"
                                     size="small"
                                     value={qty}
-                                    onKeyPress={(event) => {
-                                      InputValidatorHelper.numberOnly(event);
-                                    }}
                                     onChange={(e) =>
                                       handleQtyChange(
                                         title,
@@ -281,7 +280,7 @@ export default function Cart() {
                                 <IconButton
                                   size="small"
                                   onClick={(e) =>
-                                    handleQtyChange(
+                                    incrementProduct(
                                       title,
                                       normalPrice,
                                       stock,

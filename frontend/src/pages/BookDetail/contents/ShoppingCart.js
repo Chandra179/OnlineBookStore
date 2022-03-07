@@ -155,7 +155,7 @@ function ShoppingCart({ bookDetails }) {
                     height: 52,
                   },
                 }}
-                onKeyPress={(event) => InputValidatorHelper(event)}
+                onKeyPress={(event) => InputValidatorHelper.numberOnly(event)}
                 value={qty}
                 sx={{
                   // override mui style

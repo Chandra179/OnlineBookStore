@@ -54,13 +54,11 @@ const qtyStockValidator = (qty, stock) => {
   var newQty = qty;
   if (qty > stock) {
     newQty = stock;
-  } else if (qty < 1) {
-    newQty = 0;
   }
   if (newQty.toString()[0] !== "0") {
     return newQty;
   } else {
-    return '';
+    return 0;
   }
 };
 
