@@ -88,18 +88,7 @@ export default function Cart() {
     const item = CartHelper.checkItemInCart(userEmail);
     if (!item) window.location.reload();
 
-    var type = event.target.id;
-    var newQty = 0;
-    console.log(event.target, type);
-
-    if (type === "plusminus") {
-      newQty = event.target.value;
-    } else if (type === "minus") {
-      newQty = Number(item[title]["qty"]) - 1;
-    } else if (type === "plus") {
-      newQty = Number(item[title]["qty"]) + 1;
-    }
-    var validQty = CartHelper.qtyStockValidator(newQty, stock);
+    var validQty = CartHelper.qtyStockValidator(event.target.value, stock);
     item[title]["qty"] = validQty;
     item[title]["totalPrice"] = validQty * normalPrice;
 
@@ -268,13 +257,12 @@ export default function Cart() {
                                 <FormControl fullWidth>
                                   <TextField
                                     variant="standard"
-                                    id="plusminus"
                                     type="tel"
                                     size="small"
                                     value={qty}
-                                    onKeyPress={(event) =>
-                                      InputValidatorHelper(event)
-                                    }
+                                    onKeyPress={(event) => {
+                                      InputValidatorHelper.numberOnly(event);
+                                    }}
                                     onChange={(e) =>
                                       handleQtyChange(
                                         title,
