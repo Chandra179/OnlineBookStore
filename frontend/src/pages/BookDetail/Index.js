@@ -12,7 +12,7 @@ import ShoppingCart from "./contents/ShoppingCart";
  * Main function
  */
 export default function BookDetails() {
-  const [bookDetails, setBookDetails] = useState([]);
+  const [bookDetails, setBookDetails] = useState({});
 
   useEffect(() => {
     // get bookName from url path, eg: http/..../steve jobs

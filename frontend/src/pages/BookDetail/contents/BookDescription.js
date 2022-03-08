@@ -56,6 +56,6 @@ function BookDescription({ bookDetails }) {
 }
 
 BookDescription.propTypes = {
-  bookDetails: PropTypes.array
+  bookDetails: PropTypes.object.isRequired
 }
 export default BookDescription;

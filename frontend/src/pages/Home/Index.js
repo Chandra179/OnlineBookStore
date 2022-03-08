@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import GenreList from "./GenreList";
 import BookService from "../../services/book.service";
-import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
 
 /*
   Main Page

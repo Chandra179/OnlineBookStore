@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 // MUI
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-// SERVICE
-import BookService from "../../services/book.service";
 
 export default function GenreList({ genreList }) {
   return (
