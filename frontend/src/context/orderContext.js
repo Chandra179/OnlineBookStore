@@ -1,9 +1,11 @@
 import React, { useState, createContext } from "react";
+import AuthService from "../services/auth.service";
 
 export const OrderContext = createContext();
 
 const OrderContextProvider = ({ children }) => {
-  const [clientSecret, setClientSecret] = useState("");
+  var userEmail = AuthService.getCurrentUser();
+  const [clientSecret, setClientSecret] = useState(localStorage.getItem(userEmail + 'Order'));
 
   return (
     <OrderContext.Provider

@@ -58,7 +58,8 @@ function Checkout({ cartItem, selectedCheckbox }) {
     const token = AuthService.getToken();
     PaymentService.addPayment(token, orderItems).then(
       (data) => {
-        setClientSecret(data["clientSecret"])
+        localStorage.setItem(userEmail + 'Order', data['clientSecret'])
+        setClientSecret(localStorage.getItem(userEmail + 'Order'))
       },
       (error) => {
         console.log(error.response);

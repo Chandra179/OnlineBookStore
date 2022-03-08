@@ -4,6 +4,7 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import styles from "./stylesCredit.module.css";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -72,16 +73,16 @@ export default function CheckoutForm() {
     } else {
       setMessage("An unexpected error occured.");
     }
-
     setIsLoading(false);
   };
 
+
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form className={styles.stripeForm} id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button className={styles.stripeButton} disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? <div className={styles.spinner} id="spinner"></div> : "Pay now"}
         </span>
       </button>
       {/* Show any error or success messages */}

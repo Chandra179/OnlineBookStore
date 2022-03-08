@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import CheckoutForm from "./CheckoutForm";
 import { useOrder } from "../../../hooks/useOrder";
-import "../../../static/css/paymentForm.css";
+
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
