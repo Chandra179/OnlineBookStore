@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import { Box, Grid, Typography } from "@mui/material";
 import BookHelper from "../../../helper/book.helper";
+import PropTypes from "prop-types";
 
-/**
- * @param {list} bookDetails
- */
+
 function BookDescription({ bookDetails }) {
   // list of author
   const bookAuthor = BookHelper.bookAuthor(bookDetails.book_author);
@@ -56,4 +55,7 @@ function BookDescription({ bookDetails }) {
   );
 }
 
+BookDescription.propTypes = {
+  bookDetails: PropTypes.object
+}
 export default BookDescription;

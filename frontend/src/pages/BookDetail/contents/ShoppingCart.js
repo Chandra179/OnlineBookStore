@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 // MUI
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -17,25 +18,22 @@ import AuthService from "../../../services/auth.service";
 import { useCart } from "../../../hooks/useCart";
 // HELPER
 import CartHelper from "../../../helper/cart.helper";
-import InputValidatorHelper from "../../../helper/inputValidator.helper";
-import { borderColor } from "@mui/system";
+import InputHelper from "../../../helper/input.helper";
 
-/**
- * @param {list} bookDetails
- */
+
 function ShoppingCart({ bookDetails }) {
-  const [itemExistAlert, setItemExistAlert] = useState(false);
-  const [itemAddedAlert, setItemAddedAlert] = useState(false);
-
+  const [isItemExist, setIsItemExist] = useState(false);
+  const [isItemAdded, setIsItemAdded] = useState(false);
   // price per book, eg: 1 book -> $22
   const normalPrice = Number(bookDetails.price);
 
+  const history = useHistory();
+  const [qty, setQty] = useState(1);
+  const { setCartBadge } = useCart();
+  const userEmail = AuthService.getCurrentUser();
+  
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(1);
-  const [qty, setQty] = useState(1);
-  const userEmail = AuthService.getCurrentUser();
-  const { setCartBadge } = useCart();
-  const history = useHistory();
 
   /**
    * Handle qty input
@@ -66,7 +64,13 @@ function ShoppingCart({ bookDetails }) {
       setTotalPrice(qtys * normalPrice);
     }
     const cartItem = CartHelper.getCartItem(userEmail);
-    const duplicateItems = bookDetails.name in cartItem;
+    const isDuplicate = bookDetails.name in cartItem;
+
+    if (isDuplicate) {
+      setIsItemExist(true);
+      setIsItemAdded(false);
+      return;
+    }
     cartItem[bookDetails.name] = {
       cover: bookDetails.cover,
       qty: qtys,
@@ -74,25 +78,10 @@ function ShoppingCart({ bookDetails }) {
       totalPrice: qtys * normalPrice,
       stock: bookDetails.stock,
     };
-
-    // if cart not initialized, then create new cart and save the item
-    if (!Object.keys(cartItem)) {
-      CartHelper.setCartItem(userEmail, cartItem);
-      setItemAddedAlert(true);
-      setCartBadge(CartHelper.cartBadge(userEmail));
-      return;
-    }
-    if (duplicateItems) {
-      setItemExistAlert(true);
-      setItemAddedAlert(false);
-      return;
-    }
-    if (!duplicateItems) {
-      CartHelper.setCartItem(userEmail, cartItem);
-      setItemAddedAlert(true);
-      setCartBadge(CartHelper.cartBadge(userEmail));
-      return;
-    }
+    CartHelper.setCartItem(userEmail, cartItem);
+    setIsItemAdded(true);
+    setIsItemExist(false);
+    setCartBadge(CartHelper.cartBadge(userEmail));
   };
 
   return (
@@ -102,12 +91,12 @@ function ShoppingCart({ bookDetails }) {
           marginTop: { lg: 0, md: 0, sm: 4, xs: 4 },
         }}
       >
-        {itemExistAlert ? (
+        {isItemExist ? (
           <Alert name={"Item is in cart"} severity="error" />
         ) : (
           <div />
         )}
-        {itemAddedAlert ? (
+        {isItemAdded ? (
           <Alert name={"Item is added to cart"} severity="success" />
         ) : (
           <div />
@@ -155,7 +144,7 @@ function ShoppingCart({ bookDetails }) {
                     height: 52,
                   },
                 }}
-                onKeyPress={(event) => InputValidatorHelper.numberOnly(event)}
+                onKeyPress={(event) => InputHelper.numberOnly(event)}
                 value={qty}
                 sx={{
                   // override mui style
@@ -191,4 +180,7 @@ function ShoppingCart({ bookDetails }) {
   );
 }
 
+ShoppingCart.propTypes = {
+  bookDetails: PropTypes.object
+}
 export default ShoppingCart;

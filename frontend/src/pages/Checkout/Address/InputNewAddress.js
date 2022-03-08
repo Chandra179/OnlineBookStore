@@ -17,7 +17,7 @@ import BasicAlerts from "../../../components/Alert";
 import AddressService from "../../../services/address.service";
 import AuthService from "../../../services/auth.service";
 // HELPER
-import InputValidatorHelper from "../../../helper/inputValidator.helper";
+import InputHelper from "../../../helper/input.helper";
 
 
 /**
@@ -130,7 +130,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   required
                   value={fullName}
                   onInput={(e) => setFullName(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.textOnly(event)}
+                  onKeyPress={(event) => InputHelper.textOnly(event)}
                   inputProps={{ maxLength: 20 }}
                   id="fullname"
                   name="fullname"
@@ -146,7 +146,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   type="tel"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.numberOnly(event)}
+                  onKeyPress={(event) => InputHelper.numberOnly(event)}
                   inputProps={{ maxLength: 12 }}
                   id="phone"
                   name="phone"
@@ -174,7 +174,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   required
                   value={city}
                   onInput={(e) => setCity(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.textOnly(event)}
+                  onKeyPress={(event) => InputHelper.textOnly(event)}
                   inputProps={{ maxLength: 20 }}
                   id="city"
                   name="city"
@@ -190,7 +190,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   value={province}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setProvince(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.textOnly(event)}
+                  onKeyPress={(event) => InputHelper.textOnly(event)}
                   id="Province"
                   name="Province"
                   label="Province"
@@ -204,7 +204,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   value={zip}
                   inputProps={{ maxLength: 7 }}
                   onInput={(e) => setZip(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.numberOnly(event)}
+                  onKeyPress={(event) => InputHelper.numberOnly(event)}
                   id="zip"
                   name="zip"
                   label="Zip / Postal code"
@@ -219,7 +219,7 @@ export default function InputNewAddress({ setDefaultAddress }) {
                   value={country}
                   inputProps={{ maxLength: 20 }}
                   onInput={(e) => setCountry(e.target.value)}
-                  onKeyPress={(event) => InputValidatorHelper.textOnly(event)}
+                  onKeyPress={(event) => InputHelper.textOnly(event)}
                   id="country"
                   name="country"
                   label="Country"

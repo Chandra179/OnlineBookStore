@@ -33,6 +33,11 @@ export default function SignIn() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  const isEmailError = emailError ? true : false
+  const emailHelperText = emailHelper ? emailHelper : false
+  const isPasswordError = passwordError ? true : false
+  const passwordHelperText = passwordHelper ? passwordHelper : false
+
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
@@ -108,8 +113,8 @@ export default function SignIn() {
             <TextField
               onChange={onChangeEmail}
               value={email}
-              error={emailError ? true : false}
-              helperText={emailHelper ? emailHelper : false}
+              error={isEmailError}
+              helperText={emailHelperText}
               margin="normal"
               required
               fullWidth
@@ -127,8 +132,8 @@ export default function SignIn() {
             <TextField
               onChange={onChangePassword}
               value={password}
-              error={passwordError ? true : false}
-              helperText={passwordHelper ? passwordHelper : false}
+              error={isPasswordError}
+              helperText={passwordHelperText}
               margin="normal"
               required
               fullWidth

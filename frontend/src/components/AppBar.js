@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 // MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,6 +21,7 @@ import CartHelper from "../helper/cart.helper";
 import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 import { useCheckout } from "../hooks/useCheckout";
+
 
 /**
  * STYLING

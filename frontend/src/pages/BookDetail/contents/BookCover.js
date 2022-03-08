@@ -1,10 +1,8 @@
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import PropTypes from "prop-types";
 
-/**
- * @param {str} cover
- */
 const BookCover = ({ cover }) => {
   return (
     <Grid
@@ -37,4 +35,7 @@ const BookCover = ({ cover }) => {
   );
 };
 
+BookCover.propTypes = {
+  cover: PropTypes.string
+}
 export default BookCover;

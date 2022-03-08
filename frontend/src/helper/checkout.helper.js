@@ -1,17 +1,17 @@
 /**
- * @param {str} props.userEmail
- * @param {list} props.cartItemKeys
+ * @param {String} userEmail
+ * @param {Array} cartItemKeys
  */
-const setCheckoutItem = (userEmail, cartItemKeys) => {
+function setCheckoutItem (userEmail, cartItemKeys) {
   localStorage.setItem(userEmail + "Checkout", JSON.stringify(cartItemKeys));
 };
 
 
 
 /**
- * @param {str} props.userEmail
+ * @param {String} userEmail
  */
-const getCheckoutItem = (userEmail) => {
+function getCheckoutItem (userEmail) {
   return localStorage.getItem(userEmail + "Checkout")
     ? JSON.parse(localStorage.getItem(userEmail + "Checkout"))
     : [];
@@ -20,9 +20,9 @@ const getCheckoutItem = (userEmail) => {
 
 
 /**
- * @param {str} props.userEmail
+ * @param {String} userEmail
  */
-const deleteCheckoutItem = (userEmail) => {
+function deleteCheckoutItem (userEmail) {
   localStorage.removeItem(userEmail + "Checkout");
 };
 
@@ -30,7 +30,7 @@ const deleteCheckoutItem = (userEmail) => {
 const CheckoutHelper = {
   setCheckoutItem,
   getCheckoutItem,
-  deleteCheckoutItem,
-};
+  deleteCheckoutItem
+}
 
 export default CheckoutHelper;

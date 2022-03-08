@@ -1,17 +1,17 @@
 /**
- * @param {str} props.userEmail
- * @param {obj} props.cartItem
+ * @param {String} userEmail
+ * @param {Array} cartItem
  */
- const setCartItem = (userEmail, cartItem) => {
+ function setCartItem (userEmail, cartItem) {
   localStorage.setItem(userEmail, JSON.stringify(cartItem));
 };
 
 
 
 /**
- * @param {str} props.userEmail
+ * @param {String} userEmail
  */
-const getCartItem = (userEmail) => {
+function getCartItem (userEmail) {
   const cartItem = localStorage.getItem(userEmail)
     ? JSON.parse(localStorage.getItem(userEmail))
     : {};
@@ -21,19 +21,19 @@ const getCartItem = (userEmail) => {
 
 
 /**
- * @param {str} props.userEmail
+ * @param {String} userEmail
  */
- const removeCart = (userEmail) => {
+ function removeCart (userEmail) {
   localStorage.removeItem(userEmail);
 };
 
 
 
 /**
- * @param {str} props.userEmail
+ * @param {String} userEmail
  * count cart item
  */
-const cartBadge = (userEmail) => {
+function cartBadge (userEmail) {
   const cartItem = JSON.parse(localStorage.getItem(userEmail));
   if (cartItem) {
     const cartKeys = Object.keys(cartItem).length;
@@ -48,9 +48,10 @@ const cartBadge = (userEmail) => {
 
 
 /**
- * @param {str} props.qty
+ * @param {number} qty
+ * @param {number} stock
  */
-const qtyStockValidator = (qty, stock) => {
+function qtyStockValidator (qty, stock) {
   var newQty = qty;
   if (qty > stock) {
     newQty = stock;
@@ -63,21 +64,24 @@ const qtyStockValidator = (qty, stock) => {
 };
 
 
-const checkItemInCart = (userEmail) => {
+
+/**
+ * @param {String} userEmail
+ */
+function checkItemInCart (userEmail) {
   const item = getCartItem(userEmail)
   if (Object.keys(item).length !== 0) {
     return item;
   }
 }
 
-
 const CartHelper = {
-  cartBadge,
   setCartItem,
   getCartItem,
   removeCart,
+  cartBadge,
   qtyStockValidator,
   checkItemInCart
-};
+}
 
 export default CartHelper;

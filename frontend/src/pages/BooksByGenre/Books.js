@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 // MUI
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
@@ -10,12 +11,9 @@ import Box from "@mui/material/Box";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-/**
- * @param {list} props.bookList
- * @param {int} props.currentPage
- */
 
-export default function Books({ bookList, currentPage }) {
+
+function Books({ bookList, currentPage }) {
   return (
     <Box>
       {bookList.map(function (item, i) {
@@ -89,3 +87,9 @@ export default function Books({ bookList, currentPage }) {
     </Box>
   );
 }
+
+Books.propTypes = {
+  bookList: PropTypes.array,
+  currentPage: PropTypes.number
+}
+export default Books

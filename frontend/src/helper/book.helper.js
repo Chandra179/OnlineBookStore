@@ -2,16 +2,16 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 /**
- * @param {list} props.book_author
- * @return {list} list of author for given book
+ * @param {Array} book_author
+ * list of author for given book
  */
-const bookAuthor = (book_author) => {
+function bookAuthor (book_author) {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
   var bookAuthorList = [];
 
   // put "," to author name until n-2
-  // beverly, chandra, viks
+  // beverly, ross, rachel
   book_author.map((e, i) => {
     var authors = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
     return bookAuthorList.push(authors);
@@ -57,7 +57,7 @@ const bookAuthor = (book_author) => {
 };
 
 const BookHelper = {
-  bookAuthor,
-};
+  bookAuthor
+}
 
-export default BookHelper;
+export default BookHelper

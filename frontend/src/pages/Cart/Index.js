@@ -20,7 +20,7 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 // HELPER
 import CheckoutHelper from "../../helper/checkout.helper";
 import CartHelper from "../../helper/cart.helper";
-import InputValidatorHelper from "../../helper/inputValidator.helper";
+import InputHelper from "../../helper/input.helper";
 // SERVICE
 import AuthService from "../../services/auth.service";
 // COMPONENT
