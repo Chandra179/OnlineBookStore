@@ -2,9 +2,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import PropTypes from "prop-types";
 
-
+/**
+ * 
+ * @param {Function} selectAllCheckbox
+ * @param {Boolean} isAllCheckboxSelected 
+ * @returns checkbox
+ */
 function Header({ selectAllCheckbox, isAllCheckboxSelected }) {
   return (
     <Box
@@ -64,8 +68,4 @@ function Header({ selectAllCheckbox, isAllCheckboxSelected }) {
   );
 }
 
-Header.propTypes = {
-  selectAllCheckbox: PropTypes.func.isRequired,
-  isAllCheckboxSelected: PropTypes.bool.isRequired
-}
 export default Header;

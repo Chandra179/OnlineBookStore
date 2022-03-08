@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 // MUI
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
@@ -11,7 +10,12 @@ import Box from "@mui/material/Box";
 // HELPER
 import BookHelper from "../../helper/book.helper";
 
-
+/**
+ *
+ * @param {Array} bookList
+ * @param {Number} currentPage
+ * @returns
+ */
 function Books({ bookList, currentPage }) {
   return (
     <Box>
@@ -35,7 +39,6 @@ function Books({ bookList, currentPage }) {
               </Box>
               <Box>
                 <Box>
-                  {/* LINK TO NEXT PAGE */}
                   <Link
                     to={{
                       pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
@@ -87,8 +90,4 @@ function Books({ bookList, currentPage }) {
   );
 }
 
-Books.propTypes = {
-  bookList: PropTypes.array.isRequired,
-  currentPage: PropTypes.number.isRequired
-}
-export default Books
+export default Books;

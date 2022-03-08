@@ -167,7 +167,7 @@ export default function Cart() {
 
   return (
     <>
-      {cartItem === null || Object.keys(cartItem).length === 0 ? (
+      {!cartItem === null || Object.keys(cartItem).length === 0 ? (
         <p>cart empty</p>
       ) : (
         <Grid container>
