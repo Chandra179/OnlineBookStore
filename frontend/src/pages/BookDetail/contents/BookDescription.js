@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import { Box, Grid, Typography } from "@mui/material";
 import BookHelper from "../../../helper/book.helper";
-import PropTypes from "prop-types";
 
-
+/**
+ * 
+ * @param {Object} bookDetails 
+ * @returns book description: title, author, etc.
+ */
 function BookDescription({ bookDetails }) {
   // list of author
   const authorList = BookHelper.bookAuthor(bookDetails.book_author);
-  // show more text... show less text....
   const [expandText, setExpandText] = useState(false);
+  
+  // show more text... show less text....
   const handleExpandText = () => {
     setExpandText(!expandText);
   };
@@ -55,7 +59,4 @@ function BookDescription({ bookDetails }) {
   );
 }
 
-BookDescription.propTypes = {
-  bookDetails: PropTypes.object.isRequired
-}
 export default BookDescription;

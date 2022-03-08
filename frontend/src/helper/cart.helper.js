@@ -10,6 +10,7 @@
 
 /**
  * @param {String} userEmail
+ * @returns {Object} cart items
  */
 function getCartItem (userEmail) {
   const cartItem = localStorage.getItem(userEmail)
@@ -31,7 +32,7 @@ function getCartItem (userEmail) {
 
 /**
  * @param {String} userEmail
- * count cart item
+ * @returns {Number} total items in cart
  */
 function cartBadge (userEmail) {
   const cartItem = JSON.parse(localStorage.getItem(userEmail));
@@ -48,8 +49,9 @@ function cartBadge (userEmail) {
 
 
 /**
- * @param {number} qty
- * @param {number} stock
+ * @param {Number} qty quantity input
+ * @param {Number} stock book stock
+ * @returns {Number} qty
  */
 function qtyValidator (qty, stock) {
   var newQty = qty;
@@ -67,6 +69,7 @@ function qtyValidator (qty, stock) {
 
 /**
  * @param {String} userEmail
+ * @returns {Object} cart items
  */
 function isItemInCart (userEmail) {
   const item = getCartItem(userEmail)

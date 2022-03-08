@@ -1,11 +1,9 @@
 import axios from "axios";
-
-
 /**
  * 
- * @param {str} email 
- * @param {str} password 
- * @returns {obj}
+ * @param {String} email 
+ * @param {String} password 
+ * @returns {Object} return token & email
  */
 const signin = (email, password) => {
   return axios
@@ -27,9 +25,9 @@ const signin = (email, password) => {
 
 /**
  * 
- * @param {str} email 
- * @param {str} password 
- * @returns {obj}
+ * @param {String} email 
+ * @param {String} password 
+ * @returns {Object} return token & email
  */
 const signup = (email, password) => {
   return axios
@@ -52,7 +50,10 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-// Get current user Email
+/**
+ * 
+ * @returns user email
+ */
 const getCurrentUser = () => {
    var user = localStorage.getItem("user");
    if (user) {

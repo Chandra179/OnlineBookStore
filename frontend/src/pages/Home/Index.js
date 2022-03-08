@@ -11,16 +11,14 @@ function Home() {
   const [genreList, setGenreList] = useState([]);
   
   useEffect(() => {
-    let isMounted = true;
     BookService.genreList().then(
       (data) => {
-        if (isMounted) setGenreList(data);
+        setGenreList(data);
       },
       (error) => {
         console.log(error);
       }
     );
-    return () => { isMounted = false };
   }, []);
 
 

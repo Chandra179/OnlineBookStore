@@ -11,16 +11,17 @@ import Books from "./Books";
 import BookService from "../../services/book.service";
 
 function BooksByGenre() {
+  const history = useHistory();
   const [bookList, setBookList] = useState([]);
+  const booksPerPage = 2;
   const [totalBook, setTotalBook] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-
-  const booksPerPage = 2;
-  const history = useHistory();
+  const totalPageNumber = Math.ceil(totalBook / booksPerPage);
 
   // get book genre from url path
   const genre = window.location.pathname.split("/")[2];
-  const totalPageNumber = Math.ceil(totalBook / booksPerPage);
+  
+  // get page number from url path
   const pageNumber = Number(window.location.pathname.split("/")[3]);
 
   useEffect(() => {

@@ -5,7 +5,10 @@ import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function GenreList({ genreList }) {
+/**
+ * @param {Array} genreList
+ */
+function GenreList({ genreList }) {
   return (
     <ListItem>
       {genreList.map(function (item, i) {
@@ -18,7 +21,7 @@ export default function GenreList({ genreList }) {
                   color: "black",
                   "&:hover": {
                     color: "blue",
-                  }
+                  },
                 }}
               >
                 {item.name}
@@ -30,3 +33,5 @@ export default function GenreList({ genreList }) {
     </ListItem>
   );
 }
+
+export default GenreList;

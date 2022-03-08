@@ -10,6 +10,7 @@ function setCheckoutItem (userEmail, cartItemKeys) {
 
 /**
  * @param {String} userEmail
+ * @returns {Array} list of checkout item
  */
 function getCheckoutItem (userEmail) {
   return localStorage.getItem(userEmail + "Checkout")

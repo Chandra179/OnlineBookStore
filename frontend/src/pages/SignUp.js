@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 // MUI
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,17 +10,10 @@ import Container from "@mui/material/Container";
 import Alert from "../components/Alert";
 // SERVICE
 import AuthService from "../services/auth.service";
-// HELPER
-import CartHelper from "../helper/cart.helper";
 // CONTEXT
 import { useUser } from "../hooks/useUser";
-import { useCart } from "../hooks/useCart";
 
 export default function SignUp() {
-  let history = useHistory();
-  const { setIsUserLoggedIn } = useUser();
-  const { setCartBadge } = useCart();
-
   const [signupAlert, setSignupAlert] = useState("");
   const [email, setEmail] = useState("");
   const [emailHelper, setEmailHelper] = useState("");
@@ -29,6 +21,7 @@ export default function SignUp() {
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const { setIsUserLoggedIn } = useUser();
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -51,16 +44,15 @@ export default function SignUp() {
       setPasswordHelper("Enter password");
       setPasswordError(true);
     }
-
     if (email && password) {
       //HANDLE SIGNUP HERE!!
       AuthService.signup(email, password).then(
-        (data) => {
+        () => {
           const userEmail = AuthService.getCurrentUser();
+          // if user is authenticated
           if (userEmail) {
-            setCartBadge(CartHelper.cartBadge(userEmail));
             setIsUserLoggedIn(true);
-            history.push("/");
+            window.location.assign("/");
           }
         },
         (error) => {

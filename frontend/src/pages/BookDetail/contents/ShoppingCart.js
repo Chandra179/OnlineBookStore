@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PropTypes from 'prop-types';
 // MUI
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -10,6 +9,7 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
+import Skeleton from '@mui/material/Skeleton';
 // COMPONENTS
 import Alert from "../../../components/Alert";
 // SERVICE
@@ -20,29 +20,32 @@ import { useCart } from "../../../hooks/useCart";
 import CartHelper from "../../../helper/cart.helper";
 import InputHelper from "../../../helper/input.helper";
 
-
+/**
+ *
+ * @param {Object} bookDetails
+ * @returns
+ */
 function ShoppingCart({ bookDetails }) {
+  const history = useHistory();
   const [isItemExist, setIsItemExist] = useState(false);
   const [isItemAdded, setIsItemAdded] = useState(false);
-  // price per book, eg: 1 book -> $22
+  
+  // price for 1 book, eg: 1 book -> $22
   const normalPrice = Number(bookDetails.price);
+  
+  // Total book price, eg: 10 * $22 = $220
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const history = useHistory();
   const [qty, setQty] = useState(1);
   const { setCartBadge } = useCart();
   const userEmail = AuthService.getCurrentUser();
-  
-  // Total book price, eg: 10 * $22 = $220
-  const [totalPrice, setTotalPrice] = useState(1);
+
 
   /**
    * Handle qty input
    */
   const handleQtyChange = (event) => {
-    var qty = CartHelper.qtyValidator(
-      event.target.value,
-      bookDetails.stock
-    );
+    var qty = CartHelper.qtyValidator(event.target.value, bookDetails.stock);
     setQty(qty);
     setTotalPrice(qty * normalPrice);
   };
@@ -115,9 +118,7 @@ function ShoppingCart({ bookDetails }) {
             <Box pr={2} sx={{ marginLeft: "auto" }}>
               <Typography variant="h6">
                 ${" "}
-                {totalPrice <= 1
-                  ? normalPrice.toFixed(2)
-                  : totalPrice.toFixed(2)}
+                {totalPrice ? totalPrice.toFixed(2) : normalPrice.toFixed(2)}
               </Typography>
             </Box>
           </Box>
@@ -179,7 +180,4 @@ function ShoppingCart({ bookDetails }) {
   );
 }
 
-ShoppingCart.propTypes = {
-  bookDetails: PropTypes.object.isRequired
-}
 export default ShoppingCart;

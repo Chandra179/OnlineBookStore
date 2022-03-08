@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 // MUI
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,30 +12,24 @@ import Alert from "../components/Alert";
 import Home from "../pages/Home/Index";
 // SERVICE
 import AuthService from "../services/auth.service";
-// HELPER
-import CartHelper from "../helper/cart.helper";
 // CONTEXT
 import { useUser } from "../hooks/useUser";
-import { useCart } from "../hooks/useCart";
-
 
 export default function SignIn() {
-  let history = useHistory();
-  const { setCartBadge } = useCart();
-  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
-
-  const [signInAlert, setSignInAlert] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailHelper, setEmailHelper] = useState("");
+  const [signInAlert, setSignInAlert] = useState("");
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  
+  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
 
-  const isEmailError = emailError ? true : false
-  const emailHelperText = emailHelper ? emailHelper : false
-  const isPasswordError = passwordError ? true : false
-  const passwordHelperText = passwordHelper ? passwordHelper : false
+  const isEmailError = emailError ? true : false;
+  const emailHelperText = emailHelper ? emailHelper : false;
+  const isPasswordError = passwordError ? true : false;
+  const passwordHelperText = passwordHelper ? passwordHelper : false;
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -61,12 +54,12 @@ export default function SignIn() {
     }
     if (email && password) {
       AuthService.signin(email, password).then(
-        (data) => {
+        () => {
           const userEmail = AuthService.getCurrentUser();
+          // if user is authenticated
           if (userEmail) {
-            setCartBadge(CartHelper.cartBadge(userEmail));
             setIsUserLoggedIn(true);
-            history.push("/");
+            window.location.assign("/");
           }
         },
         (error) => {
@@ -89,7 +82,11 @@ export default function SignIn() {
             marginTop: 8,
           }}
         >
-          {signInAlert ? <Alert name={signInAlert} severity="error" /> : <div />}
+          {signInAlert ? (
+            <Alert name={signInAlert} severity="error" />
+          ) : (
+            <div />
+          )}
           <Box
             component="form"
             onSubmit={handleSignInSubmit}
@@ -111,17 +108,15 @@ export default function SignIn() {
               Sign in
             </Typography>
             <TextField
-              onChange={onChangeEmail}
-              value={email}
-              error={isEmailError}
-              helperText={emailHelperText}
-              margin="normal"
               required
               fullWidth
-              id="email"
+              margin="normal"
               label="Email Address"
-              name="email"
               autoComplete="email"
+              value={email}
+              error={isEmailError}
+              onChange={onChangeEmail}
+              helperText={emailHelperText}
               inputProps={{
                 style: {
                   height: "20px",
@@ -130,18 +125,16 @@ export default function SignIn() {
               autoFocus
             />
             <TextField
-              onChange={onChangePassword}
-              value={password}
-              error={isPasswordError}
-              helperText={passwordHelperText}
-              margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
+              margin="normal"
               type="password"
-              id="password"
+              label="Password"
               autoComplete="current-password"
+              value={password}
+              error={isPasswordError}
+              onChange={onChangePassword}
+              helperText={passwordHelperText}
               inputProps={{
                 style: {
                   height: "20px",
@@ -149,8 +142,8 @@ export default function SignIn() {
               }}
             />
             <Button
-              type="submit"
               fullWidth
+              type="submit"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >

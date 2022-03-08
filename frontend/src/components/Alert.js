@@ -16,7 +16,7 @@ function BasicAlerts(props) {
 
 BasicAlerts.propTypes = {
   severity: PropTypes.string,
-  name: PropTypes.string
-}
+  name: PropTypes.string,
+};
 
-export default BasicAlerts
+export default BasicAlerts;

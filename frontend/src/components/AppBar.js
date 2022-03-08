@@ -47,8 +47,8 @@ const signInStyle = {
  * APPBAR
  */
 function PrimarySearchAppBar() {
-  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
   const { cartBadge, setCartBadge } = useCart();
+  const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
   const { isAppbarDisabled, setIsAppbarDisabled } = useCheckout();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -62,8 +62,8 @@ function PrimarySearchAppBar() {
       setCartBadge(CartHelper.cartBadge(userEmail));
 
       var urlPath = window.location.pathname;
-      // if user in checkout page, then hide appbar cart and account logo
       if (urlPath === "/cart/checkout") {
+        // if user in checkout page, then hide cart and account logo
         setIsAppbarDisabled(true);
       }
     }
