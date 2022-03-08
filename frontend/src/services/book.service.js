@@ -3,7 +3,7 @@ import axios from "axios";
 
 /**
  * 
- * @returns {list} return list of genre, eg: [biography, fiction]
+ * @returns {Array} return list of genre, eg: [biography, fiction]
  */
 async function genreList() {
   const response = await axios
@@ -17,9 +17,9 @@ async function genreList() {
 
 /**
  * 
- * @param {str} genre
- * @param {int} page 
- * @returns {obj} return books for given genre and page number
+ * @param {String} genre
+ * @param {Number} page 
+ * @returns {Object} return total books and books for given genre and page number
  */
 async function booksByGenre(genre, page) {
   const response = await axios
@@ -27,7 +27,7 @@ async function booksByGenre(genre, page) {
     .then((response) => {
       const resp = {
         'total_book': response.headers.total_book,
-        'book': response.data,
+        'books': response.data,
       }
       return resp;
     });

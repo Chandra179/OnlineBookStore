@@ -15,17 +15,18 @@ function BooksByGenre() {
   const [totalBook, setTotalBook] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const history = useHistory();
   const booksPerPage = 2;
+  const history = useHistory();
+
   // get book genre from url path
   const genre = window.location.pathname.split("/")[2];
-  const pageNumber = Number(window.location.pathname.split("/")[3]);
   const totalPageNumber = Math.ceil(totalBook / booksPerPage);
+  const pageNumber = Number(window.location.pathname.split("/")[3]);
 
   useEffect(() => {
     BookService.booksByGenre(genre, pageNumber).then(
       (data) => {
-        setBookList(data.book);
+        setBookList(data.books);
         setTotalBook(data.total_book);
         setCurrentPage(pageNumber);
       },

@@ -12,7 +12,6 @@ import Box from "@mui/material/Box";
 import BookHelper from "../../helper/book.helper";
 
 
-
 function Books({ bookList, currentPage }) {
   return (
     <Box>
@@ -89,7 +88,7 @@ function Books({ bookList, currentPage }) {
 }
 
 Books.propTypes = {
-  bookList: PropTypes.array,
-  currentPage: PropTypes.number
+  bookList: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired
 }
 export default Books
