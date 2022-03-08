@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 // MUI
 import {
   Divider,
   Card,
-  Button,
   Checkbox,
   TextField,
   FormControl,
@@ -263,6 +261,7 @@ export default function Cart() {
                                     type="tel"
                                     size="small"
                                     value={qty}
+                                    onKeyPress = {(e) => InputHelper.numberOnly(e)}
                                     onChange={(e) =>
                                       handleQtyChange(
                                         title,

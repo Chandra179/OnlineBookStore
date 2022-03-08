@@ -115,6 +115,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
           }}
         >
           <Button
+            disabled={totalQty ? false : true}
             variant="contained"
             sx={{
               height: 22,

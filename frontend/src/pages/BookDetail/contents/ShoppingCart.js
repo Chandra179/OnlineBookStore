@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
 // MUI
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -180,7 +179,4 @@ function ShoppingCart({ bookDetails }) {
   );
 }
 
-ShoppingCart.propTypes = {
-  bookDetails: PropTypes.object
-}
 export default ShoppingCart;

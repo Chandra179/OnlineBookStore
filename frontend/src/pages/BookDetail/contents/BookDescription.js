@@ -56,6 +56,6 @@ function BookDescription({ bookDetails }) {
 }
 
 BookDescription.propTypes = {
-  bookDetails: PropTypes.object
+  bookDetails: PropTypes.array
 }
 export default BookDescription;
