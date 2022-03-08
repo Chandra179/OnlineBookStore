@@ -28,6 +28,8 @@ import Checkout from "./Checkout";
 import { useCart } from "../../hooks/useCart";
 import Styles from "./Styles";
 
+
+
 export default function Cart() {
   const { setCartBadge } = useCart();
   const userEmail = AuthService.getCurrentUser();
@@ -302,7 +304,7 @@ export default function Cart() {
                             onClick={(e) => removeProduct(title, e)}
                             sx={Styles.closeIcon}
                           >
-                            <CloseSharpIcon />
+                            <CloseSharpIcon sx={{ fontSize: 20 }} />
                           </IconButton>
                         </Box>
                       </Box>
@@ -314,7 +316,6 @@ export default function Cart() {
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>
             <Checkout
-              userEmail={userEmail}
               cartItem={cartItem}
               selectedCheckbox={selectedCheckbox}
             />

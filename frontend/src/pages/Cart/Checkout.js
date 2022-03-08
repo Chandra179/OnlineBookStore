@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -10,20 +11,14 @@ import AuthService from "../../services/auth.service";
 import { useOrder } from "../../hooks/useOrder";
 
 
-/**
- *
- * @param {str} userEmail
- * @param {obj} cartItem
- * @param {list} selectedCheckbox
- */
-export default function Checkout({ cartItem, selectedCheckbox }) {
-  const userEmail = AuthService.getCurrentUser();
+function Checkout({ cartItem, selectedCheckbox }) {
+  let history = useHistory()
   const { setClientSecret } = useOrder()
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalQty, setTotalQty] = useState(0);
-  const [items, setItems] = useState({});
-  let history = useHistory();
-  const { setIsAppbarDisabled } = useCheckout();
+  const [orderItems, setOrderItems] = useState({})
+  const [totalQty, setTotalQty] = useState(0)
+  const { setIsAppbarDisabled } = useCheckout()
+  const userEmail = AuthService.getCurrentUser()
+  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
     var totalItemPrice = 0
@@ -42,12 +37,12 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
     }
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
-    setItems(totalItems);
+    setOrderItems(totalItems);
   }, [cartItem, selectedCheckbox]);
 
 
   function handleCheckout() {
-    // if checkout with empty item, the change empty value to 1
+    // if user checkout with empty item, the change empty value to 1
     Object.keys(cartItem).forEach(function (key) {
       if (!cartItem[key]["qty"]) {
         cartItem[key]["qty"] = 1;
@@ -57,11 +52,11 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
     });
     history.push("/cart/checkout");
     setIsAppbarDisabled(true);
-    console.log(items);
 
     // HANDLE PAYMENT
+    // must validate token in backend!!
     const token = AuthService.getToken();
-    PaymentService.addPayment(token, items).then(
+    PaymentService.addPayment(token, orderItems).then(
       (data) => {
         setClientSecret(data["clientSecret"])
       },
@@ -131,3 +126,9 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
     </Box>
   );
 }
+
+Checkout.propTypes = {
+  cartItem: PropTypes.object,
+  selectedCheckbox: PropTypes.array
+}
+export default Checkout;

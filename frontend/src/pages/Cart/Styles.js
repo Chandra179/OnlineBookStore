@@ -61,9 +61,9 @@ const Styles = {
 
   priceText:{
     fontSize: {
-      lg: 15,
-      md: 15,
-      sm: 15,
+      lg: 16,
+      md: 16,
+      sm: 16,
       xs: 13,
     },
     fontWeight: 600,
@@ -103,7 +103,7 @@ const Styles = {
   closeIcon: {
     width: 0, 
     height: 0, 
-    paddingTop: 0
+    paddingTop: 0.2,
   }
 
 };
