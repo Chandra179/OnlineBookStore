@@ -57,19 +57,18 @@ function ShoppingCart({ bookDetails }) {
       history.push("/signin");
       return;
     }
-    // if qty input is empty
-    const qtys = qty ? qty : 1;
-    if (qtys === 1) {
-      setQty(1);
-      setTotalPrice(qtys * normalPrice);
-    }
     const cartItem = CartHelper.getCartItem(userEmail);
-    const isDuplicate = bookDetails.name in cartItem;
+    const isItemDuplicate = bookDetails.name in cartItem;
 
-    if (isDuplicate) {
+    if (isItemDuplicate) {
       setIsItemExist(true);
       setIsItemAdded(false);
       return;
+    }
+    // if qty input is empty then set to 1
+    const qtys = qty ? qty : 1;
+    if (qtys === 1) {
+      setQty(1);
     }
     cartItem[bookDetails.name] = {
       cover: bookDetails.cover,
