@@ -36,6 +36,6 @@ const BookCover = ({ cover }) => {
 };
 
 BookCover.propTypes = {
-  cover: PropTypes.string
-}
+  cover: PropTypes.string,
+};
 export default BookCover;

@@ -80,7 +80,7 @@ function PrimarySearchAppBar() {
     setAnchorEl(null);
   };
 
-  const logOut = () => {
+  const handleLogOut = () => {
     setIsUserLoggedIn(false);
     setCartBadge(0);
     AuthService.logout();
@@ -107,7 +107,7 @@ function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/signin" onClick={logOut}>
+        <Link to="/signin" onClick={handleLogOut}>
           <Typography>Logout</Typography>
         </Link>
       </MenuItem>

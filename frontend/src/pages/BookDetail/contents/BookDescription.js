@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 function BookDescription({ bookDetails }) {
   // list of author
-  const bookAuthor = BookHelper.bookAuthor(bookDetails.book_author);
+  const authorList = BookHelper.bookAuthor(bookDetails.book_author);
   // show more text... show less text....
   const [expandText, setExpandText] = useState(false);
   const handleExpandText = () => {
@@ -31,7 +31,7 @@ function BookDescription({ bookDetails }) {
         >
           {bookDetails.name}
         </Typography>
-        {bookAuthor}
+        {authorList}
         <Box mt={1}>
           <ShowMoreText
             lines={5}
