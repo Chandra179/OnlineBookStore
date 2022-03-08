@@ -39,7 +39,7 @@ function ShoppingCart({ bookDetails }) {
    * Handle qty input
    */
   const handleQtyChange = (event) => {
-    var qty = CartHelper.qtyStockValidator(
+    var qty = CartHelper.qtyValidator(
       event.target.value,
       bookDetails.stock
     );

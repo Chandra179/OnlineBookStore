@@ -13,8 +13,8 @@ function bookAuthor (book_author) {
   // put "," to author name until n-2
   // beverly, ross, rachel
   book_author.map((e, i) => {
-    var authors = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
-    return bookAuthorList.push(authors);
+    var author = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
+    return bookAuthorList.push(author);
   });
 
   return (

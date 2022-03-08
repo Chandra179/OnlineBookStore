@@ -83,11 +83,11 @@ export default function Cart() {
    * Handle product quantity input change
    */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    const item = CartHelper.checkItemInCart(userEmail);
+    const item = CartHelper.isItemInCart(userEmail);
     if (!item) window.location.reload();
 
     var qty = Number(event.target.value)
-    var validQty = CartHelper.qtyStockValidator(qty, stock);
+    var validQty = CartHelper.qtyValidator(qty, stock);
    
     item[title]["qty"] = validQty;
     item[title]["totalPrice"] = validQty * normalPrice;
@@ -98,11 +98,11 @@ export default function Cart() {
   };
 
   const incrementProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.checkItemInCart(userEmail)
+    const item = CartHelper.isItemInCart(userEmail)
     if (!item) window.location.reload()
 
     var qty = Number(item[title]["qty"]);
-    var validQty = CartHelper.qtyStockValidator(qty, stock);
+    var validQty = CartHelper.qtyValidator(qty, stock);
 
     item[title]["qty"] = validQty + 1;
     item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
@@ -114,13 +114,13 @@ export default function Cart() {
   };
 
   const decrementProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.checkItemInCart(userEmail)
+    const item = CartHelper.isItemInCart(userEmail)
     if (!item) window.location.reload()
 
     var qty = Number(item[title]["qty"]);
     if (qty < 1) return;
     
-    var validQty = CartHelper.qtyStockValidator(qty, stock);
+    var validQty = CartHelper.qtyValidator(qty, stock);
     item[title]["qty"] = validQty - 1;
     item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
 

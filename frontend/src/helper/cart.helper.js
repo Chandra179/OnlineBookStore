@@ -51,7 +51,7 @@ function cartBadge (userEmail) {
  * @param {number} qty
  * @param {number} stock
  */
-function qtyStockValidator (qty, stock) {
+function qtyValidator (qty, stock) {
   var newQty = qty;
   if (qty > stock) {
     newQty = stock;
@@ -68,7 +68,7 @@ function qtyStockValidator (qty, stock) {
 /**
  * @param {String} userEmail
  */
-function checkItemInCart (userEmail) {
+function isItemInCart (userEmail) {
   const item = getCartItem(userEmail)
   if (Object.keys(item).length !== 0) {
     return item;
@@ -80,8 +80,8 @@ const CartHelper = {
   getCartItem,
   removeCart,
   cartBadge,
-  qtyStockValidator,
-  checkItemInCart
+  qtyValidator,
+  isItemInCart
 }
 
 export default CartHelper;
