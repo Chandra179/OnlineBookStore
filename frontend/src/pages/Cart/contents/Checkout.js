@@ -12,28 +12,30 @@ import CartHelper from "../../../helper/cart.helper";
 import PaymentService from "../../../services/payment.service";
 import AuthService from "../../../services/auth.service";
 
-
 function Checkout() {
-  let history = useHistory()
-  const { setClientSecret } = useOrder()
-  const { setIsAppbarDisabled } = useCheckout()
-  const { cartItem, selectedCheckbox } = useCart()
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [orderItems, setOrderItems] = useState({})
-  const [totalQty, setTotalQty] = useState(0)
-  const userEmail = AuthService.getCurrentUser()
+  let history = useHistory();
+  const { setClientSecret } = useOrder();
+  const { setIsAppbarDisabled } = useCheckout();
+  const { cartItem, selectedCheckbox } = useCart();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderItems, setOrderItems] = useState({});
+  const [totalQty, setTotalQty] = useState(0);
+  const userEmail = AuthService.getCurrentUser();
 
   useEffect(() => {
-    var totalItemPrice = 0
-    var totalItemQty = 0
-    var totalItems = {}
-    
+    /**
+     *  count checkout items and price
+     */
+    var totalItemPrice = 0;
+    var totalItemQty = 0;
+    var totalItems = {};
+
     for (var key in cartItem) {
       if (selectedCheckbox.includes(key)) {
         totalItems[key] = {
           price: parseFloat(cartItem[key]["totalPrice"]).toFixed(2),
-          qty: parseFloat(cartItem[key]["qty"])
-        }
+          qty: parseFloat(cartItem[key]["qty"]),
+        };
         totalItemPrice += parseFloat(cartItem[key]["totalPrice"]);
         totalItemQty += parseFloat(cartItem[key]["qty"]);
       }
@@ -43,10 +45,9 @@ function Checkout() {
     setOrderItems(totalItems);
   }, [cartItem, selectedCheckbox]);
 
-
   function handleCheckout() {
     // if user checkout with empty item, the change empty value to 1
-    Object.keys(cartItem).forEach(function (key) {
+    Object.keys(cartItem).forEach(function(key) {
       if (!cartItem[key]["qty"]) {
         cartItem[key]["qty"] = 1;
         cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
@@ -61,8 +62,8 @@ function Checkout() {
     const token = AuthService.getToken();
     PaymentService.addPayment(token, orderItems).then(
       (data) => {
-        localStorage.setItem(userEmail + 'Order', data['clientSecret'])
-        setClientSecret(localStorage.getItem(userEmail + 'Order'))
+        localStorage.setItem(userEmail + "Order", data["clientSecret"]);
+        setClientSecret(localStorage.getItem(userEmail + "Order"));
       },
       (error) => {
         console.log(error.response);

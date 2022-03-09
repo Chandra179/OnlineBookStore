@@ -117,7 +117,7 @@ function BasicAppbar() {
     <Box>
       <Link
         to="/"
-        onClick={isAppbarDisabled ? () => (window.location.assign = "/") : null}
+        onClick={isAppbarDisabled ? () => (window.location.assign('/')) : null}
       >
         <Typography sx={appName}>Alexandria</Typography>
       </Link>
