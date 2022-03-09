@@ -41,7 +41,7 @@ function BooksByGenre() {
   const handlePageClick = async (event, value) => {
     await BookService.booksByGenre(genre, value).then(
       (data) => {
-        setBookList(data.book);
+        setBookList(data.books);
         setTotalBook(data.total_book);
         setCurrentPage(value);
       },
