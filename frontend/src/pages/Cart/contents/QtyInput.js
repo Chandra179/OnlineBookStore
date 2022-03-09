@@ -2,11 +2,11 @@ import React from "react";
 import { Box, Grid, FormControl, TextField, IconButton } from "@mui/material";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import Styles from "../Styles";
+import { useCart } from "../../../hooks/useCart";
 import CartHelper from "../../../helper/cart.helper";
 import AuthService from "../../../services/auth.service";
 import InputHelper from "../../../helper/input.helper";
-import { useCart } from "../../../hooks/useCart";
+import Styles from "../Styles";
 
 export default function QtyInput({ title, qty, normalPrice, stock }) {
   const userEmail = AuthService.getCurrentUser();

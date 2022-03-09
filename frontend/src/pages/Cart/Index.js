@@ -1,27 +1,25 @@
 import React from "react";
 // MUI
 import { Divider, Box, Grid } from "@mui/material";
-// SERVICE
-import AuthService from "../../services/auth.service";
 // COMPONENT
 import CartHeader from "./contents/CartHeader";
-import Checkout from "./contents/Checkout";
 import ItemCheckbox from "./contents/ItemCheckbox";
 import BookCover from "./contents/BookCover";
 import BookPrice from "./contents/BookPrice";
 import BookTitle from "./contents/BookTitle";
 import QtyInput from "./contents/QtyInput";
+import Checkout from "./contents/Checkout";
+import RemoveProduct from "./contents/RemoveProduct";
 // CONTEXT
 import { useCart } from "../../hooks/useCart";
 import Styles from "./Styles";
-import RemoveProduct from "./contents/RemoveProduct";
 
 export default function Cart() {
-  const { setCartBadge, selectedCheckbox, cartItem } = useCart();
+  const { cartItem } = useCart();
 
   return (
     <>
-      {cartItem === null || Object.keys(cartItem).length === 0 ? (
+      {!cartItem || Object.keys(cartItem).length === 0 ? (
         <p>cart empty</p>
       ) : (
         <Grid container>
@@ -72,7 +70,7 @@ export default function Cart() {
             </Box>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Checkout cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
+            <Checkout />
           </Grid>
         </Grid>
       )}

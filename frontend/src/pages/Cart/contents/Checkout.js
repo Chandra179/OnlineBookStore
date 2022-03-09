@@ -8,16 +8,17 @@ import CartHelper from "../../../helper/cart.helper";
 import PaymentService from "../../../services/payment.service";
 import AuthService from "../../../services/auth.service";
 import { useOrder } from "../../../hooks/useOrder";
+import { useCart } from "../../../hooks/useCart";
 
-
-function Checkout({ cartItem, selectedCheckbox }) {
+function Checkout() {
   let history = useHistory()
   const { setClientSecret } = useOrder()
+  const { setIsAppbarDisabled } = useCheckout()
+  const { cartItem, selectedCheckbox } = useCart()
+  const [totalPrice, setTotalPrice] = useState(0)
   const [orderItems, setOrderItems] = useState({})
   const [totalQty, setTotalQty] = useState(0)
-  const { setIsAppbarDisabled } = useCheckout()
   const userEmail = AuthService.getCurrentUser()
-  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
     var totalItemPrice = 0
