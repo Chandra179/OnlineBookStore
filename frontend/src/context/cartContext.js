@@ -8,10 +8,13 @@ export const CartContext = createContext();
 const CartContextProvider = ({ children }) => {
   const userEmail = AuthService.getCurrentUser();
   const [cartBadge, setCartBadge] = useState(0);
-  const [selectedCheckbox, setSelectedCheckbox] = useState(
-    CheckoutHelper.getCheckoutItem(userEmail)
-  );
-  const [cartItem, setCartItem] = useState(CartHelper.getCartItem(userEmail));
+
+  var checkoutItem = CheckoutHelper.getCheckoutItem(userEmail);
+  const [selectedCheckbox, setSelectedCheckbox] = useState(checkoutItem);
+
+  var itemsInCart = CartHelper.getCartItem(userEmail);
+  const [cartItem, setCartItem] = useState(itemsInCart);
+  
   const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
   const isAllCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
