@@ -149,7 +149,7 @@ function BasicAppbar() {
   ) : (
     <Box sx={{ display: "flex" }}>
       <Box m={0.5}>
-        <Link to="/cart">
+        <Link to="/cart" onClick={() => (window.location.href = "/cart")}>
           <IconButton size="large">
             <Badge badgeContent={cartBadge} color="error">
               <LocalMallSharpIcon sx={iconStyle} />

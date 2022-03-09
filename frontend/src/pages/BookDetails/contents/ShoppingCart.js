@@ -25,18 +25,17 @@ import InputHelper from "../../../helper/input.helper";
  */
 function ShoppingCart({ bookDetails }) {
   const history = useHistory();
+  const userEmail = AuthService.getCurrentUser();
   const [isItemExist, setIsItemExist] = useState(false);
   const [isItemAdded, setIsItemAdded] = useState(false);
   
   // price for 1 book, eg: 1 book -> $22
   const normalPrice = Number(bookDetails.price);
-  
+
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(0);
-
   const [qty, setQty] = useState(1);
   const { setCartBadge } = useCart();
-  const userEmail = AuthService.getCurrentUser();
 
   /**
    * Handle qty input

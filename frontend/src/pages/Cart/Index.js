@@ -28,19 +28,17 @@ import Checkout from "./Checkout";
 import { useCart } from "../../hooks/useCart";
 import Styles from "./Styles";
 
-
-
 export default function Cart() {
-  const { setCartBadge } = useCart();
+  const {
+    setCartBadge,
+    selectedCheckbox,
+    setSelectedCheckbox,
+    cartItem,
+    setCartItem,
+    cartItemKeys,
+    isAllCheckboxSelected,
+  } = useCart();
   const userEmail = AuthService.getCurrentUser();
-  const [selectedCheckbox, setSelectedCheckbox] = useState(
-    // Populate checkbox value with checkout item
-    CheckoutHelper.getCheckoutItem(userEmail)
-  );
-  const [cartItem, setCartItem] = useState(CartHelper.getCartItem(userEmail));
-  const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
-  const isAllCheckboxSelected =
-    cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
   /**
    * Handle select all checkbox
@@ -88,9 +86,9 @@ export default function Cart() {
     const item = CartHelper.isItemInCart(userEmail);
     if (!item) window.location.reload();
 
-    var qty = Number(event.target.value)
+    var qty = Number(event.target.value);
     var validQty = CartHelper.qtyValidator(qty, stock);
-   
+
     item[title]["qty"] = validQty;
     item[title]["totalPrice"] = validQty * normalPrice;
 
@@ -100,8 +98,8 @@ export default function Cart() {
   };
 
   const incrementProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.isItemInCart(userEmail)
-    if (!item) window.location.reload()
+    const item = CartHelper.isItemInCart(userEmail);
+    if (!item) window.location.reload();
 
     var qty = Number(item[title]["qty"]);
     var validQty = CartHelper.qtyValidator(qty, stock);
@@ -112,16 +110,15 @@ export default function Cart() {
     CartHelper.setCartItem(userEmail, item);
     setCartItem(CartHelper.getCartItem(userEmail));
     setCartBadge(CartHelper.cartBadge(userEmail));
-
   };
 
   const decrementProduct = (title, normalPrice, stock, event) => {
-    const item = CartHelper.isItemInCart(userEmail)
-    if (!item) window.location.reload()
+    const item = CartHelper.isItemInCart(userEmail);
+    if (!item) window.location.reload();
 
     var qty = Number(item[title]["qty"]);
     if (qty < 1) return;
-    
+
     var validQty = CartHelper.qtyValidator(qty, stock);
     item[title]["qty"] = validQty - 1;
     item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
@@ -180,7 +177,7 @@ export default function Cart() {
               <Divider sx={Styles.divider} />
               <Box sx={Styles.contentBox}>
                 <Box>
-                  {Object.keys(cartItem).map(function (key) {
+                  {Object.keys(cartItem).map(function(key) {
                     var title = key;
                     var normalPrice = cartItem[key]["normalPrice"];
                     var qty = cartItem[key]["qty"];
@@ -263,7 +260,9 @@ export default function Cart() {
                                     type="tel"
                                     size="small"
                                     value={qty}
-                                    onKeyPress = {(e) => InputHelper.numberOnly(e)}
+                                    onKeyPress={(e) =>
+                                      InputHelper.numberOnly(e)
+                                    }
                                     onChange={(e) =>
                                       handleQtyChange(
                                         title,
@@ -315,10 +314,7 @@ export default function Cart() {
             </Box>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>
-            <Checkout
-              cartItem={cartItem}
-              selectedCheckbox={selectedCheckbox}
-            />
+            <Checkout cartItem={cartItem} selectedCheckbox={selectedCheckbox} />
           </Grid>
         </Grid>
       )}
