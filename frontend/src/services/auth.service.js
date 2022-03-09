@@ -3,7 +3,7 @@ import axios from "axios";
  * 
  * @param {String} email 
  * @param {String} password 
- * @returns {Object} return token & email
+ * @returns {object} return token & email
  */
 const signin = (email, password) => {
   return axios
@@ -27,7 +27,7 @@ const signin = (email, password) => {
  * 
  * @param {String} email 
  * @param {String} password 
- * @returns {Object} return token & email
+ * @returns {object} return token & email
  */
 const signup = (email, password) => {
   return axios
@@ -52,14 +52,12 @@ const logout = () => {
 
 /**
  * 
- * @returns user email
+ * @returns {String} user email
  */
 const getCurrentUser = () => {
    var user = localStorage.getItem("user");
    if (user) {
     return JSON.parse(user)['email'];
-   } else {
-     return null
    }
 };
 

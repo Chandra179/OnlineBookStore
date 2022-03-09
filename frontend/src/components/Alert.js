@@ -2,8 +2,12 @@ import * as React from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/material";
-import PropTypes from "prop-types";
 
+/**
+ * MUI Alert
+ * @param {String} props.severity
+ * @param {String} props.name
+ */
 function BasicAlerts(props) {
   return (
     <Box>
@@ -13,10 +17,5 @@ function BasicAlerts(props) {
     </Box>
   );
 }
-
-BasicAlerts.propTypes = {
-  severity: PropTypes.string,
-  name: PropTypes.string,
-};
 
 export default BasicAlerts;

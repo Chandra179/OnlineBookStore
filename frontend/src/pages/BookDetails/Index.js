@@ -11,7 +11,7 @@ import ShoppingCart from "./contents/ShoppingCart";
 /**
  * Main function
  */
-export default function BookDetails() {
+function BookDetails() {
   const [bookDetails, setBookDetails] = useState({});
 
   useEffect(() => {
@@ -46,3 +46,5 @@ export default function BookDetails() {
     </Grid>
   );
 }
+
+export default BookDetails

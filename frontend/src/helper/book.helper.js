@@ -2,10 +2,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 /**
- * @param {Array} book_author
- * list of author for given book
+ * @param {Array} book_author list of author
+ * @returns list of author
  */
-function bookAuthor (book_author) {
+function bookAuthor(book_author) {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
   var bookAuthorList = [];
@@ -54,10 +54,10 @@ function bookAuthor (book_author) {
       </Typography>
     </Box>
   );
-};
-
-const BookHelper = {
-  bookAuthor
 }
 
-export default BookHelper
+const BookHelper = {
+  bookAuthor,
+};
+
+export default BookHelper;

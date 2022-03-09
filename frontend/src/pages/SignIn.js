@@ -54,7 +54,7 @@ export default function SignIn() {
     }
     if (email && password) {
       AuthService.signin(email, password).then(
-        () => {
+        (data) => {
           const userEmail = AuthService.getCurrentUser();
           // if user is authenticated
           if (userEmail) {

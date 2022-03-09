@@ -10,13 +10,13 @@
 
 /**
  * @param {String} userEmail
- * @returns {Object} cart items
+ * @returns {object} cart items
  */
 function getCartItem (userEmail) {
-  const cartItem = localStorage.getItem(userEmail)
+  const cartItems = localStorage.getItem(userEmail)
     ? JSON.parse(localStorage.getItem(userEmail))
     : {};
-  return cartItem;
+  return cartItems;
 };
 
 
@@ -40,6 +40,7 @@ function cartBadge (userEmail) {
     const cartKeys = Object.keys(cartItem).length;
     var qty = 0;
     for (var i = 0; i < cartKeys; i++) {
+      // get qty for each item
       qty += Number(Object.values(cartItem)[i]["qty"]);
     }
   }
@@ -69,7 +70,7 @@ function qtyValidator (qty, stock) {
 
 /**
  * @param {String} userEmail
- * @returns {Object} cart items
+ * @returns {object} cart items
  */
 function isItemInCart (userEmail) {
   const item = getCartItem(userEmail)

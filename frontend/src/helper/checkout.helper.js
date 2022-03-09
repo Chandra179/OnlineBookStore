@@ -1,6 +1,6 @@
 /**
  * @param {String} userEmail
- * @param {Array} cartItemKeys
+ * @param {Array} cartItemKeys checkout items
  */
 function setCheckoutItem (userEmail, cartItemKeys) {
   localStorage.setItem(userEmail + "Checkout", JSON.stringify(cartItemKeys));
@@ -10,7 +10,7 @@ function setCheckoutItem (userEmail, cartItemKeys) {
 
 /**
  * @param {String} userEmail
- * @returns {Array} list of checkout item
+ * @returns {Array} list of checkout items
  */
 function getCheckoutItem (userEmail) {
   return localStorage.getItem(userEmail + "Checkout")

@@ -3,9 +3,10 @@ import { Grid } from "@mui/material";
 import GenreList from "./GenreList";
 import BookService from "../../services/book.service";
 
-/*
-  Main Page
-*/
+/**
+ * 
+ * Main page
+ */
 
 function Home() {
   const [genreList, setGenreList] = useState([]);
@@ -20,7 +21,6 @@ function Home() {
       }
     );
   }, []);
-
 
   return (
     <Grid

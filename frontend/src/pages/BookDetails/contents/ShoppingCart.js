@@ -21,8 +21,7 @@ import InputHelper from "../../../helper/input.helper";
 
 /**
  *
- * @param {Object} bookDetails
- * @returns
+ * @param {Object} bookDetails book description: title, price, stock, etc.
  */
 function ShoppingCart({ bookDetails }) {
   const history = useHistory();
@@ -39,7 +38,6 @@ function ShoppingCart({ bookDetails }) {
   const { setCartBadge } = useCart();
   const userEmail = AuthService.getCurrentUser();
 
-
   /**
    * Handle qty input
    */
@@ -52,13 +50,15 @@ function ShoppingCart({ bookDetails }) {
   /**
    * Handle add item to cart,
    * item will be saved in local storage as object.
-   * obj key : user email
+   * object key : user email
    */
   const handleAddToCart = () => {
     if (!userEmail) {
       history.push("/signin");
       return;
     }
+    // IMPORTANT!: check if user token is valid in backend
+
     const cartItem = CartHelper.getCartItem(userEmail);
     const isItemDuplicate = bookDetails.name in cartItem;
 
@@ -82,7 +82,10 @@ function ShoppingCart({ bookDetails }) {
     CartHelper.setCartItem(userEmail, cartItem);
     setIsItemAdded(true);
     setIsItemExist(false);
-    setCartBadge(CartHelper.cartBadge(userEmail));
+
+    // update cart badge with newest item
+    const cartBadge = CartHelper.cartBadge(userEmail)
+    setCartBadge(cartBadge);
   };
 
   return (

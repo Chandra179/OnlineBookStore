@@ -3,8 +3,8 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 
 /**
- * @param {String} cover 
- * @returns book cover
+ * 
+ * @param {String} cover cover image
  */
 const BookCover = ({ cover }) => {
   return (

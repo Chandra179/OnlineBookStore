@@ -5,8 +5,7 @@ import BookHelper from "../../../helper/book.helper";
 
 /**
  * 
- * @param {Object} bookDetails 
- * @returns book description: title, author, etc.
+ * @param {object} bookDetails book description: title, author, etc.
  */
 function BookDescription({ bookDetails }) {
   // list of author

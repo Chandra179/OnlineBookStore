@@ -21,7 +21,6 @@ import { useUser } from "../hooks/useUser";
 import { useCart } from "../hooks/useCart";
 import { useCheckout } from "../hooks/useCheckout";
 
-
 /**
  * STYLING
  */
@@ -44,31 +43,28 @@ const signInStyle = {
 };
 
 /**
- * APPBAR
+ * App bar
  */
-function PrimarySearchAppBar() {
+function BasicAppbar() {
   const { cartBadge, setCartBadge } = useCart();
   const { isUserLoggedIn, setIsUserLoggedIn } = useUser();
   const { isAppbarDisabled, setIsAppbarDisabled } = useCheckout();
-
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
   useEffect(() => {
-    let abortController = new AbortController();
     const userEmail = AuthService.getCurrentUser();
     if (userEmail) {
-      setIsUserLoggedIn(true);
-      setCartBadge(CartHelper.cartBadge(userEmail));
-
-      var urlPath = window.location.pathname;
+      const urlPath = window.location.pathname;
+      
+      // if user in checkout page, then hide cart and account logo
       if (urlPath === "/cart/checkout") {
-        // if user in checkout page, then hide cart and account logo
         setIsAppbarDisabled(true);
+        return;
       }
-    }
-    return () => {
-      abortController.abort();  
+      const cartBadge = CartHelper.cartBadge(userEmail);
+      setIsUserLoggedIn(true);
+      setCartBadge(cartBadge);
     }
   }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled]);
 
@@ -129,7 +125,7 @@ function PrimarySearchAppBar() {
   );
 
   /**
-   * Account logo
+   * Account
    */
   const account = isUserLoggedIn ? (
     <Box mt={0.8}>
@@ -146,7 +142,7 @@ function PrimarySearchAppBar() {
   );
 
   /**
-   * Shopping cart and Account (logo)
+   * Shopping cart and Account
    */
   const content = isAppbarDisabled ? (
     <div />
@@ -180,4 +176,4 @@ function PrimarySearchAppBar() {
   );
 }
 
-export default PrimarySearchAppBar;
+export default BasicAppbar;

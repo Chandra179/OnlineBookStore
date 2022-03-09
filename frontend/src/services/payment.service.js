@@ -2,8 +2,8 @@ import axios from "axios";
 
 /**
  * 
- * @param {String} token 
- * @returns {Array} list of user address
+ * @param {String} token auth token
+ * @returns {String} client secret
  */
 async function addPayment(token, items) {
   const headers = {
