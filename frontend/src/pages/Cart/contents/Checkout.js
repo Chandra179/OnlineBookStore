@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { useCheckout } from "../../hooks/useCheckout";
-import CartHelper from "../../helper/cart.helper";
-import PaymentService from "../../services/payment.service";
-import AuthService from "../../services/auth.service";
-import { useOrder } from "../../hooks/useOrder";
+import { useCheckout } from "../../../hooks/useCheckout";
+import CartHelper from "../../../helper/cart.helper";
+import PaymentService from "../../../services/payment.service";
+import AuthService from "../../../services/auth.service";
+import { useOrder } from "../../../hooks/useOrder";
 
 
 function Checkout({ cartItem, selectedCheckbox }) {
@@ -128,8 +127,4 @@ function Checkout({ cartItem, selectedCheckbox }) {
   );
 }
 
-Checkout.propTypes = {
-  cartItem: PropTypes.object,
-  selectedCheckbox: PropTypes.array
-}
 export default Checkout;
