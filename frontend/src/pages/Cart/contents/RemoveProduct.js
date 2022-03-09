@@ -1,11 +1,12 @@
 import React from "react";
 import { Box, IconButton } from "@mui/material";
-import Styles from "../Styles";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+//
 import { useCart } from "../../../hooks/useCart";
 import CheckoutHelper from "../../../helper/checkout.helper";
 import CartHelper from "../../../helper/cart.helper";
 import AuthService from "../../../services/auth.service";
-import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+import Styles from "../Styles";
 
 export default function RemoveProduct({ title }) {
   const userEmail = AuthService.getCurrentUser();
