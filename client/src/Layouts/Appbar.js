@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Box, Toolbar, Divider } from "@mui/material";
 import AccountIcon from "../Components/AppBar/AccountIcon";
 import CartIcon from "../Components/AppBar/CartIcon";
 import AccountMenu from "../Components/AppBar/AccountMenu";
 import Title from "../Components/AppBar/Title";
-import { useAccount } from "../Hooks";
+import { useAccount, useCart } from "../Hooks";
+import { userCartBadge, getCurrentUser } from "../Utils/helpers";
 
 export default function BasicAppbar() {
-  const { isAppbarDisabled } = useAccount();
+  const { isAppbarDisabled, setIsAppbarDisabled, setIsUserLoggedIn } = useAccount();
+  const { setCartBadge } = useCart();
+
+  useEffect(() => {
+    const userEmail = getCurrentUser();
+    if (userEmail) {
+      const urlPath = window.location.pathname;
+      
+      // if user in checkout page, then hide cart and account logo
+      if (urlPath === "/cart/checkout") {
+        setIsAppbarDisabled(true);
+        return;
+      }
+      const cartBadge = userCartBadge(userEmail);
+      setIsUserLoggedIn(true);
+      setCartBadge(cartBadge);
+    }
+  }, [setIsUserLoggedIn, setCartBadge, setIsAppbarDisabled]);
 
   const content = isAppbarDisabled ? (
     <div />
