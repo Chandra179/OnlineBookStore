@@ -1,27 +1,20 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import BasicAppbar from "../Layouts/Appbar";
+import SignIn from "../Pages/Access/SignIn";
+import SignUp from "../Pages/Access/SignUp";
 
-const Routes = () => {
+const Navigation = () => {
   return (
     <Router>
       <BasicAppbar />
-      {/* <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/genres/:genre/:page" component={BooksByGenre} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/genres/:genre/:page/:title" component={BookDetails} />
-        <ProtectedRoute exact path="/cart" component={Cart} />
-        <ProtectedRoute exact path="/cart/checkout" component={Checkout} />
-      </Switch> */}
+      <Routes>
+        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/signup" element={<SignUp />} />
+      </Routes>
     </Router>
   );
-}
+};
 
-export default Routes;
+export default Navigation;

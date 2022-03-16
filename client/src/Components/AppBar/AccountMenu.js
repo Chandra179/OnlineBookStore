@@ -5,8 +5,8 @@ import { Menu, MenuItem, Typography } from "@mui/material";
 export default function AccountMenu({
   anchorEl,
   isMenuOpen,
-  handleMenuClose,
-  handleLogOut,
+  closeMenu,
+  logOut,
 }) {
   return (
     <Menu
@@ -22,10 +22,10 @@ export default function AccountMenu({
         horizontal: "right",
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={closeMenu}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/signin" onClick={handleLogOut}>
+      <MenuItem onClick={closeMenu}>
+        <Link to="/signin" onClick={logOut}>
           <Typography>Logout</Typography>
         </Link>
       </MenuItem>

@@ -3,11 +3,11 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/material";
 
-function BasicAlerts(props) {
+function BasicAlerts({ severity, name }) {
   return (
     <Box>
       <Stack sx={{ width: "100%" }}>
-        <Alert severity={props.severity}>{props.name}</Alert>
+        <Alert severity={severity}>{name}</Alert>
       </Stack>
     </Box>
   );

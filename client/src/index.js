@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Routes from "./Routes/routes";
+import Navigation from "./Routes/routes";
 import "./index.css";
 
 import CartContextProvider from "./Context/cart-context";
@@ -9,7 +9,7 @@ import AccountContextProvider from "./Context/account-context";
 ReactDOM.render(
   <AccountContextProvider>
     <CartContextProvider>
-      <Routes />
+      <Navigation />
     </CartContextProvider>
   </AccountContextProvider>,
   document.getElementById("root")

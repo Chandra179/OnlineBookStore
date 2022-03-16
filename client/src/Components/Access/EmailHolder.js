@@ -1,7 +1,12 @@
 import React from "react";
 import { TextField } from "@mui/material";
 
-export default function SignIn({ email, isEmailError, onChangeEmail, emailHelperText}) {
+export default function EmailHolder({
+  email,
+  isEmailError,
+  changeEmail,
+  emailHelperText,
+}) {
   return (
     <TextField
       required
@@ -11,7 +16,7 @@ export default function SignIn({ email, isEmailError, onChangeEmail, emailHelper
       autoComplete="email"
       value={email}
       error={isEmailError}
-      onChange={onChangeEmail}
+      onChange={changeEmail}
       helperText={emailHelperText}
       inputProps={{
         style: {

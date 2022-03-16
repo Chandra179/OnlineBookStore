@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const signin = async(email, password) => {
-  return axios
+  return await axios
     .post("http://127.0.0.1:8000/account/signin", {
       email,
       password,
@@ -21,7 +21,7 @@ export const signin = async(email, password) => {
 };
 
 export const signup = async(email, password) => {
-  return axios
+  return await axios
     .post("http://127.0.0.1:8000/account/signup", {
       email,
       password,
@@ -66,7 +66,7 @@ export const postAddress = async(token, address) => {
   return response;
 }
 
-export const genreList = () => {
+export const genreList = async() => {
   const response = await axios
     .get("http://127.0.0.1:8000/book/genre-list")
     .then((response) => {
