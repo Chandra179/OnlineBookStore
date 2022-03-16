@@ -5,7 +5,6 @@ export const AccountContext = createContext();
 
 const AccountContextProvider = ({ children }) => {
   const userEmail = getCurrentUser();
-  const [anchorEl, setAnchorEl] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isAppbarDisabled, setIsAppbarDisabled] = useState(false);
   const [clientSecret, setClientSecret] = useState(
@@ -15,8 +14,6 @@ const AccountContextProvider = ({ children }) => {
   return (
     <AccountContext.Provider
       value={{
-        anchorEl,
-        setAnchorEl,
         isUserLoggedIn,
         setIsUserLoggedIn,
         isAppbarDisabled,

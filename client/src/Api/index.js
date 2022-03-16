@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const signin = (email, password) => {
+export const signin = async(email, password) => {
   return axios
     .post("http://127.0.0.1:8000/account/signin", {
       email,
@@ -20,7 +20,7 @@ export const signin = (email, password) => {
     });
 };
 
-export const signup = (email, password) => {
+export const signup = async(email, password) => {
   return axios
     .post("http://127.0.0.1:8000/account/signup", {
       email,
@@ -40,7 +40,7 @@ export const signup = (email, password) => {
     });
 };
 
-export async function getAddress(token) {
+export const getAddress = async(token) => {
   const headers = {
     Authorization: `Token ${token}`,
   };
@@ -52,7 +52,7 @@ export async function getAddress(token) {
   return response;
 }
 
-export async function postAddress(token, address) {
+export const postAddress = async(token, address) => {
   const headers = {
     Authorization: `Token ${token}`,
   };
@@ -66,7 +66,7 @@ export async function postAddress(token, address) {
   return response;
 }
 
-export async function genreList() {
+export const genreList = () => {
   const response = await axios
     .get("http://127.0.0.1:8000/book/genre-list")
     .then((response) => {
@@ -75,7 +75,7 @@ export async function genreList() {
   return response;
 }
 
-export async function booksByGenre(genre, page) {
+export const booksByGenre = async(genre, page) => {
   const response = await axios
     .get("http://127.0.0.1:8000/book", { params: { genre: genre, page: page } })
     .then((response) => {
@@ -88,7 +88,7 @@ export async function booksByGenre(genre, page) {
   return response;
 }
 
-export async function bookDetails(name) {
+export const bookDetails = async(name) => {
   const response = await axios
     .get("http://127.0.0.1:8000/book/detail", { params: { name: name } })
     .then((response) => {

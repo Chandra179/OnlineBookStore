@@ -1,24 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, MenuItem, Typography } from "@mui/material";
-import { logout } from "../../Utils/helpers";
-import { useAccount, useCart } from "../../Hooks";
 
-export default function AccountMenu() {
-  const { setCartBadge } = useCart();
-  const { anchorEl, setAnchorEl, setIsUserLoggedIn } = useAccount();
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogOut = () => {
-    setIsUserLoggedIn(false);
-    setCartBadge(0);
-    logout();
-  };
-
+export default function AccountMenu({
+  anchorEl,
+  isMenuOpen,
+  handleMenuClose,
+  handleLogOut,
+}) {
   return (
     <Menu
       anchorEl={anchorEl}
