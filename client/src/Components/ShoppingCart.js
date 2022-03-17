@@ -7,9 +7,9 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
-import Alert from "../Alert";
-import { numberOnly } from "../../Utils/helpers";
-import styles from "./styles";
+import Alert from "./Alert";
+import { numberOnly } from "../Utils/helpers";
+import styles from "./Book/styles";
 
 function ShoppingCart({
   isItemExist,

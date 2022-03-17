@@ -1,7 +1,3 @@
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import styles from "./styles";
-
 export const bookAuthor = (book_author) => {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
@@ -14,14 +10,7 @@ export const bookAuthor = (book_author) => {
     return bookAuthorList.push(author);
   });
 
-  return (
-    <Box display="flex" sx={styles.bookAuthor.container}>
-      <Typography sx={styles.bookAuthor.by}>by</Typography>
-      <Typography noWrap sx={styles.bookAuthor.author}>
-        {bookAuthorList}
-      </Typography>
-    </Box>
-  );
+  return bookAuthorList;
 };
 
 export const setCartItem = (userEmail, cartItem) => {

@@ -5,6 +5,7 @@ import BasicAppbar from "../Layouts/Appbar";
 import SignIn from "../Pages/Access/SignIn";
 import SignUp from "../Pages/Access/SignUp";
 import Home from "../Pages/Home";
+import Books from "../Pages/Books";
 
 const Navigation = () => {
   return (
@@ -12,6 +13,7 @@ const Navigation = () => {
       <BasicAppbar />
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/genres/:genre/:page" element={<Books />} />
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/signup" element={<SignUp />} />
       </Routes>
