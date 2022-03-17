@@ -12,11 +12,6 @@ const styles = {
       xs: 14,
     },
   },
-  details: {
-    minWidth: 120,
-    maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
-    marginRight: { lg: 3, md: 3, sm: 2, xs: 0 },
-  },
   cart: {
     minWidth: 120,
     maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
@@ -31,7 +26,7 @@ export default function Price({ price, type }) {
       typeSx = styles.list;
       break;
     case "details":
-      typeSx = styles.details;
+      typeSx = '';
       break;
     case "cart":
       typeSx = styles.cart;

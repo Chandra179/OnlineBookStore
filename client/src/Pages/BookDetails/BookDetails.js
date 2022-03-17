@@ -1,69 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import { bookDetails } from "../Api";
-import { useCart } from "../Hooks/index";
+import { Grid, Box, Typography, Stack, Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { bookDetails } from "../../Api";
+import { useCart } from "../../Hooks/index";
 import {
   getCurrentUser,
   qtyValidator,
   getCartItem,
   setCartItem,
   userCartBadge,
-} from "../Utils/helpers";
-import Cover from "../Components/Book/Cover";
-import Description from "../Components/Book/Description";
-import Title from "../Components/Book/Title";
-import Author from "../Components/Book/Author";
-import Price from "../Components/Book/Price";
-import Quantity from "../Components/Book/Quantity";
-
-// ===========================================================================
-// Styles
-// ===========================================================================
-
-const coverWrap = {
-  display: "flex",
-  justifyContent: "center",
-  backgroundColor: {
-    lg: "white",
-    md: "white",
-    sm: "white",
-    xs: "rgb(250, 250, 250)",
-  },
-};
-
-const contentWrap = {
-  marginTop: { lg: 0, md: 0, sm: 0, xs: 2 },
-  paddingRight: { lg: 4, md: 4, sm: 4, xs: 0 },
-};
-
-const shoppingCartWrap = {
-  marginTop: { lg: 0, md: 0, sm: 4, xs: 4 },
-};
-
-const priceWrap = {
-  display: "flex",
-  paddingTop: 1,
-  paddingLeft: 1.5,
-  paddingBottom: 1,
-  alignItems: "center",
-};
-
-const qtyWrap = {  
-  maxWidth: 80,
-  minWidth: 30,
-  margin: 1.3,
-}
-
-const addToCartBtn = {
-  margin: "10px 10px 0px 10px",
-  fontSize: 12,
-}
-
-const buyNowBtn = {
-  margin: "10px 10px 10px 10px", 
-  fontSize: 12
-}
+} from "../../Utils/helpers";
+import Cover from "../../Components/Book/Cover";
+import Description from "../../Components/Book/Description";
+import Title from "../../Components/Book/Title";
+import Author from "../../Components/Book/Author";
+import Price from "../../Components/Book/Price";
+import Quantity from "../../Components/Book/Quantity";
+import Alert from "../../Components/Alert";
+import styles from "./styles";
 
 function BookDetails() {
   // ===========================================================================
@@ -89,14 +44,16 @@ function BookDetails() {
   let navigate = useNavigate();
   const userEmail = getCurrentUser();
   const normalPrice = Number(book.price);
-  const validPrice = totalPrice ? totalPrice.toFixed(2) : normalPrice.toFixed(2);
+  const validPrice = totalPrice
+    ? totalPrice.toFixed(2)
+    : normalPrice.toFixed(2);
 
   // ===========================================================================
   // Handlers
   // ===========================================================================
 
   const handleQtyChange = (event) => {
-    var validQty = qtyValidator(event.target.value, stock);
+    var validQty = qtyValidator(event.target.value, book.stock);
     setQty(validQty);
     setTotalPrice(validQty * normalPrice);
   };
@@ -120,6 +77,7 @@ function BookDetails() {
     if (qtys === 1) {
       setQty(1);
     }
+    // save cart item to local storage
     cartItem[book.name] = {
       cover: book.cover,
       qty: qtys,
@@ -127,16 +85,9 @@ function BookDetails() {
       totalPrice: qtys * normalPrice,
       stock: book.stock,
     };
-    /**
-     * Handle add item to cart,
-     * item will be saved in local storage as object.
-     * object key : user email
-     */
     setCartItem(userEmail, cartItem);
     setIsItemAdded(true);
     setIsItemExist(false);
-
-    // update cart badge with newest item
     setCartBadge(userCartBadge(userEmail));
   };
 
@@ -170,11 +121,11 @@ function BookDetails() {
       alignItems="flex-start"
       p={4}
     >
-      <Grid item lg={2} d={2} sm={3} xs={12} sx={coverWrap}>
+      <Grid item lg={2} d={2} sm={3} xs={12} sx={styles.coverWrap}>
         <Cover cover={book.cover} type={"details"} />
       </Grid>
       <Grid item lg={7} md={7} sm={9} xs={12}>
-        <Box sx={contentWrap}>
+        <Box sx={styles.contentWrap}>
           <Title name={book.name} type={"details"} />
           <Author authorList={book.book_author} />
           <Box mt={1}>
@@ -185,33 +136,36 @@ function BookDetails() {
 
       {/* NAAMAA */}
       <Grid item lg={3} md={3} sm={12} xs={12}>
-        <Box sx={shoppingCartWrap}>
+        <Box sx={styles.shoppingCartWrap}>
           {isItemExist && <Alert name={"Item is in cart"} severity="error" />}
-          {isItemAdded && <Alert name={"Item is added to cart"} severity="success" />}
+          {isItemAdded && (
+            <Alert name={"Item is added to cart"} severity="success" />
+          )}
 
           <Box sx={{ boxShadow: 1 }}>
-            <Box sx={priceWrap}>
+            <Box sx={styles.priceWrap}>
               <Typography sx={{ letterSpacing: 1 }}>Subtotal</Typography>
               <Box pr={2} sx={{ marginLeft: "auto" }}>
                 <Price price={validPrice} type={"details"} />
               </Box>
             </Box>
-            <Box sx={qtyWrap}>
-              <Quantity qty={qty} qtyChange={handleQtyChange} />
+            <Box sx={styles.qtyWrap}>
+              <Quantity
+                qty={qty}
+                stock={book.stock}
+                qtyChange={handleQtyChange}
+              />
             </Box>
             <Stack>
               <Button
                 onClick={handleAddToCart}
                 variant="contained"
-                sx={addToCartBtn}
+                sx={styles.addToCartBtn}
                 startIcon={<AddIcon />}
               >
                 Add to cart
               </Button>
-              <Button
-                variant="outlined"
-                sx={buyNowBtn}
-              >
+              <Button variant="outlined" sx={styles.buyNowBtn}>
                 Buy now
               </Button>
             </Stack>

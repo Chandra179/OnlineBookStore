@@ -2,24 +2,19 @@ import React from "react";
 import { FormControl, TextField } from "@mui/material";
 import { numberOnly } from "../../Utils/helpers";
 
-export default function Quantity({ qty, qtyChange }) {
+export default function Quantity({ qty, stock, qtyChange }) {
   return (
     <FormControl fullWidth>
       <TextField
         label="Qty"
         type="tel"
-        variant="standard"
         size="small"
         value={qty}
         onKeyPress={(e) => numberOnly(e)}
         onChange={qtyChange}
         inputProps={{
-          inputProps: {
-            max: stock,
-            min: 1,
-          },
           style: {
-            height: 52,
+            height: 25,
             fontSize: 14,
             borderRadius: 0,
             textAlign: "center",
