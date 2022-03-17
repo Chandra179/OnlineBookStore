@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { bookAuthor } from "../../Utils/helpers";
 
-const boxWrapSx = {
+const wrapSx = {
   alignItems: "baseline",
   width: {
     lg: 600,
@@ -27,7 +27,7 @@ const authorSx = {
 
 export default function Author({ authorList }) {
   return (
-    <Box display="flex" sx={boxWrapSx}>
+    <Box display="flex" sx={wrapSx}>
       <Typography sx={bySx}>by</Typography>
       <Typography noWrap sx={authorSx}>
         {bookAuthor(authorList)}

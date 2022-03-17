@@ -12,9 +12,9 @@ const styles = {
     },
   },
   details: {
-    minWidth: 120,
-    maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
-    marginRight: { lg: 3, md: 3, sm: 2, xs: 0 },
+    color: "black",
+    fontSize: { lg: 24, md: 22, sm: 20, xs: 16 },
+    fontWeight: 600,
   },
   cart: {
     minWidth: 120,
@@ -29,7 +29,7 @@ export default function Title({ name, type }) {
     case "list":
       typeSx = styles.list;
       break;
-    case "detail":
+    case "details":
       typeSx = styles.details;
       break;
     case "cart":

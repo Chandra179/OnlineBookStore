@@ -29,7 +29,7 @@ const Cover = ({ cover, type }) => {
     case "list":
       typeSx = styles.list;
       break;
-    case "detail":
+    case "details":
       typeSx = styles.details;
       break;
     case "cart":
