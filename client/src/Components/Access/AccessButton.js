@@ -1,10 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-export default function AccessButton({ submit, name }) {
+export default function AccessButton({ name }) {
   return (
     <Button
-      onClick={submit}
       fullWidth
       type="submit"
       variant="contained"

@@ -90,7 +90,6 @@ export default function SignIn() {
           <Box
             component="form"
             onSubmit={handleSignInSubmit}
-            noValidate
             sx={{
               padding: 3,
               boxShadow: 1,

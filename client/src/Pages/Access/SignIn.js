@@ -3,12 +3,14 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useAccount } from "../../Hooks/index";
 import { signin } from "../../Api";
+import { getCurrentUser } from "../../Utils/helpers";
 import AccessName from "../../Components/Access/AccessName";
 import EmailHolder from "../../Components/Access/EmailHolder";
 import PasswordHolder from "../../Components/Access/PasswordHolder";
 import AccessButton from "../../Components/Access/AccessButton";
 import HaveAnAccount from "../../Components/Access/HaveAnAccount";
 import Alert from "../../Components/Alert";
+import Home from "../../Pages/Home";
 import styles from "./styles";
 
 export default function SignIn() {
@@ -79,7 +81,11 @@ export default function SignIn() {
       <Container>
         <Box sx={styles.boxWrap}>
           {alert && <Alert name={alert} severity="error" />}
-          <Box component="form" noValidate sx={styles.form}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={styles.form}
+          >
             <AccessName name={"Signin"} />
             <EmailHolder
               email={email}
@@ -93,7 +99,7 @@ export default function SignIn() {
               changePassword={onChangePassword}
               passwordHelperText={passwordHelper ? passwordHelper : false}
             />
-            <AccessButton name={"Sign In"} submit={handleSubmit} />
+            <AccessButton name={"Sign In"} />
             <HaveAnAccount
               linkTo={"/signup"}
               linkToText={"Don't have an account? Sign Up"}

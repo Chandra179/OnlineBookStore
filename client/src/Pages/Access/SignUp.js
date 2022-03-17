@@ -78,7 +78,11 @@ export default function SignUp() {
     <Container>
       <Box sx={styles.boxWrap}>
         {alert && <Alert name={alert} severity="error" />}
-        <Box component="form" noValidate sx={styles.form}>
+        <Box 
+          component="form" 
+          onSubmit={handleSubmit} 
+          sx={styles.form}
+        >
           <AccessName name={"Signup"} />
           <EmailHolder
             email={email}
@@ -92,10 +96,11 @@ export default function SignUp() {
             changePassword={onChangePassword}
             passwordHelperText={passwordHelper ? passwordHelper : false}
           />
-          <AccessButton name={"Sign Up"} submit={handleSubmit} />
+          <AccessButton name={"Sign Up"} />
           <HaveAnAccount
             linkTo={"/signin"}
-            linkToText={"have an account? Sign In"}
+            linkToText={"Have an account? Sign In"}
+            align={"flex-end"}
           />
         </Box>
       </Box>
