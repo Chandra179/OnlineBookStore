@@ -3,9 +3,6 @@ import ShowMoreText from "react-show-more-text";
 import { Box, Grid, Typography } from "@mui/material";
 import { bookAuthor } from "../../Utils/helpers";
 
-// ===========================================================================
-// Styles
-// ===========================================================================
 const wrapSx = {
   marginTop: { lg: 0, md: 0, sm: 0, xs: 2 },
   paddingRight: { lg: 4, md: 4, sm: 4, xs: 0 },

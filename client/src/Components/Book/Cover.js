@@ -1,17 +1,42 @@
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import styles from "./styles";
 
-const Cover = ({ cover, types }) => {
+const styles = {
+  coverList: {
+    minWidth: 120,
+    maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
+    marginRight: { lg: 3, md: 3, sm: 2, xs: 0 },
+  },
+  coverDetails: {
+    minWidth: 120,
+    maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
+    marginRight: { lg: 3, md: 3, sm: 2, xs: 0 },
+  },
+  coverCart: {
+    minWidth: 120,
+    maxWidth: { lg: 170, md: 160, sm: 150, xs: 120 },
+    marginRight: { lg: 3, md: 3, sm: 2, xs: 0 },
+  },
+};
+
+const Cover = ({ cover, type }) => {
+  let typeSx;
+  switch (type) {
+    case "list":
+      typeSx = styles.coverList;
+      break;
+    case "detail":
+      typeSx = styles.coverDetails;
+      break;
+    case "cart":
+      typeSx = styles.coverCart;
+  }
   // const type = types | 'detail' | 'cart' | 'list'
   // if detail then classname= DETAIl
   return (
-    <Grid item lg={2} md={2} sm={3} xs={12} sx={styles.cover.grid}>
-      <Card sx={styles.cover.card}>
-        <CardMedia component="img" image={cover} />
-      </Card>
-    </Grid>
+    <Card sx={typeSx}>
+      <CardMedia component="img" image={cover} />
+    </Card>
   );
 };
 
