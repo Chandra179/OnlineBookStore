@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Grid, Box, Typography, Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { bookDetails } from "../../Api";
-import { useCart } from "../../Hooks/index";
+import { useAccount } from "../../Hooks/index";
 import {
   getCurrentUser,
   qtyValidator,
@@ -25,7 +25,7 @@ function BookDetails() {
   // Context
   // ===========================================================================
 
-  const { setCartBadge } = useCart();
+  const { setCartBadge } = useAccount();
 
   // ===========================================================================
   // State
@@ -149,7 +149,6 @@ function BookDetails() {
                 <Price price={validPrice} type={"details"} />
               </Box>
             </Box>
-
             <Box sx={styles.qtyWrap}>
               <Quantity qty={qty} qtyChange={handleQtyChange} />
             </Box>

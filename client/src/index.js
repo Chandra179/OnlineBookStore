@@ -3,14 +3,11 @@ import ReactDOM from "react-dom";
 import Navigation from "./Routes/routes";
 import "./index.css";
 
-import CartContextProvider from "./Context/cart-context";
 import AccountContextProvider from "./Context/account-context";
 
 ReactDOM.render(
   <AccountContextProvider>
-    <CartContextProvider>
       <Navigation />
-    </CartContextProvider>
   </AccountContextProvider>,
   document.getElementById("root")
 );

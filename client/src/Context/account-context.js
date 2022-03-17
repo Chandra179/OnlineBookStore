@@ -4,16 +4,16 @@ import { getCurrentUser } from "../Utils/helpers";
 export const AccountContext = createContext();
 
 const AccountContextProvider = ({ children }) => {
-  const userEmail = getCurrentUser();
+  const [cartBadge, setCartBadge] = useState(0);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isAppbarDisabled, setIsAppbarDisabled] = useState(false);
-  const [clientSecret, setClientSecret] = useState(
-    localStorage.getItem(userEmail + "Order")
-  );
+  const [clientSecret, setClientSecret] = useState([]);
 
   return (
     <AccountContext.Provider
       value={{
+        cartBadge,
+        setCartBadge,
         isUserLoggedIn,
         setIsUserLoggedIn,
         isAppbarDisabled,

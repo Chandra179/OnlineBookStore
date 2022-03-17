@@ -4,7 +4,7 @@ import AccountIcon from "../Components/AppBar/AccountIcon";
 import CartIcon from "../Components/AppBar/CartIcon";
 import AccountMenu from "../Components/AppBar/AccountMenu";
 import Title from "../Components/AppBar/Title";
-import { useAccount, useCart } from "../Hooks";
+import { useAccount } from "../Hooks";
 import { userCartBadge, getCurrentUser, logout } from "../Utils/helpers";
 
 export default function BasicAppbar() {
@@ -17,8 +17,9 @@ export default function BasicAppbar() {
     setIsAppbarDisabled,
     isUserLoggedIn,
     setIsUserLoggedIn,
+    cartBadge,
+    setCartBadge
   } = useAccount();
-  const { setCartBadge, cartBadge } = useCart();
 
   // ===========================================================================
   // State
