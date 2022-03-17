@@ -124,6 +124,7 @@ function BookDetails() {
       <Grid item lg={2} d={2} sm={3} xs={12} sx={styles.coverWrap}>
         <Cover cover={book.cover} type={"details"} />
       </Grid>
+      
       <Grid item lg={7} md={7} sm={9} xs={12}>
         <Box sx={styles.contentWrap}>
           <Title name={book.name} type={"details"} />
@@ -134,27 +135,23 @@ function BookDetails() {
         </Box>
       </Grid>
 
-      {/* NAAMAA */}
       <Grid item lg={3} md={3} sm={12} xs={12}>
         <Box sx={styles.shoppingCartWrap}>
           {isItemExist && <Alert name={"Item is in cart"} severity="error" />}
-          {isItemAdded && (
-            <Alert name={"Item is added to cart"} severity="success" />
-          )}
+          {isItemAdded && <Alert name={"Item is added to cart"} severity="success" />}
 
           <Box sx={{ boxShadow: 1 }}>
             <Box sx={styles.priceWrap}>
-              <Typography sx={{ letterSpacing: 1 }}>Subtotal</Typography>
+              <Typography sx={{ letterSpacing: 1 }}>
+                Subtotal
+              </Typography>
               <Box pr={2} sx={{ marginLeft: "auto" }}>
                 <Price price={validPrice} type={"details"} />
               </Box>
             </Box>
+
             <Box sx={styles.qtyWrap}>
-              <Quantity
-                qty={qty}
-                stock={book.stock}
-                qtyChange={handleQtyChange}
-              />
+              <Quantity qty={qty} qtyChange={handleQtyChange} />
             </Box>
             <Stack>
               <Button

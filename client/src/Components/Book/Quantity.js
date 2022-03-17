@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl, TextField } from "@mui/material";
 import { numberOnly } from "../../Utils/helpers";
 
-export default function Quantity({ qty, stock, qtyChange }) {
+export default function Quantity({ qty, qtyChange }) {
   return (
     <FormControl fullWidth>
       <TextField

@@ -26,7 +26,7 @@ export default function Price({ price, type }) {
       typeSx = styles.list;
       break;
     case "details":
-      typeSx = '';
+      typeSx = null;
       break;
     case "cart":
       typeSx = styles.cart;
