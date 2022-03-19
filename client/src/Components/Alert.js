@@ -1,9 +1,8 @@
 import * as React from "react";
 import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
-function BasicAlerts({ severity, name }) {
+function CustomAlert({ severity, name }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Alert severity={severity}>{name}</Alert>
@@ -11,4 +10,4 @@ function BasicAlerts({ severity, name }) {
   );
 }
 
-export default BasicAlerts;
+export default CustomAlert;
