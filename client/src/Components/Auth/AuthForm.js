@@ -1,11 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const accessNameSx = {
-  marginBottom: 1.5,
-  fontSize: { lg: 26, md: 25, sm: 22, xs: 20 },
-};
-
 export default function AuthForm({ name, children }) {
   return (
     <Box
@@ -16,7 +11,14 @@ export default function AuthForm({ name, children }) {
         borderRadius: 2,
       }}
     >
-      <Typography sx={accessNameSx}>{name}</Typography>
+      <Typography
+        sx={{
+          marginBottom: 1.5,
+          fontSize: { lg: 26, md: 25, sm: 22, xs: 20 },
+        }}
+      >
+        {name}
+      </Typography>
       {children}
     </Box>
   );

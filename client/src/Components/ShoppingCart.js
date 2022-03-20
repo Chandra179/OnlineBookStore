@@ -71,15 +71,12 @@ function ShoppingCart({ price, stock, name, cover }) {
     /**
      * Handle add item to cart,
      * item will be saved in local storage as object.
-     * object key : user email
+     * object key : user email + 'Cart'
      */
     setCartItem(userEmail, cartItem);
     setIsItemAdded(true);
     setIsItemExist(false);
-
-    // update cart badge with newest item
-    const cartBadge = totalCartItems(userEmail);
-    setCartBadge(cartBadge);
+    setCartBadge(totalCartItems(userEmail));
   };
 
   return (
