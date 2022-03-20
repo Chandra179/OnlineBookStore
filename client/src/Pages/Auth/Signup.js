@@ -5,7 +5,7 @@ import { getCurrentUser, inputHelperText } from "../../Utils/helpers";
 import { signup } from "../../Api";
 import Alert from "../../Components/Alert";
 import Wrapper from "../../Components/Auth/Wrapper";
-import Form from "../../Components/Auth/Form";
+import AuthForm from "../../Components/Auth/AuthForm";
 import styles from "./styles";
 
 export default function Signup() {
@@ -47,8 +47,8 @@ export default function Signup() {
   return (
     <Wrapper>
       {alert && <Alert name={alert} severity="error" />}
-      <Form name={"Sign up"}>
-        <TextField
+      <AuthForm name={"Sign up"}>
+      <TextField
           fullWidth
           name="email"
           margin="normal"
@@ -59,7 +59,6 @@ export default function Signup() {
           helperText={inputHelperText(emailHelper)}
           inputProps={styles.inputPropsSx}
           sx={styles.inputSx}
-          autoFocus
         />
         <TextField
           fullWidth
@@ -73,7 +72,6 @@ export default function Signup() {
           helperText={inputHelperText(passwordHelper)}
           inputProps={styles.inputPropsSx}
           sx={styles.inputSx}
-          autoFocus
         />
         <Button
           fullWidth
@@ -85,9 +83,9 @@ export default function Signup() {
           Sign up
         </Button>
         <Box display="flex" justifyContent="flex-end">
-          <Link to={"/signin"}>{"Already have an account? Sign in"}</Link>
+          <Link to={"/signin"}>{"Have an account? Sign in"}</Link>
         </Box>
-      </Form>
+      </AuthForm>
     </Wrapper>
   );
 }

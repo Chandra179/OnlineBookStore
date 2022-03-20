@@ -6,7 +6,7 @@ const accessNameSx = {
   fontSize: { lg: 26, md: 25, sm: 22, xs: 20 },
 };
 
-export default function Form({ name, children }) {
+export default function AuthForm({ name, children }) {
   return (
     <Box
       component="form"

@@ -5,8 +5,18 @@ import { getCurrentUser, inputHelperText } from "../../Utils/helpers";
 import { signin } from "../../Api";
 import Alert from "../../Components/Alert";
 import Wrapper from "../../Components/Auth/Wrapper";
-import Form from "../../Components/Auth/Form";
-import styles from "./styles";
+import AuthForm from "../../Components/Auth/AuthForm";
+
+const inputSx = {
+  "& .MuiInputLabel-root": {
+    fontSize: 16,
+  },
+};
+const inputPropsSx = {
+  style: {
+    height: "20px",
+  },
+};
 
 export default function Signin() {
   const email = useRef("");
@@ -47,7 +57,7 @@ export default function Signin() {
   return (
     <Wrapper>
       {alert && <Alert name={alert} severity="error" />}
-      <Form name={"Sign in"}>
+      <AuthForm name={"Sign in"}>
         <TextField
           fullWidth
           name="email"
@@ -57,9 +67,8 @@ export default function Signin() {
           inputRef={email}
           error={emailError ? true : false}
           helperText={inputHelperText(emailHelper)}
-          inputProps={styles.inputPropsSx}
-          sx={styles.inputSx}
-          autoFocus
+          inputProps={inputPropsSx}
+          sx={inputSx}
         />
         <TextField
           fullWidth
@@ -71,23 +80,24 @@ export default function Signin() {
           inputRef={password}
           error={passwordError ? true : false}
           helperText={inputHelperText(passwordHelper)}
-          inputProps={styles.inputPropsSx}
-          sx={styles.inputSx}
-          autoFocus
+          inputProps={inputPropsSx}
+          sx={inputSx}
         />
         <Button
           fullWidth
           type="submit"
           variant="contained"
           onClick={handleSubmit}
-          sx={styles.submitBtnSx}
+          sx={{
+            marginBottom: 2,
+            marginTop: 2,}}
         >
           Sign in
         </Button>
         <Box>
           <Link to={"/signup"}>{"Don't have an account? Sign Up"}</Link>
         </Box>
-      </Form>
+      </AuthForm>
     </Wrapper>
   );
 }
