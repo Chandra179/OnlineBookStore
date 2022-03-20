@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import { Typography } from "@mui/material";
 
-function Description({ desc }) {
+function BookDescription({ desc }) {
   const [expandText, setExpandText] = useState(false);
 
   // show more text... show less text....

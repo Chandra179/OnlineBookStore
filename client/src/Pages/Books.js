@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Stack, Pagination, Grid, Box, ListItemText, Divider } from "@mui/material";
-import Cover from "../Components/Book/Cover";
-import Title from "../Components/Book/Title";
-import Author from "../Components/Book/Author";
-import Price from "../Components/Book/Price";
+import { useNavigate } from "react-router-dom";
+import { Stack, Pagination, Grid, Box } from "@mui/material";
 import { booksByGenre } from "../Api/index";
+import BookWrapper from "../Components/BooksByGenre/BookWrapper";
 
 function Books() {
   const booksPerPage = 2;
@@ -55,37 +52,7 @@ function Books() {
       <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
       <Grid item lg={10} md={10} sm={12} xs={12}>
         <Box m={2}>
-          {bookList.map(function (item, i) {
-            return (
-              <Box key={i}>
-                <Box mb={2} sx={{ display: "flex" }}>
-                  <Box mr={1}>
-                    <Cover cover={item.cover} type={"list"} />
-                  </Box>
-                  <Box>
-                    <Box>
-                      <Link
-                        to={{
-                          pathname: `/genres/${item.genre.toLowerCase()}/${currentPage}/${item.name
-                            .replace(/\s+/g, "-")
-                            .toLowerCase()}`,
-                        }}
-                      >
-                        <Title name={item.name} type={"list"} />
-                      </Link>
-                    </Box>
-                    <Author authorList={item.book_author} />
-                    <ListItemText>
-                      <Price price={item.price.toFixed(2)} type={"list"} />
-                    </ListItemText>
-                  </Box>
-                </Box>
-                <Divider
-                  sx={{ margin: "15px 0px 15px 0px", borderBottomWidth: 2 }}
-                />
-              </Box>
-            );
-          })}
+          <BookWrapper bookList={bookList} currentPage={currentPage} />
           <Stack spacing={2} sx={{ alignItems: "center" }}>
             <Pagination
               count={totalPageNumber}
