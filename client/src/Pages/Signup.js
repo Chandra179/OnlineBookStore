@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, TextField, Container } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { getCurrentUser } from "../Utils/helpers";
-import { signin } from "../Api";
+import { signup } from "../Api";
 import Alert from "../Components/Alert";
 import Wrapper from "../Components/Auth/Wrapper";
 import Form from "../Components/Auth/Form";
@@ -18,74 +18,67 @@ const submitBtnSx = {
   marginTop: 2,
 };
 
-export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Signup() {
+  const email = useRef("");
+  const password = useRef("");
   const [emailHelper, setEmailHelper] = useState("");
-  const [signInAlert, setSignInAlert] = useState("");
+  const [alert, setAlert] = useState("");
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+
+    if (!emailValue) {
       setEmailHelper("Enter email");
       setEmailError(true);
     }
-    if (!password) {
+    if (!passwordValue) {
       setPasswordHelper("Enter password");
       setPasswordError(true);
     }
-    if (email && password) {
-      await signin(email, password).then(
+    if (emailValue && passwordValue) {
+      signup(emailValue, passwordValue).then(
         (data) => {
-          const userEmail = getCurrentUser();
-          if (userEmail) window.location.assign("/");
+          const isUserLoggedIn = getCurrentUser();
+          if (isUserLoggedIn) window.location.assign("/");
         },
         (error) => {
-          setSignInAlert(error.response.data);
+          setAlert(error.response.data);
         }
       );
     }
   };
 
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
   return (
     <Wrapper>
-      {signInAlert && <Alert name={signInAlert} severity="error" />}
+      {alert && <Alert name={alert} severity="error" />}
       <Form name={"Sign in"}>
         <TextField
           fullWidth
+          name="email"
           margin="normal"
           label="Email Address"
           autoComplete="email"
-          value={email}
+          inputRef={email}
           error={emailError ? true : false}
-          onChange={onChangeEmail}
           helperText={emailHelper ? emailHelper : false}
           inputProps={inputPropsSx}
           autoFocus
         />
         <TextField
           fullWidth
+          name="password"
           margin="normal"
           type="password"
           label="Password"
           autoComplete="current-password"
-          value={password}
+          inputRef={password}
           error={passwordError ? true : false}
-          onChange={onChangePassword}
           helperText={passwordHelper ? passwordHelper : false}
           inputProps={inputPropsSx}
           autoFocus
@@ -97,10 +90,10 @@ export default function SignIn() {
           onClick={handleSubmit}
           sx={submitBtnSx}
         >
-          Sign in
+          Sign up
         </Button>
-        <Box>
-          <Link to={"/signup"}>{"Don't have an account? Sign Up"}</Link>
+        <Box display="flex" justifyContent="flex-end">
+          <Link to={"/signin"}>{"Already have an account? Sign in"}</Link>
         </Box>
       </Form>
     </Wrapper>
