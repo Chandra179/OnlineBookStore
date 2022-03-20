@@ -57,9 +57,7 @@ function ShoppingCart({ price, stock, name, cover }) {
     }
     // if qty input is empty then set to 1
     const qtys = qty ? qty : 1;
-    if (qtys === 1) {
-      setQty(1);
-    }
+    if (qtys === 1) setQty(1);
 
     cartItem[name] = {
       cover: cover,

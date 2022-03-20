@@ -11,9 +11,9 @@ const BookCover = ({ cover }) => {
       md={2}
       sm={3}
       xs={12}
+      display="flex"
+      justifyContent="center"
       sx={{
-        display: "flex",
-        justifyContent: "center",
         backgroundColor: {
           lg: "white",
           md: "white",

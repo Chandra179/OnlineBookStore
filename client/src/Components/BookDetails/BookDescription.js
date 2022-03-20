@@ -21,8 +21,11 @@ function BookDescription({ description }) {
         className="wrapper"
       >
         <Typography
-          sx={{
-            fontSize: { lg: 15, md: 14, sm: 13, xs: 12 },
+          fontSize={{
+            lg: 15,
+            md: 14,
+            sm: 13,
+            xs: 12,
           }}
         >
           {description}

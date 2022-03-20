@@ -7,11 +7,14 @@ export default function AppName({ name }) {
     <Box>
       <Link to="/">
         <Typography
-          sx={{
-            color: "blue",
-            fontWeight: 650,
-            letterSpacing: 1,
-            fontsize: { lg: 17, md: 17, sm: 14, xs: 14 },
+          color="blue"
+          fontWeight={650}
+          letterSpacing={1}
+          fontSize={{
+            lg: 17,
+            md: 17,
+            sm: 14,
+            xs: 14,
           }}
         >
           {name}

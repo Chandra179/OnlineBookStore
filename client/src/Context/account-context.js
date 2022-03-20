@@ -1,5 +1,4 @@
 import React, { useState, createContext } from "react";
-import { getCurrentUser } from "../Utils/helpers";
 
 export const AccountContext = createContext();
 

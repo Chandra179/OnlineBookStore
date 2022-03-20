@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box} from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { getBookDetails } from "../Api";
 import BookCover from "../Components/BookDetails/BookCover";
 import BookDescription from "../Components/BookDetails/BookDescription";
 import BookTitle from "../Components/BookDetails/BookTitle";
 import BookAuthor from "../Components/BookAuthor";
 import ShoppingCart from "../Components/ShoppingCart";
+import CustomSkeleton from "../Components/BookDetails/Skeleton";
 
 const wrapper = {
   marginTop: { lg: 0, md: 0, sm: 0, xs: 2 },
@@ -34,6 +35,7 @@ function BookDetails() {
   }, []);
 
   return (
+    Object.keys(bookDetails).length !== 0 ? 
     <Grid
       container
       direction="row"
@@ -55,7 +57,7 @@ function BookDetails() {
         name={bookDetails.name}
         cover={bookDetails.cover}
       />
-    </Grid>
+    </Grid> : <CustomSkeleton />
   );
 }
 

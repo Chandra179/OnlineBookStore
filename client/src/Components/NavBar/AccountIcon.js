@@ -11,7 +11,15 @@ export default function AccountIcon({ isUserLoggedIn, openMenu }) {
     </IconButton>
   ) : (
     <Link to={`/signin`}>
-      <Typography sx={styles.signinBtn}>signin</Typography>
+      <Typography
+        fontSize={17}
+        color="black"
+        sx={{
+          "&:hover": { color: "blue" },
+        }}
+      >
+        signin
+      </Typography>
     </Link>
   );
 }

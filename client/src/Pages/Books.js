@@ -33,19 +33,10 @@ function Books() {
 
   // handle next and previos page click
   const handlePageClick = async (event, value) => {
-    await getBooksByGenre(genre, value).then(
-      (data) => {
-        setBookList(data.books);
-        setTotalBook(data.total_book);
-        setCurrentPage(value);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    // update url path as page number change
     navigate(`/genres/${genre}/${value}`);
   };
+
+  console.log(bookList);
 
   return (
     <Grid container>

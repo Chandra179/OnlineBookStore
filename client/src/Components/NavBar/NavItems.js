@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 
 export default function NavItems({ children }) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box display="flex" alignItems="center">
         {children}
     </Box>
   )

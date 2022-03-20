@@ -4,11 +4,9 @@ import { Typography } from "@mui/material";
 export default function BookTitle({ title }) {
   return (
     <Typography
-      sx={{
-        color: "black",
-        fontSize: { lg: 24, md: 22, sm: 20, xs: 16 },
-        fontWeight: 600,
-      }}
+      color="black"
+      fontWeight={600}
+      fontSize={{ lg: 22, md: 20, sm: 18, xs: 16 }}
     >
       {title}
     </Typography>
