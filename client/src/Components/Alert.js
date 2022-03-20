@@ -1,6 +1,6 @@
 import * as React from "react";
 import Alert from "@mui/material/Alert";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 function CustomAlert({ severity, name }) {
   return (

@@ -18,7 +18,7 @@ function Home() {
   }, []);
 
   return (
-    <Grid container mt={1} sx={{ textAlign: "center" }}>
+    <Grid container mt={1}>
       <GenreList list={listOfGenre} />
     </Grid>
   );

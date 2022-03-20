@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Signin from "../Pages/Signin";
-import Signup from "../Pages/Signup";
+import Signin from "../Pages/Auth/Signin";
+import Signup from "../Pages/Auth/Signup";
 import Home from "../Pages/Home";
 import Books from "../Pages/Books";
 import Navbar from "../Layouts/NavBar";

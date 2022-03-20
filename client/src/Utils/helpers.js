@@ -1,3 +1,6 @@
+import React from "react";
+import { Typography } from "@mui/material";
+
 export const bookAuthor = (book_author) => {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
@@ -13,29 +16,19 @@ export const bookAuthor = (book_author) => {
   return bookAuthorList;
 };
 
-export const qtyValidator = (qty, stock) => {
-  var newQty = qty;
-  if (qty > stock) {
-    newQty = stock;
-  }
-  if (newQty.toString()[0] !== "0") {
-    return newQty;
-  } else {
-    return 0;
-  }
+export const inputHelperText = (input) => {
+  return (
+    input && (
+      <Typography component={"span"} sx={{ fontSize: 12 }}>
+        {input}
+      </Typography>
+    )
+  );
 };
 
-export const numberOnly = (event) => {
-  if (!/[0-9]/.test(event.key)) {
-    event.preventDefault();
-  }
-};
-
-export const textOnly = (event) => {
-  if (!/^[a-zA-Z]+$/.test(event.key)) {
-    event.preventDefault();
-  }
-};
+// ===========================================================================
+// Auth
+// ===========================================================================
 
 export const logout = () => {
   localStorage.removeItem("user");
@@ -75,7 +68,7 @@ export const removeCart = (userEmail) => {
 };
 
 export const totalCartItems = (userEmail) => {
-  const cartItem = JSON.parse(localStorage.getItem(userEmail + 'Cart'));
+  const cartItem = JSON.parse(localStorage.getItem(userEmail + "Cart"));
   if (cartItem) {
     const cartKeys = Object.keys(cartItem).length;
     var qty = 0;
@@ -110,4 +103,32 @@ export const getCheckoutItem = (userEmail) => {
 
 export const deleteCheckoutItem = (userEmail) => {
   localStorage.removeItem(userEmail + "Checkout");
+};
+
+// ===========================================================================
+// Validator
+// ===========================================================================
+
+export const qtyValidator = (qty, stock) => {
+  var newQty = qty;
+  if (qty > stock) {
+    newQty = stock;
+  }
+  if (newQty.toString()[0] !== "0") {
+    return newQty;
+  } else {
+    return 0;
+  }
+};
+
+export const numberOnly = (event) => {
+  if (!/[0-9]/.test(event.key)) {
+    event.preventDefault();
+  }
+};
+
+export const textOnly = (event) => {
+  if (!/^[a-zA-Z]+$/.test(event.key)) {
+    event.preventDefault();
+  }
 };

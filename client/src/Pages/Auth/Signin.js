@@ -1,28 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { getCurrentUser } from "../Utils/helpers";
-import { signin } from "../Api";
-import Alert from "../Components/Alert";
-import Wrapper from "../Components/Auth/Wrapper";
-import Form from "../Components/Auth/Form";
-
-const inputSx = {
-  "& .MuiInputLabel-root": {
-    fontSize: 14,
-  },
-};
-
-const inputPropsSx = {
-  style: {
-    height: "20px",
-  },
-};
-
-const submitBtnSx = {
-  marginBottom: 2,
-  marginTop: 2,
-};
+import { Box, Button, TextField } from "@mui/material";
+import { getCurrentUser, inputHelperText } from "../../Utils/helpers";
+import { signin } from "../../Api";
+import Alert from "../../Components/Alert";
+import Wrapper from "../../Components/Auth/Wrapper";
+import Form from "../../Components/Auth/Form";
+import styles from "./styles";
 
 export default function Signin() {
   const email = useRef("");
@@ -32,14 +16,6 @@ export default function Signin() {
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
-  const emailHelperText = emailHelper && (
-    <Typography sx={{ fontSize: 12 }}>{emailHelper}</Typography>
-  );
-
-  const passwordHelperText = passwordHelper && (
-    <Typography sx={{ fontSize: 12 }}>{passwordHelper}</Typography>
-  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,9 +56,9 @@ export default function Signin() {
           autoComplete="email"
           inputRef={email}
           error={emailError ? true : false}
-          helperText={emailHelperText}
-          inputProps={inputPropsSx}
-          sx={inputSx}
+          helperText={inputHelperText(emailHelper)}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
           autoFocus
         />
         <TextField
@@ -94,9 +70,9 @@ export default function Signin() {
           autoComplete="current-password"
           inputRef={password}
           error={passwordError ? true : false}
-          helperText={passwordHelperText}
-          inputProps={inputPropsSx}
-          sx={inputSx}
+          helperText={inputHelperText(passwordHelper)}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
           autoFocus
         />
         <Button
@@ -104,7 +80,7 @@ export default function Signin() {
           type="submit"
           variant="contained"
           onClick={handleSubmit}
-          sx={submitBtnSx}
+          sx={styles.submitBtnSx}
         >
           Sign in
         </Button>

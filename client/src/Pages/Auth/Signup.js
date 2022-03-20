@@ -1,22 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
-import { getCurrentUser } from "../Utils/helpers";
-import { signup } from "../Api";
-import Alert from "../Components/Alert";
-import Wrapper from "../Components/Auth/Wrapper";
-import Form from "../Components/Auth/Form";
-
-const inputPropsSx = {
-  style: {
-    height: "20px",
-  },
-};
-
-const submitBtnSx = {
-  marginBottom: 2,
-  marginTop: 2,
-};
+import { getCurrentUser, inputHelperText } from "../../Utils/helpers";
+import { signup } from "../../Api";
+import Alert from "../../Components/Alert";
+import Wrapper from "../../Components/Auth/Wrapper";
+import Form from "../../Components/Auth/Form";
+import styles from "./styles";
 
 export default function Signup() {
   const email = useRef("");
@@ -57,7 +47,7 @@ export default function Signup() {
   return (
     <Wrapper>
       {alert && <Alert name={alert} severity="error" />}
-      <Form name={"Sign in"}>
+      <Form name={"Sign up"}>
         <TextField
           fullWidth
           name="email"
@@ -66,8 +56,9 @@ export default function Signup() {
           autoComplete="email"
           inputRef={email}
           error={emailError ? true : false}
-          helperText={emailHelper ? emailHelper : false}
-          inputProps={inputPropsSx}
+          helperText={inputHelperText(emailHelper)}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
           autoFocus
         />
         <TextField
@@ -79,8 +70,9 @@ export default function Signup() {
           autoComplete="current-password"
           inputRef={password}
           error={passwordError ? true : false}
-          helperText={passwordHelper ? passwordHelper : false}
-          inputProps={inputPropsSx}
+          helperText={inputHelperText(passwordHelper)}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
           autoFocus
         />
         <Button
@@ -88,7 +80,7 @@ export default function Signup() {
           type="submit"
           variant="contained"
           onClick={handleSubmit}
-          sx={submitBtnSx}
+          sx={styles.submitBtnSx}
         >
           Sign up
         </Button>
