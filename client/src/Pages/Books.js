@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Pagination, Grid, Box } from "@mui/material";
-import { booksByGenre } from "../Api/index";
-import BookWrapper from "../Components/BooksByGenre/BookWrapper";
+import { getBooksByGenre } from "../Api/index";
+import BooksByGenre from "../Components/BooksByGenre/BooksByGenre";
 
 function Books() {
   const booksPerPage = 2;
@@ -19,7 +19,7 @@ function Books() {
   const pageNumber = Number(window.location.pathname.split("/")[3]);
 
   useEffect(() => {
-    booksByGenre(genre, pageNumber).then(
+    getBooksByGenre(genre, pageNumber).then(
       (data) => {
         setBookList(data.books);
         setTotalBook(data.total_book);
@@ -33,7 +33,7 @@ function Books() {
 
   // handle next and previos page click
   const handlePageClick = async (event, value) => {
-    await booksByGenre(genre, value).then(
+    await getBooksByGenre(genre, value).then(
       (data) => {
         setBookList(data.books);
         setTotalBook(data.total_book);
@@ -52,7 +52,7 @@ function Books() {
       <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
       <Grid item lg={10} md={10} sm={12} xs={12}>
         <Box m={2}>
-          <BookWrapper bookList={bookList} currentPage={currentPage} />
+          <BooksByGenre bookList={bookList} currentPage={currentPage} />
           <Stack spacing={2} sx={{ alignItems: "center" }}>
             <Pagination
               count={totalPageNumber}

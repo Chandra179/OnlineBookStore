@@ -5,7 +5,7 @@ import BookTitle from "./Book/BookTitle";
 import BookAuthor from "./Book/BookAuthor";
 import BookPrice from "./Book/BookPrice";
 
-export default function BookWrapper({ bookList, currentPage }) {
+export default function BooksByGenre({ bookList, currentPage }) {
   return (
     <React.Fragment>
       {bookList.map(function (item, i) {

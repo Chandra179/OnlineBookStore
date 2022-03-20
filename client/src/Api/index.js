@@ -75,7 +75,7 @@ export const genreList = async() => {
   return response;
 }
 
-export const booksByGenre = async(genre, page) => {
+export const getBooksByGenre = async(genre, page) => {
   const response = await axios
     .get("http://127.0.0.1:8000/book", { params: { genre: genre, page: page } })
     .then((response) => {
