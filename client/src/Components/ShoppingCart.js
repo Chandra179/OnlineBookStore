@@ -85,7 +85,7 @@ function ShoppingCart({ price, stock, name, cover }) {
           <Alert name={"Item is added to cart"} severity="success" />
         )}
 
-        <Box sx={{ boxShadow: 1 }}>
+        <Box boxShadow={1}>
           <TotalPrice
             price={totalPrice ? totalPrice.toFixed(2) : normalPrice.toFixed(2)}
           />

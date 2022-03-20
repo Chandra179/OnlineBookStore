@@ -19,7 +19,7 @@ export default function BookTitle({ name, genre, currentPage }) {
               lg: 18,
               md: 18,
               sm: 16,
-              xs: 12,
+              xs: 13,
             },
           }}
         >
