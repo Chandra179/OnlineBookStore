@@ -2,8 +2,8 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 const accessNameSx = {
-  marginBottom: 2,
-  fontSize: { lg: 26, md: 26, sm: 24, xs: 22 },
+  marginBottom: 1.5,
+  fontSize: { lg: 26, md: 25, sm: 22, xs: 20 },
 };
 
 export default function Form({ name, children }) {

@@ -1,11 +1,17 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { getCurrentUser } from "../Utils/helpers";
 import { signin } from "../Api";
 import Alert from "../Components/Alert";
 import Wrapper from "../Components/Auth/Wrapper";
 import Form from "../Components/Auth/Form";
+
+const inputSx = {
+  "& .MuiInputLabel-root": {
+    fontSize: 14,
+  },
+};
 
 const inputPropsSx = {
   style: {
@@ -27,11 +33,19 @@ export default function Signin() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  const emailHelperText = emailHelper && (
+    <Typography sx={{ fontSize: 12 }}>{emailHelper}</Typography>
+  );
+
+  const passwordHelperText = passwordHelper && (
+    <Typography sx={{ fontSize: 12 }}>{passwordHelper}</Typography>
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emailValue = email.current.value
-    const passwordValue = password.current.value
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
 
     if (!emailValue) {
       setEmailHelper("Enter email");
@@ -66,8 +80,9 @@ export default function Signin() {
           autoComplete="email"
           inputRef={email}
           error={emailError ? true : false}
-          helperText={emailHelper ? emailHelper : false}
+          helperText={emailHelperText}
           inputProps={inputPropsSx}
+          sx={inputSx}
           autoFocus
         />
         <TextField
@@ -79,8 +94,9 @@ export default function Signin() {
           autoComplete="current-password"
           inputRef={password}
           error={passwordError ? true : false}
-          helperText={passwordHelper ? passwordHelper : false}
+          helperText={passwordHelperText}
           inputProps={inputPropsSx}
+          sx={inputSx}
           autoFocus
         />
         <Button

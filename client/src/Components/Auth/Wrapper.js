@@ -12,8 +12,8 @@ export default function Wrapper({ children }) {
       <Box
         sx={{
           marginTop: 8,
-          width: 280,
-          minWidth: { lg: 420, md: 420, sm: 400, xs: 280 },
+          width: 300,
+          minWidth: { lg: 420, md: 420, sm: 400, xs: 300 },
         }}
       >
         {children}
