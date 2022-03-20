@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { bookAuthor } from "../../../Utils/helpers";
+import { bookAuthor } from "../Utils/helpers";
 
 const wrapSx = {
   alignItems: "baseline",

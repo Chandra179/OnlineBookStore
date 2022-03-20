@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Pagination, Grid, Box } from "@mui/material";
 import { getBooksByGenre } from "../Api/index";
-import BooksByGenre from "../Components/BooksByGenre/BooksByGenre";
+import BooksByGenre from "../Components/BooksByGenre";
 
 function Books() {
   const booksPerPage = 2;

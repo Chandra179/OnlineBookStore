@@ -88,7 +88,7 @@ export const getBooksByGenre = async(genre, page) => {
   return response;
 }
 
-export const bookDetails = async(name) => {
+export const getBookDetails = async(name) => {
   const response = await axios
     .get("http://127.0.0.1:8000/book/detail", { params: { name: name } })
     .then((response) => {

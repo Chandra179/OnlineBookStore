@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ShowMoreText from "react-show-more-text";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
-function BookDescription({ desc }) {
+function BookDescription({ description }) {
   const [expandText, setExpandText] = useState(false);
 
   // show more text... show less text....
@@ -11,23 +11,25 @@ function BookDescription({ desc }) {
   };
 
   return (
-    <ShowMoreText
-      lines={5}
-      more={"Show More"}
-      less={"Show Less"}
-      onClick={handleExpandText}
-      expanded={expandText}
-      className="wrapper"
-    >
-      <Typography
-        sx={{
-          fontSize: { lg: 15, md: 14, sm: 13, xs: 12 },
-        }}
+    <Box mt={1}>
+      <ShowMoreText
+        lines={5}
+        more={"Show More"}
+        less={"Show Less"}
+        onClick={handleExpandText}
+        expanded={expandText}
+        className="wrapper"
       >
-        {desc}
-      </Typography>
-    </ShowMoreText>
+        <Typography
+          sx={{
+            fontSize: { lg: 15, md: 14, sm: 13, xs: 12 },
+          }}
+        >
+          {description}
+        </Typography>
+      </ShowMoreText>
+    </Box>
   );
 }
 
-export default Description;
+export default BookDescription;

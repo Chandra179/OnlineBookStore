@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Divider } from "@mui/material";
-import BookCover from "./Book/BookCover";
-import BookTitle from "./Book/BookTitle";
-import BookAuthor from "./Book/BookAuthor";
-import BookPrice from "./Book/BookPrice";
+import BookCover from "./BooksByGenre/BookCover";
+import BookTitle from "./BooksByGenre/BookTitle";
+import BookAuthor from "./BookAuthor";
+import BookPrice from "./BooksByGenre/BookPrice";
 
 export default function BooksByGenre({ bookList, currentPage }) {
   return (

@@ -6,6 +6,7 @@ import Signup from "../Pages/Auth/Signup";
 import Home from "../Pages/Home";
 import Books from "../Pages/Books";
 import Navbar from "../Layouts/NavBar";
+import BookDetails from "../Pages/BookDetails";
 
 const Navigation = () => {
   return (
@@ -14,6 +15,7 @@ const Navigation = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/genres/:genre/:page" element={<Books />} />
+        <Route exact path="/genres/:genre/:page/:title" element={<BookDetails />} />
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/signup" element={<Signup />} />
       </Routes>
