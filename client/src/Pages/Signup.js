@@ -44,8 +44,8 @@ export default function Signup() {
     if (emailValue && passwordValue) {
       signup(emailValue, passwordValue).then(
         (data) => {
-          const isUserLoggedIn = getCurrentUser();
-          if (isUserLoggedIn) window.location.assign("/");
+          const userEmail = getCurrentUser();
+          if (userEmail) window.location.assign("/");
         },
         (error) => {
           setAlert(error.response.data);

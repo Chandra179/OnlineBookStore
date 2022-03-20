@@ -6,9 +6,9 @@ import styles from "./styles";
 
 export default function CartIcon({ badge }) {
   return (
-    <Box m={0.5}>
+    <Box mr={1}>
       <Link to="/cart" onClick={() => (window.location.href = "/cart")}>
-        <IconButton sisze="large">
+        <IconButton size="large">
           <Badge badgeContent={badge} color="error">
             <LocalMallSharpIcon sx={styles.icon} />
           </Badge>

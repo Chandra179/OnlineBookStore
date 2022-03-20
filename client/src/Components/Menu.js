@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Menu, MenuItem, Typography } from "@mui/material";
+import { Menu } from "@mui/material";
 
-export default function AccountMenu({
+export default function CustomMenu({
   anchorEl,
   isMenuOpen,
   closeMenu,
-  logOut,
+  children,
 }) {
   return (
     <Menu
@@ -24,11 +23,7 @@ export default function AccountMenu({
       open={isMenuOpen}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>
-        <Link to="/signin" onClick={logOut}>
-          <Typography>Logout</Typography>
-        </Link>
-      </MenuItem>
+      {children}
     </Menu>
   );
 }

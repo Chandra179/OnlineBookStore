@@ -1,5 +1,3 @@
-import { signup, signin } from "../Api";
-
 export const bookAuthor = (book_author) => {
   if (!book_author) return;
   var bookAuthorLength = book_author.length - 1;
@@ -76,7 +74,7 @@ export const removeCart = (userEmail) => {
   localStorage.removeItem(userEmail + "Cart");
 };
 
-export const userCartBadge = (userEmail) => {
+export const totalCartItems = (userEmail) => {
   const cartItem = JSON.parse(localStorage.getItem(userEmail + 'Cart'));
   if (cartItem) {
     const cartKeys = Object.keys(cartItem).length;
