@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Navigation from "./Routes/routes";
+import Navigation from "./Routes/Routes";
 import "./index.css";
 
 import AccountContextProvider from "./Context/account-context";
