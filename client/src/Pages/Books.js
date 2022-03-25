@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Pagination, Grid, Box } from "@mui/material";
 import { getBooksByGenre } from "../Api/index";
-import BooksByGenre from "../Components/BooksByGenre";
+import BooksByGenre from "../Components/BooksByGenre/BooksByGenre";
 
 function Books() {
   const booksPerPage = 2;
@@ -32,11 +32,9 @@ function Books() {
   }, [genre, pageNumber]);
 
   // handle next and previos page click
-  const handlePageClick = async (event, value) => {
+  const handlePageClick = (event, value) => {
     navigate(`/genres/${genre}/${value}`);
   };
-
-  console.log(bookList);
 
   return (
     <Grid container>

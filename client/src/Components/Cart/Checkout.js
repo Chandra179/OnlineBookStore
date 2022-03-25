@@ -1,54 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+//
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { useCheckout } from "../../hooks/useCheckout";
-import CartHelper from "../../helper/cart.helper";
-import PaymentService from "../../services/payment.service";
-import AuthService from "../../services/auth.service";
-import { useOrder } from "../../hooks/useOrder";
+//
+import { useCheckout } from "../../../hooks/useCheckout";
+import { useOrder } from "../../../hooks/useOrder";
+import { useCart } from "../../../hooks/useCart";
+import CartHelper from "../../../helper/cart.helper";
+import PaymentService from "../../../services/payment.service";
+import AuthService from "../../../services/auth.service";
 
-
-/**
- *
- * @param {str} userEmail
- * @param {obj} cartItem
- * @param {list} selectedCheckbox
- */
-export default function Checkout({ cartItem, selectedCheckbox }) {
-  const userEmail = AuthService.getCurrentUser();
-  const { setClientSecret } = useOrder()
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalQty, setTotalQty] = useState(0);
-  const [items, setItems] = useState({});
+function Checkout() {
   let history = useHistory();
+  const { setClientSecret } = useOrder();
   const { setIsAppbarDisabled } = useCheckout();
+  const { cartItem, selectedCheckbox } = useCart();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderItems, setOrderItems] = useState({});
+  const [totalQty, setTotalQty] = useState(0);
+  const userEmail = AuthService.getCurrentUser();
 
   useEffect(() => {
-    var totalItemPrice = 0
-    var totalItemQty = 0
-    var totalItems = {}
-    
+    /**
+     *  count checkout items and price
+     */
+    var totalItemPrice = 0;
+    var totalItemQty = 0;
+    var totalItems = {};
+
     for (var key in cartItem) {
       if (selectedCheckbox.includes(key)) {
         totalItems[key] = {
           price: parseFloat(cartItem[key]["totalPrice"]).toFixed(2),
-          qty: parseFloat(cartItem[key]["qty"])
-        }
+          qty: parseFloat(cartItem[key]["qty"]),
+        };
         totalItemPrice += parseFloat(cartItem[key]["totalPrice"]);
         totalItemQty += parseFloat(cartItem[key]["qty"]);
       }
     }
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
-    setItems(totalItems);
+    setOrderItems(totalItems);
   }, [cartItem, selectedCheckbox]);
 
-
   function handleCheckout() {
-    // if checkout with empty item, the change empty value to 1
-    Object.keys(cartItem).forEach(function (key) {
+    // if user checkout with empty item, the change empty value to 1
+    Object.keys(cartItem).forEach(function(key) {
       if (!cartItem[key]["qty"]) {
         cartItem[key]["qty"] = 1;
         cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
@@ -57,13 +56,14 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
     });
     history.push("/cart/checkout");
     setIsAppbarDisabled(true);
-    console.log(items);
 
     // HANDLE PAYMENT
+    // must validate token in backend!!
     const token = AuthService.getToken();
-    PaymentService.addPayment(token, items).then(
+    PaymentService.addPayment(token, orderItems).then(
       (data) => {
-        setClientSecret(data["clientSecret"])
+        localStorage.setItem(userEmail + "Order", data["clientSecret"]);
+        setClientSecret(localStorage.getItem(userEmail + "Order"));
       },
       (error) => {
         console.log(error.response);
@@ -115,6 +115,7 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
           }}
         >
           <Button
+            disabled={totalQty ? false : true}
             variant="contained"
             sx={{
               height: 22,
@@ -130,3 +131,5 @@ export default function Checkout({ cartItem, selectedCheckbox }) {
     </Box>
   );
 }
+
+export default Checkout;

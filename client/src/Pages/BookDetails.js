@@ -5,7 +5,7 @@ import BookCover from "../Components/BookDetails/BookCover";
 import BookDescription from "../Components/BookDetails/BookDescription";
 import BookTitle from "../Components/BookDetails/BookTitle";
 import BookAuthor from "../Components/BookAuthor";
-import ShoppingCart from "../Components/ShoppingCart";
+import ShoppingCart from "../Components/BookDetails/ShoppingCart";
 import CustomSkeleton from "../Components/BookDetails/Skeleton";
 
 const wrapper = {
@@ -34,8 +34,7 @@ function BookDetails() {
     );
   }, []);
 
-  return (
-    Object.keys(bookDetails).length !== 0 ? 
+  return Object.keys(bookDetails).length !== 0 ? (
     <Grid
       container
       direction="row"
@@ -57,7 +56,9 @@ function BookDetails() {
         name={bookDetails.name}
         cover={bookDetails.cover}
       />
-    </Grid> : <CustomSkeleton />
+    </Grid>
+  ) : (
+    <CustomSkeleton />
   );
 }
 

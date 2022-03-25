@@ -9,12 +9,12 @@ import {
   getCartItem,
   setCartItem,
   totalCartItems,
-} from "../Utils/helpers";
-import Alert from "./Alert";
-import { useAccount } from "../Hooks";
-import TotalPrice from "./ShoppingCart/TotalPrice";
-import QuantityInput from "./ShoppingCart/QuantityInput";
-import ActionBtn from "./ShoppingCart/ActionBtn";
+} from "../../Utils/helpers";
+import Alert from "../Alert";
+import { useAccount } from "../../Hooks";
+import TotalPrice from "../ShoppingCart/TotalPrice";
+import QuantityInput from "../ShoppingCart/QuantityInput";
+import ActionBtn from "../ShoppingCart/ActionBtn";
 
 const wrapper = {
   marginTop: { lg: 0, md: 0, sm: 4, xs: 4 },
