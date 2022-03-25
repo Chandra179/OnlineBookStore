@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-//
-import { useCheckout } from "../../../hooks/useCheckout";
-import { useOrder } from "../../../hooks/useOrder";
-import { useCart } from "../../../hooks/useCart";
-import CartHelper from "../../../helper/cart.helper";
-import PaymentService from "../../../services/payment.service";
-import AuthService from "../../../services/auth.service";
+
+import { useCart } from "../../Hooks";
+import { getCurrentUser, setCartItem } from "../../Utils/helpers";
 
 function Checkout() {
-  let history = useHistory();
-  const { setClientSecret } = useOrder();
-  const { setIsAppbarDisabled } = useCheckout();
-  const { cartItem, selectedCheckbox } = useCart();
+  let navigate = useNavigate();
+  const { cart, selectedCheckbox } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState({});
   const [totalQty, setTotalQty] = useState(0);
-  const userEmail = AuthService.getCurrentUser();
+  const userEmail = getCurrentUser();
 
   useEffect(() => {
     /**
@@ -30,45 +24,44 @@ function Checkout() {
     var totalItemQty = 0;
     var totalItems = {};
 
-    for (var key in cartItem) {
+    for (var key in cart) {
       if (selectedCheckbox.includes(key)) {
         totalItems[key] = {
-          price: parseFloat(cartItem[key]["totalPrice"]).toFixed(2),
-          qty: parseFloat(cartItem[key]["qty"]),
+          price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
+          qty: parseFloat(cart[key]["qty"]),
         };
-        totalItemPrice += parseFloat(cartItem[key]["totalPrice"]);
-        totalItemQty += parseFloat(cartItem[key]["qty"]);
+        totalItemPrice += parseFloat(cart[key]["totalPrice"]);
+        totalItemQty += parseFloat(cart[key]["qty"]);
       }
     }
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
     setOrderItems(totalItems);
-  }, [cartItem, selectedCheckbox]);
+  }, [cart, selectedCheckbox]);
 
   function handleCheckout() {
     // if user checkout with empty item, the change empty value to 1
-    Object.keys(cartItem).forEach(function(key) {
-      if (!cartItem[key]["qty"]) {
-        cartItem[key]["qty"] = 1;
-        cartItem[key]["totalPrice"] = cartItem[key]["normalPrice"];
-        CartHelper.setCartItem(userEmail, cartItem);
+    Object.keys(cart).forEach(function(key) {
+      if (!cart[key]["qty"]) {
+        cart[key]["qty"] = 1;
+        cart[key]["totalPrice"] = cart[key]["normalPrice"];
+        setCartItem(userEmail, cart);
       }
     });
-    history.push("/cart/checkout");
-    setIsAppbarDisabled(true);
+    navigate("/cart/checkout");
 
     // HANDLE PAYMENT
     // must validate token in backend!!
-    const token = AuthService.getToken();
-    PaymentService.addPayment(token, orderItems).then(
-      (data) => {
-        localStorage.setItem(userEmail + "Order", data["clientSecret"]);
-        setClientSecret(localStorage.getItem(userEmail + "Order"));
-      },
-      (error) => {
-        console.log(error.response);
-      }
-    );
+    // const token = AuthService.getToken();
+    // PaymentService.addPayment(token, orderItems).then(
+    //   (data) => {
+    //     localStorage.setItem(userEmail + "Order", data["clientSecret"]);
+    //     setClientSecret(localStorage.getItem(userEmail + "Order"));
+    //   },
+    //   (error) => {
+    //     console.log(error.response);
+    //   }
+    // );
   }
 
   return (
