@@ -7,6 +7,8 @@ import ItemCheckbox from "../Components/Cart/ItemCheckbox";
 import BookCover from "../Components/Cart/BookCover";
 import BookTitle from "../Components/Cart/BookTitle";
 import TotalBookPrice from "../Components/Cart/BookTotalPrice";
+import RemoveProduct from "../Components/Cart/RemoveProduct";
+import Checkout from "../Components/Cart/Checkout";
 
 import { useCart } from "../Hooks";
 import Styles from "./Styles";
@@ -38,7 +40,7 @@ export default function Cart() {
                       <Box key={key} mb={3} sx={Styles.itemBox}>
                         <Box pr={1} sx={Styles.checkBoxAndCoverBox}>
                           <ItemCheckbox itemKey={key} />
-                          <BookCover bookCover={cover} />
+                          <BookCover cover={cover} />
                         </Box>
 
                         <Grid container direction="column">
@@ -48,7 +50,7 @@ export default function Cart() {
                             alignItems="flex-start"
                             justifyContent="space-between"
                           >
-                            <BookTitle bookTitle={title} />
+                            <BookTitle title={title} />
                             <TotalBookPrice price={totalPrice} />
                           </Grid>
                           <QtyInput

@@ -3,7 +3,7 @@ import { Box, Grid, FormControl, TextField, IconButton } from "@mui/material";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 //
-import { useCart } from "../../../hooks/useCart";
+import { useCart } from "../../Hooks";
 import Styles from "./Styles";
 import {
   getCartItem,
@@ -28,10 +28,10 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
 
-    item[title]["qty"] = validQty;
-    item[title]["totalPrice"] = validQty * normalPrice;
+    cart[title]["qty"] = validQty;
+    cart[title]["totalPrice"] = validQty * normalPrice;
 
-    setCartItem(userEmail, item);
+    setCartItem(userEmail, cart);
     setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
@@ -43,14 +43,14 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     if (Object.keys(cart).length === 0) {
       window.location.reload();
     }
-    var qty = Number(item[title]["qty"]);
+    var qty = Number(cart[title]["qty"]);
     if (qty < 1) return;
 
     var validQty = qtyValidator(qty, stock);
-    item[title]["qty"] = validQty - 1;
-    item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
+    cart[title]["qty"] = validQty - 1;
+    cart[title]["totalPrice"] = cart[title]["qty"] * normalPrice;
 
-    setCartItem(userEmail, item);
+    setCartItem(userEmail, cart);
     setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
@@ -62,13 +62,13 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     if (Object.keys(cart).length === 0) {
       window.location.reload();
     }
-    var qty = Number(item[title]["qty"]);
+    var qty = Number(cart[title]["qty"]);
     var validQty = qtyValidator(qty, stock);
 
-    item[title]["qty"] = validQty + 1;
-    item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
+    cart[title]["qty"] = validQty + 1;
+    cart[title]["totalPrice"] = cart[title]["qty"] * normalPrice;
 
-    setCartItem(userEmail, item);
+    setCartItem(userEmail, cart);
     setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
