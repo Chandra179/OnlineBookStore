@@ -11,10 +11,10 @@ import {
   totalCartItems,
 } from "../../Utils/helpers";
 import Alert from "../Alert";
-import { useAccount } from "../../Hooks";
-import TotalPrice from "../ShoppingCart/TotalPrice";
-import QuantityInput from "../ShoppingCart/QuantityInput";
-import ActionBtn from "../ShoppingCart/ActionBtn";
+import { useCart } from "../../Hooks"
+import TotalPrice from "./TotalPrice";
+import QuantityInput from "./QuantityInput";
+import ActionBtn from "./ActionBtn";
 
 const wrapper = {
   marginTop: { lg: 0, md: 0, sm: 4, xs: 4 },
@@ -31,7 +31,7 @@ function ShoppingCart({ price, stock, name, cover }) {
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(0);
   const [qty, setQty] = useState(1);
-  const { setCartBadge } = useAccount();
+  const { setCartBadge } = useCart();
 
   const handleQtyChange = (event) => {
     var validQty = qtyValidator(event.target.value, stock);

@@ -1,84 +1,69 @@
 import React from "react";
-// MUI
 import { Divider, Box, Grid } from "@mui/material";
+
+import QtyInput from "../Components/Cart/QtyInput";
 import CartHeader from "../Components/Cart/CartHeader";
-import Items from "../Components/Cart/Items";
-import {
-  getCurrentUser,
-  getCheckoutItem,
-  getCartItem,
-  setCheckoutItem,
-  deleteCheckoutItem,
-} from "../Utils/helpers";
+import ItemCheckbox from "../Components/Cart/ItemCheckbox";
+import BookCover from "../Components/Cart/BookCover";
+import BookTitle from "../Components/Cart/BookTitle";
+import TotalBookPrice from "../Components/Cart/BookTotalPrice";
+
+import { useCart } from "../Hooks";
 import Styles from "./Styles";
 
 export default function Cart() {
-  const userEmail = getCurrentUser();
-  const [selectedCheckbox, setSelectedCheckbox] = useState(
-    getCheckoutItem(userEmail)
-  );
-  const [cartItem, setCartItem] = useState(getCartItem(userEmail));
-  const cartItemKeys = cartItem ? Object.keys(cartItem) : 0;
-  const isAllCheckboxSelected =
-    cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
-
-  /**
-   * Handle select all checkbox
-   */
-  const handleSelectAllCheckbox = (event) => {
-    const value = event.target.value;
-    if (value === "all") {
-      // unselect all checkbox
-      if (selectedCheckbox.length === cartItemKeys.length) {
-        deleteCheckoutItem(userEmail);
-        setSelectedCheckbox([]);
-        return;
-      }
-      // select all checkbox
-      if (selectedCheckbox.length !== cartItemKeys.length) {
-        setCheckoutItem(userEmail, cartItemKeys);
-        setSelectedCheckbox(cartItemKeys);
-        return;
-      }
-    }
-  };
-
-  /**
-   * Handle select checkbox
-   */
-  const handleSelectCheckbox = (event) => {
-    const value = event.target.value;
-    const selectedItems = [...selectedCheckbox];
-    const index = selectedItems.indexOf(value);
-    index === -1 ? selectedItems.push(value) : selectedItems.splice(index, 1);
-    setCheckoutItem(userEmail, selectedItems);
-    setSelectedCheckbox(selectedItems);
-
-    // if no item is selected, then remove localstorage
-    if (selectedItems.length === 0) {
-      deleteCheckoutItem(userEmail);
-      return;
-    }
-  };
+  const { cart } = useCart();
 
   return (
     <>
-      {!cartItem || Object.keys(cartItem).length === 0 ? (
+      {!cart || Object.keys(cart).length === 0 ? (
         <p>cart empty</p>
       ) : (
         <Grid container>
           <Grid item lg={8} md={8} sm={12} xs={12}>
             <Box sx={Styles.containerBox}>
-              <CartHeader
-                selectAllCheckbox={handleSelectAllCheckbox}
-                isAllCheckboxSelected={isAllCheckboxSelected}
-              />
+              <CartHeader />
               <Divider sx={Styles.divider} />
-              <Items
-                cartItem={cartItem}
-                handleSelectCheckbox={handleSelectCheckbox}
-                selectedCheckbox={selectedCheckbox}
-              />
+              <Box sx={Styles.contentBox}>
+                <Box>
+                  {Object.keys(cart).map(function(key) {
+                    var title = key;
+                    var normalPrice = cart[key]["normalPrice"];
+                    var qty = cart[key]["qty"];
+                    var cover = cart[key]["cover"];
+                    var totalPrice = cart[key]["totalPrice"];
+                    var stock = cart[key]["stock"];
+
+                    return (
+                      <Box key={key} mb={3} sx={Styles.itemBox}>
+                        <Box pr={1} sx={Styles.checkBoxAndCoverBox}>
+                          <ItemCheckbox itemKey={key} />
+                          <BookCover bookCover={cover} />
+                        </Box>
+
+                        <Grid container direction="column">
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="flex-start"
+                            justifyContent="space-between"
+                          >
+                            <BookTitle bookTitle={title} />
+                            <TotalBookPrice price={totalPrice} />
+                          </Grid>
+                          <QtyInput
+                            title={title}
+                            normalPrice={normalPrice}
+                            stock={stock}
+                            qty={qty}
+                          />
+                        </Grid>
+                        <RemoveProduct title={title} />
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </Box>
             </Box>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12}>

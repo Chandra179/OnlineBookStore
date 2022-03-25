@@ -4,10 +4,13 @@ import Navigation from "./Routes/Routes";
 import "./index.css";
 
 import AccountContextProvider from "./Context/account-context";
+import CartContextProvider from "./Context/cart-context";
 
 ReactDOM.render(
   <AccountContextProvider>
+    <CartContextProvider>
       <Navigation />
+    </CartContextProvider>
   </AccountContextProvider>,
   document.getElementById("root")
 );

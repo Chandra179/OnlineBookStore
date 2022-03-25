@@ -4,34 +4,27 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 //
 import { useCart } from "../../../hooks/useCart";
-import CartHelper from "../../../helper/cart.helper";
-import AuthService from "../../../services/auth.service";
-import InputHelper from "../../../helper/input.helper";
-
-import {
-  getCurrentUser,
-  setCartItem,
-  getCartItem,
-  totalCartItems,
-  qtyValidator,
-  numberOnly
-} from "../../Utils/helpers";
-import { useAccount } from "../../Hooks";
 import Styles from "./Styles";
+import {
+  getCartItem,
+  getCurrentUser,
+  numberOnly,
+  qtyValidator,
+  setCartItem,
+  totalCartItems,
+} from "../../Utils/helpers";
 
 export default function QtyInput({ title, qty, normalPrice, stock }) {
   const userEmail = getCurrentUser();
-  const { setCartBadge } = useAccount();
+  const { cart, setCart, setCartBadge } = useCart();
 
   /**
    * Handle product quantity input change
    */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    const item = getCartItem(userEmail);
-    if (Object.keys(item).length === 0) {
+    if (Object.keys(cart).length === 0) {
       window.location.reload();
     }
-
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
 
@@ -39,6 +32,7 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     item[title]["totalPrice"] = validQty * normalPrice;
 
     setCartItem(userEmail, item);
+    setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
 
@@ -46,11 +40,9 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
    * Handle product decrement
    */
   const decrementProduct = (title, normalPrice, stock, event) => {
-    const item = getCartItem(userEmail);
-    if (Object.keys(item).length === 0) {
+    if (Object.keys(cart).length === 0) {
       window.location.reload();
     }
-
     var qty = Number(item[title]["qty"]);
     if (qty < 1) return;
 
@@ -59,6 +51,7 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
 
     setCartItem(userEmail, item);
+    setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
 
@@ -66,8 +59,7 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
    * Handle product increment
    */
   const incrementProduct = (title, normalPrice, stock, event) => {
-    const item = getCartItem(userEmail);
-    if (Object.keys(item).length === 0) {
+    if (Object.keys(cart).length === 0) {
       window.location.reload();
     }
     var qty = Number(item[title]["qty"]);
@@ -77,6 +69,7 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     item[title]["totalPrice"] = item[title]["qty"] * normalPrice;
 
     setCartItem(userEmail, item);
+    setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
   };
 

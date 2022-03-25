@@ -3,11 +3,42 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 //
-import { useCart } from "../../../hooks/useCart";
-import CheckoutHelper from "../../../helper/checkout.helper";
-import AuthService from "../../../services/auth.service";
+import { useCart } from "../../Hooks";
+import {
+  getCurrentUser,
+  deleteCheckoutItem,
+  setCheckoutItem,
+} from "../../Utils/helpers";
 
-function CartHeader({ selectAllCheckbox, isAllCheckboxSelected }) {
+function CartHeader() {
+  const userEmail = getCurrentUser();
+  const {
+    selectedCheckbox,
+    cartItemKeys,
+    isAllCheckboxSelected,
+    setSelectedCheckbox,
+  } = useCart();
+  /**
+   * Handle select all checkbox
+   */
+  const selectAllCheckbox = (event) => {
+    const value = event.target.value;
+    if (value === "all") {
+      // unselect all checkbox
+      if (selectedCheckbox.length === cartItemKeys.length) {
+        deleteCheckoutItem(userEmail);
+        setSelectedCheckbox([]);
+        return;
+      }
+      // select all checkbox
+      if (selectedCheckbox.length !== cartItemKeys.length) {
+        setCheckoutItem(userEmail, cartItemKeys);
+        setSelectedCheckbox(cartItemKeys);
+        return;
+      }
+    }
+  };
+
   return (
     <Box
       sx={{

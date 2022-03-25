@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
-import { useAccount } from "../Hooks/index";
+import { useCart } from "../Hooks";
 import { getCurrentUser, totalCartItems, logout } from "../Utils/helpers";
 import AppName from "../Components/NavBar/AppName";
 import NavItems from "../Components/NavBar/NavItems";
@@ -13,7 +13,7 @@ import CustomMenu from "../Components/Menu";
 import CustomAppBar from "../Components/NavBar/AppBar";
 
 function Navbar() {
-  const { cartBadge, setCartBadge } = useAccount();
+  const { cartBadge, setCartBadge } = useCart();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const isMenuOpen = Boolean(anchorEl);
