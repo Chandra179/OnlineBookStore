@@ -8,14 +8,12 @@ import {
 } from "../../Utils/helpers";
 import { useCart } from "../../Hooks"
 
+
 function ItemCheckbox({ itemKey }) {
   const userEmail = getCurrentUser();
   const { selectedCheckbox, setSelectedCheckbox } = useCart();
   const checkedItems = selectedCheckbox.includes(itemKey);
 
-  /**
-   * Handle select checkbox
-   */
   const handleSelectCheckbox = (event) => {
     const value = event.target.value;
     const selectedItems = [...selectedCheckbox];
@@ -30,6 +28,7 @@ function ItemCheckbox({ itemKey }) {
       return;
     }
   };
+  
   return (
     <Box pr={1}>
       <Checkbox

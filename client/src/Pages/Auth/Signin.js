@@ -6,17 +6,8 @@ import { signin } from "../../Api";
 import Alert from "../../Components/Alert";
 import Wrapper from "../../Components/Auth/Wrapper";
 import AuthForm from "../../Components/Auth/AuthForm";
+import styles from "./styles";
 
-const inputSx = {
-  "& .MuiInputLabel-root": {
-    fontSize: 16,
-  },
-};
-const inputPropsSx = {
-  style: {
-    height: "20px",
-  },
-};
 
 export default function Signin() {
   const email = useRef("");
@@ -67,8 +58,8 @@ export default function Signin() {
           inputRef={email}
           error={emailError ? true : false}
           helperText={inputHelperText(emailHelper)}
-          inputProps={inputPropsSx}
-          sx={inputSx}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
         />
         <TextField
           fullWidth
@@ -80,17 +71,15 @@ export default function Signin() {
           inputRef={password}
           error={passwordError ? true : false}
           helperText={inputHelperText(passwordHelper)}
-          inputProps={inputPropsSx}
-          sx={inputSx}
+          inputProps={styles.inputPropsSx}
+          sx={styles.inputSx}
         />
         <Button
           fullWidth
           type="submit"
           variant="contained"
           onClick={handleSubmit}
-          sx={{
-            marginBottom: 2,
-            marginTop: 2,}}
+          sx={styles.submitBtnSx}
         >
           Sign in
         </Button>

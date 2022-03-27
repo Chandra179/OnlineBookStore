@@ -17,9 +17,6 @@ function Checkout() {
   const userEmail = getCurrentUser();
 
   useEffect(() => {
-    /**
-     *  count checkout items and price
-     */
     var totalItemPrice = 0;
     var totalItemQty = 0;
     var totalItems = {};
@@ -108,7 +105,7 @@ function Checkout() {
           }}
         >
           <Button
-            disabled={totalQty ? false : true}
+            disabled={selectedCheckbox.length === 0 ? true : false}
             variant="contained"
             sx={{
               height: 22,

@@ -2,7 +2,6 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-//
 import { useCart } from "../../Hooks";
 import {
   getCurrentUser,
@@ -18,9 +17,7 @@ function CartHeader() {
     isAllCheckboxSelected,
     setSelectedCheckbox,
   } = useCart();
-  /**
-   * Handle select all checkbox
-   */
+
   const selectAllCheckbox = (event) => {
     const value = event.target.value;
     if (value === "all") {
@@ -41,8 +38,9 @@ function CartHeader() {
 
   return (
     <Box
+      display="flex"
+      justifyContent="space-between"
       sx={{
-        display: "flex",
         marginLeft: {
           lg: 5,
           md: 5,
@@ -50,7 +48,6 @@ function CartHeader() {
           xs: 2,
         },
         marginTop: 6,
-        justifyContent: "space-between",
       }}
     >
       <Box>
@@ -67,13 +64,7 @@ function CartHeader() {
           Shopping cart
         </Typography>
       </Box>
-      <Box
-        sx={{
-          width: 90,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <Box width={90} display="flex" alignItems="center">
         <Box>
           <Typography
             sx={{
