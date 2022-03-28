@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Divider,
-  Box,
-  Grid,
-  CircularProgress,
-} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Divider, Box, Grid, CircularProgress } from "@mui/material";
 import Qtys from "../Components/Cart/Qtys";
 import CartHeader from "../Components/Cart/CartHeader";
 import ItemCheckbox from "../Components/Cart/ItemCheckbox";
@@ -26,6 +22,7 @@ import {
 
 export default function Cart() {
   const userEmail = getCurrentUser();
+  const navigate = useNavigate();
   const { cartBadge, setCartBadge } = useCart();
   const [cart, setCart] = useUpdateCart();
 
@@ -34,7 +31,7 @@ export default function Cart() {
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
 
-    var totalPrice = validQty * normalPrice
+    var totalPrice = validQty * normalPrice;
     await setCart((prevState) => {
       let items = { ...prevState };
       items[title]["qty"] = validQty;
@@ -64,7 +61,7 @@ export default function Cart() {
     var qty = Number(cart[title]["qty"]);
     await setCart((prevState) => {
       let items = { ...prevState };
-      items[title]["qty"] = qty === stock ? stock : qty + 1 ;
+      items[title]["qty"] = qty === stock ? stock : qty + 1;
       items[title]["totalPrice"] = items[title]["qty"] * normalPrice;
       setCartBadge(cartBadge + items[title]["qty"]);
       return items;
