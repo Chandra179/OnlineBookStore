@@ -16,62 +16,56 @@ import {
 
 export default function QtyInput({ title, qty, normalPrice, stock }) {
   const userEmail = getCurrentUser();
-  const { cart, setCart, setCartBadge } = useCart();
+  const { cart, setCart, cartBadge, setCartBadge } = useCart();
 
   /**
    * Handle product quantity input change
    */
   const handleQtyChange = (title, normalPrice, stock, event) => {
-    if (Object.keys(cart).length === 0) {
-      window.location.reload();
-    }
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
 
-    cart[title]["qty"] = validQty;
-    cart[title]["totalPrice"] = validQty * normalPrice;
+    let cartItems = Object.assign({}, cart);
+    cartItems[title]["qty"] = validQty;
+    cartItems[title]["totalPrice"] = validQty * normalPrice;
 
-    setCartItem(userEmail, cart);
-    setCart(getCartItem(userEmail));
-    setCartBadge(totalCartItems(userEmail));
+    setCart(cartItems);
+    setCartBadge(cartBadge + validQty);
   };
 
   /**
    * Handle product decrement
    */
   const decrementProduct = (title, normalPrice, stock, event) => {
-    if (Object.keys(cart).length === 0) {
-      window.location.reload();
-    }
     var qty = Number(cart[title]["qty"]);
-    if (qty < 1) return;
+    if (qty < 1) {
+      return;
+    }
+    let cartItems = Object.assign({}, cart);
+    cartItems[title]["qty"] = qty - 1;
+    cartItems[title]["totalPrice"] = cartItems[title]["qty"] * normalPrice;
 
-    var validQty = qtyValidator(qty, stock);
-    cart[title]["qty"] = validQty - 1;
-    cart[title]["totalPrice"] = cart[title]["qty"] * normalPrice;
-
-    setCartItem(userEmail, cart);
-    setCart(getCartItem(userEmail));
-    setCartBadge(totalCartItems(userEmail));
+    setCart(cartItems);
+    setCartBadge(cartBadge - 1);
   };
 
   /**
    * Handle product increment
    */
   const incrementProduct = (title, normalPrice, stock, event) => {
-    if (Object.keys(cart).length === 0) {
-      window.location.reload();
-    }
     var qty = Number(cart[title]["qty"]);
-    var validQty = qtyValidator(qty, stock);
+    let cartItems = Object.assign({}, cart);
 
-    cart[title]["qty"] = validQty + 1;
-    cart[title]["totalPrice"] = cart[title]["qty"] * normalPrice;
+    cartItems[title]["qty"] = qty === stock ? stock : qty + 1;
+    cartItems[title]["totalPrice"] = cartItems[title]["qty"] * normalPrice;
 
-    setCartItem(userEmail, cart);
-    setCart(getCartItem(userEmail));
-    setCartBadge(totalCartItems(userEmail));
+    setCart(cartItems);
+    setCartBadge(cartBadge + 1);
   };
+
+  if (!Object.keys(cart).length) {
+    return <p>cart empty</p>;
+  }
 
   return (
     <Grid>
@@ -86,8 +80,8 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
             <RemoveCircleOutlineOutlinedIcon sx={Styles.iconStyles} />
           </IconButton>
         </Box>
+        {/* INPUT */}
         <Box sx={{ width: 60 }}>
-          {/* INPUT */}
           <FormControl fullWidth>
             <TextField
               variant="standard"

@@ -1,5 +1,5 @@
-import React, { useState, createContext } from "react";
-import { getCurrentUser, getCheckoutItem, getCartItem } from "../Utils/helpers";
+import React, { useState, createContext, useEffect } from "react";
+import { getCurrentUser, getCheckoutItem, getCartItem, setCartItem } from "../Utils/helpers";
 
 export const CartContext = createContext();
 
@@ -13,6 +13,10 @@ const CartContextProvider = ({ children }) => {
   const cartItemKeys = cart ? Object.keys(cart) : 0;
   const isAllCheckboxSelected =
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
+
+  useEffect(() => {
+    setCartItem(userEmail, cart)
+  }, [cart]);
 
   return (
     <CartContext.Provider

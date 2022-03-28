@@ -17,8 +17,7 @@ import Wrapper from "../Components/Cart/Wrapper";
 export default function Cart() {
   const { cart } = useCart();
 
-  console.log(Object.keys(cart).length);
-  if (!cart || Object.keys(cart).length === 0) {
+  if (!Object.keys(cart).length) {
     return <p>cart empty</p>;
   }
 

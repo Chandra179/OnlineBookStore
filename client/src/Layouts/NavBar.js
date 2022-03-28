@@ -25,7 +25,7 @@ function Navbar() {
       setIsUserLoggedIn(true);
       setCartBadge(items);
     }
-  }, []);
+  }, [cartBadge]);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
