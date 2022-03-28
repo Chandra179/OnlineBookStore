@@ -34,13 +34,14 @@ export default function Cart() {
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
 
+    var totalPrice = validQty * normalPrice
     await setCart((prevState) => {
       let items = { ...prevState };
       items[title]["qty"] = validQty;
-      items[title]["totalPrice"] = validQty * normalPrice;
-      setCartBadge(items[title]["qty"]);
+      items[title]["totalPrice"] = totalPrice;
       return items;
     });
+    setCartBadge(totalPrice);
   };
 
   /** Handle product decrement */
@@ -49,10 +50,9 @@ export default function Cart() {
     if (qty < 1) {
       return;
     }
-    var validQty = await qtyValidator(qty, stock);
     await setCart((prevState) => {
       let items = { ...prevState };
-      items[title]["qty"] = validQty - 1;
+      items[title]["qty"] = qty - 1;
       items[title]["totalPrice"] = items[title]["qty"] * normalPrice;
       setCartBadge(cartBadge - items[title]["qty"]);
       return items;
