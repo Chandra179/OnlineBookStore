@@ -21,9 +21,8 @@ function Navbar() {
   useEffect(() => {
     const userEmail = getCurrentUser();
     if (userEmail) {
-      const items = totalCartItems(userEmail);
       setIsUserLoggedIn(true);
-      setCartBadge(items);
+      setCartBadge(totalCartItems(userEmail));
     }
   }, [cartBadge]);
 
