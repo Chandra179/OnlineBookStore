@@ -17,7 +17,7 @@ import {
 
 export default function RemoveProduct({ title }) {
   const userEmail = getCurrentUser();
-  const { cart, setCart, setSelectedCheckbox, setCartBadge } = useCart();
+  const { cart, setCart, cartBadge, setSelectedCheckbox, setCartBadge } = useCart();
 
   /**
    * handle delete product
@@ -31,7 +31,7 @@ export default function RemoveProduct({ title }) {
 
     // filter cart item with given title
     if (checkoutItem.length !== 0) {
-      var checkoutFiltered = checkoutItem.filter((e) => e !== title);
+      var checkoutFiltered = checkoutItem.fsilter((e) => e !== title);
       setCheckoutItem(userEmail, checkoutFiltered);
       setSelectedCheckbox(getCheckoutItem(userEmail));
 
@@ -43,9 +43,14 @@ export default function RemoveProduct({ title }) {
     var cartFiltered = Object.fromEntries(
       Object.entries(cart).filter(([key, value]) => key !== title)
     );
-    setCartItem(userEmail, cartFiltered);
-    setCart(getCartItem(userEmail));
-    setCartBadge(totalCartItems(userEmail));
+
+    setCart(cartFiltered);
+    
+    if (!Object.keys(cartFiltered).length) {
+      setCartBadge(0)
+    } else {
+      setCartBadge(cartBadge - cart[title]["qty"])
+    }
 
     // delete localStorage if cart empty
     if (Object.keys(cart).length - 1 === 0) {
