@@ -31,7 +31,7 @@ function ShoppingCart({ price, stock, name, cover }) {
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(0);
   const [qty, setQty] = useState(1);
-  const { setCartBadge } = useCart();
+  const { cartBadge, setCartBadge } = useCart();
 
   const handleQtyChange = (event) => {
     var validQty = qtyValidator(event.target.value, stock);
@@ -74,7 +74,7 @@ function ShoppingCart({ price, stock, name, cover }) {
     setCartItem(userEmail, cartItem);
     setIsItemAdded(true);
     setIsItemExist(false);
-    setCartBadge(totalCartItems(userEmail));
+    setCartBadge(cartBadge + qtys);
   };
 
   return (

@@ -8,32 +8,27 @@ import { Button } from "@mui/material";
 import { useCart } from "../../Hooks";
 import { getCurrentUser, setCartItem } from "../../Utils/helpers";
 
-function Checkout() {
+function Checkout({ cart }) {
   let navigate = useNavigate();
-  const { cart, selectedCheckbox } = useCart();
+  const { selectedCheckbox } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState({});
   const [totalQty, setTotalQty] = useState(0);
   const userEmail = getCurrentUser();
 
   useEffect(() => {
-    var totalItemPrice = 0;
-    var totalItemQty = 0;
-    var totalItems = {};
 
     for (var key in cart) {
       if (selectedCheckbox.includes(key)) {
-        totalItems[key] = {
-          price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
-          qty: parseFloat(cart[key]["qty"]),
-        };
-        totalItemPrice += parseFloat(cart[key]["totalPrice"]);
-        totalItemQty += parseFloat(cart[key]["qty"]);
+        // totalItems[key] = {
+        //   price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
+        //   qty: parseFloat(cart[key]["qty"]),
+        // };
+        setTotalPrice(parseFloat(cart[key]["totalPrice"]));
+        setTotalQty(parseFloat(cart[key]["qty"]));
       }
     }
-    setTotalPrice(totalItemPrice.toFixed(2));
-    setTotalQty(totalItemQty);
-    setOrderItems(totalItems);
+    //setOrderItems(totalItems);
   }, [cart, selectedCheckbox]);
 
   function handleCheckout() {

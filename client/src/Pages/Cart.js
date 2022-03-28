@@ -4,10 +4,7 @@ import {
   Box,
   Grid,
   CircularProgress,
-  IconButton,
 } from "@mui/material";
-import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
-
 import Qtys from "../Components/Cart/Qtys";
 import CartHeader from "../Components/Cart/CartHeader";
 import ItemCheckbox from "../Components/Cart/ItemCheckbox";
@@ -29,7 +26,7 @@ import {
 
 export default function Cart() {
   const userEmail = getCurrentUser();
-  const { setCartBadge } = useCart();
+  const { cartBadge, setCartBadge } = useCart();
   const [cart, setCart] = useUpdateCart();
 
   /** Handle product quantity input change */
@@ -41,9 +38,9 @@ export default function Cart() {
       let items = { ...prevState };
       items[title]["qty"] = validQty;
       items[title]["totalPrice"] = validQty * normalPrice;
+      setCartBadge(items[title]["qty"]);
       return items;
     });
-    await setCartBadge(totalCartItems(userEmail));
   };
 
   /** Handle product decrement */
@@ -56,24 +53,22 @@ export default function Cart() {
     await setCart((prevState) => {
       let items = { ...prevState };
       items[title]["qty"] = validQty - 1;
-      items[title]["totalPrice"] = validQty * normalPrice;
+      items[title]["totalPrice"] = items[title]["qty"] * normalPrice;
+      setCartBadge(cartBadge - items[title]["qty"]);
       return items;
     });
-    await setCartBadge(totalCartItems(userEmail));
   };
 
   /** Handle product increment */
   const handleIncrementQty = async (title, normalPrice, stock, event) => {
     var qty = Number(cart[title]["qty"]);
-    var validQty = await qtyValidator(qty, stock);
-
     await setCart((prevState) => {
       let items = { ...prevState };
-      items[title]["qty"] = validQty === stock ? stock : validQty + 1 ;
-      items[title]["totalPrice"] = validQty * normalPrice;
+      items[title]["qty"] = qty === stock ? stock : qty + 1 ;
+      items[title]["totalPrice"] = items[title]["qty"] * normalPrice;
+      setCartBadge(cartBadge + items[title]["qty"]);
       return items;
     });
-    await setCartBadge(totalCartItems(userEmail));
   };
 
   if (!Object.keys(cart).length) {
@@ -131,7 +126,7 @@ export default function Cart() {
         </Box>
       </Wrapper>
       <Grid item lg={4} md={4} sm={12} xs={12}>
-        <Checkout />
+        <Checkout cart={cart} />
       </Grid>
     </Grid>
   );
