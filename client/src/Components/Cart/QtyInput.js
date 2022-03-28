@@ -5,17 +5,9 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 //
 import { useCart } from "../../Hooks";
 import Styles from "./Styles";
-import {
-  getCartItem,
-  getCurrentUser,
-  numberOnly,
-  qtyValidator,
-  setCartItem,
-  totalCartItems,
-} from "../../Utils/helpers";
+import { numberOnly, qtyValidator } from "../../Utils/helpers";
 
 export default function QtyInput({ title, qty, normalPrice, stock }) {
-  const userEmail = getCurrentUser();
   const { cart, setCart, cartBadge, setCartBadge } = useCart();
 
   /**
