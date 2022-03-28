@@ -44,7 +44,6 @@ export default function RemoveProduct({ title }) {
       Object.entries(cart).filter(([key, value]) => key !== title)
     );
     setCartItem(userEmail, cartFiltered);
-    setCart(getCartItem(userEmail));
     setCartBadge(totalCartItems(userEmail));
 
     // delete localStorage if cart empty
