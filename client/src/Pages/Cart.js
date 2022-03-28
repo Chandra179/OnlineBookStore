@@ -21,12 +21,10 @@ import {
 } from "../Utils/helpers";
 
 export default function Cart() {
-  const userEmail = getCurrentUser();
-  const navigate = useNavigate();
   const { cartBadge, setCartBadge } = useCart();
   const [cart, setCart] = useUpdateCart();
 
-  /** Handle product quantity input change */
+  /** Handle quantity input */
   const handleInputQty = async (title, normalPrice, stock, event) => {
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
@@ -41,7 +39,7 @@ export default function Cart() {
     setCartBadge(totalPrice);
   };
 
-  /** Handle product decrement */
+  /** Handle quantity decrement */
   const handleDecrementQty = async (title, normalPrice, stock, event) => {
     var qty = Number(cart[title]["qty"]);
     if (qty < 1) {
@@ -56,7 +54,7 @@ export default function Cart() {
     });
   };
 
-  /** Handle product increment */
+  /** Handle quantity increment */
   const handleIncrementQty = async (title, normalPrice, stock, event) => {
     var qty = Number(cart[title]["qty"]);
     await setCart((prevState) => {

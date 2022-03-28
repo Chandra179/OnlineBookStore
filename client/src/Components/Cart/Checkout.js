@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //
 import Typography from "@mui/material/Typography";
@@ -17,6 +17,9 @@ function Checkout({ cart }) {
   const userEmail = getCurrentUser();
 
   useEffect(() => {
+    var totalItemPrice = 0;
+    var totalItemQty = 0;
+    var totalItems = {};
 
     for (var key in cart) {
       if (selectedCheckbox.includes(key)) {
@@ -24,10 +27,12 @@ function Checkout({ cart }) {
         //   price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
         //   qty: parseFloat(cart[key]["qty"]),
         // };
-        setTotalPrice(parseFloat(cart[key]["totalPrice"]));
-        setTotalQty(parseFloat(cart[key]["qty"]));
+        totalItemPrice += parseFloat(cart[key]["totalPrice"]);
+        totalItemQty += parseFloat(cart[key]["qty"]);
       }
     }
+    setTotalPrice(totalItemPrice.toFixed(2));
+    setTotalQty(totalItemQty);
     //setOrderItems(totalItems);
   }, [cart, selectedCheckbox]);
 
