@@ -9,11 +9,44 @@ import { useCart } from "../../Hooks";
 import { getCurrentUser, setCartItem } from "../../Utils/helpers";
 
 function Checkout() {
-  let navigate = useNavigate();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
   const { cart, selectedCheckbox } = useCart();
+
+  // ===========================================================================
+  // State
+  // ===========================================================================
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
   const userEmail = getCurrentUser();
+  let navigate = useNavigate();
+
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+
+  function handleCheckout() {
+    // if user checkout with empty item, the change empty value to 1
+    Object.keys(cart).forEach(function (key) {
+      if (!cart[key]["qty"]) {
+        cart[key]["qty"] = 1;
+        cart[key]["totalPrice"] = cart[key]["normalPrice"];
+        setCartItem(userEmail, cart);
+      }
+    });
+    navigate("/cart/checkout");
+  }
+
+  // ===========================================================================
+  // Hooks
+  // ===========================================================================
 
   useEffect(() => {
     var totalItemPrice = 0;
@@ -28,18 +61,6 @@ function Checkout() {
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
   }, [cart, selectedCheckbox]);
-
-  function handleCheckout() {
-    // if user checkout with empty item, the change empty value to 1
-    Object.keys(cart).forEach(function(key) {
-      if (!cart[key]["qty"]) {
-        cart[key]["qty"] = 1;
-        cart[key]["totalPrice"] = cart[key]["normalPrice"];
-        setCartItem(userEmail, cart);
-      }
-    });
-    navigate("/cart/checkout");
-  }
 
   return (
     <Box

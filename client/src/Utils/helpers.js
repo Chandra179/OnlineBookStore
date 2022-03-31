@@ -79,13 +79,6 @@ export const totalCartItems = (userEmail) => {
   return qty;
 };
 
-export const isItemInCart = (userEmail) => {
-  const item = getCartItem(userEmail);
-  if (Object.keys(item).length !== 0) {
-    return item;
-  }
-};
-
 // ===========================================================================
 // Checkout
 // ===========================================================================

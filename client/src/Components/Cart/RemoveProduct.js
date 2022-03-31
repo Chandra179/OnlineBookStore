@@ -3,55 +3,65 @@ import { Box, IconButton } from "@mui/material";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 //
 import { useCart } from "../../Hooks";
-import Styles from "./Styles";
 import {
   deleteCheckoutItem,
-  getCartItem,
-  getCheckoutItem,
   getCurrentUser,
   removeCart,
-  setCartItem,
-  setCheckoutItem,
-  totalCartItems,
 } from "../../Utils/helpers";
 
 export default function RemoveProduct({ title }) {
-  const userEmail = getCurrentUser();
-  const { cart, setCart, cartBadge, setSelectedCheckbox, setCartBadge } = useCart();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
 
-  /**
-   * handle delete product
-   */
+  const {
+    cart,
+    setCart,
+    cartBadge,
+    selectedCheckbox,
+    setSelectedCheckbox,
+    setCartBadge,
+  } = useCart();
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const userEmail = getCurrentUser();
+
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+
   const removeProduct = (title) => {
     if (!cart) {
       setCart(null);
       return;
     }
-    var checkoutItem = getCheckoutItem(userEmail);
 
-    // filter cart item with given title
-    if (checkoutItem.length !== 0) {
-      var checkoutFiltered = checkoutItem.filter((e) => e !== title);
-      setCheckoutItem(userEmail, checkoutFiltered);
-      setSelectedCheckbox(getCheckoutItem(userEmail));
+    /** Filter Checkout */
+    if (selectedCheckbox.length !== 0) {
+      var checkoutFiltered = selectedCheckbox.filter((e) => e !== title);
+      setSelectedCheckbox(checkoutFiltered);
 
-      // delete localstorage if checkout empty
-      if (checkoutItem.length - 1 === 0) {
+      // delete checkout localstorage if checkout empty
+      if (selectedCheckbox.length === 1) {
         deleteCheckoutItem(userEmail);
       }
     }
+
+    /**  Filter Cart  */
     var cartFiltered = Object.fromEntries(
       Object.entries(cart).filter(([key, value]) => key !== title)
     );
-
     setCart(cartFiltered);
-    
-    if (!Object.keys(cartFiltered).length) {
-      setCartBadge(0)
-    } else {
-      setCartBadge(cartBadge - cart[title]["qty"])
-    }
 
+    // remove cart badge if empty
+    if (!Object.keys(cartFiltered).length) {
+      setCartBadge(0);
+    } else {
+      setCartBadge(cartBadge - cart[title]["qty"]);
+    }
     // delete localStorage if cart empty
     if (Object.keys(cart).length - 1 === 0) {
       removeCart(userEmail);
@@ -63,7 +73,7 @@ export default function RemoveProduct({ title }) {
       <IconButton
         size="small"
         onClick={(e) => removeProduct(title, e)}
-        sx={Styles.closeIcon}
+        sx={{ width: 0, height: 0, paddingTop: 0.2 }}
       >
         <CloseSharpIcon sx={{ fontSize: 20 }} />
       </IconButton>

@@ -9,13 +9,26 @@ import AuthForm from "../../Components/Auth/AuthForm";
 import styles from "./styles";
 
 export default function Signup() {
+  // ===========================================================================
+  // Ref
+  // ===========================================================================
+
   const email = useRef("");
   const password = useRef("");
+
+  // ===========================================================================
+  // State
+  // ===========================================================================
+  
   const [emailHelper, setEmailHelper] = useState("");
   const [alert, setAlert] = useState("");
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +61,7 @@ export default function Signup() {
     <Wrapper>
       {alert && <Alert name={alert} severity="error" />}
       <AuthForm name={"Sign up"}>
-      <TextField
+        <TextField
           fullWidth
           name="email"
           margin="normal"

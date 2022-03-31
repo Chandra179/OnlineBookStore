@@ -14,20 +14,30 @@ import CustomMenu from "../Components/Menu";
 import CustomAppBar from "../Components/NavBar/AppBar";
 
 function Navbar() {
-  const navigate = useNavigate();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
   const { cartBadge, setCartBadge } = useCart();
+
+  // ===========================================================================
+  // State
+  // ===========================================================================
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
 
-  useEffect(() => {
-    const userEmail = getCurrentUser();
-    if (userEmail) {
-      setIsUserLoggedIn(true);
-      setCartBadge(totalCartItems(userEmail));
-    }
-  }, [cartBadge]);
-
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+  
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,8 +49,21 @@ function Navbar() {
   const handleLogout = () => {
     logout();
     setCartBadge(0);
-    navigate('/');
+    setIsUserLoggedIn(false);
+    navigate("/");
   };
+
+  // ===========================================================================
+  // Hooks
+  // ===========================================================================
+
+  useEffect(() => {
+    const userEmail = getCurrentUser();
+    if (userEmail) {
+      setIsUserLoggedIn(true);
+      setCartBadge(totalCartItems(userEmail));
+    }
+  }, [cartBadge]);
 
   return (
     <React.Fragment>

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Divider,
   Box,
   Grid,
   CircularProgress,
-  Typography,
 } from "@mui/material";
 
-import QtyInput from "../Components/Cart/QtyInput";
+import QuantityInput from "../Components/Cart/QuantityInput";
 import CartHeader from "../Components/Cart/CartHeader";
 import ItemCheckbox from "../Components/Cart/ItemCheckbox";
 import BookCover from "../Components/Cart/BookCover";
@@ -20,6 +19,10 @@ import Wrapper from "../Components/Cart/Wrapper";
 import { useCart } from "../Hooks";
 
 export default function Cart() {
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
   const { cart } = useCart();
 
   if (!Object.keys(cart).length) {
@@ -57,7 +60,7 @@ export default function Cart() {
                     <BookTitle title={title} />
                     <TotalBookPrice price={totalPrice} />
                   </Grid>
-                  <QtyInput
+                  <QuantityInput
                     title={title}
                     normalPrice={normalPrice}
                     stock={stock}

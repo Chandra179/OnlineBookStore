@@ -6,14 +6,26 @@ import {
   setCheckoutItem,
   deleteCheckoutItem,
 } from "../../Utils/helpers";
-import { useCart } from "../../Hooks"
-
+import { useCart } from "../../Hooks";
 
 function ItemCheckbox({ itemKey }) {
-  const userEmail = getCurrentUser();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
   const { selectedCheckbox, setSelectedCheckbox } = useCart();
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const userEmail = getCurrentUser();
   const checkedItems = selectedCheckbox.includes(itemKey);
 
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+  
   const handleSelectCheckbox = (event) => {
     const value = event.target.value;
     const selectedItems = [...selectedCheckbox];
@@ -27,7 +39,7 @@ function ItemCheckbox({ itemKey }) {
       return;
     }
   };
-  
+
   return (
     <Box pr={1}>
       <Checkbox

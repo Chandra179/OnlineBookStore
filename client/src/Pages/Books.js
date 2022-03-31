@@ -5,18 +5,35 @@ import { getBooksByGenre } from "../Api/index";
 import BooksByGenre from "../Components/BooksByGenre/BooksByGenre";
 
 function Books() {
-  const booksPerPage = 2;
-  const navigate = useNavigate();
+  // ===========================================================================
+  // State
+  // ===========================================================================
+
   const [bookList, setBookList] = useState([]);
   const [totalBook, setTotalBook] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const booksPerPage = 2;
+  const navigate = useNavigate();
   const totalPageNumber = Math.ceil(totalBook / booksPerPage);
+  const genre = window.location.pathname.split("/")[2]; // get book genre from url path
+  const pageNumber = Number(window.location.pathname.split("/")[3]); // get page number from url path
 
-  // get book genre from url path
-  const genre = window.location.pathname.split("/")[2];
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+  
+  const handlePageClick = (event, value) => {
+    navigate(`/genres/${genre}/${value}`);
+  };
 
-  // get page number from url path
-  const pageNumber = Number(window.location.pathname.split("/")[3]);
+  // ===========================================================================
+  // Hooks
+  // ===========================================================================
 
   useEffect(() => {
     getBooksByGenre(genre, pageNumber).then(
@@ -30,11 +47,6 @@ function Books() {
       }
     );
   }, [genre, pageNumber]);
-
-  // handle next and previos page click
-  const handlePageClick = (event, value) => {
-    navigate(`/genres/${genre}/${value}`);
-  };
 
   return (
     <Grid container>

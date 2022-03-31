@@ -10,13 +10,26 @@ import {
 } from "../../Utils/helpers";
 
 function CartHeader() {
-  const userEmail = getCurrentUser();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
   const {
     selectedCheckbox,
     cartItemKeys,
     isAllCheckboxSelected,
     setSelectedCheckbox,
   } = useCart();
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const userEmail = getCurrentUser();
+
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
 
   const selectAllCheckbox = (event) => {
     const value = event.target.value;
@@ -29,7 +42,6 @@ function CartHeader() {
       }
       // select all checkbox
       if (selectedCheckbox.length !== cartItemKeys.length) {
-        setCheckoutItem(userEmail, cartItemKeys);
         setSelectedCheckbox(cartItemKeys);
         return;
       }
@@ -64,7 +76,7 @@ function CartHeader() {
           Shopping cart
         </Typography>
       </Box>
-      <Box width={90} display="flex" alignItems="center">
+      <Box width={90} display="flex">
         <Box>
           <Typography
             sx={{
@@ -72,7 +84,7 @@ function CartHeader() {
                 lg: 16,
                 md: 16,
                 sm: 16,
-                xs: 14,
+                xs: 15,
               },
             }}
           >

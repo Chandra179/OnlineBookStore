@@ -17,6 +17,7 @@ export default function ActionBtn({ addToCart }) {
         Add to cart
       </Button>
       <Button
+        disabled={true}
         variant="outlined"
         sx={{ margin: "10px 10px 10px 10px", fontSize: 12 }}
       >

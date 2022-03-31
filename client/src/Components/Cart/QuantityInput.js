@@ -8,11 +8,16 @@ import Styles from "./Styles";
 import { numberOnly, qtyValidator } from "../../Utils/helpers";
 
 export default function QtyInput({ title, qty, normalPrice, stock }) {
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
   const { cart, setCart, cartBadge, setCartBadge } = useCart();
 
-  /**
-   * Handle product quantity input change
-   */
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+
   const handleQtyChange = (title, normalPrice, stock, event) => {
     var qty = Number(event.target.value);
     var validQty = qtyValidator(qty, stock);
@@ -25,9 +30,6 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     setCartBadge(cartBadge + validQty);
   };
 
-  /**
-   * Handle product decrement
-   */
   const decrementProduct = (title, normalPrice, stock, event) => {
     var qty = Number(cart[title]["qty"]);
     if (qty < 1) {
@@ -41,9 +43,6 @@ export default function QtyInput({ title, qty, normalPrice, stock }) {
     setCartBadge(cartBadge - 1);
   };
 
-  /**
-   * Handle product increment
-   */
   const incrementProduct = (title, normalPrice, stock, event) => {
     var qty = Number(cart[title]["qty"]);
     let cartItems = Object.assign({}, cart);

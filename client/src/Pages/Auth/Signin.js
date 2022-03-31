@@ -8,16 +8,28 @@ import Wrapper from "../../Components/Auth/Wrapper";
 import AuthForm from "../../Components/Auth/AuthForm";
 import styles from "./styles";
 
-
 export default function Signin() {
+  // ===========================================================================
+  // Ref
+  // ===========================================================================
+
   const email = useRef("");
   const password = useRef("");
+
+  // ===========================================================================
+  // State
+  // ===========================================================================
+
   const [emailHelper, setEmailHelper] = useState("");
   const [alert, setAlert] = useState("");
   const [passwordHelper, setPasswordHelper] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 

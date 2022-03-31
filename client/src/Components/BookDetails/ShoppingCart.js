@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
-//
-import {
-  getCurrentUser,
-  qtyValidator,
-  getCartItem,
-  setCartItem,
-  totalCartItems,
-} from "../../Utils/helpers";
+
+import { getCurrentUser, qtyValidator } from "../../Utils/helpers";
 import Alert from "../Alert";
 import { useCart } from "../../Hooks";
 import TotalPrice from "./TotalPrice";
@@ -21,17 +15,31 @@ const wrapper = {
 };
 
 function ShoppingCart({ price, stock, name, cover }) {
-  const navigate = useNavigate();
+  // ===========================================================================
+  // Context
+  // ===========================================================================
+
+  const { cart, setCart, cartBadge, setCartBadge } = useCart();
+
+  // ===========================================================================
+  // State
+  // ===========================================================================
+
   const [isItemExist, setIsItemExist] = useState(false);
   const [isItemAdded, setIsItemAdded] = useState(false);
-
-  // price for 1 book, eg: 1 book -> $22
-  const normalPrice = Number(price);
-
-  // Total book price, eg: 10 * $22 = $220
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0); // Total book price, eg: 10 * $22 = $220
   const [qty, setQty] = useState(1);
-  const { cart, setCart, cartBadge, setCartBadge } = useCart();
+
+  // ===========================================================================
+  // Var
+  // ===========================================================================
+
+  const navigate = useNavigate();
+  const normalPrice = Number(price); // price for 1 book, eg: 1 book -> $22
+
+  // ===========================================================================
+  // Handlers
+  // ===========================================================================
 
   const handleQtyChange = (event) => {
     var validQty = qtyValidator(event.target.value, stock);
@@ -56,7 +64,7 @@ function ShoppingCart({ price, stock, name, cover }) {
     // if qty input is empty or 0 then set to 1
     const qtys = qty ? qty : 1;
     if (qtys === 1) {
-      setQty(1)
+      setQty(1);
     }
 
     let items = Object.assign({}, cart);
