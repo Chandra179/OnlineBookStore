@@ -19,7 +19,6 @@ function ItemCheckbox({ itemKey }) {
     const selectedItems = [...selectedCheckbox];
     const index = selectedItems.indexOf(value);
     index === -1 ? selectedItems.push(value) : selectedItems.splice(index, 1);
-    setCheckoutItem(userEmail, selectedItems);
     setSelectedCheckbox(selectedItems);
 
     // if no item is selected, then remove localstorage

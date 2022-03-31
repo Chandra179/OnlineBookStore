@@ -12,7 +12,6 @@ export const bookAuthor = (book_author) => {
     var author = i === bookAuthorLength ? e.author_name : e.author_name + ", ";
     return bookAuthorList.push(author);
   });
-
   return bookAuthorList;
 };
 

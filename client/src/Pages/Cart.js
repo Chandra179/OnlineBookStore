@@ -1,5 +1,11 @@
-import React, { useEffect } from "react";
-import { Divider, Box, Grid, CircularProgress } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Divider,
+  Box,
+  Grid,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 
 import QtyInput from "../Components/Cart/QtyInput";
 import CartHeader from "../Components/Cart/CartHeader";
@@ -9,10 +15,9 @@ import BookTitle from "../Components/Cart/BookTitle";
 import TotalBookPrice from "../Components/Cart/BookTotalPrice";
 import RemoveProduct from "../Components/Cart/RemoveProduct";
 import Checkout from "../Components/Cart/Checkout";
-
-import { useCart } from "../Hooks";
 import Styles from "./Styles";
 import Wrapper from "../Components/Cart/Wrapper";
+import { useCart } from "../Hooks";
 
 export default function Cart() {
   const { cart } = useCart();

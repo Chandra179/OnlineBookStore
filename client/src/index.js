@@ -1,17 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Navigation from "./Routes/Routes";
+import CartContextProvider from "./Context/cart-context";
 import "./index.css";
 
-import AccountContextProvider from "./Context/account-context";
-import CartContextProvider from "./Context/cart-context";
-
 ReactDOM.render(
-  <AccountContextProvider>
     <CartContextProvider>
       <Navigation />
-    </CartContextProvider>
-  </AccountContextProvider>,
+    </CartContextProvider>,
   document.getElementById("root")
 );
 

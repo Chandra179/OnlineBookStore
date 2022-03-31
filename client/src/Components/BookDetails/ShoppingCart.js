@@ -11,7 +11,7 @@ import {
   totalCartItems,
 } from "../../Utils/helpers";
 import Alert from "../Alert";
-import { useCart } from "../../Hooks"
+import { useCart } from "../../Hooks";
 import TotalPrice from "./TotalPrice";
 import QuantityInput from "./QuantityInput";
 import ActionBtn from "./ActionBtn";
@@ -31,7 +31,7 @@ function ShoppingCart({ price, stock, name, cover }) {
   // Total book price, eg: 10 * $22 = $220
   const [totalPrice, setTotalPrice] = useState(0);
   const [qty, setQty] = useState(1);
-  const { cartBadge, setCartBadge } = useCart();
+  const { cart, setCart, cartBadge, setCartBadge } = useCart();
 
   const handleQtyChange = (event) => {
     var validQty = qtyValidator(event.target.value, stock);
@@ -45,33 +45,29 @@ function ShoppingCart({ price, stock, name, cover }) {
       navigate("/signin");
       return;
     }
-    // IMPORTANT!: check if user token is valid in backend
 
-    const cartItem = getCartItem(userEmail);
-    const isItemDuplicate = name in cartItem;
-
+    const isItemDuplicate = name in cart;
     if (isItemDuplicate) {
       setIsItemExist(true);
       setIsItemAdded(false);
       return;
     }
+
     // if qty input is empty then set to 1
     const qtys = qty ? qty : 1;
-    if (qtys === 1) setQty(1);
+    if (qtys === 1) {
+      setQty(1)
+    }
 
-    cartItem[name] = {
+    let items = Object.assign({}, cart);
+    items[name] = {
       cover: cover,
       qty: qtys,
       normalPrice: normalPrice,
       totalPrice: qtys * normalPrice,
       stock: stock,
     };
-    /**
-     * Handle add item to cart,
-     * item will be saved in local storage as object.
-     * object key : user email + 'Cart'
-     */
-    setCartItem(userEmail, cartItem);
+    setCart(items);
     setIsItemAdded(true);
     setIsItemExist(false);
     setCartBadge(cartBadge + qtys);
@@ -89,11 +85,7 @@ function ShoppingCart({ price, stock, name, cover }) {
           <TotalPrice
             price={totalPrice ? totalPrice.toFixed(2) : normalPrice.toFixed(2)}
           />
-          <QuantityInput
-            qtyChange={handleQtyChange}
-            stock={stock}
-            qty={qty}
-          />
+          <QuantityInput qtyChange={handleQtyChange} stock={stock} qty={qty} />
           <ActionBtn addToCart={handleAddToCart} />
         </Box>
       </Box>

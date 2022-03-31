@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
@@ -13,6 +14,7 @@ import CustomMenu from "../Components/Menu";
 import CustomAppBar from "../Components/NavBar/AppBar";
 
 function Navbar() {
+  const navigate = useNavigate();
   const { cartBadge, setCartBadge } = useCart();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -36,7 +38,8 @@ function Navbar() {
 
   const handleLogout = () => {
     logout();
-    window.location.assign("/");
+    setCartBadge(0);
+    navigate('/');
   };
 
   return (

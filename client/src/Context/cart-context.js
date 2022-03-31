@@ -1,5 +1,11 @@
 import React, { useState, createContext, useEffect } from "react";
-import { getCurrentUser, getCheckoutItem, getCartItem, setCartItem } from "../Utils/helpers";
+import {
+  getCurrentUser,
+  getCheckoutItem,
+  getCartItem,
+  setCartItem,
+  setCheckoutItem,
+} from "../Utils/helpers";
 
 export const CartContext = createContext();
 
@@ -15,20 +21,24 @@ const CartContextProvider = ({ children }) => {
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
   useEffect(() => {
-    setCartItem(userEmail, cart)
+    setCartItem(userEmail, cart);
   }, [cart]);
+
+  useEffect(() => {
+    setCheckoutItem(userEmail, selectedCheckbox);
+  }, [selectedCheckbox]);
 
   return (
     <CartContext.Provider
       value={{
+        cart,
+        setCart,
         cartBadge,
         setCartBadge,
         selectedCheckbox,
         setSelectedCheckbox,
-        cart,
-        setCart,
         cartItemKeys,
-        isAllCheckboxSelected,
+        isAllCheckboxSelected
       }}
     >
       {children}

@@ -31,7 +31,7 @@ export default function RemoveProduct({ title }) {
 
     // filter cart item with given title
     if (checkoutItem.length !== 0) {
-      var checkoutFiltered = checkoutItem.fsilter((e) => e !== title);
+      var checkoutFiltered = checkoutItem.filter((e) => e !== title);
       setCheckoutItem(userEmail, checkoutFiltered);
       setSelectedCheckbox(getCheckoutItem(userEmail));
 
