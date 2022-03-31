@@ -35,14 +35,10 @@ def SignInView(request):
                 'token': str(token[0]),
                 'email': request.data['email']
             }
-
-            # check if user password same
             if user_email.check_password(password):
                 return Response(response, status=status.HTTP_200_OK)
-            # if password not same
             else:
                 return Response('Your password incorrect', status=status.HTTP_400_BAD_REQUEST)
-        # if user not found
         except User.DoesNotExist:
             return Response('User not found', status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,26 +56,23 @@ def SignUpView(request):
         # if user in model
         if user_email:
             return Response('User is already registered!', status=status.HTTP_400_BAD_REQUEST)
-        # if user not in model, then create user
-        else:
-            # if email and password input in correct format
-            if serializer.is_valid():
-                # hash the password
-                password = make_password(request.data['password'])
-                serializer.save(password=password)
+        
+        if serializer.is_valid():
+            # hash the password
+            password = make_password(request.data['password'])
+            serializer.save(password=password)
 
-                # get saved user
-                user_email = User.objects.get(email=request.data['email'])
-                # get user token if exist, else create token
-                token = Token.objects.get_or_create(user=user_email)
-                response = {
-                    'token': str(token[0]),
-                    'email': request.data['email']
-                }
-                return Response(response, status=status.HTTP_200_OK)
-            # if email and password not in correct format
-            else:
-                return Response('Validation error', status=status.HTTP_400_BAD_REQUEST)
+            user_email = User.objects.get(email=request.data['email'])
+
+            # get user token if exist, else create token
+            token = Token.objects.get_or_create(user=user_email)
+            response = {
+                'token': str(token[0]),
+                'email': request.data['email']
+            }
+            return Response(response, status=status.HTTP_200_OK)
+        else:
+            return Response('Validation error', status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddressView(APIView):
