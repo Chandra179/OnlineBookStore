@@ -63,7 +63,7 @@ function Navbar() {
       setIsUserLoggedIn(true);
       setCartBadge(totalCartItems(userEmail));
     }
-  }, [cartBadge]);
+  }, [cartBadge, setCartBadge]);
 
   return (
     <React.Fragment>

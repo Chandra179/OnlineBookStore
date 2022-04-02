@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import {
   getCurrentUser,
-  setCheckoutItem,
   deleteCheckoutItem,
 } from "../../Utils/helpers";
 import { useCart } from "../../Hooks";

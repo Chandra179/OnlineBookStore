@@ -3,7 +3,6 @@ import {
   Divider,
   Box,
   Grid,
-  CircularProgress,
 } from "@mui/material";
 
 import QuantityInput from "../Components/Cart/QuantityInput";

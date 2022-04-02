@@ -22,11 +22,11 @@ const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     setCartItem(userEmail, cart);
-  }, [cart]);
+  }, [cart, userEmail]);
 
   useEffect(() => {
     setCheckoutItem(userEmail, selectedCheckbox);
-  }, [selectedCheckbox]);
+  }, [selectedCheckbox, userEmail]);
 
   return (
     <CartContext.Provider

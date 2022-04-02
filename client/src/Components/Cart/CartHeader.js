@@ -6,7 +6,6 @@ import { useCart } from "../../Hooks";
 import {
   getCurrentUser,
   deleteCheckoutItem,
-  setCheckoutItem,
 } from "../../Utils/helpers";
 
 function CartHeader() {
