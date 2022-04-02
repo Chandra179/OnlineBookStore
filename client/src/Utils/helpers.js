@@ -29,10 +29,6 @@ export const inputHelperText = (input) => {
 // Auth
 // ===========================================================================
 
-export const logout = () => {
-  localStorage.removeItem("user");
-};
-
 export const getCurrentUser = () => {
   var user = localStorage.getItem("user");
   if (user) {
@@ -45,6 +41,20 @@ export const getUserToken = () => {
   if (token) {
     return JSON.parse(token)["token"];
   }
+};
+
+export const logout = () => {
+  const userEmail = getCurrentUser();
+  const cart = getCartItem(userEmail)
+  const checkout = getCartItem(userEmail)
+  
+  if (!Object.keys(cart).length) {
+    localStorage.removeItem(userEmail + "Cart");
+  }
+  if (!checkout.length) {
+    localStorage.removeItem(userEmail + "Checkout");
+  }
+  localStorage.removeItem("user");
 };
 
 // ===========================================================================
