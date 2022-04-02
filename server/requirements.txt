@@ -13,4 +13,5 @@ pytz==2021.3
 requests==2.26.0
 soupsieve==2.3.1
 sqlparse==0.4.2
+stripe==2.70.0
 urllib3==1.26.7
