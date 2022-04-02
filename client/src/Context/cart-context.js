@@ -21,11 +21,15 @@ const CartContextProvider = ({ children }) => {
     cartItemKeys.length > 0 && selectedCheckbox.length === cartItemKeys.length;
 
   useEffect(() => {
-    setCartItem(userEmail, cart);
+    if (userEmail) {
+      setCartItem(userEmail, cart);
+    }
   }, [cart, userEmail]);
 
   useEffect(() => {
-    setCheckoutItem(userEmail, selectedCheckbox);
+    if (userEmail) {
+      setCheckoutItem(userEmail, selectedCheckbox);
+    }
   }, [selectedCheckbox, userEmail]);
 
   return (
@@ -38,7 +42,7 @@ const CartContextProvider = ({ children }) => {
         selectedCheckbox,
         setSelectedCheckbox,
         cartItemKeys,
-        isAllCheckboxSelected
+        isAllCheckboxSelected,
       }}
     >
       {children}
