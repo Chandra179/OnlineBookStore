@@ -77,7 +77,7 @@ export const genreList = async() => {
 
 export const getBooksByGenre = async(genre, page) => {
   const response = await axios
-    .get("book", { params: { genre: genre, page: page } })
+    .get("https://alexandria-bookcommerce.herokuapp.com/book", { params: { genre: genre, page: page } })
     .then((response) => {
       const resp = {
         total_book: response.headers.total_book,
