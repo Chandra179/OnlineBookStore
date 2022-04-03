@@ -1,5 +1,5 @@
 --
--- PostgreSQL database dump
+-- mdzhvmpakloifdQL database dump
 --
 
 -- Dumped from database version 14.2
@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: account_user; Type: TABLE; Schema: public; Owner: postgres
+-- Name: account_user; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.account_user (
@@ -35,10 +35,10 @@ CREATE TABLE public.account_user (
 );
 
 
-ALTER TABLE public.account_user OWNER TO postgres;
+ALTER TABLE public.account_user OWNER TO mdzhvmpakloifd;
 
 --
--- Name: account_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: account_user_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.account_user_id_seq
@@ -49,17 +49,17 @@ CREATE SEQUENCE public.account_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.account_user_id_seq OWNER TO postgres;
+ALTER TABLE public.account_user_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: account_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: account_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.account_user_id_seq OWNED BY public.account_user.id;
 
 
 --
--- Name: account_useraddress; Type: TABLE; Schema: public; Owner: postgres
+-- Name: account_useraddress; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.account_useraddress (
@@ -75,10 +75,10 @@ CREATE TABLE public.account_useraddress (
 );
 
 
-ALTER TABLE public.account_useraddress OWNER TO postgres;
+ALTER TABLE public.account_useraddress OWNER TO mdzhvmpakloifd;
 
 --
--- Name: account_useraddress_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: account_useraddress_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.account_useraddress_id_seq
@@ -89,17 +89,17 @@ CREATE SEQUENCE public.account_useraddress_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.account_useraddress_id_seq OWNER TO postgres;
+ALTER TABLE public.account_useraddress_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: account_useraddress_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: account_useraddress_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.account_useraddress_id_seq OWNED BY public.account_useraddress.id;
 
 
 --
--- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.auth_group (
@@ -108,10 +108,10 @@ CREATE TABLE public.auth_group (
 );
 
 
-ALTER TABLE public.auth_group OWNER TO postgres;
+ALTER TABLE public.auth_group OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.auth_group_id_seq
@@ -123,17 +123,17 @@ CREATE SEQUENCE public.auth_group_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+ALTER TABLE public.auth_group_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
 
 
 --
--- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.auth_group_permissions (
@@ -143,10 +143,10 @@ CREATE TABLE public.auth_group_permissions (
 );
 
 
-ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+ALTER TABLE public.auth_group_permissions OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.auth_group_permissions_id_seq
@@ -157,17 +157,17 @@ CREATE SEQUENCE public.auth_group_permissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
 
 
 --
--- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.auth_permission (
@@ -178,10 +178,10 @@ CREATE TABLE public.auth_permission (
 );
 
 
-ALTER TABLE public.auth_permission OWNER TO postgres;
+ALTER TABLE public.auth_permission OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.auth_permission_id_seq
@@ -193,17 +193,17 @@ CREATE SEQUENCE public.auth_permission_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+ALTER TABLE public.auth_permission_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
 
 
 --
--- Name: authtoken_token; Type: TABLE; Schema: public; Owner: postgres
+-- Name: authtoken_token; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.authtoken_token (
@@ -213,10 +213,10 @@ CREATE TABLE public.authtoken_token (
 );
 
 
-ALTER TABLE public.authtoken_token OWNER TO postgres;
+ALTER TABLE public.authtoken_token OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_author; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_author; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_author (
@@ -225,10 +225,10 @@ CREATE TABLE public.book_author (
 );
 
 
-ALTER TABLE public.book_author OWNER TO postgres;
+ALTER TABLE public.book_author OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_author_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_author_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_author_id_seq
@@ -239,17 +239,17 @@ CREATE SEQUENCE public.book_author_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_author_id_seq OWNER TO postgres;
+ALTER TABLE public.book_author_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_author_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_author_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_author_id_seq OWNED BY public.book_author.id;
 
 
 --
--- Name: book_book; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_book; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_book (
@@ -267,10 +267,10 @@ CREATE TABLE public.book_book (
 );
 
 
-ALTER TABLE public.book_book OWNER TO postgres;
+ALTER TABLE public.book_book OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_book_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_book_id_seq
@@ -281,17 +281,17 @@ CREATE SEQUENCE public.book_book_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_book_id_seq OWNER TO postgres;
+ALTER TABLE public.book_book_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_book_id_seq OWNED BY public.book_book.id;
 
 
 --
--- Name: book_bookauthor; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_bookauthor; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_bookauthor (
@@ -301,10 +301,10 @@ CREATE TABLE public.book_bookauthor (
 );
 
 
-ALTER TABLE public.book_bookauthor OWNER TO postgres;
+ALTER TABLE public.book_bookauthor OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_bookauthor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_bookauthor_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_bookauthor_id_seq
@@ -315,17 +315,17 @@ CREATE SEQUENCE public.book_bookauthor_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_bookauthor_id_seq OWNER TO postgres;
+ALTER TABLE public.book_bookauthor_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_bookauthor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_bookauthor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_bookauthor_id_seq OWNED BY public.book_bookauthor.id;
 
 
 --
--- Name: book_bookgenre; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_bookgenre; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_bookgenre (
@@ -335,10 +335,10 @@ CREATE TABLE public.book_bookgenre (
 );
 
 
-ALTER TABLE public.book_bookgenre OWNER TO postgres;
+ALTER TABLE public.book_bookgenre OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_bookgenre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_bookgenre_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_bookgenre_id_seq
@@ -349,17 +349,17 @@ CREATE SEQUENCE public.book_bookgenre_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_bookgenre_id_seq OWNER TO postgres;
+ALTER TABLE public.book_bookgenre_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_bookgenre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_bookgenre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_bookgenre_id_seq OWNED BY public.book_bookgenre.id;
 
 
 --
--- Name: book_genre; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_genre; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_genre (
@@ -368,10 +368,10 @@ CREATE TABLE public.book_genre (
 );
 
 
-ALTER TABLE public.book_genre OWNER TO postgres;
+ALTER TABLE public.book_genre OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_genre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_genre_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_genre_id_seq
@@ -382,17 +382,17 @@ CREATE SEQUENCE public.book_genre_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_genre_id_seq OWNER TO postgres;
+ALTER TABLE public.book_genre_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_genre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_genre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_genre_id_seq OWNED BY public.book_genre.id;
 
 
 --
--- Name: book_language; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_language; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_language (
@@ -402,10 +402,10 @@ CREATE TABLE public.book_language (
 );
 
 
-ALTER TABLE public.book_language OWNER TO postgres;
+ALTER TABLE public.book_language OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_language_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_language_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_language_id_seq
@@ -416,17 +416,17 @@ CREATE SEQUENCE public.book_language_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_language_id_seq OWNER TO postgres;
+ALTER TABLE public.book_language_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_language_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_language_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_language_id_seq OWNED BY public.book_language.id;
 
 
 --
--- Name: book_publisher; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book_publisher; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.book_publisher (
@@ -435,10 +435,10 @@ CREATE TABLE public.book_publisher (
 );
 
 
-ALTER TABLE public.book_publisher OWNER TO postgres;
+ALTER TABLE public.book_publisher OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_publisher_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: book_publisher_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.book_publisher_id_seq
@@ -449,17 +449,17 @@ CREATE SEQUENCE public.book_publisher_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.book_publisher_id_seq OWNER TO postgres;
+ALTER TABLE public.book_publisher_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: book_publisher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: book_publisher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.book_publisher_id_seq OWNED BY public.book_publisher.id;
 
 
 --
--- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.django_admin_log (
@@ -475,10 +475,10 @@ CREATE TABLE public.django_admin_log (
 );
 
 
-ALTER TABLE public.django_admin_log OWNER TO postgres;
+ALTER TABLE public.django_admin_log OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.django_admin_log_id_seq
@@ -490,17 +490,17 @@ CREATE SEQUENCE public.django_admin_log_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+ALTER TABLE public.django_admin_log_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
 
 
 --
--- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.django_content_type (
@@ -510,10 +510,10 @@ CREATE TABLE public.django_content_type (
 );
 
 
-ALTER TABLE public.django_content_type OWNER TO postgres;
+ALTER TABLE public.django_content_type OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.django_content_type_id_seq
@@ -525,17 +525,17 @@ CREATE SEQUENCE public.django_content_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+ALTER TABLE public.django_content_type_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
 
 
 --
--- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.django_migrations (
@@ -546,10 +546,10 @@ CREATE TABLE public.django_migrations (
 );
 
 
-ALTER TABLE public.django_migrations OWNER TO postgres;
+ALTER TABLE public.django_migrations OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.django_migrations_id_seq
@@ -560,17 +560,17 @@ CREATE SEQUENCE public.django_migrations_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+ALTER TABLE public.django_migrations_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
 
 
 --
--- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+-- Name: django_session; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.django_session (
@@ -580,10 +580,10 @@ CREATE TABLE public.django_session (
 );
 
 
-ALTER TABLE public.django_session OWNER TO postgres;
+ALTER TABLE public.django_session OWNER TO mdzhvmpakloifd;
 
 --
--- Name: inventory_inventory; Type: TABLE; Schema: public; Owner: postgres
+-- Name: inventory_inventory; Type: TABLE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE TABLE public.inventory_inventory (
@@ -593,10 +593,10 @@ CREATE TABLE public.inventory_inventory (
 );
 
 
-ALTER TABLE public.inventory_inventory OWNER TO postgres;
+ALTER TABLE public.inventory_inventory OWNER TO mdzhvmpakloifd;
 
 --
--- Name: inventory_inventory_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: inventory_inventory_id_seq; Type: SEQUENCE; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE SEQUENCE public.inventory_inventory_id_seq
@@ -607,129 +607,129 @@ CREATE SEQUENCE public.inventory_inventory_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.inventory_inventory_id_seq OWNER TO postgres;
+ALTER TABLE public.inventory_inventory_id_seq OWNER TO mdzhvmpakloifd;
 
 --
--- Name: inventory_inventory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: inventory_inventory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER SEQUENCE public.inventory_inventory_id_seq OWNED BY public.inventory_inventory.id;
 
 
 --
--- Name: account_user id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: account_user id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_user ALTER COLUMN id SET DEFAULT nextval('public.account_user_id_seq'::regclass);
 
 
 --
--- Name: account_useraddress id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: account_useraddress id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_useraddress ALTER COLUMN id SET DEFAULT nextval('public.account_useraddress_id_seq'::regclass);
 
 
 --
--- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
 
 
 --
--- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
 
 
 --
--- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
 
 
 --
--- Name: book_author id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_author id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_author ALTER COLUMN id SET DEFAULT nextval('public.book_author_id_seq'::regclass);
 
 
 --
--- Name: book_book id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_book id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book ALTER COLUMN id SET DEFAULT nextval('public.book_book_id_seq'::regclass);
 
 
 --
--- Name: book_bookauthor id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_bookauthor id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookauthor ALTER COLUMN id SET DEFAULT nextval('public.book_bookauthor_id_seq'::regclass);
 
 
 --
--- Name: book_bookgenre id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_bookgenre id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookgenre ALTER COLUMN id SET DEFAULT nextval('public.book_bookgenre_id_seq'::regclass);
 
 
 --
--- Name: book_genre id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_genre id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_genre ALTER COLUMN id SET DEFAULT nextval('public.book_genre_id_seq'::regclass);
 
 
 --
--- Name: book_language id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_language id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_language ALTER COLUMN id SET DEFAULT nextval('public.book_language_id_seq'::regclass);
 
 
 --
--- Name: book_publisher id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: book_publisher id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_publisher ALTER COLUMN id SET DEFAULT nextval('public.book_publisher_id_seq'::regclass);
 
 
 --
--- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
 
 
 --
--- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
 
 
 --
--- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
 
 
 --
--- Name: inventory_inventory id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: inventory_inventory id; Type: DEFAULT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.inventory_inventory ALTER COLUMN id SET DEFAULT nextval('public.inventory_inventory_id_seq'::regclass);
 
 
 --
--- Data for Name: account_user; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: account_user; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.account_user (id, password, last_login, email, is_active, staff, admin) FROM stdin;
@@ -746,7 +746,7 @@ COPY public.account_user (id, password, last_login, email, is_active, staff, adm
 
 
 --
--- Data for Name: account_useraddress; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: account_useraddress; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.account_useraddress (id, phone_number, address_name, city, province, state, zip, user_id, contact_name) FROM stdin;
@@ -757,7 +757,7 @@ COPY public.account_useraddress (id, phone_number, address_name, city, province,
 
 
 --
--- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.auth_group (id, name) FROM stdin;
@@ -765,7 +765,7 @@ COPY public.auth_group (id, name) FROM stdin;
 
 
 --
--- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
@@ -773,7 +773,7 @@ COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 
 
 --
--- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
@@ -849,7 +849,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 
 
 --
--- Data for Name: authtoken_token; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: authtoken_token; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.authtoken_token (key, created, user_id) FROM stdin;
@@ -866,7 +866,7 @@ ad0bad7acf09e2263415725978918a8072b2ef40	2022-03-17 13:05:24.735111+07	6
 
 
 --
--- Data for Name: book_author; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_author; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_author (id, name) FROM stdin;
@@ -878,7 +878,7 @@ COPY public.book_author (id, name) FROM stdin;
 
 
 --
--- Data for Name: book_book; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_book; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_book (id, name, cover, price, isbn13, description, num_pages, publication_date, genre_id, language_id, publisher_id) FROM stdin;
@@ -890,7 +890,7 @@ COPY public.book_book (id, name, cover, price, isbn13, description, num_pages, p
 
 
 --
--- Data for Name: book_bookauthor; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_bookauthor; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_bookauthor (id, author_id, book_id) FROM stdin;
@@ -903,7 +903,7 @@ COPY public.book_bookauthor (id, author_id, book_id) FROM stdin;
 
 
 --
--- Data for Name: book_bookgenre; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_bookgenre; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_bookgenre (id, book_id, genre_id) FROM stdin;
@@ -911,7 +911,7 @@ COPY public.book_bookgenre (id, book_id, genre_id) FROM stdin;
 
 
 --
--- Data for Name: book_genre; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_genre; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_genre (id, name) FROM stdin;
@@ -921,7 +921,7 @@ COPY public.book_genre (id, name) FROM stdin;
 
 
 --
--- Data for Name: book_language; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_language; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_language (id, code, name) FROM stdin;
@@ -930,7 +930,7 @@ COPY public.book_language (id, code, name) FROM stdin;
 
 
 --
--- Data for Name: book_publisher; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book_publisher; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.book_publisher (id, name) FROM stdin;
@@ -939,7 +939,7 @@ COPY public.book_publisher (id, name) FROM stdin;
 
 
 --
--- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
@@ -1033,7 +1033,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 
 
 --
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.django_content_type (id, app_label, model) FROM stdin;
@@ -1058,7 +1058,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 
 
 --
--- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
@@ -1096,7 +1096,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 
 --
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
@@ -1109,7 +1109,7 @@ x194l6rf2d1q6g80vt3wficyx8rjgfed	.eJxVjDEOwjAMRe-SGUVxrSYxIztniGwnoQXUSk07Ie4OlT
 
 
 --
--- Data for Name: inventory_inventory; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: inventory_inventory; Type: TABLE DATA; Schema: public; Owner: mdzhvmpakloifd
 --
 
 COPY public.inventory_inventory (id, stock, book_id) FROM stdin;
@@ -1121,119 +1121,119 @@ COPY public.inventory_inventory (id, stock, book_id) FROM stdin;
 
 
 --
--- Name: account_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: account_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.account_user_id_seq', 9, true);
 
 
 --
--- Name: account_useraddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: account_useraddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.account_useraddress_id_seq', 43, true);
 
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
 
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.auth_permission_id_seq', 68, true);
 
 
 --
--- Name: book_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_author_id_seq', 4, true);
 
 
 --
--- Name: book_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_book_id_seq', 4, true);
 
 
 --
--- Name: book_bookauthor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_bookauthor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_bookauthor_id_seq', 6, true);
 
 
 --
--- Name: book_bookgenre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_bookgenre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_bookgenre_id_seq', 1, false);
 
 
 --
--- Name: book_genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_genre_id_seq', 2, true);
 
 
 --
--- Name: book_language_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_language_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_language_id_seq', 1, true);
 
 
 --
--- Name: book_publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: book_publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.book_publisher_id_seq', 1, true);
 
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.django_admin_log_id_seq', 86, true);
 
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.django_migrations_id_seq', 30, true);
 
 
 --
--- Name: inventory_inventory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: inventory_inventory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mdzhvmpakloifd
 --
 
 SELECT pg_catalog.setval('public.inventory_inventory_id_seq', 5, true);
 
 
 --
--- Name: account_user account_user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account_user account_user_email_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_user
@@ -1241,7 +1241,7 @@ ALTER TABLE ONLY public.account_user
 
 
 --
--- Name: account_user account_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account_user account_user_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_user
@@ -1249,7 +1249,7 @@ ALTER TABLE ONLY public.account_user
 
 
 --
--- Name: account_useraddress account_useraddress_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account_useraddress account_useraddress_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_useraddress
@@ -1257,7 +1257,7 @@ ALTER TABLE ONLY public.account_useraddress
 
 
 --
--- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1265,7 +1265,7 @@ ALTER TABLE ONLY public.auth_group
 
 
 --
--- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1273,7 +1273,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1281,7 +1281,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group
@@ -1289,7 +1289,7 @@ ALTER TABLE ONLY public.auth_group
 
 
 --
--- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1297,7 +1297,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1305,7 +1305,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: authtoken_token authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: authtoken_token authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.authtoken_token
@@ -1313,7 +1313,7 @@ ALTER TABLE ONLY public.authtoken_token
 
 
 --
--- Name: authtoken_token authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: authtoken_token authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.authtoken_token
@@ -1321,7 +1321,7 @@ ALTER TABLE ONLY public.authtoken_token
 
 
 --
--- Name: book_author book_author_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_author book_author_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_author
@@ -1329,7 +1329,7 @@ ALTER TABLE ONLY public.book_author
 
 
 --
--- Name: book_author book_author_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_author book_author_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_author
@@ -1337,7 +1337,7 @@ ALTER TABLE ONLY public.book_author
 
 
 --
--- Name: book_book book_book_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_book book_book_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book
@@ -1345,7 +1345,7 @@ ALTER TABLE ONLY public.book_book
 
 
 --
--- Name: book_book book_book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_book book_book_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book
@@ -1353,7 +1353,7 @@ ALTER TABLE ONLY public.book_book
 
 
 --
--- Name: book_bookauthor book_bookauthor_book_id_author_id_efaef027_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookauthor book_bookauthor_book_id_author_id_efaef027_uniq; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookauthor
@@ -1361,7 +1361,7 @@ ALTER TABLE ONLY public.book_bookauthor
 
 
 --
--- Name: book_bookauthor book_bookauthor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookauthor book_bookauthor_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookauthor
@@ -1369,7 +1369,7 @@ ALTER TABLE ONLY public.book_bookauthor
 
 
 --
--- Name: book_bookgenre book_bookgenre_book_id_genre_id_bb0a03e0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookgenre book_bookgenre_book_id_genre_id_bb0a03e0_uniq; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookgenre
@@ -1377,7 +1377,7 @@ ALTER TABLE ONLY public.book_bookgenre
 
 
 --
--- Name: book_bookgenre book_bookgenre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookgenre book_bookgenre_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookgenre
@@ -1385,7 +1385,7 @@ ALTER TABLE ONLY public.book_bookgenre
 
 
 --
--- Name: book_genre book_genre_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_genre book_genre_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_genre
@@ -1393,7 +1393,7 @@ ALTER TABLE ONLY public.book_genre
 
 
 --
--- Name: book_genre book_genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_genre book_genre_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_genre
@@ -1401,7 +1401,7 @@ ALTER TABLE ONLY public.book_genre
 
 
 --
--- Name: book_language book_language_code_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_language book_language_code_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_language
@@ -1409,7 +1409,7 @@ ALTER TABLE ONLY public.book_language
 
 
 --
--- Name: book_language book_language_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_language book_language_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_language
@@ -1417,7 +1417,7 @@ ALTER TABLE ONLY public.book_language
 
 
 --
--- Name: book_language book_language_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_language book_language_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_language
@@ -1425,7 +1425,7 @@ ALTER TABLE ONLY public.book_language
 
 
 --
--- Name: book_publisher book_publisher_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_publisher book_publisher_name_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_publisher
@@ -1433,7 +1433,7 @@ ALTER TABLE ONLY public.book_publisher
 
 
 --
--- Name: book_publisher book_publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_publisher book_publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_publisher
@@ -1441,7 +1441,7 @@ ALTER TABLE ONLY public.book_publisher
 
 
 --
--- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1449,7 +1449,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 
 --
--- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1457,7 +1457,7 @@ ALTER TABLE ONLY public.django_content_type
 
 
 --
--- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_content_type
@@ -1465,7 +1465,7 @@ ALTER TABLE ONLY public.django_content_type
 
 
 --
--- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_migrations
@@ -1473,7 +1473,7 @@ ALTER TABLE ONLY public.django_migrations
 
 
 --
--- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_session
@@ -1481,7 +1481,7 @@ ALTER TABLE ONLY public.django_session
 
 
 --
--- Name: inventory_inventory inventory_inventory_book_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: inventory_inventory inventory_inventory_book_id_key; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.inventory_inventory
@@ -1489,7 +1489,7 @@ ALTER TABLE ONLY public.inventory_inventory
 
 
 --
--- Name: inventory_inventory inventory_inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: inventory_inventory inventory_inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.inventory_inventory
@@ -1497,182 +1497,182 @@ ALTER TABLE ONLY public.inventory_inventory
 
 
 --
--- Name: account_user_email_0bd7c421_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: account_user_email_0bd7c421_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX account_user_email_0bd7c421_like ON public.account_user USING btree (email varchar_pattern_ops);
 
 
 --
--- Name: account_useraddress_user_id_9afd3895; Type: INDEX; Schema: public; Owner: postgres
+-- Name: account_useraddress_user_id_9afd3895; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX account_useraddress_user_id_9afd3895 ON public.account_useraddress USING btree (user_id);
 
 
 --
--- Name: account_useraddress_user_id_9afd3895_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: account_useraddress_user_id_9afd3895_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX account_useraddress_user_id_9afd3895_like ON public.account_useraddress USING btree (user_id varchar_pattern_ops);
 
 
 --
--- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
 
 
 --
--- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
 
 
 --
--- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
 
 
 --
--- Name: authtoken_token_key_10f0b77e_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: authtoken_token_key_10f0b77e_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX authtoken_token_key_10f0b77e_like ON public.authtoken_token USING btree (key varchar_pattern_ops);
 
 
 --
--- Name: book_author_name_139084ff_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_author_name_139084ff_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_author_name_139084ff_like ON public.book_author USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: book_book_genre_id_bc3e2c4b; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_book_genre_id_bc3e2c4b; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_book_genre_id_bc3e2c4b ON public.book_book USING btree (genre_id);
 
 
 --
--- Name: book_book_language_id_78ec35d2; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_book_language_id_78ec35d2; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_book_language_id_78ec35d2 ON public.book_book USING btree (language_id);
 
 
 --
--- Name: book_book_name_e60e11ed_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_book_name_e60e11ed_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_book_name_e60e11ed_like ON public.book_book USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: book_book_publisher_id_7f77c06a; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_book_publisher_id_7f77c06a; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_book_publisher_id_7f77c06a ON public.book_book USING btree (publisher_id);
 
 
 --
--- Name: book_bookauthor_author_id_843340c1; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_bookauthor_author_id_843340c1; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_bookauthor_author_id_843340c1 ON public.book_bookauthor USING btree (author_id);
 
 
 --
--- Name: book_bookauthor_book_id_87219054; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_bookauthor_book_id_87219054; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_bookauthor_book_id_87219054 ON public.book_bookauthor USING btree (book_id);
 
 
 --
--- Name: book_bookgenre_book_id_bdcbcf80; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_bookgenre_book_id_bdcbcf80; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_bookgenre_book_id_bdcbcf80 ON public.book_bookgenre USING btree (book_id);
 
 
 --
--- Name: book_bookgenre_genre_id_63da7e65; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_bookgenre_genre_id_63da7e65; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_bookgenre_genre_id_63da7e65 ON public.book_bookgenre USING btree (genre_id);
 
 
 --
--- Name: book_genre_name_8cf31cd0_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_genre_name_8cf31cd0_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_genre_name_8cf31cd0_like ON public.book_genre USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: book_language_code_312f1da8_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_language_code_312f1da8_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_language_code_312f1da8_like ON public.book_language USING btree (code varchar_pattern_ops);
 
 
 --
--- Name: book_language_name_dac745d2_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_language_name_dac745d2_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_language_name_dac745d2_like ON public.book_language USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: book_publisher_name_56e63475_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_publisher_name_56e63475_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX book_publisher_name_56e63475_like ON public.book_publisher USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
 
 
 --
--- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
 
 
 --
--- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
 
 
 --
--- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: mdzhvmpakloifd
 --
 
 CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
 
 
 --
--- Name: account_useraddress account_useraddress_user_id_9afd3895_fk_account_user_email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account_useraddress account_useraddress_user_id_9afd3895_fk_account_user_email; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.account_useraddress
@@ -1680,7 +1680,7 @@ ALTER TABLE ONLY public.account_useraddress
 
 
 --
--- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1688,7 +1688,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_group_permissions
@@ -1696,7 +1696,7 @@ ALTER TABLE ONLY public.auth_group_permissions
 
 
 --
--- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.auth_permission
@@ -1704,7 +1704,7 @@ ALTER TABLE ONLY public.auth_permission
 
 
 --
--- Name: authtoken_token authtoken_token_user_id_35299eff_fk_account_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: authtoken_token authtoken_token_user_id_35299eff_fk_account_user_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.authtoken_token
@@ -1712,7 +1712,7 @@ ALTER TABLE ONLY public.authtoken_token
 
 
 --
--- Name: book_book book_book_genre_id_bc3e2c4b_fk_book_genre_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_book book_book_genre_id_bc3e2c4b_fk_book_genre_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book
@@ -1720,7 +1720,7 @@ ALTER TABLE ONLY public.book_book
 
 
 --
--- Name: book_book book_book_language_id_78ec35d2_fk_book_language_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_book book_book_language_id_78ec35d2_fk_book_language_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book
@@ -1728,7 +1728,7 @@ ALTER TABLE ONLY public.book_book
 
 
 --
--- Name: book_book book_book_publisher_id_7f77c06a_fk_book_publisher_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_book book_book_publisher_id_7f77c06a_fk_book_publisher_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_book
@@ -1736,7 +1736,7 @@ ALTER TABLE ONLY public.book_book
 
 
 --
--- Name: book_bookauthor book_bookauthor_author_id_843340c1_fk_book_author_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookauthor book_bookauthor_author_id_843340c1_fk_book_author_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookauthor
@@ -1744,7 +1744,7 @@ ALTER TABLE ONLY public.book_bookauthor
 
 
 --
--- Name: book_bookauthor book_bookauthor_book_id_87219054_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookauthor book_bookauthor_book_id_87219054_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookauthor
@@ -1752,7 +1752,7 @@ ALTER TABLE ONLY public.book_bookauthor
 
 
 --
--- Name: book_bookgenre book_bookgenre_book_id_bdcbcf80_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookgenre book_bookgenre_book_id_bdcbcf80_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookgenre
@@ -1760,7 +1760,7 @@ ALTER TABLE ONLY public.book_bookgenre
 
 
 --
--- Name: book_bookgenre book_bookgenre_genre_id_63da7e65_fk_book_genre_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_bookgenre book_bookgenre_genre_id_63da7e65_fk_book_genre_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.book_bookgenre
@@ -1768,7 +1768,7 @@ ALTER TABLE ONLY public.book_bookgenre
 
 
 --
--- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1776,7 +1776,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 
 --
--- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_account_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_account_user_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.django_admin_log
@@ -1784,7 +1784,7 @@ ALTER TABLE ONLY public.django_admin_log
 
 
 --
--- Name: inventory_inventory inventory_inventory_book_id_9b6a9cb3_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: inventory_inventory inventory_inventory_book_id_9b6a9cb3_fk_book_book_id; Type: FK CONSTRAINT; Schema: public; Owner: mdzhvmpakloifd
 --
 
 ALTER TABLE ONLY public.inventory_inventory
@@ -1792,244 +1792,244 @@ ALTER TABLE ONLY public.inventory_inventory
 
 
 --
--- Name: TABLE account_user; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE account_user; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.account_user TO alexa;
+GRANT ALL ON TABLE public.account_user TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE account_user_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE account_user_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.account_user_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.account_user_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE account_useraddress; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE account_useraddress; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.account_useraddress TO alexa;
+GRANT ALL ON TABLE public.account_useraddress TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE account_useraddress_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE account_useraddress_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.account_useraddress_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.account_useraddress_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE auth_group; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE auth_group; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.auth_group TO alexa;
+GRANT ALL ON TABLE public.auth_group TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE auth_group_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE auth_group_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.auth_group_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.auth_group_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE auth_group_permissions; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE auth_group_permissions; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.auth_group_permissions TO alexa;
+GRANT ALL ON TABLE public.auth_group_permissions TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE auth_group_permissions_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE auth_group_permissions_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.auth_group_permissions_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.auth_group_permissions_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE auth_permission; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE auth_permission; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.auth_permission TO alexa;
+GRANT ALL ON TABLE public.auth_permission TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE auth_permission_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE auth_permission_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.auth_permission_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.auth_permission_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE authtoken_token; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE authtoken_token; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.authtoken_token TO alexa;
+GRANT ALL ON TABLE public.authtoken_token TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_author; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_author; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_author TO alexa;
+GRANT ALL ON TABLE public.book_author TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_author_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_author_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_author_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_author_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_book; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_book; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_book TO alexa;
+GRANT ALL ON TABLE public.book_book TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_book_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_book_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_book_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_book_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_bookauthor; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_bookauthor; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_bookauthor TO alexa;
+GRANT ALL ON TABLE public.book_bookauthor TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_bookauthor_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_bookauthor_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_bookauthor_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_bookauthor_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_bookgenre; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_bookgenre; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_bookgenre TO alexa;
+GRANT ALL ON TABLE public.book_bookgenre TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_bookgenre_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_bookgenre_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_bookgenre_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_bookgenre_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_genre; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_genre; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_genre TO alexa;
+GRANT ALL ON TABLE public.book_genre TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_genre_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_genre_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_genre_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_genre_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_language; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_language; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_language TO alexa;
+GRANT ALL ON TABLE public.book_language TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_language_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_language_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_language_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_language_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE book_publisher; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE book_publisher; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.book_publisher TO alexa;
+GRANT ALL ON TABLE public.book_publisher TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE book_publisher_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE book_publisher_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.book_publisher_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.book_publisher_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE django_admin_log; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE django_admin_log; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.django_admin_log TO alexa;
+GRANT ALL ON TABLE public.django_admin_log TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE django_admin_log_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE django_admin_log_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.django_admin_log_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.django_admin_log_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE django_content_type; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE django_content_type; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.django_content_type TO alexa;
+GRANT ALL ON TABLE public.django_content_type TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE django_content_type_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE django_content_type_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.django_content_type_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.django_content_type_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE django_migrations; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE django_migrations; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.django_migrations TO alexa;
+GRANT ALL ON TABLE public.django_migrations TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE django_migrations_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE django_migrations_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.django_migrations_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.django_migrations_id_seq TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE django_session; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE django_session; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.django_session TO alexa;
+GRANT ALL ON TABLE public.django_session TO mdzhvmpakloifd;
 
 
 --
--- Name: TABLE inventory_inventory; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE inventory_inventory; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON TABLE public.inventory_inventory TO alexa;
+GRANT ALL ON TABLE public.inventory_inventory TO mdzhvmpakloifd;
 
 
 --
--- Name: SEQUENCE inventory_inventory_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE inventory_inventory_id_seq; Type: ACL; Schema: public; Owner: mdzhvmpakloifd
 --
 
-GRANT ALL ON SEQUENCE public.inventory_inventory_id_seq TO alexa;
+GRANT ALL ON SEQUENCE public.inventory_inventory_id_seq TO mdzhvmpakloifd;
 
 
 --
--- PostgreSQL database dump complete
+-- mdzhvmpakloifdQL database dump complete
 --
 
