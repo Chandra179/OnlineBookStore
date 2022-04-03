@@ -20,8 +20,8 @@ function Books() {
   const booksPerPage = 2;
   const navigate = useNavigate();
   const totalPageNumber = Math.ceil(totalBook / booksPerPage);
-  const genre = window.location.pathname.split("/")[2]; // get book genre from url path
-  const pageNumber = Number(window.location.pathname.split("/")[3]); // get page number from url path
+  const genre = window.location.pathname.split("/")[4]; // get book genre from url path
+  const pageNumber = Number(window.location.pathname.split("/")[5]); // get page number from url path
 
   console.log(totalPageNumber)
   console.log(pageNumber)
