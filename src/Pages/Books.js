@@ -23,8 +23,7 @@ function Books() {
   const genre = window.location.pathname.split("/")[4]; // get book genre from url path
   const pageNumber = Number(window.location.pathname.split("/")[5]); // get page number from url path
 
-  console.log(totalPageNumber)
-  console.log(pageNumber)
+  console.log(window.location.pathname.split("/"))
   // ===========================================================================
   // Handlers
   // ===========================================================================
