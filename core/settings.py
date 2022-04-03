@@ -36,7 +36,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 CORS_ORIGIN_WHITELIST = (
-  'http://localhost:3000',
+  'https://alexandria-bookcommerce.herokuapp.com',
 )
 
 CORS_EXPOSE_HEADERS = (
