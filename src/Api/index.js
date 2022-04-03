@@ -79,8 +79,6 @@ export const getBooksByGenre = async(genre, page) => {
   const response = await axios
     .get("book", { params: { genre: genre, page: page } })
     .then((response) => {
-      console.log(response)
-      console.log(response.data)
       const resp = {
         total_book: response.headers.total_book,
         books: response.data,
