@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const signin = async(email, password) => {
   return await axios
-    .post("account/signin", {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/signin", {
       email,
       password,
     })
@@ -22,7 +22,7 @@ export const signin = async(email, password) => {
 
 export const signup = async(email, password) => {
   return await axios
-    .post("account/signup", {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/signup", {
       email,
       password,
     })
@@ -45,7 +45,7 @@ export const getAddress = async(token) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .get("account/address", { headers: headers })
+    .get("https://alexandria-bookcommerce.herokuapp.com/account/address", { headers: headers })
     .then((response) => {
       return response.data;
     });
@@ -57,7 +57,7 @@ export const postAddress = async(token, address) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .post("account/address", address, {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/address", address, {
       headers: headers,
     })
     .then((response) => {
@@ -68,7 +68,7 @@ export const postAddress = async(token, address) => {
 
 export const genreList = async() => {
   const response = await axios
-    .get("book/genre-list")
+    .get("https://alexandria-bookcommerce.herokuapp.com/book/genre-list")
     .then((response) => {
       return response.data.genre;
     });
@@ -77,7 +77,7 @@ export const genreList = async() => {
 
 export const getBooksByGenre = async(genre, page) => {
   const response = await axios
-    .get("book", { params: { genre: genre, page: page } })
+    .get("https://alexandria-bookcommerce.herokuapp.com/book", { params: { genre: genre, page: page } })
     .then((response) => {
       const resp = {
         total_book: response.headers.total_book,
@@ -90,7 +90,7 @@ export const getBooksByGenre = async(genre, page) => {
 
 export const getBookDetails = async(name) => {
   const response = await axios
-    .get("book/detail", { params: { name: name } })
+    .get("https://alexandria-bookcommerce.herokuapp.com/book/detail", { params: { name: name } })
     .then((response) => {
       return response.data;
     });
