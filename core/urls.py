@@ -10,7 +10,7 @@ urlpatterns = [
     path('book/', include('book.urls')),
     path('order', include('order.urls')),
     
-    # REACT ROUTER
+    # REACT ROUTER-DJANGO
     re_path(r'^(%s)?$' % '|', index, name='index'),
     path('genres/<str:genre>/<int:page>',index),
     path('genres/<str:genre>/<int:page>/<str:title>',index),
