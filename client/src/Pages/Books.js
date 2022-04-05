@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Stack, Pagination, Grid, Box } from "@mui/material";
+import { Stack, Pagination, Box, CircularProgress } from "@mui/material";
 import { getBooksByGenre } from "../Api/index";
+import Wrapper from "../Components/BooksByGenre/Wrapper";
 import BooksByGenre from "../Components/BooksByGenre/BooksByGenre";
 
 function Books() {
@@ -26,7 +27,7 @@ function Books() {
   // ===========================================================================
   // Handlers
   // ===========================================================================
-  
+
   const handlePageClick = (event, value) => {
     navigate(`/genres/${genre}/${value}`);
   };
@@ -48,22 +49,25 @@ function Books() {
     );
   }, [genre, pageNumber]);
 
+  if (!bookList.length) {
+    return (
+      <Box display="flex" justifyContent="center" mt={3}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <Grid container>
-      <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
-      <Grid item lg={10} md={10} sm={12} xs={12}>
-        <Box m={2}>
-          <BooksByGenre bookList={bookList} currentPage={currentPage} />
-          <Stack spacing={2} sx={{ alignItems: "center" }}>
-            <Pagination
-              count={totalPageNumber}
-              page={currentPage}
-              onChange={handlePageClick}
-            />
-          </Stack>
-        </Box>
-      </Grid>
-    </Grid>
+    <Wrapper>
+      <BooksByGenre bookList={bookList} currentPage={currentPage} />
+      <Stack spacing={2} sx={{ alignItems: "center" }}>
+        <Pagination
+          count={totalPageNumber}
+          page={currentPage}
+          onChange={handlePageClick}
+        />
+      </Stack>
+    </Wrapper>
   );
 }
 

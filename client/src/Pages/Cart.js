@@ -48,7 +48,6 @@ export default function Cart() {
                   <ItemCheckbox itemKey={key} />
                   <BookCover cover={cover} />
                 </Box>
-
                 <Grid container direction="column">
                   <Grid
                     container
