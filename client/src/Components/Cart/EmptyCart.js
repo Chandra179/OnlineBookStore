@@ -17,7 +17,7 @@ export default function EmptyCart() {
           boxShadow: "none",
         }}
       >
-        <CardMedia component="img" image="/imajes.jpg" />
+        <CardMedia component="img" image="/static/imajes.jpg" />
       </Card>
       <Box mt={2}>
         <Button

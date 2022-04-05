@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-
 import { useCart } from "../Hooks";
 import { getCurrentUser, totalCartItems, logout } from "../Utils/helpers";
-import AppName from "../Components/NavBar/AppName";
-import NavItems from "../Components/NavBar/NavItems";
 import CartIcon from "../Components/NavBar/CartIcon";
 import AccountIcon from "../Components/NavBar/AccountIcon";
 import CustomMenuItem from "../Components/NavBar/MenuItem";
