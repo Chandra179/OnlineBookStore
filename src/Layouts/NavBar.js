@@ -37,7 +37,7 @@ function Navbar() {
   // ===========================================================================
   // Handlers
   // ===========================================================================
-  
+
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -68,15 +68,11 @@ function Navbar() {
   return (
     <React.Fragment>
       <CustomAppBar>
-        <AppName name={"Alexandria"} />
-        <Box flexGrow={1} />
-        <NavItems>
-          <CartIcon badge={cartBadge} />
-          <AccountIcon
-            isUserLoggedIn={isUserLoggedIn}
-            openMenu={handleMenuOpen}
-          />
-        </NavItems>
+        <CartIcon badge={cartBadge} />
+        <AccountIcon
+          isUserLoggedIn={isUserLoggedIn}
+          openMenu={handleMenuOpen}
+        />
       </CustomAppBar>
       <Divider sx={{ borderBottomWidth: 2 }} />
       <CustomMenu

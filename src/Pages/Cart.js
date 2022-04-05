@@ -15,6 +15,7 @@ import RemoveProduct from "../Components/Cart/RemoveProduct";
 import Checkout from "../Components/Cart/Checkout";
 import Styles from "./Styles";
 import Wrapper from "../Components/Cart/Wrapper";
+import EmptyCart from "../Components/Cart/EmptyCart";
 import { useCart } from "../Hooks";
 
 export default function Cart() {
@@ -25,7 +26,9 @@ export default function Cart() {
   const { cart } = useCart();
 
   if (!Object.keys(cart).length) {
-    return <p>cart empty</p>;
+    return (
+      <EmptyCart />
+    );
   }
 
   return (
@@ -48,7 +51,6 @@ export default function Cart() {
                   <ItemCheckbox itemKey={key} />
                   <BookCover cover={cover} />
                 </Box>
-
                 <Grid container direction="column">
                   <Grid
                     container

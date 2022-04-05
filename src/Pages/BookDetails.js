@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, CircularProgress } from "@mui/material";
 import { getBookDetails } from "../Api";
 import BookCover from "../Components/BookDetails/BookCover";
 import BookDescription from "../Components/BookDetails/BookDescription";
 import BookTitle from "../Components/BookDetails/BookTitle";
 import BookAuthor from "../Components/BookAuthor";
 import ShoppingCart from "../Components/BookDetails/ShoppingCart";
-import CustomSkeleton from "../Components/BookDetails/Skeleton";
 
 const wrapper = {
   marginTop: { lg: 0, md: 0, sm: 0, xs: 2 },
@@ -42,7 +41,15 @@ function BookDetails() {
     );
   }, []);
 
-  return Object.keys(bookDetails).length !== 0 ? (
+  if (!Object.keys(bookDetails).length) {
+    return (
+      <Box display="flex" justifyContent="center" mt={3}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  return (
     <Grid
       container
       direction="row"
@@ -65,8 +72,6 @@ function BookDetails() {
         cover={bookDetails.cover}
       />
     </Grid>
-  ) : (
-    <CustomSkeleton />
   );
 }
 
