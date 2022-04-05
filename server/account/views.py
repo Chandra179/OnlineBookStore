@@ -1,15 +1,10 @@
-from .serializers import AccountSerializer, AddressSerializer
+from .serializers import AccountSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from .models import UserAddress
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 
 """
     SignInView: signin
@@ -75,30 +70,30 @@ def SignUpView(request):
             return Response('Validation error', status=status.HTTP_400_BAD_REQUEST)
 
 
-class AddressView(APIView):
-    """
-        :request (header): authorization: Token
-        if token is supplied, then we can get user information like token or email
-    """
-    permission_classes = [IsAuthenticated]
+# class AddressView(APIView):
+#     """
+#         :request (header): authorization: Token
+#         if token is supplied, then we can get user information like token or email
+#     """
+#     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
-        """
-            :rtype: str
-        """
-        address = UserAddress.objects.filter(user=request.user.email)
-        if len(address):
-            serializer = AddressSerializer(address, many=True)
-            return Response(serializer.data, content_type='application/json', status=status.HTTP_200_OK)
-        # if address empty
-        else:
-            return Response('empty', content_type='application/json', status=status.HTTP_404_NOT_FOUND)
+#     def get(self, request, format=None):
+#         """
+#             :rtype: str
+#         """
+#         address = UserAddress.objects.filter(user=request.user.email)
+#         if len(address):
+#             serializer = AddressSerializer(address, many=True)
+#             return Response(serializer.data, content_type='application/json', status=status.HTTP_200_OK)
+#         # if address empty
+#         else:
+#             return Response('empty', content_type='application/json', status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, format=None):
-        """
-            :rtype: str
-        """
-        serializer = AddressSerializer(data=self.request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response('address has been saved', status=status.HTTP_200_OK)
+#     def post(self, request, format=None):
+#         """
+#             :rtype: str
+#         """
+#         serializer = AddressSerializer(data=self.request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response('address has been saved', status=status.HTTP_200_OK)
