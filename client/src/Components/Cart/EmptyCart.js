@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Card, Button, Typography, CardMedia } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function EmptyCart() {
+  const navigate = useNavigate();
   return (
     <Box mt={3} display="flex" flexDirection="column" alignItems="center">
       <Card
@@ -25,6 +27,9 @@ export default function EmptyCart() {
             textTransform: "none",
           }}
           variant="contained"
+          onClick={() => {
+            navigate("/");
+          }}
         >
           <Typography
             sx={{
