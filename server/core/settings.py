@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ
+import django_heroku
+import os
 
 env = environ.Env()
 # reading .env file
@@ -33,6 +35,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:3000',
+  'https://alexandria-bookcommerce.herokuapp.com',
 )
 CORS_EXPOSE_HEADERS = (
     'total_book',
@@ -62,6 +65,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,6 +79,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        #'DIRS': [os.path.join(BASE_DIR, 'build')],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -150,11 +155,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Configure app for Heroku deployment
+django_heroku.settings(locals())
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+STATICFILES_DIRS = []
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
