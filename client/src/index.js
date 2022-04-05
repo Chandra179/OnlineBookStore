@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Navigation from "./Routes/Routes";
 import CartContextProvider from "./Context/cart-context";
+import OrderContextProvider from "./Context/order-context";
 import "./index.css";
 
 ReactDOM.render(
-    <CartContextProvider>
+  <CartContextProvider>
+    <OrderContextProvider>
       <Navigation />
-    </CartContextProvider>,
+    </OrderContextProvider>
+  </CartContextProvider>,
   document.getElementById("root")
 );
 

@@ -17,4 +17,5 @@ urlpatterns = [
     # path('cart',index),
     # path('signin',index),
     # path('signup',index),
+    # path('checkout',index),
 ]

@@ -9,6 +9,7 @@ import Books from "../Pages/Books";
 import Navbar from "../Layouts/NavBar";
 import BookDetails from "../Pages/BookDetails";
 import Cart from "../Pages/Cart";
+import Checkout from "../Pages/Checkout";
 
 const Navigation = () => {
   return (
@@ -27,6 +28,7 @@ const Navigation = () => {
         </Route>
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
     </Router>
   );
