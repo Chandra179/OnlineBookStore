@@ -12,10 +12,10 @@ urlpatterns = [
     
     # REACT ROUTER-DJANGO
     # re_path(r'^(%s)?$' % '|', index, name='index'),
-    # path('genres/<str:genre>/<int:page>',index),
-    # path('genres/<str:genre>/<int:page>/<str:title>',index),
-    # path('cart',index),
-    # path('signin',index),
-    # path('signup',index),
-    # path('checkout',index),
+    # path('genres/<str:genre>/<int:page>', index),
+    # path('genres/<str:genre>/<int:page>/<str:title>', index),
+    # path('cart', index),
+    # path('signin', index),
+    # path('signup', index),
+    # path('checkout', index),
 ]
