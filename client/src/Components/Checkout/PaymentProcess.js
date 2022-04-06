@@ -8,6 +8,7 @@ import styles from "./stylesCredit.module.css";
 import {
   deleteCheckoutItem,
   deleteOrderItems,
+  deletePaymentId,
   getCurrentUser,
 } from "../../Utils/helpers";
 import { useCart } from "../../Hooks";
@@ -60,8 +61,16 @@ export default function PaymentProcess() {
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-
     setIsLoading(true);
+
+
+    /**  Filter Cart  */
+    let cloneCart = Object.assign({}, cart);
+    selectedCheckbox.forEach(e => delete cloneCart[e]);
+    setCart(cloneCart);
+    deleteOrderItems(userEmail);
+    deleteCheckoutItem(userEmail);
+
 
     const { error } = await stripe.confirmPayment({
       elements,
@@ -70,15 +79,6 @@ export default function PaymentProcess() {
         return_url: "http://localhost:3000",
       },
     });
-
-    /**  Filter Cart  */
-    const { selectedCheckbox, ...updatedCart } = cart;
-    console.log(updatedCart);
-    console.log('asdasdasd');
-
-    // setCart();
-    // deleteOrderItems(userEmail);
-    // deleteCheckoutItem(userEmail);
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
@@ -91,6 +91,7 @@ export default function PaymentProcess() {
       setMessage("An unexpected error occured.");
     }
     setIsLoading(false);
+    deletePaymentId(userEmail);
   };
 
   return (
