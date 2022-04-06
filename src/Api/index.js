@@ -102,7 +102,7 @@ export const addPayment = async (token, items) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .post("http://127.0.0.1:8000/order", items, { headers: headers })
+    .post("https://alexandria-bookcommerce.herokuapp.com/order", items, { headers: headers })
     .then((response) => {
       return response.data;
     });
