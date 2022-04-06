@@ -58,7 +58,7 @@ export default function PaymentProcess() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "https://alexandria-bookcommerce.herokuapp.com",
       },
     });
 
