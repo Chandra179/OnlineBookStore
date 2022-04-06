@@ -5,14 +5,16 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 
-import { useCart } from "../../Hooks";
-import { getCurrentUser, setCartItem } from "../../Utils/helpers";
+import { useCart, useOrder } from "../../Hooks";
+import { getCurrentUser, getUserToken, setCartItem } from "../../Utils/helpers";
+import { addPayment } from "../../Api";
 
 function Checkout() {
   // ===========================================================================
   // Context
   // ===========================================================================
   const { cart, selectedCheckbox } = useCart();
+  const { order, setOrder, setClientSecret } = useOrder();
 
   // ===========================================================================
   // State
@@ -41,7 +43,17 @@ function Checkout() {
         setCartItem(userEmail, cart);
       }
     });
-    navigate("/cart/checkout");
+    // handle payment
+    const token = getUserToken();
+    addPayment(token, order).then(
+      (data) => {
+        setClientSecret(data["clientSecret"]);
+      },
+      (error) => {
+        console.log(error.response);
+      }
+    );
+    navigate("/checkout");
   }
 
   // ===========================================================================
@@ -51,15 +63,22 @@ function Checkout() {
   useEffect(() => {
     var totalItemPrice = 0;
     var totalItemQty = 0;
+    var totalItems = {};
 
     for (var key in cart) {
       if (selectedCheckbox.includes(key)) {
+        totalItems[key] = {
+          price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
+          qty: parseFloat(cart[key]["qty"]),
+          cover: cart[key]["cover"]
+        };
         totalItemPrice += parseFloat(cart[key]["totalPrice"]);
         totalItemQty += parseFloat(cart[key]["qty"]);
       }
     }
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
+    setOrder(totalItems);
   }, [cart, selectedCheckbox]);
 
   return (

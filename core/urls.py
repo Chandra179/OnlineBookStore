@@ -17,4 +17,8 @@ urlpatterns = [
     path('cart', index),
     path('signin', index),
     path('signup', index),
+<<<<<<< HEAD
+    path('checkout', index),
+=======
+>>>>>>> main
 ]
