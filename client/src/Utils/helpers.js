@@ -108,6 +108,42 @@ export const deleteCheckoutItem = (userEmail) => {
 };
 
 // ===========================================================================
+// Payment
+// ===========================================================================
+
+export const setPaymentId = (userEmail, clientSecret) => {
+  localStorage.setItem(userEmail + "PaymentId", JSON.stringify(clientSecret));
+};
+
+export const getPaymentId = (userEmail) => {
+  return localStorage.getItem(userEmail + "PaymentId")
+    ? JSON.parse(localStorage.getItem(userEmail + "PaymentId"))
+    : '';
+};
+
+export const deletePaymentId = (userEmail) => {
+  localStorage.removeItem(userEmail + "PaymentId");
+};
+
+// ===========================================================================
+// Order Items
+// ===========================================================================
+
+export const setOrderItems = (userEmail, items) => {
+  localStorage.setItem(userEmail + "OrderItems", JSON.stringify(items));
+};
+
+export const getOrderItems = (userEmail) => {
+  return localStorage.getItem(userEmail + "OrderItems")
+    ? JSON.parse(localStorage.getItem(userEmail + "OrderItems"))
+    : {};
+};
+
+export const deleteOrderItems = (userEmail) => {
+  localStorage.removeItem(userEmail + "OrderItems");
+}
+
+// ===========================================================================
 // Validator
 // ===========================================================================
 

@@ -12,7 +12,6 @@ const stripePromise = loadStripe("pk_test_51J0LjtBMpJ02BJLOvMiwZkBGRdadf6DnazZ36
 
 export default function PaymentForm() {
   const { clientSecret } = useOrder()
-  console.log('tesss', clientSecret)
 
   const appearance = {
     theme: 'stripe',

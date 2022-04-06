@@ -1,23 +1,34 @@
 import React, { useState, createContext, useEffect } from "react";
-import { getCurrentUser } from "../Utils/helpers";
+import {
+  getCurrentUser,
+  getPaymentId,
+  getOrderItems,
+  setPaymentId,
+  setOrderItems,
+} from "../Utils/helpers";
 
 export const OrderContext = createContext();
 
 const OrderContextProvider = ({ children }) => {
   const userEmail = getCurrentUser();
-  const [clientSecret, setClientSecret] = useState(
-    localStorage.getItem(userEmail + "Order")
-  );
+  const [clientSecret, setClientSecret] = useState(getPaymentId(userEmail));
+  const [order, setOrder] = useState(getOrderItems(userEmail));
 
   useEffect(() => {
-    localStorage.setItem(userEmail + "Order", clientSecret);
+    setPaymentId(userEmail, clientSecret);
   }, [clientSecret]);
+
+  useEffect(() => {
+    setOrderItems(userEmail, order);
+  }, [order]);
 
   return (
     <OrderContext.Provider
       value={{
         clientSecret,
         setClientSecret,
+        order,
+        setOrder,
       }}
     >
       {children}

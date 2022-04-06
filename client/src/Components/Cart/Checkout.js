@@ -14,7 +14,7 @@ function Checkout() {
   // Context
   // ===========================================================================
   const { cart, selectedCheckbox } = useCart();
-  const { setClientSecret } = useOrder();
+  const { order, setOrder, setClientSecret } = useOrder();
 
   // ===========================================================================
   // State
@@ -22,7 +22,6 @@ function Checkout() {
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
-  const [orderItems, setOrderItems] = useState({});
 
   // ===========================================================================
   // Var
@@ -46,7 +45,7 @@ function Checkout() {
     });
     // handle payment
     const token = getUserToken();
-    addPayment(token, orderItems).then(
+    addPayment(token, order).then(
       (data) => {
         setClientSecret(data["clientSecret"]);
       },
@@ -71,6 +70,7 @@ function Checkout() {
         totalItems[key] = {
           price: parseFloat(cart[key]["totalPrice"]).toFixed(2),
           qty: parseFloat(cart[key]["qty"]),
+          cover: cart[key]["cover"]
         };
         totalItemPrice += parseFloat(cart[key]["totalPrice"]);
         totalItemQty += parseFloat(cart[key]["qty"]);
@@ -78,7 +78,7 @@ function Checkout() {
     }
     setTotalPrice(totalItemPrice.toFixed(2));
     setTotalQty(totalItemQty);
-    setOrderItems(totalItems);
+    setOrder(totalItems);
   }, [cart, selectedCheckbox]);
 
   return (
