@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const signin = async (email, password) => {
   return await axios
-    .post("http://127.0.0.1:8000/account/signin", {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/signin", {
       email,
       password,
     })
@@ -22,7 +22,7 @@ export const signin = async (email, password) => {
 
 export const signup = async (email, password) => {
   return await axios
-    .post("http://127.0.0.1:8000/account/signup", {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/signup", {
       email,
       password,
     })
@@ -45,7 +45,7 @@ export const getAddress = async (token) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .get("http://127.0.0.1:8000/account/address", { headers: headers })
+    .get("https://alexandria-bookcommerce.herokuapp.com/account/address", { headers: headers })
     .then((response) => {
       return response.data;
     });
@@ -57,7 +57,7 @@ export const postAddress = async (token, address) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .post("http://127.0.0.1:8000/account/address", address, {
+    .post("https://alexandria-bookcommerce.herokuapp.com/account/address", address, {
       headers: headers,
     })
     .then((response) => {
@@ -68,7 +68,7 @@ export const postAddress = async (token, address) => {
 
 export const genreList = async () => {
   const response = await axios
-    .get("http://127.0.0.1:8000/book/genre-list")
+    .get("https://alexandria-bookcommerce.herokuapp.com/book/genre-list")
     .then((response) => {
       return response.data.genre;
     });
@@ -77,7 +77,7 @@ export const genreList = async () => {
 
 export const getBooksByGenre = async (genre, page) => {
   const response = await axios
-    .get("http://127.0.0.1:8000/book", { params: { genre: genre, page: page } })
+    .get("https://alexandria-bookcommerce.herokuapp.com/book", { params: { genre: genre, page: page } })
     .then((response) => {
       const resp = {
         total_book: response.headers.total_book,
@@ -90,7 +90,7 @@ export const getBooksByGenre = async (genre, page) => {
 
 export const getBookDetails = async (name) => {
   const response = await axios
-    .get("http://127.0.0.1:8000/book/detail", { params: { name: name } })
+    .get("https://alexandria-bookcommerce.herokuapp.com/book/detail", { params: { name: name } })
     .then((response) => {
       return response.data;
     });
@@ -102,7 +102,7 @@ export const addPayment = async (token, items) => {
     Authorization: `Token ${token}`,
   };
   const response = await axios
-    .post("http://127.0.0.1:8000/order", items, { headers: headers })
+    .post("https://alexandria-bookcommerce.herokuapp.com/order", items, { headers: headers })
     .then((response) => {
       return response.data;
     });
