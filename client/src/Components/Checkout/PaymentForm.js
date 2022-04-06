@@ -3,7 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentProcess from "./PaymentProcess";
 import { useOrder } from "../../Hooks";
-
+import { Box } from "@mui/material";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -22,12 +22,12 @@ export default function PaymentForm() {
   };
 
   return (
-    <div className="App">
+    <Box sx={{ marginTop: {lg:0, md:0, sm:0, xs:2} }}>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <PaymentProcess />
         </Elements>
       )}
-    </div>
+    </Box>
   );
 }

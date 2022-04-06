@@ -13,9 +13,10 @@ import {
   Typography,
   ListItem,
   ListItemText,
-  Divider
+  Divider,
 } from "@mui/material";
 import { useOrder } from "../../Hooks";
+import { padding } from "@mui/system";
 
 function sumPrice(items) {
   var summed = 0;
@@ -30,7 +31,7 @@ export default function OrderSummary() {
   const totalPrice = sumPrice(order);
 
   return (
-    <Box m={2} sx={{ width: 280, minWidth: { lg: 650, md:700, sm:570, xs: 325}}}>
+    <Box sx={{ marginRight: { lg: 5, md: 5, sm: 0, xs: 0 } }}>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
@@ -41,10 +42,14 @@ export default function OrderSummary() {
         return (
           <ListItem key={key} sx={{ py: 1, px: 0 }}>
             <ListItemText
-              sx={{ paddingRight: 2 }}
+              sx={{ paddingRight: 3 }}
               primary={key}
               primaryTypographyProps={{ fontSize: 13 }}
-              secondary={<Typography sx={{ fontSize: 12 }}>x{qty}</Typography>}
+              secondary={
+                <Typography sx={{ fontSize: 12, fontWeight: 600 }}>
+                  x{qty}
+                </Typography>
+              }
             />
             <Typography variant="body2">${price}</Typography>
           </ListItem>
