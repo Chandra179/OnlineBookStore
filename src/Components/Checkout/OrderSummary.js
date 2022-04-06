@@ -1,22 +1,12 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import {
   Box,
-  CardMedia,
-  Card,
   Typography,
   ListItem,
   ListItemText,
   Divider,
 } from "@mui/material";
 import { useOrder } from "../../Hooks";
-import { padding } from "@mui/system";
 
 function sumPrice(items) {
   var summed = 0;
