@@ -55,6 +55,7 @@ export default function OrderSummary() {
           </ListItem>
         );
       })}
+      <Divider />
       <ListItem sx={{ py: 1, px: 0 }}>
         <ListItemText primary="Subtotal" />
         <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>

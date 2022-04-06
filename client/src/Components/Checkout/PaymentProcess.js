@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
 import styles from "./stylesCredit.module.css";
+import {
+  deleteCheckoutItem,
+  deleteOrderItems,
+  getCurrentUser,
+} from "../../Utils/helpers";
+import { useCart } from "../../Hooks";
 
 export default function PaymentProcess() {
   const stripe = useStripe();
   const elements = useElements();
+  const userEmail = getCurrentUser();
+  const { cart, setCart, selectedCheckbox } = useCart();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +71,15 @@ export default function PaymentProcess() {
       },
     });
 
+    /**  Filter Cart  */
+    const { selectedCheckbox, ...updatedCart } = cart;
+    console.log(updatedCart);
+    console.log('asdasdasd');
+
+    // setCart();
+    // deleteOrderItems(userEmail);
+    // deleteCheckoutItem(userEmail);
+
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -76,13 +93,24 @@ export default function PaymentProcess() {
     setIsLoading(false);
   };
 
-
   return (
-    <form className={styles.stripeForm} id="payment-form" onSubmit={handleSubmit}>
+    <form
+      className={styles.stripeForm}
+      id="payment-form"
+      onSubmit={handleSubmit}
+    >
       <PaymentElement id="payment-element" />
-      <button className={styles.stripeButton} disabled={isLoading || !stripe || !elements} id="submit">
+      <button
+        className={styles.stripeButton}
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+      >
         <span id="button-text">
-          {isLoading ? <div className={styles.spinner} id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className={styles.spinner} id="spinner"></div>
+          ) : (
+            "Pay now"
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}
