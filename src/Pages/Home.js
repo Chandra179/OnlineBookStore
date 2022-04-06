@@ -33,7 +33,7 @@ function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const userEmail = getCurrentUser();
   const isPaymentSucceed = searchParams.get("redirect_status")
-
+  
   // ===========================================================================
   // Hooks
   // ===========================================================================
@@ -50,7 +50,7 @@ function Home() {
         deletePaymentId(userEmail);
       }
     }
-
+    
     genreList().then(
       (data) => {
         setListOfGenre(data);
