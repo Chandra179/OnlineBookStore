@@ -5,19 +5,10 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import styles from "./stylesCredit.module.css";
-import {
-  deleteCheckoutItem,
-  deleteOrderItems,
-  deletePaymentId,
-  getCurrentUser,
-} from "../../Utils/helpers";
-import { useCart } from "../../Hooks";
 
 export default function PaymentProcess() {
   const stripe = useStripe();
   const elements = useElements();
-  const userEmail = getCurrentUser();
-  const { cart, setCart, selectedCheckbox } = useCart();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,16 +53,7 @@ export default function PaymentProcess() {
       return;
     }
     setIsLoading(true);
-
-
-    /**  Filter Cart  */
-    let cloneCart = Object.assign({}, cart);
-    selectedCheckbox.forEach(e => delete cloneCart[e]);
-    setCart(cloneCart);
-    deleteOrderItems(userEmail);
-    deleteCheckoutItem(userEmail);
-
-
+    
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -91,7 +73,6 @@ export default function PaymentProcess() {
       setMessage("An unexpected error occured.");
     }
     setIsLoading(false);
-    deletePaymentId(userEmail);
   };
 
   return (

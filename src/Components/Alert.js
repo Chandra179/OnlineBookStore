@@ -1,11 +1,13 @@
 import * as React from "react";
 import Alert from "@mui/material/Alert";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 function CustomAlert({ severity, name }) {
   return (
     <Box sx={{ width: "100%" }}>
-      <Alert severity={severity}>{name}</Alert>
+      <Alert severity={severity}>
+        <Typography>{name}</Typography>
+      </Alert>
     </Box>
   );
 }

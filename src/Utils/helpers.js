@@ -47,12 +47,20 @@ export const logout = () => {
   const userEmail = getCurrentUser();
   const cart = getCartItem(userEmail)
   const checkout = getCartItem(userEmail)
+  const orderItems = getOrderItems(userEmail)
+  const paymentId = getPaymentId(userEmail)
   
   if (!Object.keys(cart).length) {
     localStorage.removeItem(userEmail + "Cart");
   }
   if (!checkout.length) {
     localStorage.removeItem(userEmail + "Checkout");
+  }
+  if (!Object.keys(orderItems).length) {
+    localStorage.removeItem(userEmail + "OrderItems");
+  }
+  if (!paymentId) {
+    localStorage.removeItem(userEmail + "PaymentId");
   }
   localStorage.removeItem("user");
 };
