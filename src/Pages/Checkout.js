@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import PaymentForm from "../Components/Checkout/PaymentForm";
 import OrderSummary from "../Components/Checkout/OrderSummary";
 
