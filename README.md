@@ -49,6 +49,7 @@ For Server
 
 ```
 $ cd /path/to/dir
+$ git checkout development
 $ cd env
 $ scripts/activate (or) source bin/activate
 $ python manage.py makemigrations
