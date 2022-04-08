@@ -4,11 +4,11 @@
 
 ## Installation step
 
-Make sure to install Python and NodeJs.
+Make sure to install Python, NodeJs & Postgres.
 
 1. Database
 
-    make sure to create the (postgres) database first!
+    make sure to create (postgres) database first!
     Populate postgres database with .sql file
     database name: bookstore
 
