@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography, Box, Divider } from "@mui/material";
 import GenreList from "../Components/GenreList";
 import { genreList } from "../Api";
 import { useSearchParams } from "react-router-dom";
-import { useCart, useOrder } from "../Hooks";
+import { useCart } from "../Hooks";
 import {
   deleteCheckoutItem,
   deleteOrderItems,
@@ -18,12 +18,7 @@ function Home() {
   // Context
   // ===========================================================================
 
-  const {
-    cart,
-    selectedCheckbox,
-    setCart,
-    setCartBadge,
-  } = useCart();
+  const { cart, selectedCheckbox, setCart, setCartBadge } = useCart();
 
   // ===========================================================================
   // State
@@ -32,7 +27,7 @@ function Home() {
   const [listOfGenre, setListOfGenre] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const userEmail = getCurrentUser();
-  const isPaymentSucceed = searchParams.get("redirect_status")
+  const isPaymentSucceed = searchParams.get("redirect_status");
 
   // ===========================================================================
   // Hooks
@@ -64,10 +59,20 @@ function Home() {
 
   return (
     <>
-    {isPaymentSucceed && <CustomAlert severity="success" name="Order succeed!" />}
-    <Grid container mt={1}>
-      <GenreList list={listOfGenre} />
-    </Grid>
+      {isPaymentSucceed && (
+        <CustomAlert severity="success" name="Order succeed!" />
+      )}
+      <Grid container m={3} display="flex" justifyContent="flex-start">
+        <Box display="flex" flexDirection="column">
+          <Box>
+            <Typography variant="h5" fontWeight={600} letterSpacing={1}>
+              BOOKS
+            </Typography>
+            <Divider sx={{ marginTop: 2 }} />
+          </Box>
+          <GenreList list={listOfGenre} />
+        </Box>
+      </Grid>
     </>
   );
 }
