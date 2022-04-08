@@ -168,7 +168,7 @@ export const qtyValidator = (qty, stock) => {
 };
 
 export const numberOnly = (event) => {
-  if (!/[0-9]/.test(event.key)) {
+  if (!/^[0-9]*$/.test(event.key)) {
     event.preventDefault();
   }
 };

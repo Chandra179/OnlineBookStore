@@ -1,30 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Grid } from "@mui/material";
 
 const name = {
-  fontSize: 13,
+  fontSize: 14,
   color: "black",
   "&:hover": {
-    color: "blue",
+    textDecoration: "underline"
   },
 };
 
 function GenreList({ list }) {
   return (
-    <ListItem>
-      {list.map(function (item, i) {
+    <Grid container mt={2}>
+      {list.map(function(item, i) {
         return (
-          <Box key={i} pr={2}>
-            <Link to={`/genres/${item.name.toLowerCase()}/1`}>
-              <Typography sx={name}>{item.name}</Typography>
-            </Link>
-          </Box>
+          <Grid item lg={6} md={6} sm={6} xs={6} key={i}>
+            <Box
+              p={1}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Link to={`/genres/${item.name.toLowerCase()}/1`}>
+                <Typography sx={name}>{item.name}</Typography>
+              </Link>
+            </Box>
+          </Grid>
         );
       })}
-    </ListItem>
+    </Grid>
   );
 }
 
