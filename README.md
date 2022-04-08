@@ -1,6 +1,6 @@
 # Bookstore
 
-### Demo -> https://alexandria-bookcommerce.herokuapp.com/
+### Demo https://alexandria-bookcommerce.herokuapp.com/
 
 ## Installation step
 
@@ -8,9 +8,9 @@ Make sure to install Python and NodeJs.
 
 1. Database
 
-make sure to create the (postgres) database first!
-Populate postgres database with .sql file
-database name: bookstore
+    make sure to create the (postgres) database first!
+    Populate postgres database with .sql file
+    database name: bookstore
 
 ```
 $ cd /path/to/dir
