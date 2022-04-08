@@ -28,13 +28,13 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
 CORS_ORIGIN_WHITELIST = (
   'https://alexandria-bookcommerce.herokuapp.com',
-  'http://localhost:3000'
 )
 
 CORS_EXPOSE_HEADERS = (

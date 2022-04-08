@@ -5,6 +5,7 @@ import PaymentProcess from "./PaymentProcess";
 import { useOrder } from "../../Hooks";
 import { Box, Typography } from "@mui/material";
 
+
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
