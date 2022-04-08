@@ -19,7 +19,7 @@ $ psql bookstore < bookstore.sql
 
 2. Environment for python
 
-Create environment for python
+    Create environment for python
 
 ```
 $ cd /path/to/dir
@@ -31,8 +31,8 @@ $ pip install -r requirements.txt
 
 3. Environment file
 
-create .env file and save it to (core) directory
-file format:
+    create .env file and save it to (core) directory
+    file format:
 
 ```
 SECRET_KEY=YOUR_SECRET_KEY, ex:7642TIBI%^*))_
