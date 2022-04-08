@@ -1,6 +1,6 @@
 # Bookstore
 
-### [Demo](https://alexandria-bookcommerce.herokuapp.com/)
+### Demo -> https://alexandria-bookcommerce.herokuapp.com/
 
 ## Installation step
 
