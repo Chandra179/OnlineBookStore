@@ -1,4 +1,4 @@
-# Bookstore
+# Book-Ecommerce
 
 ### Demo https://alexandria-bookcommerce.herokuapp.com/
 
