@@ -2,7 +2,7 @@
 
 ### Demo https://alexandria-bookcommerce.herokuapp.com/
 
-<div align="center">
+<div align="center" display="flex" flex-direction="row">
   <img src="https://www.tensorflow.org/images/tf_logo_horizontal.png">
   <img src="https://www.tensorflow.org/images/tf_logo_horizontal.png">
 </div>
